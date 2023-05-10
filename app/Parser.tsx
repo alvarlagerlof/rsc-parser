@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { JSONTree } from "react-json-tree";
 import { z } from "zod";
+import ReactDiffViewer from "react-diff-viewer-continued";
 
 const rscImportSchema = z
   .object({
@@ -13,17 +14,26 @@ const rscImportSchema = z
   })
   .strict();
 
-const rscComponentSchema = z.tuple([
-  z.literal("$").describe("component"),
-  z.string().describe("element type"),
-  z.union([z.null(), z.string().describe("maybe id")]),
-  z.intersection(
-    z.object({
-      children: z.array(z.unknown()).optional(),
-    }),
-    z.record(z.string(), z.unknown())
-  ),
-]);
+const inner = z
+  .tuple([
+    z.literal("$").describe("component"),
+    z.string().describe("element type"),
+    z.union([z.null(), z.string().describe("maybe id")]),
+    z.intersection(
+      z.object({
+        children: z.union([
+          z.array(z.unknown().nullable()).optional(),
+          z.unknown(),
+        ]),
+      }),
+      z.record(z.string(), z.unknown())
+    ),
+  ])
+  .nullable();
+
+const other = z.array(z.unknown());
+
+const rscComponentSchema = z.union([inner, other]);
 
 const defaultPayload = `0:[["children","(main)","children","__PAGE__",["__PAGE__",{}],"$L1",[[],["$L2",["$","meta",null,{"name":"next-size-adjust"}]]]]]
 3:I{"id":"29854","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:static/chunks/1004-456f71c9bb70e7ee.js","3213:static/chunks/3213-648f64f230debb40.js","7974:static/chunks/app/(main)/page-16ca770141ca5c0a.js"],"name":"Pronunciation","async":false}
@@ -84,11 +94,15 @@ export function Parser() {
             parsed: rscImportSchema.safeParse(line.json),
           };
         } else {
-          const walk = (children: z.infer<typeof rscComponentSchema>[]) => {
+          const walk = (
+            children: z.infer<typeof rscComponentSchema>[]
+          ): z.infer<typeof rscComponentSchema>[] => {
             return children.map((component) => {
-              const result = rscComponentSchema.safeParse(component);
+              const result = inner.safeParse(component);
 
               if (result.success) {
+                if (result.data === null) return null;
+
                 const data = result.data[3];
                 const { children } = data;
                 if (
@@ -116,10 +130,26 @@ export function Parser() {
                   ];
                   return newResult;
                 }
+              } else if (Array.isArray(component)) {
+                const result = other.safeParse(component);
+
+                if (result.success) {
+                  const data = result.data;
+                  return walk(data as z.infer<typeof rscComponentSchema>[]);
+                }
+              } else if (typeof component === "string") {
+                return component;
+              } else if (typeof component === "object") {
+                return component;
+              } else if (typeof component === "boolean") {
+                return component;
               }
-              return {
-                ...result,
-              };
+
+              console.log("FAIL", line.signifier, result.error);
+              return null;
+              // return {
+              //   ...result,
+              // };
               // return component as z.infer<typeof rscComponentSchema>;
             });
           };
@@ -141,14 +171,8 @@ export function Parser() {
     const formData = new FormData(form);
     const formPayload = formData.get("payload") as string;
 
-    // console.log(lines);
-    setParsedLines(payloadToParsedLines(formPayload));
-    // console.log(lines[0].json);
-    // console.log(lines[0].parsed.data);
-    // console.log(lines[0].parsed.success);
-    // console.log(lines[0].parsed.error);
-
     setPayload(formPayload);
+    setParsedLines(payloadToParsedLines(formPayload));
   }
 
   return (
@@ -195,7 +219,7 @@ export function Parser() {
 
               {line.parsed.success ? (
                 <>
-                  <p className="font-bold text-green-600">Pased: Success</p>
+                  <p className="font-bold text-green-600">Parsed: Success</p>
 
                   {line.import ? (
                     <>
@@ -263,6 +287,22 @@ export function Parser() {
                           shouldExpandNodeInitially={() => true}
                         />
                       </details>
+                      <details>
+                        <summary className="cursor-pointer">DIFF</summary>
+                        <ReactDiffViewer
+                          oldValue={JSON.stringify(
+                            line.json,
+                            Object.keys(line.json).sort(),
+                            2
+                          )}
+                          newValue={JSON.stringify(
+                            line.parsed.data,
+                            Object.keys(line.parsed.data).sort(),
+                            2
+                          )}
+                          splitView={true}
+                        />
+                      </details>
                     </>
                   )}
 
@@ -273,7 +313,7 @@ export function Parser() {
                 </>
               ) : (
                 <>
-                  <p className="font-bold text-red-500">Pased: Failed</p>
+                  <p className="font-bold text-red-500">Parsed: Failed</p>
                   <details>
                     <summary className="cursor-pointer">MESSAGE</summary>
                     <JSONTree
