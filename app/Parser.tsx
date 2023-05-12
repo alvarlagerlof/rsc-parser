@@ -1,9 +1,10 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, ReactNode, useState } from "react";
 import { JSONTree } from "react-json-tree";
 import { z } from "zod";
 import ReactDiffViewer from "react-diff-viewer-continued";
+import * as Ariakit from "@ariakit/react";
 
 const rscImportSchema = z
   .object({
@@ -54,117 +55,117 @@ function stringToKilobytes(data: string) {
   return ((encodeURI(data).split(/%..|./).length - 1) / 1024).toFixed(2);
 }
 
+function payloadToParsedLines(payload: string) {
+  return payload
+    .split("\n")
+    .filter((line) => line != "")
+    .map((line) => {
+      const [signifier, ...rest] = line.split(":");
+      const restLine = rest.join(":");
+      if (restLine.startsWith("I")) {
+        return {
+          signifier,
+          import: true,
+          data: restLine.substring(1),
+        };
+      } else {
+        return {
+          signifier,
+          import: false,
+          data: restLine,
+        };
+      }
+    })
+    .map((line) => {
+      return {
+        ...line,
+        json: JSON.parse(line.data),
+      };
+    })
+    .map((line) => {
+      if (line.import) {
+        return {
+          ...line,
+          parsed: rscImportSchema.safeParse(line.json),
+        };
+      } else {
+        const walk = (
+          children: z.infer<typeof rscComponentSchema>[]
+        ): z.infer<typeof rscComponentSchema>[] => {
+          return children.map((component) => {
+            const result = inner.safeParse(component);
+
+            if (result.success) {
+              if (result.data === null) {
+                return null;
+              }
+
+              const data = result.data[3];
+              const { children } = data;
+              if (typeof children !== "undefined" && Array.isArray(children)) {
+                const newResult: z.infer<typeof rscComponentSchema> = [
+                  result.data[0],
+                  result.data[1],
+                  result.data[2],
+                  {
+                    ...result.data[3],
+                    children: walk(
+                      children as z.infer<typeof rscComponentSchema>[]
+                    ),
+                  },
+                ];
+                return newResult;
+              } else {
+                const newResult: z.infer<typeof rscComponentSchema> = [
+                  result.data[0],
+                  result.data[1],
+                  result.data[2],
+                  result.data[3],
+                ];
+                return newResult;
+              }
+            } else if (Array.isArray(component)) {
+              const result = other.safeParse(component);
+
+              if (result.success) {
+                const data = result.data;
+                return walk(data as z.infer<typeof rscComponentSchema>[]);
+              }
+            } else if (typeof component === "string") {
+              return component;
+            } else if (typeof component === "object") {
+              return component;
+            } else if (typeof component === "boolean") {
+              return component;
+            }
+
+            console.log("FAIL", line.signifier, result.error);
+            return null;
+            // return {
+            //   ...result,
+            // };
+            // return component as z.infer<typeof rscComponentSchema>;
+          });
+        };
+
+        return {
+          ...line,
+          parsed: Array.isArray(line.json)
+            ? { data: walk(line.json), success: true }
+            : { data: line.json, success: true },
+        };
+      }
+    });
+}
+
 export function Parser() {
   const [payload, setPayload] = useState("");
   const [parsedLines, setParsedLines] = useState<
     ReturnType<typeof payloadToParsedLines>
   >([]);
 
-  function payloadToParsedLines(payload: string) {
-    return payload
-      .split("\n")
-      .filter((line) => line != "")
-      .map((line) => {
-        const [signifier, ...rest] = line.split(":");
-        const restLine = rest.join(":");
-        if (restLine.startsWith("I")) {
-          return {
-            signifier,
-            import: true,
-            data: restLine.substring(1),
-          };
-        } else {
-          return {
-            signifier,
-            import: false,
-            data: restLine,
-          };
-        }
-      })
-      .map((line) => {
-        return {
-          ...line,
-          json: JSON.parse(line.data),
-        };
-      })
-      .map((line) => {
-        if (line.import) {
-          return {
-            ...line,
-            parsed: rscImportSchema.safeParse(line.json),
-          };
-        } else {
-          const walk = (
-            children: z.infer<typeof rscComponentSchema>[]
-          ): z.infer<typeof rscComponentSchema>[] => {
-            return children.map((component) => {
-              const result = inner.safeParse(component);
-
-              if (result.success) {
-                if (result.data === null) {
-                  return null;
-                }
-
-                const data = result.data[3];
-                const { children } = data;
-                if (
-                  typeof children !== "undefined" &&
-                  Array.isArray(children)
-                ) {
-                  const newResult: z.infer<typeof rscComponentSchema> = [
-                    result.data[0],
-                    result.data[1],
-                    result.data[2],
-                    {
-                      ...result.data[3],
-                      children: walk(
-                        children as z.infer<typeof rscComponentSchema>[]
-                      ),
-                    },
-                  ];
-                  return newResult;
-                } else {
-                  const newResult: z.infer<typeof rscComponentSchema> = [
-                    result.data[0],
-                    result.data[1],
-                    result.data[2],
-                    result.data[3],
-                  ];
-                  return newResult;
-                }
-              } else if (Array.isArray(component)) {
-                const result = other.safeParse(component);
-
-                if (result.success) {
-                  const data = result.data;
-                  return walk(data as z.infer<typeof rscComponentSchema>[]);
-                }
-              } else if (typeof component === "string") {
-                return component;
-              } else if (typeof component === "object") {
-                return component;
-              } else if (typeof component === "boolean") {
-                return component;
-              }
-
-              console.log("FAIL", line.signifier, result.error);
-              return null;
-              // return {
-              //   ...result,
-              // };
-              // return component as z.infer<typeof rscComponentSchema>;
-            });
-          };
-
-          return {
-            ...line,
-            parsed: Array.isArray(line.json)
-              ? { data: walk(line.json), success: true }
-              : { data: line.json, success: true },
-          };
-        }
-      });
-  }
+  const defaultSelectedId = "tree";
+  const tab = Ariakit.useTabStore({ defaultSelectedId });
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -201,151 +202,187 @@ export function Parser() {
           Parse
         </button>
       </form>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 min-h-[calc(100vh-120px)]">
         <div className="flex flex-row justify-between">
           <h2 className="font-medium">Result</h2>
           <p>Total size: {stringToKilobytes(payload)} KB</p>
         </div>
-        {parsedLines.map((line) => {
-          return (
-            <div
-              className="bg-slate-200 rounded-lg p-3 flex flex-col gap-3"
+
+        <Ariakit.TabList
+          store={tab}
+          className="flex flex-row gap-2"
+          aria-label="Lines"
+        >
+          <Tab id={defaultSelectedId}>Tree view</Tab>
+          {parsedLines.map((line) => (
+            <Tab key={line.signifier} id={line.signifier}>
+              $L{line.signifier}
+            </Tab>
+          ))}
+        </Ariakit.TabList>
+        <div className="panels">
+          <Ariakit.TabPanel store={tab} tabId={defaultSelectedId}>
+            Tree goes here
+          </Ariakit.TabPanel>
+          {parsedLines.map((line) => (
+            <Ariakit.TabPanel
               key={line.signifier}
+              tabId={line.signifier}
+              store={tab}
             >
-              <div className="flex flex-col gap-1">
-                <h3 className="font-bold text-xl inline-block rounded-full">
-                  $L{line.signifier}
-                </h3>
-                <h3>
-                  {line.import ? <p className="font-medium">IMPORT</p> : null}
-                </h3>
-              </div>
+              <LineViewer line={line} />
+            </Ariakit.TabPanel>
+          ))}
+        </div>
 
-              <h3>Size: {stringToKilobytes(line.data)} KB</h3>
-
-              {line.parsed.success ? (
-                <>
-                  <p className="font-bold text-green-600">Parsed: Success</p>
-
-                  {line.import ? (
-                    <>
-                      <table className="inline-block text-left table-auto">
-                        <thead>
-                          <tr>
-                            <th className="border border-gray-400 p-2">Key</th>
-                            <th className="border border-gray-400 p-2">
-                              Value
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td className="border border-gray-400 p-2">
-                              Async
-                            </td>
-                            <td className="border border-gray-400 p-2">
-                              {String(line.parsed.data.async)}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-gray-400 p-2">Name</td>
-                            <td className="border border-gray-400 p-2">
-                              {line.parsed.data.name}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-gray-400 p-2">ID</td>
-                            <td className="border border-gray-400 p-2">
-                              {line.parsed.data.id}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-gray-400 p-2">
-                              Chunks
-                            </td>
-                            <td className="border border-gray-400 p-2">
-                              <ul className="">
-                                {/* @ts-ignore */}
-                                {line.parsed.data.chunks.map((item) => {
-                                  return <li key={item}>{item}</li>;
-                                })}
-                              </ul>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      {/* <p>Aync: {String(line.parsed.data.async)}</p>
-                      <p>Name: {line.parsed.data.name}</p>
-                      <p>ID: {line.parsed.data.id}</p>
-                      <p>Chunks:</p>
-                      <ul className="">
-                        {line.parsed.data.chunks.map((item) => {
-                          return <li>{item}</li>;
-                        })}
-                      </ul> */}
-                    </>
-                  ) : (
-                    <>
-                      <details>
-                        <summary className="cursor-pointer">DATA</summary>
-                        <JSONTree
-                          data={line.parsed.data}
-                          shouldExpandNodeInitially={() => true}
-                        />
-                      </details>
-                      <details>
-                        <summary className="cursor-pointer">DIFF</summary>
-                        <ReactDiffViewer
-                          oldValue={JSON.stringify(
-                            line.json,
-                            Object.keys(line.json).sort(),
-                            2
-                          )}
-                          newValue={JSON.stringify(
-                            line.parsed.data,
-                            Object.keys(line.parsed.data).sort(),
-                            2
-                          )}
-                          splitView={true}
-                        />
-                      </details>
-                    </>
-                  )}
-
-                  {/* <pre className="bg-slate-100 rounded-lg p-3">
-                      {JSON.stringify(line.parsed.data, null, 2)}
-                    </pre> */}
-                  {/* </details> */}
-                </>
-              ) : (
-                <>
-                  <p className="font-bold text-red-500">Parsed: Failed</p>
-                  <details>
-                    <summary className="cursor-pointer">MESSAGE</summary>
-                    <JSONTree
-                      data={line.parsed.success}
-                      shouldExpandNodeInitially={() => true}
-                    />
-                    {/* <pre>{JSON.stringify(line.parsed.error, null, 2)}</pre> */}
-                  </details>
-                </>
-              )}
-              <div className="bg-slate-400 h-0.5 w-full" />
-              <details>
-                <summary className="cursor-pointer">RAW JSON</summary>
-                <pre className="bg-slate-100 rounded-lg p-3">
-                  <JSONTree
-                    data={line.json}
-                    shouldExpandNodeInitially={() => true}
-                  />
-                  {/* {JSON.stringify(line.json, null, 2)} */}
-                </pre>
-              </details>
-            </div>
-          );
-        })}
+        {/* {parsedLines.map((line) => (
+          <LineViewer key={line.signifier} line={line} />
+        ))} */}
         {/* <p>{payload}</p> */}
       </div>
+    </div>
+  );
+}
+
+function Tab({ id, children }: { id: string; children: ReactNode }) {
+  return (
+    <Ariakit.Tab
+      className="bg-slate-200 rounded-xl px-3 py-2 aria-selected:bg-blue-600 aria-selected:text-white aria-selected:font-semibold transition-all duration-100"
+      id={id}
+    >
+      {children}
+    </Ariakit.Tab>
+  );
+}
+
+function LineViewer({
+  line,
+}: {
+  line: ReturnType<typeof payloadToParsedLines>[number];
+}) {
+  return (
+    <div
+      className="bg-slate-200 rounded-lg p-3 flex flex-col gap-3"
+      key={line.signifier}
+    >
+      <div className="flex flex-col gap-1">
+        <h3 className="font-bold text-xl inline-block rounded-full">
+          $L{line.signifier}
+        </h3>
+        <h3>{line.import ? <p className="font-medium">IMPORT</p> : null}</h3>
+      </div>
+
+      <h3>Size: {stringToKilobytes(line.data)} KB</h3>
+
+      {line.parsed.success ? (
+        <>
+          <p className="font-bold text-green-600">Parsed: Success</p>
+
+          {line.import ? (
+            <>
+              <table className="inline-block text-left table-auto">
+                <thead>
+                  <tr>
+                    <th className="border border-gray-400 p-2">Key</th>
+                    <th className="border border-gray-400 p-2">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border border-gray-400 p-2">Async</td>
+                    <td className="border border-gray-400 p-2">
+                      {String(line.parsed.data.async)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-400 p-2">Name</td>
+                    <td className="border border-gray-400 p-2">
+                      {line.parsed.data.name}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-400 p-2">ID</td>
+                    <td className="border border-gray-400 p-2">
+                      {line.parsed.data.id}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-400 p-2">Chunks</td>
+                    <td className="border border-gray-400 p-2">
+                      <ul className="">
+                        {/* @ts-ignore */}
+                        {line.parsed.data.chunks.map((item) => {
+                          return <li key={item}>{item}</li>;
+                        })}
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              {/* <p>Aync: {String(line.parsed.data.async)}</p>
+              <p>Name: {line.parsed.data.name}</p>
+              <p>ID: {line.parsed.data.id}</p>
+              <p>Chunks:</p>
+              <ul className="">
+                {line.parsed.data.chunks.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul> */}
+            </>
+          ) : (
+            <>
+              <details>
+                <summary className="cursor-pointer">DATA</summary>
+                <JSONTree
+                  data={line.parsed.data}
+                  shouldExpandNodeInitially={() => true}
+                />
+              </details>
+              <details>
+                <summary className="cursor-pointer">DIFF</summary>
+                <ReactDiffViewer
+                  oldValue={JSON.stringify(
+                    line.json,
+                    Object.keys(line.json).sort(),
+                    2
+                  )}
+                  newValue={JSON.stringify(
+                    line.parsed.data,
+                    Object.keys(line.parsed.data).sort(),
+                    2
+                  )}
+                  splitView={true}
+                />
+              </details>
+            </>
+          )}
+
+          {/* <pre className="bg-slate-100 rounded-lg p-3">
+              {JSON.stringify(line.parsed.data, null, 2)}
+            </pre> */}
+          {/* </details> */}
+        </>
+      ) : (
+        <>
+          <p className="font-bold text-red-500">Parsed: Failed</p>
+          <details>
+            <summary className="cursor-pointer">MESSAGE</summary>
+            <JSONTree
+              data={line.parsed.success}
+              shouldExpandNodeInitially={() => true}
+            />
+            {/* <pre>{JSON.stringify(line.parsed.error, null, 2)}</pre> */}
+          </details>
+        </>
+      )}
+      <div className="bg-slate-400 h-0.5 w-full" />
+      <details>
+        <summary className="cursor-pointer">RAW JSON</summary>
+        <pre className="bg-slate-100 rounded-lg p-3">
+          <JSONTree data={line.json} shouldExpandNodeInitially={() => true} />
+          {/* {JSON.stringify(line.json, null, 2)} */}
+        </pre>
+      </details>
     </div>
   );
 }
