@@ -227,6 +227,32 @@ export function Parser() {
                   <div className="whitespace-nowrap">
                     {stringToKilobytes(line.data)} KB
                   </div>
+                  <div>
+                    {(
+                      (parseFloat(stringToKilobytes(line.data)) /
+                        parseFloat(stringToKilobytes(payload))) *
+                      100
+                    ).toFixed(2)}
+                    %
+                  </div>
+                  <div>
+                    <meter
+                      value={
+                        parseFloat(stringToKilobytes(line.data)) /
+                        parseFloat(stringToKilobytes(payload))
+                      }
+                      min="0"
+                      max="1"
+                      className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14"
+                    >
+                      {(
+                        (parseFloat(stringToKilobytes(line.data)) /
+                          parseFloat(stringToKilobytes(payload))) *
+                        100
+                      ).toFixed(2)}
+                      %
+                    </meter>
+                  </div>
                 </div>
               </div>
             </Tab>
