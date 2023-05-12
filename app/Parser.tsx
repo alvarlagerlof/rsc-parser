@@ -101,7 +101,9 @@ export function Parser() {
               const result = inner.safeParse(component);
 
               if (result.success) {
-                if (result.data === null) return null;
+                if (result.data === null) {
+                  return null;
+                }
 
                 const data = result.data[3];
                 const { children } = data;
@@ -169,7 +171,11 @@ export function Parser() {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const formPayload = formData.get("payload") as string;
+    const formPayload = formData.get("payload");
+
+    if (typeof formPayload !== "string") {
+      throw new Error("Form payload is not a sting");
+    }
 
     setPayload(formPayload);
     setParsedLines(payloadToParsedLines(formPayload));
