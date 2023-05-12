@@ -210,20 +210,32 @@ export function Parser() {
 
         <Ariakit.TabList
           store={tab}
-          className="flex flex-row gap-2"
+          className="flex flex-row gap-2 flex-wrap"
           aria-label="Lines"
         >
-          <Tab id={defaultSelectedId}>Tree view</Tab>
+          {/* <Tab id={defaultSelectedId}>
+            <span className="whitespace-nowrap">Tree view</span>
+          </Tab> */}
           {parsedLines.map((line) => (
             <Tab key={line.signifier} id={line.signifier}>
-              $L{line.signifier}
+              <div className="flex flex-row gap-1.5">
+                <div className="text-2xl font-semibold -mt-px">
+                  {line.signifier}
+                </div>
+                <div className="flex flex-col items-start">
+                  <div>{line.import ? "Import" : "Data"}</div>
+                  <div className="whitespace-nowrap">
+                    {stringToKilobytes(line.data)} KB
+                  </div>
+                </div>
+              </div>
             </Tab>
           ))}
         </Ariakit.TabList>
         <div className="panels">
-          <Ariakit.TabPanel store={tab} tabId={defaultSelectedId}>
+          {/* <Ariakit.TabPanel store={tab} tabId={defaultSelectedId}>
             Tree goes here
-          </Ariakit.TabPanel>
+          </Ariakit.TabPanel> */}
           {parsedLines.map((line) => (
             <Ariakit.TabPanel
               key={line.signifier}
