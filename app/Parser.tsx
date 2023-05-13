@@ -5,6 +5,7 @@ import { JSONTree } from "react-json-tree";
 import { z } from "zod";
 import ReactDiffViewer from "react-diff-viewer-continued";
 import * as Ariakit from "@ariakit/react";
+import { parse } from "./parse";
 
 const rscImportSchema = z
   .object({
@@ -56,106 +57,80 @@ function stringToKilobytes(data: string) {
 }
 
 function payloadToParsedLines(payload: string) {
-  return payload
-    .split("\n")
-    .filter((line) => line != "")
-    .map((line) => {
-      const [signifier, ...rest] = line.split(":");
-      const restLine = rest.join(":");
-      if (restLine.startsWith("I")) {
-        return {
-          signifier,
-          import: true,
-          data: restLine.substring(1),
-        };
-      } else {
-        return {
-          signifier,
-          import: false,
-          data: restLine,
-        };
-      }
-    })
-    .map((line) => {
+  return parse(payload).map((line) => {
+    if (line.type === "import") {
       return {
         ...line,
-        json: JSON.parse(line.data),
+        parsed: rscImportSchema.safeParse(line.json),
       };
-    })
-    .map((line) => {
-      if (line.import) {
-        return {
-          ...line,
-          parsed: rscImportSchema.safeParse(line.json),
-        };
-      } else {
-        const walk = (
-          children: z.infer<typeof rscComponentSchema>[]
-        ): z.infer<typeof rscComponentSchema>[] => {
-          return children.map((component) => {
-            const result = inner.safeParse(component);
+    } else {
+      const walk = (
+        children: z.infer<typeof rscComponentSchema>[]
+      ): z.infer<typeof rscComponentSchema>[] => {
+        return children.map((component) => {
+          const result = inner.safeParse(component);
 
-            if (result.success) {
-              if (result.data === null) {
-                return null;
-              }
-
-              const data = result.data[3];
-              const { children } = data;
-              if (typeof children !== "undefined" && Array.isArray(children)) {
-                const newResult: z.infer<typeof rscComponentSchema> = [
-                  result.data[0],
-                  result.data[1],
-                  result.data[2],
-                  {
-                    ...result.data[3],
-                    children: walk(
-                      children as z.infer<typeof rscComponentSchema>[]
-                    ),
-                  },
-                ];
-                return newResult;
-              } else {
-                const newResult: z.infer<typeof rscComponentSchema> = [
-                  result.data[0],
-                  result.data[1],
-                  result.data[2],
-                  result.data[3],
-                ];
-                return newResult;
-              }
-            } else if (Array.isArray(component)) {
-              const result = other.safeParse(component);
-
-              if (result.success) {
-                const data = result.data;
-                return walk(data as z.infer<typeof rscComponentSchema>[]);
-              }
-            } else if (typeof component === "string") {
-              return component;
-            } else if (typeof component === "object") {
-              return component;
-            } else if (typeof component === "boolean") {
-              return component;
+          if (result.success) {
+            if (result.data === null) {
+              return null;
             }
 
-            console.log("FAIL", line.signifier, result.error);
-            return null;
-            // return {
-            //   ...result,
-            // };
-            // return component as z.infer<typeof rscComponentSchema>;
-          });
-        };
+            const data = result.data[3];
+            const { children } = data;
+            if (typeof children !== "undefined" && Array.isArray(children)) {
+              const newResult: z.infer<typeof rscComponentSchema> = [
+                result.data[0],
+                result.data[1],
+                result.data[2],
+                {
+                  ...result.data[3],
+                  children: walk(
+                    children as z.infer<typeof rscComponentSchema>[]
+                  ),
+                },
+              ];
+              return newResult;
+            } else {
+              const newResult: z.infer<typeof rscComponentSchema> = [
+                result.data[0],
+                result.data[1],
+                result.data[2],
+                result.data[3],
+              ];
+              return newResult;
+            }
+          } else if (Array.isArray(component)) {
+            const result = other.safeParse(component);
 
-        return {
-          ...line,
-          parsed: Array.isArray(line.json)
-            ? { data: walk(line.json), success: true }
-            : { data: line.json, success: true },
-        };
-      }
-    });
+            if (result.success) {
+              const data = result.data;
+              return walk(data as z.infer<typeof rscComponentSchema>[]);
+            }
+          } else if (typeof component === "string") {
+            return component;
+          } else if (typeof component === "object") {
+            return component;
+          } else if (typeof component === "boolean") {
+            return component;
+          }
+
+          console.log("FAIL", line.signifier, result.error);
+          return null;
+          // return {
+          //   ...result,
+          // };
+          // return component as z.infer<typeof rscComponentSchema>;
+        });
+      };
+
+      return {
+        ...line,
+        parsed: Array.isArray(line.json)
+          ? { data: walk(line.json), success: true }
+          : { data: line.json, success: true },
+      };
+    }
+  });
 }
 
 export function Parser() {
@@ -223,13 +198,13 @@ export function Parser() {
                   {line.signifier}
                 </div>
                 <div className="flex flex-col items-start">
-                  <div>{line.import ? "Import" : "Data"}</div>
+                  <div>{line.type}</div>
                   <div className="whitespace-nowrap">
-                    {stringToKilobytes(line.data)} KB
+                    {stringToKilobytes(line.rawJson)} KB
                   </div>
                   <div>
                     {(
-                      (parseFloat(stringToKilobytes(line.data)) /
+                      (parseFloat(stringToKilobytes(line.rawJson)) /
                         parseFloat(stringToKilobytes(payload))) *
                       100
                     ).toFixed(2)}
@@ -238,7 +213,7 @@ export function Parser() {
                   <div>
                     <meter
                       value={
-                        parseFloat(stringToKilobytes(line.data)) /
+                        parseFloat(stringToKilobytes(line.rawJson)) /
                         parseFloat(stringToKilobytes(payload))
                       }
                       min="0"
@@ -246,7 +221,7 @@ export function Parser() {
                       className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14"
                     >
                       {(
-                        (parseFloat(stringToKilobytes(line.data)) /
+                        (parseFloat(stringToKilobytes(line.rawJson)) /
                           parseFloat(stringToKilobytes(payload))) *
                         100
                       ).toFixed(2)}
@@ -307,16 +282,16 @@ function LineViewer({
         <h3 className="font-bold text-xl inline-block rounded-full">
           $L{line.signifier}
         </h3>
-        <h3>{line.import ? <p className="font-medium">IMPORT</p> : null}</h3>
+        <h3 className="font-medium">{line.type}</h3>
       </div>
 
-      <h3>Size: {stringToKilobytes(line.data)} KB</h3>
+      <h3>Size: {stringToKilobytes(line.rawJson)} KB</h3>
 
       {line.parsed.success ? (
         <>
           <p className="font-bold text-green-600">Parsed: Success</p>
 
-          {line.import ? (
+          {line.type === "import" ? (
             <>
               <table className="inline-block text-left table-auto">
                 <thead>

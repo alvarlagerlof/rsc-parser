@@ -53,25 +53,18 @@ export function getType(input: string) {
   let type: string | undefined = undefined;
 
   for (const char of input.split("")) {
-    // console.log(char);
     if (char === "{" || char == "[") {
-      // console.log("(1) char with { pr [");
-
       if (type === undefined) {
-        console.log("(1) type is undefined");
         return undefined;
       }
 
       if (type !== undefined) {
-        // console.log("(1) type is NOT undefined");
         return type;
       }
     } else {
       if (type === undefined) {
-        // console.log("(2) type is undefined");
         type = char;
       } else {
-        // console.log("(2) type is NOT undefined");
         type += char;
       }
     }
