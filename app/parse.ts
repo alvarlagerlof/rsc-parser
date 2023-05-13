@@ -8,18 +8,20 @@ export function parse(payload: string) {
 
 export function parseLines(lines: ReturnType<typeof extract>) {
   return lines.map((line) => {
+    const json = JSON.parse(line.rawJson);
+
     switch (line.rawType) {
       case undefined: {
-        return { ...line, type: "data" };
+        return { ...line, type: "data", json };
       }
       case "I": {
-        return { ...line, type: "import" };
+        return { ...line, type: "import", json };
       }
       case "HZ": {
-        return { ...line, type: "css" };
+        return { ...line, type: "css", json };
       }
       default: {
-        return { ...line, type: "unknown" };
+        return { ...line, type: "unknown", json };
       }
     }
   });
