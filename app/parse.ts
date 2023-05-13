@@ -3,7 +3,11 @@ export function parse(payload: string) {
     throw new Error("Payload is not a string");
   }
 
-  return true;
+  const lines = splitToCleanLines(payload);
+  const extracted = extract(lines);
+  const parsed = parseLines(extracted);
+
+  return parsed;
 }
 
 export function parseLines(lines: ReturnType<typeof extract>) {
@@ -12,16 +16,16 @@ export function parseLines(lines: ReturnType<typeof extract>) {
 
     switch (line.rawType) {
       case undefined: {
-        return { ...line, type: "data", json };
+        return { ...line, type: "data", json } as const;
       }
       case "I": {
-        return { ...line, type: "import", json };
+        return { ...line, type: "import", json } as const;
       }
       case "HZ": {
-        return { ...line, type: "css", json };
+        return { ...line, type: "css", json } as const;
       }
       default: {
-        return { ...line, type: "unknown", json };
+        return { ...line, type: "unknown", json } as const;
       }
     }
   });
@@ -49,9 +53,9 @@ export function getType(input: string) {
   let type: string | undefined = undefined;
 
   for (const char of input.split("")) {
-    console.log(char);
+    // console.log(char);
     if (char === "{" || char == "[") {
-      console.log("(1) char with { pr [");
+      // console.log("(1) char with { pr [");
 
       if (type === undefined) {
         console.log("(1) type is undefined");
@@ -59,15 +63,15 @@ export function getType(input: string) {
       }
 
       if (type !== undefined) {
-        console.log("(1) type is NOT undefined");
+        // console.log("(1) type is NOT undefined");
         return type;
       }
     } else {
       if (type === undefined) {
-        console.log("(2) type is undefined");
+        // console.log("(2) type is undefined");
         type = char;
       } else {
-        console.log("(2) type is NOT undefined");
+        // console.log("(2) type is NOT undefined");
         type += char;
       }
     }
@@ -77,24 +81,26 @@ export function getType(input: string) {
 }
 
 export function extract(lines: string[]) {
-  return lines.map((line) => {
-    // eg. 0:I{"a":"b"} or 0:{"a":"v"} or a:[{"a":"b"}]
+  return lines
+    .map((line) => {
+      // eg. 0:I{"a":"b"} or 0:{"a":"v"} or a:[{"a":"b"}]
 
-    const [signifier, restSplit] = splitFirst(line, ":");
-    const rawType = getType(restSplit);
+      const [signifier, restSplit] = splitFirst(line, ":");
+      const rawType = getType(restSplit);
 
-    if (rawType) {
+      if (rawType) {
+        return {
+          signifier,
+          rawType,
+          rawJson: restSplit.replace(rawType, ""),
+        };
+      }
+
       return {
         signifier,
         rawType,
-        rawJson: restSplit.replace(rawType, ""),
+        rawJson: restSplit,
       };
-    }
-
-    return {
-      signifier,
-      rawType,
-      rawJson: restSplit,
-    };
-  });
+    })
+    .filter((line) => line.rawJson.trim() !== "");
 }
