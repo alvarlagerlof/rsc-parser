@@ -2,6 +2,7 @@ import {
   extract,
   getType,
   parse,
+  parseLines,
   splitFirst,
   splitToCleanLines,
 } from "./parse";
@@ -95,27 +96,92 @@ describe("extract", () => {
       {
         signifier: "0",
         rawType: "I",
-        data: "{}",
+        rawJson: "{}",
       },
       {
         signifier: "1",
         rawType: undefined,
-        data: "{}",
+        rawJson: "{}",
       },
       {
         signifier: "a",
         rawType: undefined,
-        data: "[[{}]]",
+        rawJson: "[[{}]]",
       },
       {
         signifier: "7",
         rawType: undefined,
-        data: "[]",
+        rawJson: "[]",
       },
       {
         signifier: "5",
         rawType: "I",
-        data: "[]",
+        rawJson: "[]",
+      },
+    ]);
+  });
+});
+
+describe("parseLines", () => {
+  it("parse lines", () => {
+    const lines = [
+      {
+        signifier: "0",
+        rawType: undefined,
+        rawJson: "{}",
+      },
+      {
+        signifier: "1",
+        rawType: "I",
+        rawJson: "{}",
+      },
+      {
+        signifier: "a",
+        rawType: "HZ",
+        rawJson: "{}",
+      },
+      {
+        signifier: "b",
+        rawType: "NEW_UNKNOWN",
+        rawJson: "{}",
+      },
+      {
+        signifier: "5",
+        rawType: "OTHER_NEW_UNKNOWN",
+        rawJson: "{}",
+      },
+    ] as ReturnType<typeof extract>;
+
+    expect(parseLines(lines)).toStrictEqual([
+      {
+        signifier: "0",
+        rawType: undefined,
+        type: "data",
+        rawJson: "{}",
+      },
+      {
+        signifier: "1",
+        rawType: "I",
+        type: "import",
+        rawJson: "{}",
+      },
+      {
+        signifier: "a",
+        rawType: "HZ",
+        type: "css",
+        rawJson: "{}",
+      },
+      {
+        signifier: "b",
+        rawType: "NEW_UNKNOWN",
+        type: "unknown",
+        rawJson: "{}",
+      },
+      {
+        signifier: "5",
+        rawType: "OTHER_NEW_UNKNOWN",
+        type: "unknown",
+        rawJson: "{}",
       },
     ]);
   });

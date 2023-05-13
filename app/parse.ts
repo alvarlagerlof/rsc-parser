@@ -6,6 +6,25 @@ export function parse(payload: string) {
   return true;
 }
 
+export function parseLines(lines: ReturnType<typeof extract>) {
+  return lines.map((line) => {
+    switch (line.rawType) {
+      case undefined: {
+        return { ...line, type: "data" };
+      }
+      case "I": {
+        return { ...line, type: "import" };
+      }
+      case "HZ": {
+        return { ...line, type: "css" };
+      }
+      default: {
+        return { ...line, type: "unknown" };
+      }
+    }
+  });
+}
+
 export function splitToCleanLines(payload: string) {
   return payload
     .split("\n")
@@ -66,14 +85,14 @@ export function extract(lines: string[]) {
       return {
         signifier,
         rawType,
-        data: restSplit.replace(rawType, ""),
+        rawJson: restSplit.replace(rawType, ""),
       };
     }
 
     return {
       signifier,
       rawType,
-      data: restSplit,
+      rawJson: restSplit,
     };
   });
 }
