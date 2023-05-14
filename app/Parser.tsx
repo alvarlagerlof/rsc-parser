@@ -3,19 +3,9 @@
 import { FormEvent, ReactNode, useState } from "react";
 import { JSONTree } from "react-json-tree";
 import { z } from "zod";
-import ReactDiffViewer from "react-diff-viewer-continued";
 import * as Ariakit from "@ariakit/react";
-import { extract, parseLines, splitToCleanLines } from "./parse";
+import { extract, refineLineType, splitToCleanLines } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
-
-const rscImportSchema = z
-  .object({
-    async: z.boolean(),
-    id: z.string(),
-    name: z.string(),
-    chunks: z.array(z.string()),
-  })
-  .strict();
 
 const inner = z
   .tuple([
@@ -64,71 +54,9 @@ function payloadToParsedLines(payload: string) {
 
   const lines = splitToCleanLines(payload);
   const extracted = extract(lines);
-  const parsed = parseLines(extracted);
+  const parsed = refineLineType(extracted);
 
-  return parsed.map((line) => {
-    const walk = (
-      children: z.infer<typeof rscComponentSchema>[]
-    ): z.infer<typeof rscComponentSchema>[] => {
-      return children.map((component) => {
-        const result = inner.safeParse(component);
-
-        if (result.success) {
-          if (result.data === null) {
-            return null;
-          }
-
-          const data = result.data[3];
-          const { children } = data;
-          if (typeof children !== "undefined" && Array.isArray(children)) {
-            const newResult: z.infer<typeof rscComponentSchema> = [
-              result.data[0],
-              result.data[1],
-              result.data[2],
-              {
-                ...result.data[3],
-                children: walk(
-                  children as z.infer<typeof rscComponentSchema>[]
-                ),
-              },
-            ];
-            return newResult;
-          } else {
-            const newResult: z.infer<typeof rscComponentSchema> = [
-              result.data[0],
-              result.data[1],
-              result.data[2],
-              result.data[3],
-            ];
-            return newResult;
-          }
-        } else if (Array.isArray(component)) {
-          const result = other.safeParse(component);
-
-          if (result.success) {
-            const data = result.data;
-            return walk(data as z.infer<typeof rscComponentSchema>[]);
-          }
-        } else if (typeof component === "string") {
-          return component;
-        } else if (typeof component === "object") {
-          return component;
-        } else if (typeof component === "boolean") {
-          return component;
-        }
-
-        console.log("FAIL", line.signifier, result.error);
-        return null;
-      });
-    };
-
-    return {
-      ...line,
-      parsed: Array.isArray(line.json)
-        ? { data: walk(line.json), success: true }
-        : { data: line.json, success: true },
-    };
-  });
+  return parsed;
 }
 
 export function Parser() {
@@ -245,11 +173,6 @@ export function Parser() {
             </Ariakit.TabPanel>
           ))}
         </div>
-
-        {/* {parsedLines.map((line) => (
-          <LineViewer key={line.signifier} line={line} />
-        ))} */}
-        {/* <p>{payload}</p> */}
       </div>
     </div>
   );
@@ -271,6 +194,49 @@ function LineViewer({
 }: {
   line: ReturnType<typeof payloadToParsedLines>[number];
 }) {
+  return (
+    <div
+      className="bg-slate-200 rounded-lg p-3 flex flex-col gap-3"
+      key={line.signifier}
+    >
+      <div className="flex flex-col gap-1">
+        <h3 className="font-bold text-xl inline-block rounded-full">
+          $L{line.signifier}
+        </h3>
+        <h3 className="font-medium">{line.type}</h3>
+      </div>
+      <h3>Size: {stringToKilobytes(line.rawJson)} KB</h3>
+
+      <SimpleErrorBoundary>
+        {line.type === "import" ? <ImportLine line={line} /> : null}
+      </SimpleErrorBoundary>
+      <SimpleErrorBoundary>
+        {line.type === "data" ? <DataLine line={line} /> : null}
+      </SimpleErrorBoundary>
+
+      <div className="bg-slate-400 h-0.5 w-full" />
+      <details>
+        <summary className="cursor-pointer">RAW JSON</summary>
+        <pre className="bg-slate-100 rounded-lg p-3">
+          <SimpleErrorBoundary>
+            <JSONTree
+              data={JSON.parse(line.rawJson)}
+              shouldExpandNodeInitially={() => true}
+            />
+          </SimpleErrorBoundary>
+        </pre>
+      </details>
+    </div>
+  );
+}
+
+function DataLine({
+  line,
+}: {
+  line: ReturnType<typeof refineLineType>[number];
+}) {
+  const json = JSON.parse(line.rawJson);
+
   const transform = () => {
     const walk = (
       children: z.infer<typeof rscComponentSchema>[]
@@ -329,60 +295,34 @@ function LineViewer({
 
     return {
       ...line,
-      parsed: Array.isArray(line.json)
-        ? { data: walk(line.json), success: true }
-        : { data: line.json, success: true },
+      parsed: Array.isArray(json)
+        ? { data: walk(json), success: true }
+        : { data: json, success: true },
     };
   };
 
-  return (
-    <div
-      className="bg-slate-200 rounded-lg p-3 flex flex-col gap-3"
-      key={line.signifier}
-    >
-      <div className="flex flex-col gap-1">
-        <h3 className="font-bold text-xl inline-block rounded-full">
-          $L{line.signifier}
-        </h3>
-        <h3 className="font-medium">{line.type}</h3>
-      </div>
+  const result = transform();
 
-      <h3>Size: {stringToKilobytes(line.rawJson)} KB</h3>
-
-      <CustomErrorBoundary>
-        {line.type === "import" ? <Import rawJson={line.rawJson} /> : null}
-      </CustomErrorBoundary>
-
-      {line.parsed.success ? (
-        <>
-          <p className="font-bold text-green-600">Parsed: Success</p>
-        </>
-      ) : (
-        <>
-          <p className="font-bold text-red-500">Parsed: Failed</p>
-          <details>
-            <summary className="cursor-pointer">MESSAGE</summary>
-            <JSONTree
-              data={line.parsed.success}
-              shouldExpandNodeInitially={() => true}
-            />
-          </details>
-        </>
-      )}
-      <div className="bg-slate-400 h-0.5 w-full" />
-      <details>
-        <summary className="cursor-pointer">RAW JSON</summary>
-        <pre className="bg-slate-100 rounded-lg p-3">
-          <JSONTree data={line.json} shouldExpandNodeInitially={() => true} />
-        </pre>
-      </details>
-    </div>
-  );
+  return <JSONTree data={result.parsed.data} />;
 }
 
-function Import({ rawJson }: { rawJson: string }) {
-  const json = JSON.parse(rawJson);
-  const parsed = rscImportSchema.parse(json);
+function ImportLine({
+  line,
+}: {
+  line: ReturnType<typeof refineLineType>[number];
+}) {
+  const json = JSON.parse(line.rawJson);
+
+  const schema = z
+    .object({
+      async: z.boolean(),
+      id: z.string(),
+      name: z.string(),
+      chunks: z.array(z.string()),
+    })
+    .strict();
+
+  const parsed = schema.parse(json);
 
   return (
     <table className="inline-block text-left table-auto">
@@ -421,7 +361,7 @@ function Import({ rawJson }: { rawJson: string }) {
   );
 }
 
-function CustomErrorBoundary({ children }: { children: ReactNode }) {
+function SimpleErrorBoundary({ children }: { children: ReactNode }) {
   return (
     <ErrorBoundary
       fallbackRender={({ error }) => (

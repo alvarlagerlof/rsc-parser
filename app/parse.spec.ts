@@ -149,35 +149,30 @@ describe("parseLines", () => {
         rawType: undefined,
         type: "data",
         rawJson: "{}",
-        json: {},
       },
       {
         signifier: "1",
         rawType: "I",
         type: "import",
         rawJson: "{}",
-        json: {},
       },
       {
         signifier: "a",
         rawType: "HZ",
         type: "css",
         rawJson: "{}",
-        json: {},
       },
       {
         signifier: "b",
         rawType: "NEW_UNKNOWN",
         type: "unknown",
         rawJson: '{"a":"b"}',
-        json: { a: "b" },
       },
       {
         signifier: "5",
         rawType: "OTHER_NEW_UNKNOWN",
         type: "unknown",
         rawJson: "[]",
-        json: [],
       },
     ]);
   });

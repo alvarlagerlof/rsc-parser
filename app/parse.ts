@@ -1,19 +1,17 @@
-export function parseLines(lines: ReturnType<typeof extract>) {
+export function refineLineType(lines: ReturnType<typeof extract>) {
   return lines.map((line) => {
-    const json = JSON.parse(line.rawJson);
-
     switch (line.rawType) {
       case undefined: {
-        return { ...line, type: "data", json } as const;
+        return { ...line, type: "data" } as const;
       }
       case "I": {
-        return { ...line, type: "import", json } as const;
+        return { ...line, type: "import" } as const;
       }
       case "HL": {
-        return { ...line, type: "css", json } as const;
+        return { ...line, type: "css" } as const;
       }
       default: {
-        return { ...line, type: "unknown", json } as const;
+        return { ...line, type: "unknown" } as const;
       }
     }
   });
