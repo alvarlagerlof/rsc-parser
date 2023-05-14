@@ -1,41 +1,60 @@
-export function refineLineType(lines: ReturnType<typeof extract>) {
-  return lines.map((line) => {
-    switch (line.rawType) {
-      case undefined: {
-        return { ...line, type: "data" } as const;
-      }
-      case "I": {
-        return { ...line, type: "import" } as const;
-      }
-      case "HL": {
-        return { ...line, type: "css" } as const;
-      }
-      default: {
-        return { ...line, type: "unknown" } as const;
-      }
+import { z } from "zod";
+
+export function refineLineType(rawType: string | undefined) {
+  switch (rawType) {
+    case undefined: {
+      return "data";
     }
-  });
+    case "I": {
+      return "import";
+    }
+    case "HL": {
+      return "css";
+    }
+    default: {
+      return "unknown";
+    }
+  }
 }
 
 export function splitToCleanLines(payload: string) {
   const lines = payload.split("\n").map((line) => line.trim());
 
   if (lines.at(-1) !== "") {
-    throw new Error("RSC payload is not complete");
+    throw new Error(
+      "RSC payload is missing an empty newline at the end indicating that it is not complete."
+    );
   }
+
+  lines.pop();
 
   return lines;
 }
 
-export function splitFirst(input: string, character: string) {
-  const [first, ...rest] = input.split(character);
-  return [first, rest.join(character)];
+export function splitSignifierFromRest(input: string) {
+  const [signifier, ...data] = input.split(":");
+
+  if (signifier === "") {
+    throw new Error(`Invalid line. Signifier exist.".`);
+  }
+
+  if (!/^[A-Za-z0-9]*$/.test(signifier)) {
+    throw new Error(
+      `Invalid line. Signifier must be a number or a letter. Found "${signifier}".`
+    );
+  }
+
+  if (data.length == 0) {
+    throw new Error("Invalid line. Missing data after signifier.");
+  }
+
+  return { signifier, data: data.join(":") };
 }
 
 export function getType(input: string) {
   // eg. I[] or {"a":"b"} or [[]] or HZ[{"a":"b"}]
 
-  if (input.startsWith("{") || input.startsWith("[")) {
+  if (input.startsWith("{") || input.startsWith("[") || input.startsWith('"')) {
     return undefined;
   }
 
@@ -62,27 +81,26 @@ export function getType(input: string) {
   return type;
 }
 
-export function extract(lines: string[]) {
-  return lines
-    .map((line) => {
-      // eg. 0:I{"a":"b"} or 0:{"a":"v"} or a:[{"a":"b"}]
+export function parseLine(line: string) {
+  // eg. 0:I{"a":"b"} or 0:{"a":"v"} or a:[{"a":"b"}]
 
-      const [signifier, restSplit] = splitFirst(line, ":");
-      const rawType = getType(restSplit);
+  const { signifier, data } = splitSignifierFromRest(line);
+  const rawType = getType(data);
+  const type = refineLineType(rawType);
 
-      if (rawType) {
-        return {
-          signifier,
-          rawType,
-          rawJson: restSplit.replace(rawType, ""),
-        };
-      }
+  if (rawType) {
+    return {
+      signifier,
+      rawType,
+      type,
+      rawJson: data.replace(rawType, ""),
+    };
+  }
 
-      return {
-        signifier,
-        rawType,
-        rawJson: restSplit,
-      };
-    })
-    .filter((line) => line.rawJson.trim() !== "");
+  return {
+    signifier,
+    rawType,
+    type,
+    rawJson: data,
+  };
 }

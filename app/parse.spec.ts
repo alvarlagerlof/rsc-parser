@@ -2,7 +2,7 @@ import {
   extract,
   getType,
   parseLines,
-  splitFirst,
+  splitSigniferFromRest,
   splitToCleanLines,
 } from "./parse";
 
@@ -34,23 +34,23 @@ describe("splitCleanLines", () => {
 
 describe("splitFirst", () => {
   it("should split split with an empty json objet", () => {
-    expect(splitFirst("0:{}", ":")).toStrictEqual(["0", "{}"]);
+    expect(splitSigniferFromRest("0:{}", ":")).toStrictEqual(["0", "{}"]);
   });
 
   it("should split split with an empty json array", () => {
-    expect(splitFirst("0:[]", ":")).toStrictEqual(["0", "[]"]);
+    expect(splitSigniferFromRest("0:[]", ":")).toStrictEqual(["0", "[]"]);
   });
 
   it("should split split an import", () => {
-    expect(splitFirst("0:I", ":")).toStrictEqual(["0", "I"]);
+    expect(splitSigniferFromRest("0:I", ":")).toStrictEqual(["0", "I"]);
   });
 
   it("should split split with an empty json obje and an import", () => {
-    expect(splitFirst("0:I{}", ":")).toStrictEqual(["0", "I{}"]);
+    expect(splitSigniferFromRest("0:I{}", ":")).toStrictEqual(["0", "I{}"]);
   });
 
   it("should split split on the first occurance only", () => {
-    expect(splitFirst('0:I{"a":"b"}', ":")).toStrictEqual(["0", 'I{"a":"b"}']);
+    expect(splitSigniferFromRest('0:I{"a":"b"}', ":")).toStrictEqual(["0", 'I{"a":"b"}']);
   });
 });
 
