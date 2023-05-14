@@ -211,6 +211,18 @@ describe("parseData", () => {
     });
   });
 
+  it("handles a react component directly at the root", () => {
+    const parsed = parseData(["$", "ul", null, {}]);
+
+    expect(parsed).toStrictEqual({
+      type: "COMPONENT",
+      value: {
+        tag: "ul",
+        props: {},
+      },
+    });
+  });
+
   it("special", () => {
     const parsed = parseData([
       [

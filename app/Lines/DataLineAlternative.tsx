@@ -41,56 +41,54 @@ export function parseData(data: JsonValue): TreeItem {
     } satisfies TreeOther;
   }
 
-  const tset = data.map((item) => {
-    if (!Array.isArray(item) && !(item instanceof Array)) {
+  if (
+    data.length === 4 &&
+    data[0] === "$" &&
+    typeof data[1] === "string" &&
+    typeof data[3] === "object" &&
+    data[3] !== null &&
+    !(data[3] instanceof Array)
+  ) {
+    // eg. ["$","ul",null,{}]
+
+    const base = {
+      type: "COMPONENT",
+      value: {
+        tag: data[1],
+        props: data[3] satisfies Props,
+      },
+    } satisfies TreeComponent;
+
+    if ("children" in base.value.props) {
       return {
-        type: "OTHER",
-        value: item,
-      } satisfies TreeOther;
-    }
-
-    if (
-      item.length === 4 &&
-      item[0] === "$" &&
-      typeof item[1] === "string" &&
-      typeof item[3] === "object" &&
-      item[3] !== null &&
-      !(item[3] instanceof Array)
-    ) {
-      // eg. ["$","ul",null,{}]
-
-      const base = {
-        type: "COMPONENT",
+        ...base,
         value: {
-          tag: item[1],
-          props: item[3] satisfies Props,
+          ...base.value,
+          props: {
+            ...base.value.props,
+            children: parseData(data[3].children),
+          } satisfies Props,
         },
       } satisfies TreeComponent;
-
-      if ("children" in base.value.props) {
-        return {
-          ...base,
-          value: {
-            ...base.value,
-            props: {
-              ...base.value.props,
-              children: parseData(item[3].children),
-            } satisfies Props,
-          },
-        } satisfies TreeComponent;
-      }
-
-      return base satisfies TreeComponent;
     }
 
-    const parseTest = parseData(item);
-
-    return parseTest;
-  });
+    return base satisfies TreeComponent;
+  }
 
   return {
     type: "ARRAY",
-    value: tset,
+    value: data.map((item) => {
+      if (!Array.isArray(item) && !(item instanceof Array)) {
+        return {
+          type: "OTHER",
+          value: item,
+        } satisfies TreeOther;
+      }
+
+      const parseTest = parseData(item);
+
+      return parseTest;
+    }),
   } satisfies TreeArray;
 }
 
@@ -100,8 +98,35 @@ export default function DataLineAlternative({ data }: { data: string }) {
 
   return (
     <>
-      <p>Alternative parsing</p>
+      <Node treeItem={parsed} />
+
       <pre>{JSON.stringify(parsed, null, 2)}</pre>
     </>
+  );
+}
+
+function Node({ treeItem }: { treeItem: TreeItem }) {
+  if (treeItem.type === "ARRAY") {
+    return (
+      <div>
+        <div className="bg-green-300">ARRAY</div>
+        <div className="pl-4">
+          {treeItem.value.map((item) => (
+            <Node key={JSON.stringify(item.value)} treeItem={item} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-green-300 flex flex-row gap-4">
+      <span>{treeItem.type}</span>
+      {treeItem.value instanceof Object && "tag" in treeItem.value ? (
+        <span>TAG: {String(treeItem.value.tag)}</span>
+      ) : (
+        <span>RAW: {JSON.stringify(treeItem.value)}</span>
+      )}
+    </div>
   );
 }
