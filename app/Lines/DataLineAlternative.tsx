@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
+import { LineContext, TabContext } from "../Parser";
 
 interface TreeOther {
   type: "OTHER";
@@ -105,6 +107,8 @@ export default function DataLineAlternative({ data }: { data: string }) {
 }
 
 function Node({ treeItem }: { treeItem: TreeItem }) {
+  const tab = useContext(TabContext);
+
   if (treeItem.type === "ARRAY") {
     return (
       <div className="flex flex-col gap-1">
@@ -125,8 +129,41 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
 
         {treeItem.value instanceof Object && "tag" in treeItem.value ? (
           <>
-            <span className="whitespace-nowrap">
+            <span className="whitespace-nowrap flex flex-row gap-4 items-center">
               {String(treeItem.value.tag)}
+              {String(treeItem.value.tag).startsWith("$L") ? (
+                <button
+                  className="underline p-0"
+                  onClick={() => {
+                    tab?.select("line");
+
+                    if (
+                      treeItem.value instanceof Object &&
+                      treeItem.value &&
+                      "tag" in treeItem.value &&
+                      tab !== undefined &&
+                      tab !== null
+                    ) {
+                      const signifier = String(treeItem.value.tag).replace(
+                        "$L",
+                        ""
+                      );
+
+                      const id = tab
+                        .getState()
+                        .items?.find((item) =>
+                          item.id.startsWith(signifier)
+                        )?.id;
+
+                      tab.setSelectedId(id);
+                    }
+                  }}
+                >
+                  Ref to: &quot;
+                  {String(treeItem.value.tag).replace("$L", "")}
+                  &quot;
+                </button>
+              ) : null}
             </span>
           </>
         ) : null}

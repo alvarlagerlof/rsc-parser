@@ -82,7 +82,7 @@ export function Parser() {
   );
 }
 
-const TabContext = React.createContext<Ariakit.TabStore | null>(null);
+export const TabContext = React.createContext<Ariakit.TabStore | null>(null);
 const LineContext = React.createContext<string | null>(null);
 
 function Tabs({ payload }: { payload: string }) {
