@@ -1,8 +1,7 @@
 "use client";
 
-import React, { ChangeEvent, FormEvent, ReactNode, useState } from "react";
+import React, { ChangeEvent, ReactNode, useContext, useState } from "react";
 import { JSONTree } from "react-json-tree";
-import { z } from "zod";
 import * as Ariakit from "@ariakit/react";
 import { parseLine, splitToCleanLines } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
@@ -62,7 +61,7 @@ export function Parser() {
           <p>Total size: {stringToKilobytes(payload)} KB</p>
         </div>
 
-        <ErrorBoundary FallbackComponent={Fallback} key={payload}>
+        <ErrorBoundary FallbackComponent={GenericFallback} key={payload}>
           <Tabs payload={payload} />
         </ErrorBoundary>
       </div>
@@ -71,6 +70,7 @@ export function Parser() {
 }
 
 const TabContext = React.createContext<Ariakit.TabStore | null>(null);
+const LineContext = React.createContext<string | null>(null);
 
 function Tabs({ payload }: { payload: string }) {
   const defaultSelectedId = "tree";
@@ -86,31 +86,11 @@ function Tabs({ payload }: { payload: string }) {
       >
         {payloadToLines(payload).map((line) => (
           <Tab id={line} key={line}>
-            <ErrorBoundary
-              fallbackRender={({ error }) => {
-                console.log("TEST", error);
-                if (error instanceof Error) {
-                  return (
-                    <div className="w-32 text-left flex-col flex gap-1">
-                      <div className="grid w-full">
-                        <pre className="overflow-hidden col-start-1 row-start-1">
-                          {line}
-                        </pre>
-                        <div className="col-start-1 row-start-1 bg-gradient-to-l from-slate-200 group-aria-selected:from-blue-600" />
-                      </div>
-                      <span className="whitespace-normal line-clamp-2 text-red-500 group-aria-selected:text-white">
-                        {error.message}
-                      </span>
-                    </div>
-                  );
-                }
-
-                return "Error";
-              }}
-              key={line}
-            >
-              <TabContent payloadSize={payloadSize} rawLine={line} />
-            </ErrorBoundary>
+            <LineContext.Provider value={line}>
+              <ErrorBoundary FallbackComponent={TabFallback} key={line}>
+                <TabContent payloadSize={payloadSize} rawLine={line} />
+              </ErrorBoundary>
+            </LineContext.Provider>
           </Tab>
         ))}
       </Ariakit.TabList>
@@ -118,7 +98,10 @@ function Tabs({ payload }: { payload: string }) {
       {payloadToLines(payload).map((line) => (
         <TabContext.Provider value={tab} key={line}>
           <TabPanel id={line}>
-            <ErrorBoundary FallbackComponent={Fallback} key={line}>
+            <ErrorBoundary
+              FallbackComponent={GenericFallback}
+              key={`tab${line}`}
+            >
               <TabPanelContent rawLine={line} />
             </ErrorBoundary>
           </TabPanel>
@@ -200,7 +183,10 @@ function TabPanelContent({ rawLine }: { rawLine: string }) {
       </div>
       <h3>Size: {stringToKilobytes(line.rawJson)} KB</h3>
 
-      <ErrorBoundary FallbackComponent={Fallback} key={`render${line.rawJson}`}>
+      <ErrorBoundary
+        FallbackComponent={GenericFallback}
+        key={`render${line.rawJson}`}
+      >
         {line.type === "import" ? <ImportLine line={line} /> : null}
         {line.type === "data" ? <DataLine line={line} /> : null}
       </ErrorBoundary>
@@ -211,7 +197,7 @@ function TabPanelContent({ rawLine }: { rawLine: string }) {
         <summary className="cursor-pointer">PARSED JSON</summary>
         <pre className="bg-slate-100 rounded-lg p-3">
           <ErrorBoundary
-            FallbackComponent={Fallback}
+            FallbackComponent={GenericFallback}
             key={`tree${line.rawJson}`}
           >
             <RawJson rawJson={line.rawJson} />
@@ -221,7 +207,9 @@ function TabPanelContent({ rawLine }: { rawLine: string }) {
 
       <details>
         <summary className="cursor-pointer">RAW JSON</summary>
-        <pre className="bg-slate-100 rounded-lg p-3">{line.rawJson}</pre>
+        <pre className="bg-slate-100 rounded-lg p-3 whitespace-normal">
+          {line.rawJson}
+        </pre>
       </details>
     </div>
   );
@@ -233,11 +221,34 @@ function RawJson({ rawJson }: { rawJson: string }) {
   return <JSONTree data={json} shouldExpandNodeInitially={() => true} />;
 }
 
-function Fallback({ error }: { error: Error }) {
+function GenericFallback({ error }: { error: Error }) {
   return (
     <div role="alert" className="bg-red-100 rounded-lg p-4">
       <p>Something went wrong:</p>
       <pre className="text-red-600">{error.message}</pre>
     </div>
   );
+}
+
+function TabFallback({ error }: { error: Error }) {
+  const line = useContext(LineContext);
+  if (!line) {
+    throw new Error("TabFallback must be wrapped in a Tabs component");
+  }
+
+  if (error instanceof Error) {
+    return (
+      <div className="w-32 text-left flex-col flex gap-1">
+        <div className="grid w-full">
+          <pre className="overflow-hidden col-start-1 row-start-1">{line}</pre>
+          <div className="col-start-1 row-start-1 bg-gradient-to-l from-slate-200 group-aria-selected:from-blue-600" />
+        </div>
+        <span className="whitespace-normal line-clamp-2 text-red-500 group-aria-selected:text-white">
+          {error.message}
+        </span>
+      </div>
+    );
+  }
+
+  return <span>Error</span>;
 }
