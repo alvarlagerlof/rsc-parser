@@ -99,8 +99,7 @@ export default function DataLineAlternative({ data }: { data: string }) {
   return (
     <>
       <Node treeItem={parsed} />
-
-      <pre>{JSON.stringify(parsed, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(parsed, null, 2)}</pre> */}
     </>
   );
 }
@@ -108,9 +107,9 @@ export default function DataLineAlternative({ data }: { data: string }) {
 function Node({ treeItem }: { treeItem: TreeItem }) {
   if (treeItem.type === "ARRAY") {
     return (
-      <div>
+      <div className="flex flex-col gap-1">
         <div className="bg-green-300">ARRAY</div>
-        <div className="pl-4">
+        <div className="pl-4 flex flex-col gap-1">
           {treeItem.value.map((item) => (
             <Node key={JSON.stringify(item.value)} treeItem={item} />
           ))}
@@ -120,12 +119,24 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
   }
 
   return (
-    <div className="bg-green-300 flex flex-row gap-4">
-      <span>{treeItem.type}</span>
+    <div className="bg-green-300 flex flex-col gap-1">
+      <div className="flex flex-row gap-4">
+        <span className="font-semibold text-lg">{treeItem.type}</span>
+
+        {treeItem.value instanceof Object && "tag" in treeItem.value ? (
+          <>
+            <span className="whitespace-nowrap">
+              {String(treeItem.value.tag)}
+            </span>
+          </>
+        ) : null}
+      </div>
       {treeItem.value instanceof Object && "tag" in treeItem.value ? (
-        <span>TAG: {String(treeItem.value.tag)}</span>
+        <pre className="break-all whitespace-break-spaces">
+          Props: {JSON.stringify(treeItem.value.props, null, 2)}
+        </pre>
       ) : (
-        <span>RAW: {JSON.stringify(treeItem.value)}</span>
+        <span>Raw: {JSON.stringify(treeItem.value)}</span>
       )}
     </div>
   );
