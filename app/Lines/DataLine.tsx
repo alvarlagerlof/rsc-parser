@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { parseLine } from "../parse";
 import { JSONTree } from "react-json-tree";
 
 const inner = z
@@ -23,8 +22,8 @@ const other = z.array(z.unknown());
 
 const rscComponentSchema = z.union([inner, other]);
 
-export function DataLine({ line }: { line: ReturnType<typeof parseLine> }) {
-  const json = JSON.parse(line.rawJson);
+export function DataLine({ data }: { data: string }) {
+  const json = JSON.parse(data);
 
   const transform = () => {
     const walk = (
@@ -77,13 +76,12 @@ export function DataLine({ line }: { line: ReturnType<typeof parseLine> }) {
           return component;
         }
 
-        console.log("FAIL", line.signifier, result.error);
         return null;
       });
     };
 
     return {
-      ...line,
+      ...json,
       parsed: Array.isArray(json)
         ? { data: walk(json), success: true }
         : { data: json, success: true },

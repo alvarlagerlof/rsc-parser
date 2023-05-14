@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 export function refineLineType(rawType: string | undefined) {
   switch (rawType) {
     case undefined: {
@@ -31,8 +29,10 @@ export function splitToCleanLines(payload: string) {
   return lines;
 }
 
-export function splitSignifierFromRest(input: string) {
-  const [signifier, ...data] = input.split(":");
+export function splitLine(line: string) {
+  // eg. 0:I{"a":"b"} or 0:{"a":"v"} or a:[{"a":"b"}]
+
+  const [signifier, ...dataArray] = line.split(":");
 
   if (signifier === "") {
     throw new Error(`Invalid line. Signifier exist.".`);
@@ -44,11 +44,19 @@ export function splitSignifierFromRest(input: string) {
     );
   }
 
-  if (data.length == 0) {
+  if (dataArray.length == 0) {
     throw new Error("Invalid line. Missing data after signifier.");
   }
 
-  return { signifier, data: data.join(":") };
+  let data = dataArray.join(":");
+  const rawType = getType(data);
+  const type = refineLineType(rawType);
+
+  if (rawType) {
+    data = data.replace(rawType, "");
+  }
+
+  return { signifier, type, data };
 }
 
 export function getType(input: string) {
@@ -79,28 +87,4 @@ export function getType(input: string) {
   }
 
   return type;
-}
-
-export function parseLine(line: string) {
-  // eg. 0:I{"a":"b"} or 0:{"a":"v"} or a:[{"a":"b"}]
-
-  const { signifier, data } = splitSignifierFromRest(line);
-  const rawType = getType(data);
-  const type = refineLineType(rawType);
-
-  if (rawType) {
-    return {
-      signifier,
-      rawType,
-      type,
-      rawJson: data.replace(rawType, ""),
-    };
-  }
-
-  return {
-    signifier,
-    rawType,
-    type,
-    rawJson: data,
-  };
 }

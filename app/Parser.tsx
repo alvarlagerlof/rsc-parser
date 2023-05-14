@@ -3,11 +3,10 @@
 import React, { ChangeEvent, ReactNode, useContext, useState } from "react";
 import { JSONTree } from "react-json-tree";
 import * as Ariakit from "@ariakit/react";
-import { parseLine, splitToCleanLines } from "./parse";
+import { splitLine, splitToCleanLines } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { DataLine } from "./Lines/DataLine";
 import { ImportLine } from "./Lines/ImportLine";
-import { Content } from "next/font/google";
 
 const defaultPayload = `0:[["children","(main)","children","__PAGE__",["__PAGE__",{}],"$L1",[[],["$L2",["$","meta",null,{"name":"next-size-adjust"}]]]]]
 3:I{"id":"29854","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:static/chunks/1004-456f71c9bb70e7ee.js","3213:static/chunks/3213-648f64f230debb40.js","7974:static/chunks/app/(main)/page-16ca770141ca5c0a.js"],"name":"Pronunciation","async":false}
@@ -88,7 +87,7 @@ function Tabs({ payload }: { payload: string }) {
           <Tab id={line} key={line}>
             <LineContext.Provider value={line}>
               <ErrorBoundary FallbackComponent={TabFallback} key={line}>
-                <TabContent payloadSize={payloadSize} rawLine={line} />
+                <TabContent payloadSize={payloadSize} line={line} />
               </ErrorBoundary>
             </LineContext.Provider>
           </Tab>
@@ -102,7 +101,7 @@ function Tabs({ payload }: { payload: string }) {
               FallbackComponent={GenericFallback}
               key={`tab${line}`}
             >
-              <TabPanelContent rawLine={line} />
+              <TabPanelContent line={line} />
             </ErrorBoundary>
           </TabPanel>
         </TabContext.Provider>
@@ -123,20 +122,20 @@ function Tab({ id, children }: { id: string; children: ReactNode }) {
 }
 
 function TabContent({
-  rawLine,
+  line,
   payloadSize,
 }: {
-  rawLine: string;
+  line: string;
   payloadSize: number;
 }) {
-  const line = parseLine(rawLine);
-  const lineSize = parseFloat(stringToKilobytes(rawLine));
+  const { signifier, type } = splitLine(line);
+  const lineSize = parseFloat(stringToKilobytes(line));
 
   return (
     <div className="flex flex-row gap-1.5">
-      <div className="text-2xl font-semibold -mt-px">{line.signifier}</div>
+      <div className="text-2xl font-semibold -mt-px">{signifier}</div>
       <div className="flex flex-col items-start">
-        <div>{line.type}</div>
+        <div>{type}</div>
         <div className="whitespace-nowrap">{lineSize} KB</div>
         <div>{((lineSize / payloadSize) * 100).toFixed(2)}%</div>
         <div>
@@ -167,56 +166,53 @@ function TabPanel({ id, children }: { id: string; children: ReactNode }) {
   );
 }
 
-function TabPanelContent({ rawLine }: { rawLine: string }) {
-  const line = parseLine(rawLine);
+function TabPanelContent({ line }: { line: string }) {
+  const { signifier, type, data } = splitLine(line);
 
   return (
     <div
       className="bg-slate-200 rounded-lg p-3 flex flex-col gap-3"
-      key={line.signifier}
+      key={signifier}
     >
       <div className="flex flex-col gap-1">
         <h3 className="font-bold text-xl inline-block rounded-full">
-          $L{line.signifier}
+          $L{signifier}
         </h3>
-        <h3 className="font-medium">{line.type}</h3>
+        <h3 className="font-medium">{type}</h3>
       </div>
-      <h3>Size: {stringToKilobytes(line.rawJson)} KB</h3>
+      <h3>Size: {stringToKilobytes(data)} KB</h3>
 
-      <ErrorBoundary
-        FallbackComponent={GenericFallback}
-        key={`render${line.rawJson}`}
-      >
-        {line.type === "import" ? <ImportLine line={line} /> : null}
-        {line.type === "data" ? <DataLine line={line} /> : null}
+      <ErrorBoundary FallbackComponent={GenericFallback} key={`render${data}`}>
+        {type === "import" ? <ImportLine data={data} /> : null}
+        {type === "data" ? <DataLine data={data} /> : null}
       </ErrorBoundary>
 
       <div className="bg-slate-400 h-0.5 w-full" />
 
       <details>
-        <summary className="cursor-pointer">PARSED JSON</summary>
+        <summary className="cursor-pointer">JSON Parsed Data</summary>
         <pre className="bg-slate-100 rounded-lg p-3">
           <ErrorBoundary
             FallbackComponent={GenericFallback}
-            key={`tree${line.rawJson}`}
+            key={`tree${data}`}
           >
-            <RawJson rawJson={line.rawJson} />
+            <RawJson data={data} />
           </ErrorBoundary>
         </pre>
       </details>
 
       <details>
-        <summary className="cursor-pointer">RAW JSON</summary>
+        <summary className="cursor-pointer">Raw Data</summary>
         <pre className="bg-slate-100 rounded-lg p-3 whitespace-normal">
-          {line.rawJson}
+          {data}
         </pre>
       </details>
     </div>
   );
 }
 
-function RawJson({ rawJson }: { rawJson: string }) {
-  const json = JSON.parse(rawJson);
+function RawJson({ data }: { data: string }) {
+  const json = JSON.parse(data);
 
   return <JSONTree data={json} shouldExpandNodeInitially={() => true} />;
 }

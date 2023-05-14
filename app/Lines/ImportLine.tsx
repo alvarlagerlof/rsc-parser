@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { parseLine } from "../parse";
 
 const schema = z
   .object({
@@ -10,8 +9,8 @@ const schema = z
   })
   .strict();
 
-export function ImportLine({ line }: { line: ReturnType<typeof parseLine> }) {
-  const json = JSON.parse(line.rawJson);
+export function ImportLine({ data }: { data: string }) {
+  const json = JSON.parse(data);
 
   const parsed = schema.parse(json);
 
