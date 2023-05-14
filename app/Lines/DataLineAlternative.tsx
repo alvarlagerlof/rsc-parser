@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
-import { LineContext, TabContext } from "../Parser";
+import { TabContext } from "../Parser";
 
 interface TreeOther {
   type: "OTHER";
