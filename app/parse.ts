@@ -1,15 +1,3 @@
-export function parse(payload: string) {
-  if (typeof payload !== "string") {
-    throw new Error("Payload is not a string");
-  }
-
-  const lines = splitToCleanLines(payload);
-  const extracted = extract(lines);
-  const parsed = parseLines(extracted);
-
-  return parsed;
-}
-
 export function parseLines(lines: ReturnType<typeof extract>) {
   return lines.map((line) => {
     const json = JSON.parse(line.rawJson);
@@ -21,7 +9,7 @@ export function parseLines(lines: ReturnType<typeof extract>) {
       case "I": {
         return { ...line, type: "import", json } as const;
       }
-      case "HZ": {
+      case "HL": {
         return { ...line, type: "css", json } as const;
       }
       default: {
@@ -32,10 +20,13 @@ export function parseLines(lines: ReturnType<typeof extract>) {
 }
 
 export function splitToCleanLines(payload: string) {
-  return payload
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => line != "");
+  const lines = payload.split("\n").map((line) => line.trim());
+
+  if (lines.at(-1) !== "") {
+    throw new Error("RSC payload is not complete");
+  }
+
+  return lines;
 }
 
 export function splitFirst(input: string, character: string) {

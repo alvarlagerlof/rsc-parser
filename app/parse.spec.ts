@@ -1,7 +1,6 @@
 import {
   extract,
   getType,
-  parse,
   parseLines,
   splitFirst,
   splitToCleanLines,
@@ -78,14 +77,6 @@ describe("getType", () => {
 
   it("should find find a type in a complex case", () => {
     expect(getType('HZ[[{"a":"b"}]]')).toStrictEqual("HZ");
-  });
-});
-
-describe("parse", () => {
-  it("should throw on incorrect payload arg type", () => {
-    expect(() => parse(undefined as unknown as string)).toThrow(
-      "Payload is not a string"
-    );
   });
 });
 

@@ -5,7 +5,8 @@ import { JSONTree } from "react-json-tree";
 import { z } from "zod";
 import ReactDiffViewer from "react-diff-viewer-continued";
 import * as Ariakit from "@ariakit/react";
-import { parse } from "./parse";
+import { extract, parseLines, splitToCleanLines } from "./parse";
+import { ErrorBoundary } from "react-error-boundary";
 
 const rscImportSchema = z
   .object({
@@ -57,79 +58,76 @@ function stringToKilobytes(data: string) {
 }
 
 function payloadToParsedLines(payload: string) {
-  return parse(payload).map((line) => {
-    if (line.type === "import") {
-      return {
-        ...line,
-        parsed: rscImportSchema.safeParse(line.json),
-      };
-    } else {
-      const walk = (
-        children: z.infer<typeof rscComponentSchema>[]
-      ): z.infer<typeof rscComponentSchema>[] => {
-        return children.map((component) => {
-          const result = inner.safeParse(component);
+  if (typeof payload !== "string") {
+    throw new Error("Payload is not a string");
+  }
 
-          if (result.success) {
-            if (result.data === null) {
-              return null;
-            }
+  const lines = splitToCleanLines(payload);
+  const extracted = extract(lines);
+  const parsed = parseLines(extracted);
 
-            const data = result.data[3];
-            const { children } = data;
-            if (typeof children !== "undefined" && Array.isArray(children)) {
-              const newResult: z.infer<typeof rscComponentSchema> = [
-                result.data[0],
-                result.data[1],
-                result.data[2],
-                {
-                  ...result.data[3],
-                  children: walk(
-                    children as z.infer<typeof rscComponentSchema>[]
-                  ),
-                },
-              ];
-              return newResult;
-            } else {
-              const newResult: z.infer<typeof rscComponentSchema> = [
-                result.data[0],
-                result.data[1],
-                result.data[2],
-                result.data[3],
-              ];
-              return newResult;
-            }
-          } else if (Array.isArray(component)) {
-            const result = other.safeParse(component);
+  return parsed.map((line) => {
+    const walk = (
+      children: z.infer<typeof rscComponentSchema>[]
+    ): z.infer<typeof rscComponentSchema>[] => {
+      return children.map((component) => {
+        const result = inner.safeParse(component);
 
-            if (result.success) {
-              const data = result.data;
-              return walk(data as z.infer<typeof rscComponentSchema>[]);
-            }
-          } else if (typeof component === "string") {
-            return component;
-          } else if (typeof component === "object") {
-            return component;
-          } else if (typeof component === "boolean") {
-            return component;
+        if (result.success) {
+          if (result.data === null) {
+            return null;
           }
 
-          console.log("FAIL", line.signifier, result.error);
-          return null;
-          // return {
-          //   ...result,
-          // };
-          // return component as z.infer<typeof rscComponentSchema>;
-        });
-      };
+          const data = result.data[3];
+          const { children } = data;
+          if (typeof children !== "undefined" && Array.isArray(children)) {
+            const newResult: z.infer<typeof rscComponentSchema> = [
+              result.data[0],
+              result.data[1],
+              result.data[2],
+              {
+                ...result.data[3],
+                children: walk(
+                  children as z.infer<typeof rscComponentSchema>[]
+                ),
+              },
+            ];
+            return newResult;
+          } else {
+            const newResult: z.infer<typeof rscComponentSchema> = [
+              result.data[0],
+              result.data[1],
+              result.data[2],
+              result.data[3],
+            ];
+            return newResult;
+          }
+        } else if (Array.isArray(component)) {
+          const result = other.safeParse(component);
 
-      return {
-        ...line,
-        parsed: Array.isArray(line.json)
-          ? { data: walk(line.json), success: true }
-          : { data: line.json, success: true },
-      };
-    }
+          if (result.success) {
+            const data = result.data;
+            return walk(data as z.infer<typeof rscComponentSchema>[]);
+          }
+        } else if (typeof component === "string") {
+          return component;
+        } else if (typeof component === "object") {
+          return component;
+        } else if (typeof component === "boolean") {
+          return component;
+        }
+
+        console.log("FAIL", line.signifier, result.error);
+        return null;
+      });
+    };
+
+    return {
+      ...line,
+      parsed: Array.isArray(line.json)
+        ? { data: walk(line.json), success: true }
+        : { data: line.json, success: true },
+    };
   });
 }
 
@@ -273,6 +271,70 @@ function LineViewer({
 }: {
   line: ReturnType<typeof payloadToParsedLines>[number];
 }) {
+  const transform = () => {
+    const walk = (
+      children: z.infer<typeof rscComponentSchema>[]
+    ): z.infer<typeof rscComponentSchema>[] => {
+      return children.map((component) => {
+        const result = inner.safeParse(component);
+
+        if (result.success) {
+          if (result.data === null) {
+            return null;
+          }
+
+          const data = result.data[3];
+          const { children } = data;
+          if (typeof children !== "undefined" && Array.isArray(children)) {
+            const newResult: z.infer<typeof rscComponentSchema> = [
+              result.data[0],
+              result.data[1],
+              result.data[2],
+              {
+                ...result.data[3],
+                children: walk(
+                  children as z.infer<typeof rscComponentSchema>[]
+                ),
+              },
+            ];
+            return newResult;
+          } else {
+            const newResult: z.infer<typeof rscComponentSchema> = [
+              result.data[0],
+              result.data[1],
+              result.data[2],
+              result.data[3],
+            ];
+            return newResult;
+          }
+        } else if (Array.isArray(component)) {
+          const result = other.safeParse(component);
+
+          if (result.success) {
+            const data = result.data;
+            return walk(data as z.infer<typeof rscComponentSchema>[]);
+          }
+        } else if (typeof component === "string") {
+          return component;
+        } else if (typeof component === "object") {
+          return component;
+        } else if (typeof component === "boolean") {
+          return component;
+        }
+
+        console.log("FAIL", line.signifier, result.error);
+        return null;
+      });
+    };
+
+    return {
+      ...line,
+      parsed: Array.isArray(line.json)
+        ? { data: walk(line.json), success: true }
+        : { data: line.json, success: true },
+    };
+  };
+
   return (
     <div
       className="bg-slate-200 rounded-lg p-3 flex flex-col gap-3"
@@ -287,93 +349,13 @@ function LineViewer({
 
       <h3>Size: {stringToKilobytes(line.rawJson)} KB</h3>
 
+      <CustomErrorBoundary>
+        {line.type === "import" ? <Import rawJson={line.rawJson} /> : null}
+      </CustomErrorBoundary>
+
       {line.parsed.success ? (
         <>
           <p className="font-bold text-green-600">Parsed: Success</p>
-
-          {line.type === "import" ? (
-            <>
-              <table className="inline-block text-left table-auto">
-                <thead>
-                  <tr>
-                    <th className="border border-gray-400 p-2">Key</th>
-                    <th className="border border-gray-400 p-2">Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-gray-400 p-2">Async</td>
-                    <td className="border border-gray-400 p-2">
-                      {String(line.parsed.data.async)}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-400 p-2">Name</td>
-                    <td className="border border-gray-400 p-2">
-                      {line.parsed.data.name}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-400 p-2">ID</td>
-                    <td className="border border-gray-400 p-2">
-                      {line.parsed.data.id}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-400 p-2">Chunks</td>
-                    <td className="border border-gray-400 p-2">
-                      <ul className="">
-                        {/* @ts-ignore */}
-                        {line.parsed.data.chunks.map((item) => {
-                          return <li key={item}>{item}</li>;
-                        })}
-                      </ul>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              {/* <p>Aync: {String(line.parsed.data.async)}</p>
-              <p>Name: {line.parsed.data.name}</p>
-              <p>ID: {line.parsed.data.id}</p>
-              <p>Chunks:</p>
-              <ul className="">
-                {line.parsed.data.chunks.map((item) => {
-                  return <li>{item}</li>;
-                })}
-              </ul> */}
-            </>
-          ) : (
-            <>
-              <details>
-                <summary className="cursor-pointer">DATA</summary>
-                <JSONTree
-                  data={line.parsed.data}
-                  shouldExpandNodeInitially={() => true}
-                />
-              </details>
-              <details>
-                <summary className="cursor-pointer">DIFF</summary>
-                <ReactDiffViewer
-                  oldValue={JSON.stringify(
-                    line.json,
-                    Object.keys(line.json).sort(),
-                    2
-                  )}
-                  newValue={JSON.stringify(
-                    line.parsed.data,
-                    Object.keys(line.parsed.data).sort(),
-                    2
-                  )}
-                  splitView={true}
-                />
-              </details>
-            </>
-          )}
-
-          {/* <pre className="bg-slate-100 rounded-lg p-3">
-              {JSON.stringify(line.parsed.data, null, 2)}
-            </pre> */}
-          {/* </details> */}
         </>
       ) : (
         <>
@@ -384,7 +366,6 @@ function LineViewer({
               data={line.parsed.success}
               shouldExpandNodeInitially={() => true}
             />
-            {/* <pre>{JSON.stringify(line.parsed.error, null, 2)}</pre> */}
           </details>
         </>
       )}
@@ -393,9 +374,64 @@ function LineViewer({
         <summary className="cursor-pointer">RAW JSON</summary>
         <pre className="bg-slate-100 rounded-lg p-3">
           <JSONTree data={line.json} shouldExpandNodeInitially={() => true} />
-          {/* {JSON.stringify(line.json, null, 2)} */}
         </pre>
       </details>
     </div>
+  );
+}
+
+function Import({ rawJson }: { rawJson: string }) {
+  const json = JSON.parse(rawJson);
+  const parsed = rscImportSchema.parse(json);
+
+  return (
+    <table className="inline-block text-left table-auto">
+      <thead>
+        <tr>
+          <th className="border border-gray-400 p-2">Key</th>
+          <th className="border border-gray-400 p-2">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="border border-gray-400 p-2">Async</td>
+          <td className="border border-gray-400 p-2">{String(parsed.async)}</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-400 p-2">Name</td>
+          <td className="border border-gray-400 p-2">{parsed.name}</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-400 p-2">ID</td>
+          <td className="border border-gray-400 p-2">{parsed.id}</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-400 p-2">Chunks</td>
+          <td className="border border-gray-400 p-2">
+            <ul className="">
+              {/* @ts-ignore */}
+              {parsed.chunks.map((item) => {
+                return <li key={item}>{item}</li>;
+              })}
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}
+
+function CustomErrorBoundary({ children }: { children: ReactNode }) {
+  return (
+    <ErrorBoundary
+      fallbackRender={({ error }) => (
+        <div role="alert" className="bg-red-100 rounded-lg p-4">
+          <p>Something went wrong:</p>
+          <pre className="text-red-600">{error.message}</pre>
+        </div>
+      )}
+    >
+      {children}
+    </ErrorBoundary>
   );
 }
