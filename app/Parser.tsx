@@ -3,7 +3,7 @@
 import React, { ChangeEvent, ReactNode, useContext, useState } from "react";
 import { JSONTree } from "react-json-tree";
 import * as Ariakit from "@ariakit/react";
-import { splitLine, splitToCleanLines } from "./parse";
+import { lexer, parse, refineLineType, splitToCleanLines } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { DataLine } from "./Lines/DataLine";
 import { ImportLine } from "./Lines/ImportLine";
@@ -128,14 +128,16 @@ function TabContent({
   line: string;
   payloadSize: number;
 }) {
-  const { signifier, type } = splitLine(line);
   const lineSize = parseFloat(stringToKilobytes(line));
+  const tokens = lexer(line);
+  const { signifier, type } = parse(tokens);
+  const refinedType = refineLineType(type);
 
   return (
     <div className="flex flex-row gap-1.5">
       <div className="text-2xl font-semibold -mt-px">{signifier}</div>
       <div className="flex flex-col items-start">
-        <div>{type}</div>
+        <div>{refinedType}</div>
         <div className="whitespace-nowrap">{lineSize} KB</div>
         <div>{((lineSize / payloadSize) * 100).toFixed(2)}%</div>
         <div>
@@ -167,7 +169,9 @@ function TabPanel({ id, children }: { id: string; children: ReactNode }) {
 }
 
 function TabPanelContent({ line }: { line: string }) {
-  const { signifier, type, data } = splitLine(line);
+  const tokens = lexer(line);
+  const { signifier, type, data } = parse(tokens);
+  const refinedType = refineLineType(type);
 
   return (
     <div
@@ -178,7 +182,7 @@ function TabPanelContent({ line }: { line: string }) {
         <h3 className="font-bold text-xl inline-block rounded-full">
           $L{signifier}
         </h3>
-        <h3 className="font-medium">{type}</h3>
+        <h3 className="font-medium">{refinedType}</h3>
       </div>
       <h3>Size: {stringToKilobytes(data)} KB</h3>
 
