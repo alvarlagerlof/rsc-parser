@@ -187,8 +187,8 @@ function TabPanelContent({ line }: { line: string }) {
       <h3>Size: {stringToKilobytes(data)} KB</h3>
 
       <ErrorBoundary FallbackComponent={GenericFallback} key={`render${data}`}>
-        {type === "import" ? <ImportLine data={data} /> : null}
-        {type === "data" ? <DataLine data={data} /> : null}
+        {refinedType === "import" ? <ImportLine data={data} /> : null}
+        {refinedType === "data" ? <DataLine data={data} /> : null}
       </ErrorBoundary>
 
       <div className="bg-slate-400 h-0.5 w-full" />
