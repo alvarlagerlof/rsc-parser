@@ -221,10 +221,7 @@ function TabPanelContent({ rawLine }: { rawLine: string }) {
 
       <details>
         <summary className="cursor-pointer">RAW JSON</summary>
-        <pre
-          className="bg-slate-100 rounded-lg p-3"
-          dangerouslySetInnerHTML={{ __html: `TEST: ${line.rawJson}` }}
-        />
+        <pre className="bg-slate-100 rounded-lg p-3">{line.rawJson}</pre>
       </details>
     </div>
   );
