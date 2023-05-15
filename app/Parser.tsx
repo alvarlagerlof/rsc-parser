@@ -115,7 +115,7 @@ function Tabs({ payload }: { payload: string }) {
                 FallbackComponent={GenericFallback}
                 key={`tab${line}`}
               >
-                <TabPanelContent line={line} />
+                <TabPanelContent payloadSize={payloadSize} line={line} />
               </ErrorBoundary>
             </TabPanel>
           </TabContext.Provider>
@@ -154,17 +154,14 @@ function TabContent({
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>
         <div className="whitespace-nowrap">{lineSize} KB</div>
-        <div>{((lineSize / payloadSize) * 100).toFixed(2)}%</div>
-        <div>
-          <meter
-            value={lineSize / payloadSize}
-            min="0"
-            max="1"
-            className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14"
-          >
-            {((lineSize / payloadSize) * 100).toFixed(2)}%
-          </meter>
-        </div>
+        <meter
+          value={lineSize / payloadSize}
+          min="0"
+          max="1"
+          className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14"
+        >
+          {((lineSize / payloadSize) * 100).toFixed(2)}%
+        </meter>
       </div>
     </div>
   );
@@ -183,27 +180,54 @@ function TabPanel({ id, children }: { id: string; children: ReactNode }) {
   );
 }
 
-function TabPanelContent({ line }: { line: string }) {
+function TabPanelContent({
+  line,
+  payloadSize,
+}: {
+  line: string;
+  payloadSize: number;
+}) {
   const tokens = lexer(line);
   const { signifier, type, data } = parse(tokens);
   const refinedType = refineLineType(type);
 
+  const lineSize = parseFloat(stringToKilobytes(line));
+
   return (
-    <div className="flex flex-col gap-3" key={signifier}>
-      <div className="flex flex-col gap-1">
-        <h3 className="font-bold text-xl inline-block rounded-full">
-          $L{signifier}
-        </h3>
-        <h3 className="font-medium">{refinedType}</h3>
+    <div className="flex flex-col gap-6" key={signifier}>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-col gap-1">
+          <h3 className="font-bold text-xl inline-block rounded-full">
+            {signifier} <span className="text-slate-400">/ $L{signifier}</span>
+          </h3>
+          <h4 className="font-medium">
+            {refinedType}{" "}
+            <span className="text-slate-400">/ &quot;{type}&quot;</span>{" "}
+          </h4>
+        </div>
+
+        <div className="text-right">
+          <div className="whitespace-nowrap">{lineSize} KB line size</div>
+          <div>{((lineSize / payloadSize) * 100).toFixed(2)}% of total</div>
+          <meter
+            value={lineSize / payloadSize}
+            min="0"
+            max="1"
+            className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-24"
+          >
+            {((lineSize / payloadSize) * 100).toFixed(2)}%
+          </meter>
+        </div>
       </div>
-      <h3>Size: {stringToKilobytes(data)} KB</h3>
+
+      <div className="bg-slate-300 h-0.5 w-full" />
 
       <ErrorBoundary FallbackComponent={GenericFallback} key={`render${data}`}>
         {refinedType === "import" ? <ImportLine data={data} /> : null}
         {refinedType === "data" ? <DataLineAlternative data={data} /> : null}
       </ErrorBoundary>
 
-      <div className="bg-slate-400 h-0.5 w-full" />
+      <div className="bg-slate-300 h-0.5 w-full" />
 
       <details>
         <summary className="cursor-pointer">JSON Parsed Data</summary>
