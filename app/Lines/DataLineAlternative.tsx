@@ -94,6 +94,30 @@ export function parseData(data: JsonValue): TreeItem {
   } satisfies TreeArray;
 }
 
+function isPropsWithChildren(props: unknown): props is Record<string, unknown> {
+  return (
+    typeof props === "object" && props instanceof Object && "children" in props
+  );
+}
+
+function isTreeItem(item: Props[keyof Props]): item is TreeItem {
+  return (
+    typeof item === "object" &&
+    item instanceof Object &&
+    "type" in item &&
+    "value" in item
+  );
+}
+
+function removeChildren(myObj: Record<string, unknown>) {
+  return Object.keys(myObj)
+    .filter((key) => key !== "children")
+    .reduce<Record<string, unknown>>((result, current) => {
+      result[current] = myObj[current];
+      return result;
+    }, {});
+}
+
 export default function DataLineAlternative({ data }: { data: string }) {
   const json = JSON.parse(data);
   const parsed = parseData(json);
@@ -107,36 +131,6 @@ export default function DataLineAlternative({ data }: { data: string }) {
 }
 
 function Node({ treeItem }: { treeItem: TreeItem }) {
-  const tab = useContext(TabContext);
-
-  function removeChildren(myObj: Record<string, unknown>) {
-    return Object.keys(myObj)
-      .filter((key) => key !== "children")
-      .reduce<Record<string, unknown>>((result, current) => {
-        result[current] = myObj[current];
-        return result;
-      }, {});
-  }
-
-  function isPropsWithChildren(
-    props: unknown
-  ): props is Record<string, unknown> {
-    return (
-      typeof props === "object" &&
-      props instanceof Object &&
-      "children" in props
-    );
-  }
-
-  function isTreeItem(item: Props[keyof Props]): item is TreeItem {
-    return (
-      typeof item === "object" &&
-      item instanceof Object &&
-      "type" in item &&
-      "value" in item
-    );
-  }
-
   if (treeItem.type === "ARRAY") {
     return (
       <div className="flex flex-col gap-1">
@@ -152,76 +146,91 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
 
   return (
     <div className="bg-green-300 flex flex-col gap-1">
-      <div className="flex flex-row gap-4">
-        <span className="font-semibold text-lg">{treeItem.type}</span>
+      <Header treeItem={treeItem} />
 
-        {treeItem.value instanceof Object && "tag" in treeItem.value ? (
-          <>
-            <span className="whitespace-nowrap flex flex-row gap-4 items-center">
-              {String(treeItem.value.tag)}
-              {String(treeItem.value.tag).startsWith("$L") ? (
-                <button
-                  className="underline p-0"
-                  onClick={() => {
-                    tab?.select("line");
-
-                    if (
-                      treeItem.value instanceof Object &&
-                      treeItem.value &&
-                      "tag" in treeItem.value &&
-                      tab !== undefined &&
-                      tab !== null
-                    ) {
-                      const signifier = String(treeItem.value.tag).replace(
-                        "$L",
-                        ""
-                      );
-
-                      const id = tab
-                        .getState()
-                        .items?.find((item) =>
-                          item.id.startsWith(signifier)
-                        )?.id;
-
-                      tab.setSelectedId(id);
-                    }
-                  }}
-                >
-                  Ref to: &quot;
-                  {String(treeItem.value.tag).replace("$L", "")}
-                  &quot;
-                </button>
-              ) : null}
-            </span>
-          </>
-        ) : null}
-      </div>
-      {treeItem.value instanceof Object &&
-      "props" in treeItem.value &&
-      treeItem.value.props instanceof Object ? (
-        <>
-          <span>
-            Props:{" "}
-            <pre className="break-all whitespace-break-spaces">
-              {isPropsWithChildren(treeItem.value.props)
-                ? JSON.stringify(removeChildren(treeItem.value.props), null, 2)
-                : JSON.stringify(treeItem.value.props, null, 2)}
-            </pre>
-          </span>
-
-          {"children" in treeItem.value.props &&
-          isTreeItem(treeItem.value.props.children) ? (
-            <div>
-              Children:{" "}
-              <div className="pl-4 py-2 bg-blue-300">
-                <Node treeItem={treeItem.value.props.children} />
-              </div>
-            </div>
-          ) : null}
-        </>
-      ) : (
-        <span>Raw: {JSON.stringify(treeItem.value)}</span>
-      )}
+      <Props treeItem={treeItem} />
     </div>
   );
+}
+
+function Header({ treeItem }: { treeItem: TreeItem }) {
+  const tab = useContext(TabContext);
+
+  return (
+    <div className="flex flex-row gap-4">
+      <span className="font-semibold text-lg">{treeItem.type}</span>
+
+      {treeItem.value instanceof Object && "tag" in treeItem.value ? (
+        <>
+          <span className="whitespace-nowrap flex flex-row gap-4 items-center">
+            {String(treeItem.value.tag)}
+            {String(treeItem.value.tag).startsWith("$L") ? (
+              <button
+                className="underline p-0"
+                onClick={() => {
+                  tab?.select("line");
+
+                  if (
+                    treeItem.value instanceof Object &&
+                    treeItem.value &&
+                    "tag" in treeItem.value &&
+                    tab !== undefined &&
+                    tab !== null
+                  ) {
+                    const signifier = String(treeItem.value.tag).replace(
+                      "$L",
+                      ""
+                    );
+
+                    const id = tab
+                      .getState()
+                      .items?.find((item) => item.id.startsWith(signifier))?.id;
+
+                    tab.setSelectedId(id);
+                  }
+                }}
+              >
+                Ref to: &quot;
+                {String(treeItem.value.tag).replace("$L", "")}
+                &quot;
+              </button>
+            ) : null}
+          </span>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function Props({ treeItem }: { treeItem: TreeItem }) {
+  if (
+    treeItem.value instanceof Object &&
+    "props" in treeItem.value &&
+    treeItem.value.props instanceof Object
+  ) {
+    return (
+      <>
+        <span>
+          Props:{" "}
+          <pre className="break-all whitespace-break-spaces">
+            {isPropsWithChildren(treeItem.value.props)
+              ? JSON.stringify(removeChildren(treeItem.value.props), null, 2)
+              : JSON.stringify(treeItem.value.props, null, 2)}
+          </pre>
+        </span>
+
+        {"children" in treeItem.value.props &&
+        isTreeItem(treeItem.value.props.children) ? (
+          <div>
+            Children:{" "}
+            <div className="pl-4 py-2 bg-blue-300">
+              <Node treeItem={treeItem.value.props.children} />
+            </div>
+          </div>
+        ) : null}
+      </>
+    );
+  }
+
+  return <span>Raw: {JSON.stringify(treeItem.value)}</span>;
 }
