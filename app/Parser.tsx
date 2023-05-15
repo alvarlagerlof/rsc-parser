@@ -141,7 +141,7 @@ function Tabs({ payload }: { payload: string }) {
 function Tab({ id, children }: { id: string; children: ReactNode }) {
   return (
     <Ariakit.Tab
-      className="bg-slate-200 rounded-xl px-3 py-2 group aria-selected:bg-blue-600 aria-selected:text-white"
+      className="bg-slate-200 rounded-xl px-2 py-1 group aria-selected:bg-blue-600 aria-selected:text-white"
       id={id}
     >
       {children}
@@ -163,15 +163,15 @@ function TabContent({
 
   return (
     <div className="flex flex-row gap-1.5">
-      <div className="text-2xl font-semibold -mt-px">{signifier}</div>
+      <div className="text-xl font-semibold -mt-px">{signifier}</div>
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>
-        <div className="whitespace-nowrap">{lineSize} KB</div>
+        {/* <div className="whitespace-nowrap">{lineSize} KB</div> */}
         <meter
           value={lineSize / payloadSize}
           min="0"
           max="1"
-          className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14"
+          className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14 h-3"
         >
           {((lineSize / payloadSize) * 100).toFixed(2)}%
         </meter>
