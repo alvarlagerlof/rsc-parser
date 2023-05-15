@@ -83,7 +83,7 @@ const LineContext = React.createContext<string | null>(null);
 
 function Tabs({ payload }: { payload: string }) {
   const defaultSelectedId = "tree";
-  const tab = Ariakit.useTabStore({ defaultSelectedId });
+  const tab = Ariakit.useTabStore();
   const payloadSize = parseFloat(stringToKilobytes(payload));
 
   return (
@@ -109,6 +109,8 @@ function Tabs({ payload }: { payload: string }) {
       </Ariakit.TabList>
 
       <div className="bg-slate-100 w-screen px-12 py-4 rounded-3xl max-w-7xl">
+        {payload === "" ? <p>Please enter a payload to see results.</p> : null}
+
         {payloadToLines(payload).map((line) => (
           <TabContext.Provider value={tab} key={line}>
             <TabPanel id={line}>
@@ -231,25 +233,36 @@ function TabPanelContent({
 
       <div className="bg-slate-300 h-0.5 w-full" />
 
-      <details>
-        <summary className="cursor-pointer">JSON Parsed Data</summary>
-        <pre className="bg-slate-100 rounded-lg p-3">
+      <div className="flex flex-col gap-2">
+        <Details summary="JSON Parsed Data">
           <ErrorBoundary
             FallbackComponent={GenericFallback}
             key={`tree${data}`}
           >
             <RawJson data={data} />
           </ErrorBoundary>
-        </pre>
-      </details>
+        </Details>
 
-      <details>
-        <summary className="cursor-pointer">Raw Data</summary>
-        <pre className="bg-slate-100 rounded-lg p-3 whitespace-normal">
-          {data}
-        </pre>
-      </details>
+        <Details summary="Raw Data">{data}</Details>
+      </div>
     </div>
+  );
+}
+
+function Details({
+  summary,
+  children,
+}: {
+  summary: string;
+  children: ReactNode;
+}) {
+  return (
+    <details className="bg-slate-200 rounded-lg p-3">
+      <summary className="cursor-pointer">{summary}</summary>
+      <div className="pt-4">
+        <pre className="whitespace-normal break-all">{children}</pre>
+      </div>
+    </details>
   );
 }
 
