@@ -66,6 +66,7 @@ export function Parser() {
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
             setPayload(event.target.value);
           }}
+          spellcheck="false"
         />
       </form>
       <div className="flex flex-col gap-2 min-h-[calc(100vh-120px)] items-center w-full">
