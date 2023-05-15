@@ -1,6 +1,12 @@
 "use client";
 
-import React, { ChangeEvent, ReactNode, useContext, useState } from "react";
+import React, {
+  ChangeEvent,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { JSONTree } from "react-json-tree";
 import * as Ariakit from "@ariakit/react";
 import { lexer, parse, refineLineType, splitToCleanLines } from "./parse";
@@ -48,7 +54,12 @@ function payloadToLines(payload: string) {
 }
 
 export function Parser() {
-  const [payload, setPayload] = useState(defaultPayload);
+  const [payload, setPayload] = useState("");
+
+  useEffect(() => {
+    const previous = localStorage.getItem("payload");
+    setPayload(previous ?? defaultPayload);
+  }, []);
 
   return (
     <div className="flex flex-col gap-6 items-center">
@@ -64,6 +75,7 @@ export function Parser() {
           value={payload}
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
             setPayload(event.target.value);
+            localStorage.setItem("payload", event.target.value);
           }}
           spellCheck="false"
         />
@@ -81,7 +93,6 @@ export const TabContext = React.createContext<Ariakit.TabStore | null>(null);
 const LineContext = React.createContext<string | null>(null);
 
 function Tabs({ payload }: { payload: string }) {
-  const defaultSelectedId = "tree";
   const tab = Ariakit.useTabStore();
   const payloadSize = parseFloat(stringToKilobytes(payload));
 
@@ -89,7 +100,7 @@ function Tabs({ payload }: { payload: string }) {
     <TabContext.Provider value={tab}>
       <Ariakit.TabList
         store={tab}
-        className="sticky py-2 bg-white w-full top-0 flex flex-col gap-2 max-w-7xl justify-center px-12"
+        className="sticky py-2 bg-white w-full top-0 flex flex-col gap-2 max-w-7xl justify-center px-12 z-10"
         aria-label="Lines"
       >
         <div className="flex flex-row gap-2 flex-wrap">

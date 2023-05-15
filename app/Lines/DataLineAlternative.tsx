@@ -1,7 +1,6 @@
 import { createContext, useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
 import { TabContext, stringToKilobytes } from "../Parser";
-import { object } from "zod";
 
 interface TreeOther {
   type: "OTHER";
@@ -233,30 +232,38 @@ function Props({ treeItem }: { treeItem: TreeComponent }) {
   const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
 
   const props = isPropsWithChildren(treeItem.value.props)
-    ? JSON.stringify(removeChildren(treeItem.value.props), null, 2)
-    : JSON.stringify(treeItem.value.props, null, 2);
+    ? removeChildren(treeItem.value.props)
+    : treeItem.value.props;
 
-  if (props === "{}") {
-    return null;
-  }
+  // if (Object.keys(props).length === 0 && !("children" in props)) {
+  //   return null;
+  // }
+
+  const formattedJSON = JSON.stringify(props, null, 2);
 
   return (
     <>
-      <span>
-        <details
-          open={props.length < 300}
-          className="flex flex-col space-y-1 rounded-md px-2 py-px"
-          style={{
-            // backgroundColor: `hsl(200, 100%, ${backgroundColorLightness}%)`,
-            backgroundColor: `hsl(${backgroundColorLightness - 30}, 100%, 90%)`,
-          }}
-        >
-          <summary className="hover:bg-black hover:text-white px-2 py-px rounded-md transition-all duration-100 cursor-pointer">
-            Props ({stringToKilobytes(props)} KB)
-          </summary>
-          <pre className="break-all whitespace-break-spaces">{props}</pre>
-        </details>
-      </span>
+      {Object.keys(props).length !== 0 ? (
+        <span>
+          <details
+            open={formattedJSON.length < 300}
+            className="flex flex-col space-y-1 rounded-md px-2 py-px"
+            style={{
+              // backgroundColor: `hsl(200, 100%, ${backgroundColorLightness}%)`,
+              backgroundColor: `hsl(${
+                backgroundColorLightness - 30
+              }, 100%, 90%)`,
+            }}
+          >
+            <summary className="hover:bg-black hover:text-white px-2 py-px rounded-md transition-all duration-100 cursor-pointer">
+              Props ({stringToKilobytes(formattedJSON)} KB)
+            </summary>
+            <pre className="break-all whitespace-break-spaces">
+              {formattedJSON}
+            </pre>
+          </details>
+        </span>
+      ) : null}
 
       {"children" in treeItem.value.props &&
       isTreeItem(treeItem.value.props.children) ? (
