@@ -109,6 +109,34 @@ export default function DataLineAlternative({ data }: { data: string }) {
 function Node({ treeItem }: { treeItem: TreeItem }) {
   const tab = useContext(TabContext);
 
+  function removeChildren(myObj: Record<string, unknown>) {
+    return Object.keys(myObj)
+      .filter((key) => key !== "children")
+      .reduce<Record<string, unknown>>((result, current) => {
+        result[current] = myObj[current];
+        return result;
+      }, {});
+  }
+
+  function isPropsWithChildren(
+    props: unknown
+  ): props is Record<string, unknown> {
+    return (
+      typeof props === "object" &&
+      props instanceof Object &&
+      "children" in props
+    );
+  }
+
+  function isTreeItem(item: Props[keyof Props]): item is TreeItem {
+    return (
+      typeof item === "object" &&
+      item instanceof Object &&
+      "type" in item &&
+      "value" in item
+    );
+  }
+
   if (treeItem.type === "ARRAY") {
     return (
       <div className="flex flex-col gap-1">
@@ -168,10 +196,29 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
           </>
         ) : null}
       </div>
-      {treeItem.value instanceof Object && "tag" in treeItem.value ? (
-        <pre className="break-all whitespace-break-spaces">
-          Props: {JSON.stringify(treeItem.value.props, null, 2)}
-        </pre>
+      {treeItem.value instanceof Object &&
+      "props" in treeItem.value &&
+      treeItem.value.props instanceof Object ? (
+        <>
+          <span>
+            Props:{" "}
+            <pre className="break-all whitespace-break-spaces">
+              {isPropsWithChildren(treeItem.value.props)
+                ? JSON.stringify(removeChildren(treeItem.value.props), null, 2)
+                : JSON.stringify(treeItem.value.props, null, 2)}
+            </pre>
+          </span>
+
+          {"children" in treeItem.value.props &&
+          isTreeItem(treeItem.value.props.children) ? (
+            <div>
+              Children:{" "}
+              <div className="pl-4 py-2 bg-blue-300">
+                <Node treeItem={treeItem.value.props.children} />
+              </div>
+            </div>
+          ) : null}
+        </>
       ) : (
         <span>Raw: {JSON.stringify(treeItem.value)}</span>
       )}

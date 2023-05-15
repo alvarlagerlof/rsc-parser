@@ -223,6 +223,33 @@ describe("parseData", () => {
     });
   });
 
+  it("handles a react component directly in children", () => {
+    const parsed = parseData([
+      "$",
+      "div",
+      null,
+      {
+        children: ["$", "div", null, {}],
+      },
+    ]);
+
+    expect(parsed).toStrictEqual({
+      type: "COMPONENT",
+      value: {
+        tag: "div",
+        props: {
+          children: {
+            type: "COMPONENT",
+            value: {
+              tag: "div",
+              props: {},
+            },
+          },
+        },
+      },
+    });
+  });
+
   it("special", () => {
     const parsed = parseData([
       [
