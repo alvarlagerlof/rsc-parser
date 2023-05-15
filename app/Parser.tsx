@@ -13,7 +13,6 @@ import { lexer, parse, refineLineType, splitToCleanLines } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { DataLine } from "./Lines/DataLine";
 import { ImportLine } from "./Lines/ImportLine";
-import DataLineAlternative from "./Lines/DataLineAlternative";
 
 const defaultPayload = `0:[["children","(main)","children","__PAGE__",["__PAGE__",{}],"$L1",[[],["$L2",["$","meta",null,{"name":"next-size-adjust"}]]]]]
 3:I{"id":"29854","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:static/chunks/1004-456f71c9bb70e7ee.js","3213:static/chunks/3213-648f64f230debb40.js","7974:static/chunks/app/(main)/page-16ca770141ca5c0a.js"],"name":"Item","async":false}
@@ -237,7 +236,7 @@ function TabPanelContent({
 
       <ErrorBoundary FallbackComponent={GenericFallback} key={`render${data}`}>
         {refinedType === "import" ? <ImportLine data={data} /> : null}
-        {refinedType === "data" ? <DataLineAlternative data={data} /> : null}
+        {refinedType === "data" ? <DataLine data={data} /> : null}
         {refinedType === "asset" ? <p>TODO</p> : null}
       </ErrorBoundary>
 

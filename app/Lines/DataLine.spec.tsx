@@ -1,4 +1,4 @@
-import { parseData } from "./DataLineAlternative";
+import { parseData } from "./DataLine";
 
 describe("parseData", () => {
   it("handles a string", () => {
