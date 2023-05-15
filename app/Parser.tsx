@@ -52,8 +52,8 @@ export function Parser() {
   const [payload, setPayload] = useState(default2);
 
   return (
-    <div className="flex flex-col gap-6">
-      <form className="flex flex-col gap-2">
+    <div className="flex flex-col gap-6 items-center">
+      <form className="flex flex-col gap-2 px-24 max-w-5xl w-full">
         <label htmlFor="paylod" className="font-medium">
           Payload
         </label>
@@ -68,12 +68,7 @@ export function Parser() {
           }}
         />
       </form>
-      <div className="flex flex-col gap-2 min-h-[calc(100vh-120px)]">
-        <div className="flex flex-row justify-between">
-          <h2 className="font-medium">Result</h2>
-          <p>Total size: {stringToKilobytes(payload)} KB</p>
-        </div>
-
+      <div className="flex flex-col gap-2 min-h-[calc(100vh-120px)] items-center w-full">
         <ErrorBoundary FallbackComponent={GenericFallback} key={payload}>
           <Tabs payload={payload} />
         </ErrorBoundary>
@@ -94,32 +89,38 @@ function Tabs({ payload }: { payload: string }) {
     <TabContext.Provider value={tab}>
       <Ariakit.TabList
         store={tab}
-        className="flex flex-row gap-2 flex-wrap"
+        className="sticky py-2 bg-white w-full top-0 flex flex-col gap-2 max-w-7xl justify-center px-12"
         aria-label="Lines"
       >
-        {payloadToLines(payload).map((line) => (
-          <Tab id={line} key={line}>
-            <LineContext.Provider value={line}>
-              <ErrorBoundary FallbackComponent={TabFallback} key={line}>
-                <TabContent payloadSize={payloadSize} line={line} />
-              </ErrorBoundary>
-            </LineContext.Provider>
-          </Tab>
-        ))}
+        <div className="flex flex-row gap-2 flex-wrap">
+          {payloadToLines(payload).map((line) => (
+            <Tab id={line} key={line}>
+              <LineContext.Provider value={line}>
+                <ErrorBoundary FallbackComponent={TabFallback} key={line}>
+                  <TabContent payloadSize={payloadSize} line={line} />
+                </ErrorBoundary>
+              </LineContext.Provider>
+            </Tab>
+          ))}
+        </div>
+
+        <div>Total size: {stringToKilobytes(payload)} KB</div>
       </Ariakit.TabList>
 
-      {payloadToLines(payload).map((line) => (
-        <TabContext.Provider value={tab} key={line}>
-          <TabPanel id={line}>
-            <ErrorBoundary
-              FallbackComponent={GenericFallback}
-              key={`tab${line}`}
-            >
-              <TabPanelContent line={line} />
-            </ErrorBoundary>
-          </TabPanel>
-        </TabContext.Provider>
-      ))}
+      <div className="bg-slate-100 w-screen px-12 py-4 rounded-3xl max-w-7xl">
+        {payloadToLines(payload).map((line) => (
+          <TabContext.Provider value={tab} key={line}>
+            <TabPanel id={line}>
+              <ErrorBoundary
+                FallbackComponent={GenericFallback}
+                key={`tab${line}`}
+              >
+                <TabPanelContent line={line} />
+              </ErrorBoundary>
+            </TabPanel>
+          </TabContext.Provider>
+        ))}
+      </div>
     </TabContext.Provider>
   );
 }
@@ -127,7 +128,7 @@ function Tabs({ payload }: { payload: string }) {
 function Tab({ id, children }: { id: string; children: ReactNode }) {
   return (
     <Ariakit.Tab
-      className="bg-slate-200 rounded-xl px-3 py-2 group aria-selected:bg-blue-600 aria-selected:text-white aria-selected:font-semibold"
+      className="bg-slate-200 rounded-xl px-3 py-2 group aria-selected:bg-blue-600 aria-selected:text-white"
       id={id}
     >
       {children}
@@ -188,10 +189,7 @@ function TabPanelContent({ line }: { line: string }) {
   const refinedType = refineLineType(type);
 
   return (
-    <div
-      className="bg-slate-200 rounded-lg p-3 flex flex-col gap-3"
-      key={signifier}
-    >
+    <div className="flex flex-col gap-3" key={signifier}>
       <div className="flex flex-col gap-1">
         <h3 className="font-bold text-xl inline-block rounded-full">
           $L{signifier}
