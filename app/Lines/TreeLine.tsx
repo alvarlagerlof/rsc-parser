@@ -230,10 +230,6 @@ function Props({ treeItem }: { treeItem: TreeComponent }) {
     ? removeChildren(treeItem.value.props)
     : treeItem.value.props;
 
-  // if (Object.keys(props).length === 0 && !("children" in props)) {
-  //   return null;
-  // }
-
   const formattedJSON = JSON.stringify(props, null, 2);
 
   return (
