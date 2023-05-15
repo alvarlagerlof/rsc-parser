@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { createContext, useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
 import { TabContext, stringToKilobytes } from "../Parser";
+import { object } from "zod";
 
 interface TreeOther {
   type: "OTHER";
@@ -130,116 +131,146 @@ export default function DataLineAlternative({ data }: { data: string }) {
   );
 }
 
+export const BackgroundColorLightnessContext = createContext<number>(290);
+
 function Node({ treeItem }: { treeItem: TreeItem }) {
-  if (treeItem.type === "ARRAY") {
-    return (
-      <div className="flex flex-col gap-1">
-        <div className="bg-green-300">ARRAY</div>
-        <div className="pl-4 flex flex-col gap-1">
-          {treeItem.value.map((item) => (
-            <Node key={JSON.stringify(item.value)} treeItem={item} />
-          ))}
+  const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
+
+  switch (treeItem.type) {
+    case "ARRAY":
+      return (
+        <details
+          className="flex flex-col space-y-1 rounded-md px-2 py-px"
+          style={{
+            //  `hsl(200, 100%, ${backgroundColorLightness}%)`,
+            backgroundColor: `hsl(${backgroundColorLightness}, 100%, 90%)`,
+          }}
+          open={treeItem.value.length !== 0}
+        >
+          <summary className="hover:bg-black hover:text-white px-2 py-px rounded-md transition-all duration-100 cursor-pointer">
+            [] ({treeItem.value.length}{" "}
+            {treeItem.value.length === 1 ? "item" : "items"})
+          </summary>
+          <div className="pl-4 flex flex-col space-y-1">
+            {treeItem.value.length > 0
+              ? treeItem.value.map((item) => (
+                  <BackgroundColorLightnessContext.Provider
+                    key={JSON.stringify(item.value)}
+                    value={backgroundColorLightness - 30}
+                  >
+                    <Node treeItem={item} />
+                  </BackgroundColorLightnessContext.Provider>
+                ))
+              : "No items."}
+          </div>
+        </details>
+      );
+
+    case "OTHER":
+      return (
+        <p className="px-2 py-px rounded-md transition-all duration-100 font-semibold">
+          {JSON.stringify(treeItem.value)}
+        </p>
+      );
+
+    case "COMPONENT":
+      return (
+        <div
+          className="flex flex-col space-y-1 rounded-md px-2 py-px"
+          style={{
+            // backgroundColor: `hsl(200, 100%, ${backgroundColorLightness}%)`,
+            backgroundColor: `hsl(${backgroundColorLightness}, 100%, 90%)`,
+          }}
+        >
+          <Header treeItem={treeItem} />
+          <Props treeItem={treeItem} />
         </div>
-      </div>
-    );
+      );
   }
-
-  return (
-    <div className="bg-green-300 flex flex-col gap-1">
-      <Header treeItem={treeItem} />
-
-      <Props treeItem={treeItem} />
-    </div>
-  );
 }
 
-function Header({ treeItem }: { treeItem: TreeItem }) {
+function Header({ treeItem }: { treeItem: TreeComponent }) {
   const tab = useContext(TabContext);
 
   return (
     <div className="flex flex-row gap-4">
-      <span className="font-semibold text-lg">{treeItem.type}</span>
+      <span className="whitespace-nowrap flex flex-row gap-4 items-center">
+        <span className="font-semibold">{String(treeItem.value.tag)}</span>
+        {String(treeItem.value.tag).startsWith("$L") ? (
+          <button
+            className="underline p-0"
+            onClick={() => {
+              tab?.select("line");
 
-      {treeItem.value instanceof Object && "tag" in treeItem.value ? (
-        <>
-          <span className="whitespace-nowrap flex flex-row gap-4 items-center">
-            {String(treeItem.value.tag)}
-            {String(treeItem.value.tag).startsWith("$L") ? (
-              <button
-                className="underline p-0"
-                onClick={() => {
-                  tab?.select("line");
+              if (
+                treeItem.value instanceof Object &&
+                treeItem.value &&
+                "tag" in treeItem.value &&
+                tab !== undefined &&
+                tab !== null
+              ) {
+                const signifier = String(treeItem.value.tag).replace("$L", "");
 
-                  if (
-                    treeItem.value instanceof Object &&
-                    treeItem.value &&
-                    "tag" in treeItem.value &&
-                    tab !== undefined &&
-                    tab !== null
-                  ) {
-                    const signifier = String(treeItem.value.tag).replace(
-                      "$L",
-                      ""
-                    );
+                const id = tab
+                  .getState()
+                  .items?.find((item) => item.id.startsWith(signifier))?.id;
 
-                    const id = tab
-                      .getState()
-                      .items?.find((item) => item.id.startsWith(signifier))?.id;
-
-                    tab.setSelectedId(id);
-                  }
-                }}
-              >
-                Ref to: &quot;
-                {String(treeItem.value.tag).replace("$L", "")}
-                &quot;
-              </button>
-            ) : null}
-          </span>
-        </>
-      ) : null}
+                tab.setSelectedId(id);
+              }
+            }}
+          >
+            Ref to: &quot;
+            {String(treeItem.value.tag).replace("$L", "")}
+            &quot;
+          </button>
+        ) : null}
+      </span>
     </div>
   );
 }
 
-function Props({ treeItem }: { treeItem: TreeItem }) {
-  if (
-    treeItem.value instanceof Object &&
-    "props" in treeItem.value &&
-    treeItem.value.props instanceof Object
-  ) {
-    const props = isPropsWithChildren(treeItem.value.props)
-      ? JSON.stringify(removeChildren(treeItem.value.props), null, 2)
-      : JSON.stringify(treeItem.value.props, null, 2);
+function Props({ treeItem }: { treeItem: TreeComponent }) {
+  const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
 
-    return (
-      <>
-        <span>
-          Props:{" "}
-          {props.length > 300 ? (
-            <details>
-              <summary className="cursor-pointer">
-                Expand props ({stringToKilobytes(props)} KB)
-              </summary>
-              <pre className="break-all whitespace-break-spaces">{props}</pre>
-            </details>
-          ) : (
-            <pre className="break-all whitespace-break-spaces">{props}</pre>
-          )}
-        </span>
+  const props = isPropsWithChildren(treeItem.value.props)
+    ? JSON.stringify(removeChildren(treeItem.value.props), null, 2)
+    : JSON.stringify(treeItem.value.props, null, 2);
 
-        {"children" in treeItem.value.props &&
-        isTreeItem(treeItem.value.props.children) ? (
-          <div>
-            Children:{" "}
-            <div className="pl-4 py-2 bg-blue-300">
-              <Node treeItem={treeItem.value.props.children} />
-            </div>
-          </div>
-        ) : null}
-      </>
-    );
+  if (props === "{}") {
+    return null;
   }
 
-  return <span>Raw: {JSON.stringify(treeItem.value)}</span>;
+  return (
+    <>
+      <span>
+        <details
+          open={props.length < 300}
+          className="flex flex-col space-y-1 rounded-md px-2 py-px"
+          style={{
+            // backgroundColor: `hsl(200, 100%, ${backgroundColorLightness}%)`,
+            backgroundColor: `hsl(${backgroundColorLightness - 30}, 100%, 90%)`,
+          }}
+        >
+          <summary className="hover:bg-black hover:text-white px-2 py-px rounded-md transition-all duration-100 cursor-pointer">
+            Props ({stringToKilobytes(props)} KB)
+          </summary>
+          <pre className="break-all whitespace-break-spaces">{props}</pre>
+        </details>
+      </span>
+
+      {"children" in treeItem.value.props &&
+      isTreeItem(treeItem.value.props.children) ? (
+        <div>
+          <pre>children: </pre>
+          <div className="pl-4 py-1">
+            <BackgroundColorLightnessContext.Provider
+              value={backgroundColorLightness - 30}
+            >
+              <Node treeItem={treeItem.value.props.children} />
+            </BackgroundColorLightnessContext.Provider>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
 }
