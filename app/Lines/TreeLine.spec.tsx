@@ -1,4 +1,4 @@
-import { parseData } from "./DataLine";
+import { parseData } from "./TreeLine";
 
 describe("parseData", () => {
   it("handles a string", () => {

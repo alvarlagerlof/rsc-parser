@@ -11,7 +11,6 @@ const schema = z
 
 export function ImportLine({ data }: { data: string }) {
   const json = JSON.parse(data);
-
   const parsed = schema.parse(json);
 
   return (

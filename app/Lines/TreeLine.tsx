@@ -118,7 +118,7 @@ function removeChildren(myObj: Record<string, unknown>) {
     }, {});
 }
 
-export function DataLine({ data }: { data: string }) {
+export function TreeLine({ data }: { data: string }) {
   const json = JSON.parse(data);
   const parsed = parseData(json);
 

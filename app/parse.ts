@@ -113,7 +113,7 @@ export function parse(tokens: ReturnType<typeof lexer>) {
 export function refineLineType(rawType: string | undefined) {
   switch (rawType) {
     case "": {
-      return "data";
+      return "tree";
     }
     case "I": {
       return "import";
