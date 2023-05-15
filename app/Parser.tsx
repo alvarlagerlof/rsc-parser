@@ -23,8 +23,7 @@ b:I{"id":"25548","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:sta
 9:[["$","$Lb","9b1d7e4d-d418-46ff-a539-9fab5bc4ab7b",{"post":{"_id":"9b1d7e4d-d418-46ff-a539-9fab5bc4ab7b","slug":{"current":"skeleton-loading-with-suspense-in-next-js-13","_type":"slug"},"title":"Skeleton Loading with Suspense in Next.js 13","description":"My strategy for handling skeleton loading with Suspense.","date":{"published":"2022-12-29","updated":"2022-12-29"}}}],["$","$Lb","7cdcfec7-d8c4-40f7-9b71-cc323c2e8136",{"post":{"title":"TailwindCSS with @next/font","description":"Here's how to integrate the new @next/font in Next.js 13 with TailwindCSS.","date":{"published":"2022-10-30","updated":"2022-10-30"},"_id":"7cdcfec7-d8c4-40f7-9b71-cc323c2e8136","slug":{"current":"tailwindcss-with-next-font","_type":"slug"}}}],["$","$Lb","eb686ea0-cdd4-48eb-89d0-0876e5a39e01",{"post":{"_id":"eb686ea0-cdd4-48eb-89d0-0876e5a39e01","slug":{"current":"thoughts-on-photography-tools","_type":"slug"},"title":"Thoughts on Photography Tools","description":"The tool I'm looking for doesn't seem to exist","date":{"published":"2022-07-15","updated":null}}}],["$","$Lb","a32c3dcf-6a61-42dd-ab7a-c36fa21016ac",{"post":{"_id":"a32c3dcf-6a61-42dd-ab7a-c36fa21016ac","slug":{"_type":"slug","current":"always-add-name-to-type-radio"},"title":"Always add \\"name to type=\\"radio\\"","description":"Otherwise, you'll think your tab keys hate you","date":{"published":"2022-04-06","updated":null}}}]]
 `;
 
-const default2 = `0:[["children","(main)","children","projects",["projects",{"children":["__PAGE__",{}]}],"$L1",[[],["$L2",["$","meta",null,{"name":"next-size-adjust"}]]]]]
-3:I{"id":"99544","chunks":["2272:static/chunks/webpack-94cc1dba14bcf441.js","2667:static/chunks/2443530c-619ccbdd52b612bb.js","8139:static/chunks/8139-4d892cfec882a0f8.js"],"name":"","async":false}
+const default2 = `3:I{"id":"99544","chunks":["2272:static/chunks/webpack-94cc1dba14bcf441.js","2667:static/chunks/2443530c-619ccbdd52b612bb.js","8139:static/chunks/8139-4d892cfec882a0f8.js"],"name":"","async":false}
 4:I{"id":"10099","chunks":["2272:static/chunks/webpack-94cc1dba14bcf441.js","2667:static/chunks/2443530c-619ccbdd52b612bb.js","8139:static/chunks/8139-4d892cfec882a0f8.js"],"name":"","async":false}
 5:I{"id":"90414","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","3517:static/chunks/app/(main)/blog/page-e34a27ef633cfac9.js"],"name":"","async":false}
 1:["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","(main)","children","projects","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L4",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":[["$","div",null,{"className":"inflate-y-8 md:inflate-y-14 divide-y-2 divide-separator divide-solid","children":[["$","header",null,{"children":[["$","h1",null,{"className":"font-heading text-4xl md:text-7xl mb-4","children":"Projects"}],["$","h2",null,{"className":"font-subheading text-xl md:text-2xl","children":["You can also find all my repos on"," ",["$","$L5",null,{"href":"https://github.com/alvarlagerlof/","target":"_blank","rel":"noreferrer","className":"text-primary font-semibold no-underline hover:underline","children":["GitHub"," â†’"]}]]}]]}],["$","section",null,{"children":"$L6"}]]}],null],"segment":"__PAGE__"},"styles":[]}]
@@ -49,7 +48,7 @@ function payloadToLines(payload: string) {
 }
 
 export function Parser() {
-  const [payload, setPayload] = useState(default2);
+  const [payload, setPayload] = useState(defaultPayload);
 
   return (
     <div className="flex flex-col gap-6 items-center">
