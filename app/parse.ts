@@ -119,7 +119,7 @@ export function refineLineType(rawType: string | undefined) {
       return "import";
     }
     case "HL": {
-      return "css";
+      return "asset";
     }
     default: {
       return "unknown";

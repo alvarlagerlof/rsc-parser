@@ -225,6 +225,7 @@ function TabPanelContent({
       <ErrorBoundary FallbackComponent={GenericFallback} key={`render${data}`}>
         {refinedType === "import" ? <ImportLine data={data} /> : null}
         {refinedType === "data" ? <DataLineAlternative data={data} /> : null}
+        {refinedType === "asset" ? <p>TODO</p> : null}
       </ErrorBoundary>
 
       <div className="bg-slate-300 h-0.5 w-full" />
