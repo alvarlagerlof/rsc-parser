@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
-import { TabContext } from "../Parser";
+import { TabContext, stringToKilobytes } from "../Parser";
 
 interface TreeOther {
   type: "OTHER";
@@ -208,15 +208,24 @@ function Props({ treeItem }: { treeItem: TreeItem }) {
     "props" in treeItem.value &&
     treeItem.value.props instanceof Object
   ) {
+    const props = isPropsWithChildren(treeItem.value.props)
+      ? JSON.stringify(removeChildren(treeItem.value.props), null, 2)
+      : JSON.stringify(treeItem.value.props, null, 2);
+
     return (
       <>
         <span>
           Props:{" "}
-          <pre className="break-all whitespace-break-spaces">
-            {isPropsWithChildren(treeItem.value.props)
-              ? JSON.stringify(removeChildren(treeItem.value.props), null, 2)
-              : JSON.stringify(treeItem.value.props, null, 2)}
-          </pre>
+          {props.length > 300 ? (
+            <details>
+              <summary className="cursor-pointer">
+                Expand props ({stringToKilobytes(props)} KB)
+              </summary>
+              <pre className="break-all whitespace-break-spaces">{props}</pre>
+            </details>
+          ) : (
+            <pre className="break-all whitespace-break-spaces">{props}</pre>
+          )}
         </span>
 
         {"children" in treeItem.value.props &&
