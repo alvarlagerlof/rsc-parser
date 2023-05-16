@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Parser } from "./Parser";
+
+export const metadata: Metadata = {
+  title: "RSC Parser",
+};
 
 export default function Home() {
   return (
