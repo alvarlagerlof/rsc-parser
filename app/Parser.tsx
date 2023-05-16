@@ -258,7 +258,7 @@ function Details({
     <details className="bg-slate-200 rounded-lg p-3">
       <summary className="cursor-pointer">{summary}</summary>
       <div className="pt-4">
-        <pre className="whitespace-normal break-all">{children}</pre>
+        <pre className="whitespace-normal break-all text-sm">{children}</pre>
       </div>
     </details>
   );

@@ -249,7 +249,7 @@ function Props({ treeItem }: { treeItem: TreeComponent }) {
             <summary className="hover:bg-black hover:text-white px-2 py-px rounded-md transition-all duration-100 cursor-pointer">
               Props ({stringToKilobytes(formattedJSON)} KB)
             </summary>
-            <pre className="break-all whitespace-break-spaces">
+            <pre className="break-all whitespace-break-spaces text-sm">
               {formattedJSON}
             </pre>
           </details>
@@ -259,7 +259,7 @@ function Props({ treeItem }: { treeItem: TreeComponent }) {
       {"children" in treeItem.value.props &&
       isTreeItem(treeItem.value.props.children) ? (
         <div>
-          <pre>children: </pre>
+          <pre className="text-sm">children: </pre>
           <div className="pl-2 md:pl-4 py-1">
             <BackgroundColorLightnessContext.Provider
               value={backgroundColorLightness - 30}
