@@ -50,8 +50,8 @@ export function Parser() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 items-center">
-      <form className="flex flex-col gap-2 px-24 max-w-5xl w-full">
+    <div className="flex flex-col gap-6 items-center max-w-full">
+      <form className="flex flex-col gap-2 px-4 max-w-5xl w-full">
         <label htmlFor="paylod" className="font-medium">
           Payload
         </label>
@@ -68,7 +68,7 @@ export function Parser() {
           spellCheck="false"
         />
       </form>
-      <div className="flex flex-col gap-2 min-h-[calc(100vh-120px)] items-center w-full">
+      <div className="w-full min-h-[calc(100vh-120px)] max-w-full">
         <ErrorBoundary FallbackComponent={GenericFallback} key={payload}>
           <Tabs payload={payload} />
         </ErrorBoundary>
@@ -88,10 +88,10 @@ function Tabs({ payload }: { payload: string }) {
     <TabContext.Provider value={tab}>
       <Ariakit.TabList
         store={tab}
-        className="sticky py-2 bg-white w-full top-0 flex flex-col gap-2 max-w-7xl justify-center px-12 z-10"
+        className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2 sticky bg-white top-0 z-10"
         aria-label="Lines"
       >
-        <div className="flex flex-row gap-2 flex-wrap">
+        <div className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full">
           {payloadToLines(payload).map((line) => (
             <Tab id={line} key={line}>
               <LineContext.Provider value={line}>
@@ -106,7 +106,7 @@ function Tabs({ payload }: { payload: string }) {
         <div>Total size: {stringToKilobytes(payload)} KB</div>
       </Ariakit.TabList>
 
-      <div className="bg-slate-100 w-screen px-12 py-4 rounded-3xl max-w-7xl">
+      <div className="bg-slate-100 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl">
         {payload === "" ? <p>Please enter a payload to see results.</p> : null}
 
         {payloadToLines(payload).map((line) => (

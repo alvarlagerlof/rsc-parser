@@ -134,7 +134,7 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
     case "ARRAY":
       return (
         <details
-          className="flex flex-col space-y-1 rounded-md px-2 py-px"
+          className="flex flex-col space-y-1 rounded-md md:px-2 py-px"
           style={{
             //  `hsl(200, 100%, ${backgroundColorLightness}%)`,
             backgroundColor: `hsl(${backgroundColorLightness}, 100%, 90%)`,
@@ -145,7 +145,7 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
             [] ({treeItem.value.length}{" "}
             {treeItem.value.length === 1 ? "item" : "items"})
           </summary>
-          <div className="pl-4 flex flex-col space-y-1">
+          <div className="pl-2 md:pl-4 flex flex-col space-y-1">
             {treeItem.value.length > 0
               ? treeItem.value.map((item) => (
                   <BackgroundColorLightnessContext.Provider
@@ -260,7 +260,7 @@ function Props({ treeItem }: { treeItem: TreeComponent }) {
       isTreeItem(treeItem.value.props.children) ? (
         <div>
           <pre>children: </pre>
-          <div className="pl-4 py-1">
+          <div className="pl-2 md:pl-4 py-1">
             <BackgroundColorLightnessContext.Provider
               value={backgroundColorLightness - 30}
             >
