@@ -16,3 +16,24 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## What even is this?
 WIP
+
+## RSC?
+Indeed
+
+## How?
+https://twitter.com/alvarlagerlof/status/1658554452264067077
+
+## It's slow
+Didn't make it fast yet.
+
+## But this is just one giant client component?
+Yeah, the app router works for so-called SPAs too.
+
+## I don't really understand the code
+You're not alone.
+
+## It crashed
+https://github.com/alvarlagerlof/rsc-parser/issues/new
+
+## Why?
+Yes.
