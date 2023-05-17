@@ -5,7 +5,7 @@ This is a parser for React Server Components (RSC) when sent over the network. R
 I made this tool to more easily let you understand the data and explore it visually.
 
 
-# How do I use this?
+## How do I use this?
 
 1. Go to a site that uses the NextJS App router or generally is based on React Server components.
 2. Open the network tab in your dev tools
