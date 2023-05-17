@@ -4,6 +4,13 @@ This is a parser for React Server Components (RSC) when sent over the network. R
 
 I made this tool to more easily let you understand the data and explore it visually.
 
+With this tool:
+
+<img width="739" alt="image" src="https://github.com/alvarlagerlof/rsc-parser/assets/14835120/34ab2a44-2acb-459b-97c1-d0a933fdf234">
+
+Without this tool:
+
+<img width="427" alt="image" src="https://github.com/alvarlagerlof/rsc-parser/assets/14835120/1c60f150-1b17-407f-a1b3-1130f212563f">
 
 ## How do I use this?
 
