@@ -136,7 +136,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   }
 
   return (
-    <ul className="flex flex-col gap-2 my-2">
+    <ul className="flex flex-col gap-2 my-2 w-full">
       {values.map((subValue, i) => {
         const refinedSubNode = refineRawTreeNode(subValue);
 
@@ -267,7 +267,7 @@ function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
 
   return (
     <details
-      className="flex flex-col gap-1"
+      className="flex flex-col gap-1 w-full"
       open={isOpen}
       onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
         event.stopPropagation();
