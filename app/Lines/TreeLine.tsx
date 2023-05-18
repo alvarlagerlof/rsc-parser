@@ -3,94 +3,98 @@ import { JsonObject, JsonValue } from "type-fest";
 import { PayloadContext, TabContext, stringToKilobytes } from "../Parser";
 import { lexer, parse, splitToCleanLines } from "../parse";
 
-interface TreeOther {
-  type: "OTHER";
+export const TYPE_OTHER = "TYPE_OTHER";
+export const TYPE_COMPONENT = "TYPE_COMPONENT";
+export const TYPE_ARRAY = "TYPE_ARRAY";
+
+interface NodeOther {
+  type: typeof TYPE_OTHER;
   value: string | number | boolean | JsonObject | null;
 }
 
 type Props = {
-  [x: string]: JsonValue | TreeItem;
+  [x: string]: JsonValue | Node;
 } & {
-  [x: string]: JsonValue | undefined | TreeItem;
+  [x: string]: JsonValue | undefined | Node;
 };
 
-interface TreeComponent {
-  type: "COMPONENT";
+interface NodeComponent {
+  type: typeof TYPE_COMPONENT;
   value: {
     tag: string;
     props: Props;
   };
 }
 
-type TreeItem = TreeOther | TreeComponent | TreeArray;
-
-interface TreeArray {
-  type: "ARRAY";
-  value: TreeItem[];
+interface NodeArray {
+  type: typeof TYPE_ARRAY;
+  value: Node[];
 }
 
-export function refineRawTreeNode(rawNode: JsonValue) {
-  if (!Array.isArray(rawNode) && !(rawNode instanceof Array)) {
-    return { type: "OTHER" satisfies TreeItem["type"], node: rawNode } as const;
-  }
+type Node = NodeOther | NodeComponent | NodeArray;
 
-  if (
-    rawNode.length === 4 &&
-    rawNode[0] === "$" &&
-    typeof rawNode[1] === "string" &&
-    typeof rawNode[3] === "object" &&
-    rawNode[3] !== null &&
-    !(rawNode[3] instanceof Array)
-  ) {
-    // eg. ["$","ul",null,{}]
-    const returnNode = [
-      rawNode[0],
-      rawNode[1],
-      rawNode[2],
-      rawNode[3],
-    ] as const;
+export function refineRawTreeNode(value: JsonValue) {
+  if (!Array.isArray(value) && !(value instanceof Array)) {
     return {
-      type: "COMPONENT" satisfies TreeItem["type"],
-      node: returnNode,
+      type: TYPE_OTHER satisfies Node["type"],
+      value: value,
     } as const;
   }
 
-  return { type: "ARRAY" satisfies TreeItem["type"], node: rawNode } as const;
+  if (
+    value.length === 4 &&
+    value[0] === "$" &&
+    typeof value[1] === "string" &&
+    typeof value[3] === "object" &&
+    value[3] !== null &&
+    !(value[3] instanceof Array)
+  ) {
+    // eg. ["$","ul",null,{}]
+    return {
+      type: TYPE_COMPONENT satisfies Node["type"],
+      value: [value[0], value[1], value[2], value[3]] as const,
+    } as const;
+  }
+
+  return {
+    type: TYPE_ARRAY satisfies Node["type"],
+    value: value,
+  } as const;
 }
 
-export function parseRawNode(rawNode: JsonValue): TreeItem {
+export function parseRawNode(rawNode: JsonValue): Node {
   const treeType = refineRawTreeNode(rawNode);
 
   switch (treeType.type) {
-    case "OTHER":
+    case TYPE_OTHER:
       return {
-        type: "OTHER",
-        value: treeType.node,
-      } satisfies TreeOther;
-    case "ARRAY":
+        type: TYPE_OTHER,
+        value: treeType.value,
+      } satisfies NodeOther;
+    case TYPE_ARRAY:
       return {
-        type: "ARRAY",
-        value: treeType.node.map((item) => {
+        type: TYPE_ARRAY,
+        value: treeType.value.map((item) => {
           if (!Array.isArray(item) && !(item instanceof Array)) {
             return {
-              type: "OTHER",
+              type: TYPE_OTHER,
               value: item,
-            } satisfies TreeOther;
+            } satisfies NodeOther;
           }
 
           const parseTest = parseRawNode(item);
 
           return parseTest;
         }),
-      } satisfies TreeArray;
-    case "COMPONENT": {
+      } satisfies NodeArray;
+    case TYPE_COMPONENT: {
       const base = {
-        type: "COMPONENT",
+        type: TYPE_COMPONENT,
         value: {
-          tag: treeType.node[1],
-          props: treeType.node[3] satisfies Props,
+          tag: treeType.value[1],
+          props: treeType.value[3] satisfies Props,
         },
-      } satisfies TreeComponent;
+      } satisfies NodeComponent;
 
       if ("children" in base.value.props) {
         return {
@@ -99,13 +103,13 @@ export function parseRawNode(rawNode: JsonValue): TreeItem {
             ...base.value,
             props: {
               ...base.value.props,
-              children: parseRawNode(treeType.node[3].children),
+              children: parseRawNode(treeType.value[3].children),
             } satisfies Props,
           },
-        } satisfies TreeComponent;
+        } satisfies NodeComponent;
       }
 
-      return base satisfies TreeComponent;
+      return base satisfies NodeComponent;
     }
   }
 }
@@ -116,7 +120,7 @@ function isPropsWithChildren(props: unknown): props is Record<string, unknown> {
   );
 }
 
-function isTreeItem(item: Props[keyof Props]): item is TreeItem {
+function isTreeItem(item: Props[keyof Props]): item is Node {
   return (
     typeof item === "object" &&
     item instanceof Object &&
@@ -143,24 +147,24 @@ export function TreeLine({ data }: { data: string }) {
 
 export const BackgroundColorLightnessContext = createContext<number>(290);
 
-function Node({ treeItem }: { treeItem: TreeItem }) {
+function Node({ treeItem }: { treeItem: Node }) {
   const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
 
   switch (treeItem.type) {
-    case "ARRAY": {
+    case TYPE_ARRAY: {
       if (treeItem.value.length == 0) {
         return <>No items</>;
       }
 
       return (
         <ul className="flex flex-col gap-4">
-          {treeItem.value.map((item) => (
+          {treeItem.value.map((subTreeItem) => (
             <BackgroundColorLightnessContext.Provider
-              key={JSON.stringify(item.value)}
+              key={JSON.stringify(subTreeItem.value)}
               value={backgroundColorLightness - 30}
             >
               <li>
-                <Node treeItem={item} />
+                <Node treeItem={subTreeItem} />
               </li>
             </BackgroundColorLightnessContext.Provider>
           ))}
@@ -168,10 +172,10 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
       );
     }
 
-    case "OTHER":
+    case TYPE_OTHER:
       return <p className="font-semibold">{JSON.stringify(treeItem.value)}</p>;
 
-    case "COMPONENT":
+    case TYPE_COMPONENT:
       return (
         <div
           className="flex flex-col space-y-1 rounded-md items-start w-full"
@@ -207,11 +211,11 @@ function Expandable({
   );
 }
 
-function ComponentHeader({ treeItem }: { treeItem: TreeComponent }) {
+function ComponentHeader({ treeItem }: { treeItem: NodeComponent }) {
   return <span className="font-bold">{String(treeItem.value.tag)}</span>;
 }
 
-function ComponentImportReference({ treeItem }: { treeItem: TreeComponent }) {
+function ComponentImportReference({ treeItem }: { treeItem: NodeComponent }) {
   const tab = useContext(TabContext);
   if (tab === undefined) {
     throw new Error("TabContext must be used within a TabContext.Provder");
@@ -264,7 +268,7 @@ function ComponentImportReference({ treeItem }: { treeItem: TreeComponent }) {
   return null;
 }
 
-function ComponentProps({ treeItem }: { treeItem: TreeComponent }) {
+function ComponentProps({ treeItem }: { treeItem: NodeComponent }) {
   const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
 
   const props = isPropsWithChildren(treeItem.value.props)

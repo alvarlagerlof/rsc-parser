@@ -1,28 +1,37 @@
 import { JsonValue } from "type-fest";
-import { refineRawTreeNode, parseRawNode } from "./TreeLine";
+import {
+  refineRawTreeNode,
+  parseRawNode,
+  TYPE_OTHER,
+  TYPE_COMPONENT,
+  TYPE_ARRAY,
+} from "./TreeLine";
 
 describe("parseRawNode", () => {
   it("handles a string", () => {
     const parsed = parseRawNode("$Sreact.suspense");
 
-    expect(parsed).toStrictEqual({ type: "OTHER", value: "$Sreact.suspense" });
+    expect(parsed).toStrictEqual({
+      type: TYPE_OTHER,
+      value: "$Sreact.suspense",
+    });
   });
 
   it("handles a null", () => {
     const parsed = parseRawNode(null);
 
-    expect(parsed).toStrictEqual({ type: "OTHER", value: null });
+    expect(parsed).toStrictEqual({ type: TYPE_OTHER, value: null });
   });
 
   it("handles an array of null", () => {
     const parsed = parseRawNode([null, null, null]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
-        { type: "OTHER", value: null },
-        { type: "OTHER", value: null },
-        { type: "OTHER", value: null },
+        { type: TYPE_OTHER, value: null },
+        { type: TYPE_OTHER, value: null },
+        { type: TYPE_OTHER, value: null },
       ],
     });
   });
@@ -31,12 +40,12 @@ describe("parseRawNode", () => {
     const parsed = parseRawNode(["children", "(main)", "children", "__PAGE__"]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
-        { type: "OTHER", value: "children" },
-        { type: "OTHER", value: "(main)" },
-        { type: "OTHER", value: "children" },
-        { type: "OTHER", value: "__PAGE__" },
+        { type: TYPE_OTHER, value: "children" },
+        { type: TYPE_OTHER, value: "(main)" },
+        { type: TYPE_OTHER, value: "children" },
+        { type: TYPE_OTHER, value: "__PAGE__" },
       ],
     });
   });
@@ -45,20 +54,20 @@ describe("parseRawNode", () => {
     const parsed = parseRawNode([null, null, null, [null, [null, null]]]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
-        { type: "OTHER", value: null },
-        { type: "OTHER", value: null },
-        { type: "OTHER", value: null },
+        { type: TYPE_OTHER, value: null },
+        { type: TYPE_OTHER, value: null },
+        { type: TYPE_OTHER, value: null },
         {
-          type: "ARRAY",
+          type: TYPE_ARRAY,
           value: [
-            { type: "OTHER", value: null },
+            { type: TYPE_OTHER, value: null },
             {
-              type: "ARRAY",
+              type: TYPE_ARRAY,
               value: [
-                { type: "OTHER", value: null },
-                { type: "OTHER", value: null },
+                { type: TYPE_OTHER, value: null },
+                { type: TYPE_OTHER, value: null },
               ],
             },
           ],
@@ -71,10 +80,10 @@ describe("parseRawNode", () => {
     const parsed = parseRawNode([["$", "ul", null, {}]]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
         {
-          type: "COMPONENT",
+          type: TYPE_COMPONENT,
           value: {
             tag: "ul",
             props: {},
@@ -88,10 +97,10 @@ describe("parseRawNode", () => {
     const parsed = parseRawNode([["$", "ul", null, { className: "p-4" }]]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
         {
-          type: "COMPONENT",
+          type: TYPE_COMPONENT,
           value: {
             tag: "ul",
             props: { className: "p-4" },
@@ -111,32 +120,32 @@ describe("parseRawNode", () => {
     ]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
         {
-          type: "OTHER",
+          type: TYPE_OTHER,
           value: null,
         },
         {
-          type: "OTHER",
+          type: TYPE_OTHER,
           value: null,
         },
         {
-          type: "COMPONENT",
+          type: TYPE_COMPONENT,
           value: {
             tag: "ul",
             props: {},
           },
         },
         {
-          type: "COMPONENT",
+          type: TYPE_COMPONENT,
           value: {
             tag: "h1",
             props: { className: "text-2xl" },
           },
         },
         {
-          type: "OTHER",
+          type: TYPE_OTHER,
           value: "foobar",
         },
       ],
@@ -149,26 +158,26 @@ describe("parseRawNode", () => {
     ]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
         {
-          type: "COMPONENT",
+          type: TYPE_COMPONENT,
           value: {
             tag: "ul",
             props: {
               children: {
-                type: "ARRAY",
+                type: TYPE_ARRAY,
                 value: [
                   {
-                    type: "OTHER",
+                    type: TYPE_OTHER,
                     value: null,
                   },
                   {
-                    type: "OTHER",
+                    type: TYPE_OTHER,
                     value: null,
                   },
                   {
-                    type: "OTHER",
+                    type: TYPE_OTHER,
                     value: "foobar",
                   },
                 ],
@@ -186,18 +195,18 @@ describe("parseRawNode", () => {
     ]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
         {
-          type: "COMPONENT",
+          type: TYPE_COMPONENT,
           value: {
             tag: "ul",
             props: {
               children: {
-                type: "ARRAY",
+                type: TYPE_ARRAY,
                 value: [
                   {
-                    type: "COMPONENT",
+                    type: TYPE_COMPONENT,
                     value: {
                       tag: "ul",
                       props: {},
@@ -216,7 +225,7 @@ describe("parseRawNode", () => {
     const parsed = parseRawNode(["$", "ul", null, {}]);
 
     expect(parsed).toStrictEqual({
-      type: "COMPONENT",
+      type: TYPE_COMPONENT,
       value: {
         tag: "ul",
         props: {},
@@ -235,12 +244,12 @@ describe("parseRawNode", () => {
     ]);
 
     expect(parsed).toStrictEqual({
-      type: "COMPONENT",
+      type: TYPE_COMPONENT,
       value: {
         tag: "div",
         props: {
           children: {
-            type: "COMPONENT",
+            type: TYPE_COMPONENT,
             value: {
               tag: "div",
               props: {},
@@ -267,10 +276,10 @@ describe("parseRawNode", () => {
     ]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
         {
-          type: "COMPONENT",
+          type: TYPE_COMPONENT,
           value: {
             tag: "$La",
             props: {
@@ -311,19 +320,19 @@ describe("parseRawNode", () => {
     ]);
 
     expect(parsed).toStrictEqual({
-      type: "ARRAY",
+      type: TYPE_ARRAY,
       value: [
         {
-          type: "COMPONENT",
+          type: TYPE_COMPONENT,
           value: {
             tag: "ul",
             props: {
               className: "space-y-6 md:space-y-8",
               children: {
-                type: "ARRAY",
+                type: TYPE_ARRAY,
                 value: [
                   {
-                    type: "COMPONENT",
+                    type: TYPE_COMPONENT,
                     value: {
                       tag: "$La",
                       props: {
@@ -347,72 +356,72 @@ describe("parseRawNode", () => {
 
 describe("getTreeNode", () => {
   it("handles a null", () => {
-    const rawNode: JsonValue = null;
-    const refined = refineRawTreeNode(rawNode);
+    const rawValue: JsonValue = null;
+    const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe("OTHER");
-    expect(refined.node).toBe(rawNode);
+    expect(refined.type).toBe(TYPE_OTHER);
+    expect(refined.value).toBe(rawValue);
   });
 
   it("handles a string", () => {
-    const rawNode: JsonValue = "test";
-    const refined = refineRawTreeNode(rawNode);
+    const rawValue: JsonValue = "test";
+    const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe("OTHER");
-    expect(refined.node).toBe(rawNode);
+    expect(refined.type).toBe(TYPE_OTHER);
+    expect(refined.value).toBe(rawValue);
   });
 
   it("handles a number", () => {
-    const rawNode: JsonValue = 10;
-    const refined = refineRawTreeNode(rawNode);
+    const rawValue: JsonValue = 10;
+    const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe("OTHER");
-    expect(refined.node).toBe(rawNode);
+    expect(refined.type).toBe(TYPE_OTHER);
+    expect(refined.value).toBe(rawValue);
   });
 
   it("handles an empty array", () => {
-    const rawNode: JsonValue = [];
-    const refined = refineRawTreeNode(rawNode);
+    const rawValue: JsonValue = [];
+    const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe("ARRAY");
-    expect(refined.node).toBe(rawNode);
+    expect(refined.type).toBe(TYPE_ARRAY);
+    expect(refined.value).toBe(rawValue);
   });
 
   it("handles an array with null", () => {
-    const rawNode: JsonValue = [null];
-    const refined = refineRawTreeNode(rawNode);
+    const rawValue: JsonValue = [null];
+    const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe("ARRAY");
-    expect(refined.node).toBe(rawNode);
+    expect(refined.type).toBe(TYPE_ARRAY);
+    expect(refined.value).toBe(rawValue);
   });
 
   it("handles an array four null", () => {
     // A length for 4 is part of the matcher for the COMPONENT
     // type, but it shoukld not trigger here because the
     // array does not start with "$"
-    const rawNode: JsonValue = [null, null, null, null];
-    const refined = refineRawTreeNode(rawNode);
+    const rawValue: JsonValue = [null, null, null, null];
+    const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe("ARRAY");
-    expect(refined.node).toBe(rawNode);
+    expect(refined.type).toBe(TYPE_ARRAY);
+    expect(refined.value).toBe(rawValue);
   });
 
   it("handles an array four null", () => {
     // A length for 4 is part of the matcher for the COMPONENT
     // type, but it shoukld not trigger here because the
     // array does not start with "$"
-    const rawNode: JsonValue = [null, null, null, null];
-    const refined = refineRawTreeNode(rawNode);
+    const rawValue: JsonValue = [null, null, null, null];
+    const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe("ARRAY");
-    expect(refined.node).toBe(rawNode);
+    expect(refined.type).toBe(TYPE_ARRAY);
+    expect(refined.value).toBe(rawValue);
   });
 
   it("handles a react component", () => {
     // A length for 4 is part of the matcher for the COMPONENT
     // type, but it shoukld not trigger here because the
     // array does not start with "$"
-    const rawNode: JsonValue = [
+    const rawValue: JsonValue = [
       "$",
       "$La",
       "36c4cb3f-3940-4d09-a711-a47abf53b566",
@@ -423,9 +432,9 @@ describe("getTreeNode", () => {
         link: "https://scoreboarder.xyz",
       },
     ];
-    const refined = refineRawTreeNode(rawNode);
+    const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe("COMPONENT");
-    expect(refined.node).toStrictEqual(rawNode);
+    expect(refined.type).toBe(TYPE_COMPONENT);
+    expect(refined.value).toStrictEqual(rawValue);
   });
 });
