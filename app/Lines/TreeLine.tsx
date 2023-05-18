@@ -294,7 +294,13 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
   );
 }
 
-function ComponentImportReference({ tag }: { tag: string }) {
+function TabJumpButton({
+  destinationTab,
+  children,
+}: {
+  destinationTab: string;
+  children: ReactNode;
+}) {
   const tab = useContext(TabContext);
   if (tab === undefined) {
     throw new Error("TabContext must be used within a TabContext.Provder");
@@ -307,37 +313,51 @@ function ComponentImportReference({ tag }: { tag: string }) {
     );
   }
 
+  return (
+    <button
+      className="text-left bg-blue-800 text-white rounded px-2 py-1"
+      onClick={() => {
+        if (destinationTab) {
+          const buttonIdentifier = destinationTab.replace("$L", "");
+
+          const lines = splitToCleanLines(payload);
+
+          for (const line of lines) {
+            const tokens = lexer(line);
+            const { identifier } = parse(tokens);
+
+            if (buttonIdentifier === identifier) {
+              tab.setTab(line);
+            }
+          }
+        }
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+function InfoBox({ children }: { children: ReactNode }) {
+  return (
+    <div className="bg-blue-200 rounded-md text-sm p-1 flex flex-row gap-2 px-2 items-center">
+      {children}
+    </div>
+  );
+}
+
+function ComponentImportReference({ tag }: { tag: string }) {
   if (tag.startsWith("$L")) {
     return (
-      <div className="bg-blue-200 rounded-md flex flex-row text-sm p-1">
-        <span className="flex flex-row gap-2 px-2 items-center">
-          <span className="text-blue-700 font-semibold">INFO</span>
-          <span>{tag} indicates an imported component</span>
-        </span>
-        <button
-          className="text-left bg-blue-800 text-white rounded px-2 py-1"
-          onClick={() => {
-            if (tag) {
-              const buttonIdentifier = tag.replace("$L", "");
-
-              const lines = splitToCleanLines(payload);
-
-              for (const line of lines) {
-                const tokens = lexer(line);
-                const { identifier } = parse(tokens);
-
-                if (buttonIdentifier === identifier) {
-                  tab.setTab(line);
-                }
-              }
-            }
-          }}
-        >
+      <InfoBox>
+        <span className="text-blue-700 font-semibold">INFO</span>
+        <span>{tag} indicates an imported component</span>
+        <TabJumpButton destinationTab={tag}>
           Go to &quot;
           {tag.replace("$L", "")}
           &quot;
-        </button>
-      </div>
+        </TabJumpButton>
+      </InfoBox>
     );
   }
 
