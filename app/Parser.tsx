@@ -248,61 +248,121 @@ function TabPanelContent({
   line: string;
   payloadSize: number;
 }) {
-  const tokens = lexer(line);
-  const { signifier, type, data } = parse(tokens);
-  const refinedType = refineLineType(type);
-
-  const lineSize = parseFloat(stringToKilobytes(line));
-
   return (
-    <div className="flex flex-col gap-6" key={signifier}>
+    <div className="flex flex-col gap-6">
       <div className="flex flex-row justify-between">
-        <div className="flex flex-col gap-1">
-          <h3 className="font-bold text-xl inline-block rounded-full">
-            {signifier} <span className="text-slate-400">/ $L{signifier}</span>
-          </h3>
-          <h4 className="font-medium">
-            {refinedType}{" "}
-            <span className="text-slate-400">/ &quot;{type}&quot;</span>{" "}
-          </h4>
-        </div>
-
-        <div className="text-right">
-          <div className="whitespace-nowrap">{lineSize} KB line size</div>
-          <div>{((lineSize / payloadSize) * 100).toFixed(2)}% of total</div>
-          <meter
-            value={lineSize / payloadSize}
-            min="0"
-            max="1"
-            className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-24"
-          >
-            {((lineSize / payloadSize) * 100).toFixed(2)}%
-          </meter>
-        </div>
+        <ErrorBoundary
+          FallbackComponent={GenericFallback}
+          key={`meta-${line.toString()}`}
+        >
+          <TabPanelMeta line={line} />
+        </ErrorBoundary>
+        <ErrorBoundary
+          FallbackComponent={GenericFallback}
+          key={`size-${line.toString()}`}
+        >
+          <TabPanelSize line={line} payloadSize={payloadSize} />
+        </ErrorBoundary>
       </div>
 
       <div className="bg-slate-300 h-0.5 w-full" />
 
-      <ErrorBoundary FallbackComponent={GenericFallback} key={`render${data}`}>
-        {refinedType === "import" ? <ImportLine data={data} /> : null}
-        {refinedType === "asset" ? <AssetLine data={data} /> : null}
-        {refinedType === "tree" ? <TreeLine data={data} /> : null}
+      <ErrorBoundary
+        FallbackComponent={GenericFallback}
+        key={`line-${line.toString()}`}
+      >
+        <TabPanelExplorer line={line} />
       </ErrorBoundary>
 
       <div className="bg-slate-300 h-0.5 w-full" />
 
-      <div className="flex flex-col gap-2">
-        <Details summary="JSON Parsed Data">
-          <ErrorBoundary
-            FallbackComponent={GenericFallback}
-            key={`tree${data}`}
-          >
-            <RawJson data={data} />
-          </ErrorBoundary>
-        </Details>
+      <ErrorBoundary
+        FallbackComponent={GenericFallback}
+        key={`tree.${line.toString()}`}
+      >
+        <TabPanelGenericData line={line} />
+      </ErrorBoundary>
+    </div>
+  );
+}
 
-        <Details summary="Raw Data">{data}</Details>
-      </div>
+function TabPanelMeta({ line }: { line: string }) {
+  const tokens = lexer(line);
+  const { signifier, type } = parse(tokens);
+  const refinedType = refineLineType(type);
+
+  return (
+    <div className="flex flex-col gap-1">
+      <h3 className="font-bold text-xl inline-block rounded-full">
+        {signifier} <span className="text-slate-400">/ $L{signifier}</span>
+      </h3>
+      <h4 className="font-medium">
+        {refinedType}{" "}
+        <span className="text-slate-400">/ &quot;{type}&quot;</span>{" "}
+      </h4>
+    </div>
+  );
+}
+
+function TabPanelSize({
+  line,
+  payloadSize,
+}: {
+  line: string;
+  payloadSize: number;
+}) {
+  const lineSize = parseFloat(stringToKilobytes(line));
+
+  return (
+    <div className="text-right">
+      <div className="whitespace-nowrap">{lineSize} KB line size</div>
+      <div>{((lineSize / payloadSize) * 100).toFixed(2)}% of total</div>
+      <meter
+        value={lineSize / payloadSize}
+        min="0"
+        max="1"
+        className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-24"
+      >
+        {((lineSize / payloadSize) * 100).toFixed(2)}%
+      </meter>
+    </div>
+  );
+}
+
+function TabPanelExplorer({ line }: { line: string }) {
+  const tokens = lexer(line);
+  const { type, data } = parse(tokens);
+
+  const refinedType = refineLineType(type);
+
+  switch (refinedType) {
+    case "import":
+      return <ImportLine data={data} />;
+    case "asset":
+      return <AssetLine data={data} />;
+    case "tree":
+      return <TreeLine data={data} />;
+    case "unknown":
+      throw new Error(`Unknown line type: ${type}`);
+  }
+}
+
+function TabPanelGenericData({ line }: { line: string }) {
+  const tokens = lexer(line);
+  const { data } = parse(tokens);
+
+  return (
+    <div className="flex flex-col gap-2">
+      <Details summary="JSON Parsed Data">
+        <ErrorBoundary
+          FallbackComponent={GenericFallback}
+          key={`raw-json-${data.toString()}`}
+        >
+          <RawJson data={data} />
+        </ErrorBoundary>
+      </Details>
+
+      <Details summary="Raw Data">{data}</Details>
     </div>
   );
 }
