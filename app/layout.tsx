@@ -11,12 +11,17 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  tab,
 }: {
   children: React.ReactNode;
+  tab: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        {tab}
+      </body>
       <Script
         defer
         data-domain="rsc-parser.vercel.app"

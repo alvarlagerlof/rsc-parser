@@ -82,7 +82,9 @@ const LineContext = React.createContext<string | null>(null);
 
 function Tabs({ payload }: { payload: string }) {
   const tab = Ariakit.useTabStore();
+  const selectedId = tab.useState("selectedId");
   const payloadSize = parseFloat(stringToKilobytes(payload));
+  const lines = payloadToLines(payload);
 
   return (
     <TabContext.Provider value={tab}>
@@ -92,7 +94,7 @@ function Tabs({ payload }: { payload: string }) {
         aria-label="Lines"
       >
         <div className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full">
-          {payloadToLines(payload).map((line) => (
+          {lines.map((line) => (
             <Tab id={line} key={line}>
               <LineContext.Provider value={line}>
                 <ErrorBoundary FallbackComponent={TabFallback} key={line}>
@@ -109,9 +111,10 @@ function Tabs({ payload }: { payload: string }) {
       <div className="bg-slate-100 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl">
         {payload === "" ? <p>Please enter a payload to see results.</p> : null}
 
-        {payloadToLines(payload).map((line) => (
-          <TabContext.Provider value={tab} key={line}>
-            <TabPanel id={line}>
+        {lines
+          .filter((line) => line === selectedId)
+          .map((line) => (
+            <TabPanel id={line} key={line}>
               <ErrorBoundary
                 FallbackComponent={GenericFallback}
                 key={`tab${line}`}
@@ -119,8 +122,7 @@ function Tabs({ payload }: { payload: string }) {
                 <TabPanelContent payloadSize={payloadSize} line={line} />
               </ErrorBoundary>
             </TabPanel>
-          </TabContext.Provider>
-        ))}
+          ))}
       </div>
     </TabContext.Provider>
   );
