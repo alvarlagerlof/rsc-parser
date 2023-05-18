@@ -129,7 +129,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   }
 
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex flex-col gap-2">
       {values.map((subValue, i) => {
         const refinedSubNode = refineRawTreeNode(subValue);
 
