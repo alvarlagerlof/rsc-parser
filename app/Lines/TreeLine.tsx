@@ -1,4 +1,11 @@
-import React, { ReactNode, Suspense, createContext, useContext } from "react";
+import React, {
+  ChangeEvent,
+  ReactNode,
+  Suspense,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 import { JsonObject, JsonValue } from "type-fest";
 import { stringToKiloBytes } from "../stringtoKiloBytes";
 import { lexer, parse, splitToCleanLines } from "../parse";
@@ -129,7 +136,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   }
 
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-2 my-2">
       {values.map((subValue, i) => {
         const refinedSubNode = refineRawTreeNode(subValue);
 
@@ -256,13 +263,38 @@ function CodeProps({ props }: { props: JsonObject }) {
 }
 
 function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
+  const [isOpen, setIsOpen] = useState(true);
+
   return (
-    <details className="flex flex-col gap-1" open>
+    <details
+      className="flex flex-col gap-1"
+      open={isOpen}
+      onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
+        event.stopPropagation();
+        setIsOpen(event.target.open);
+      }}
+    >
       <summary className="cursor-pointer rounded-lg hover:bg-gray-200 px-2 py-1 -mx-2 -my-1">
-        <span className="text-purple-500">&lt;</span>
-        <span className="text-pink-700">{tag}</span>
-        <CodeProps props={props} />
-        <span className="text-purple-500">&gt;</span>
+        {isOpen ? (
+          <>
+            <span className="text-purple-500">&lt;</span>
+            <span className="text-pink-700">{tag}</span>
+            <CodeProps props={props} />
+            <span className="text-purple-500">&gt;</span>
+          </>
+        ) : (
+          <>
+            <span className="text-purple-500">&lt;</span>
+            <span className="text-pink-700">{tag}</span>
+            <span className="text-purple-500">&gt;</span>
+            <span className="rounded-lg border-1 border-slate-400 border-solid px-1.5 mx-1">
+              ⋯
+            </span>
+            <span className="text-purple-500">&lt;/</span>
+            <span className="text-pink-700">{tag}</span>
+            <span className="text-purple-500">&gt;</span>
+          </>
+        )}
       </summary>
 
       <div className="pl-4">
