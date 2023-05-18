@@ -199,6 +199,16 @@ function PropValue({ value }: { value: unknown }) {
   );
 }
 
+function Prop({ propKey, value }: { propKey: string; value: unknown }) {
+  return (
+    <>
+      <span className="text-green-700">{propKey}</span>
+      <span className="text-pink-700">{`=`}</span>
+      <PropValue value={value} />
+    </>
+  );
+}
+
 function CodeProps({ props }: { props: JsonObject }) {
   const propsWithoutChildren =
     "children" in props ? removeKey(props, "children") : props;
@@ -209,20 +219,34 @@ function CodeProps({ props }: { props: JsonObject }) {
     return null;
   }
 
+  // Only show props inline if there is just one prop
+  if (
+    rootProps.length === 1 &&
+    // Long props should break the line
+    String(propsWithoutChildren[rootProps[0]]).length < 80
+  ) {
+    return (
+      <>
+        {" "}
+        <Prop
+          propKey={rootProps[0]}
+          value={propsWithoutChildren[rootProps[0]]}
+        />
+      </>
+    );
+  }
+
   return (
-    <>
-      {" "}
+    <div className="pl-4 flex flex-col">
       {rootProps.map((rootProp, i) => {
         return (
           <span key={rootProp}>
-            <span className="text-green-700">{rootProp}</span>
-            <span className="text-pink-700">{`=`}</span>
-            <PropValue value={propsWithoutChildren[rootProp]} />
+            <Prop propKey={rootProp} value={propsWithoutChildren[rootProp]} />
             {i < rootProps.length - 1 ? " " : null}
           </span>
         );
       })}
-    </>
+    </div>
   );
 }
 

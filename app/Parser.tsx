@@ -1,6 +1,12 @@
 "use client";
 
-import React, { ChangeEvent, ReactNode, useState, useTransition } from "react";
+import React, {
+  ChangeEvent,
+  ReactNode,
+  useEffect,
+  useState,
+  useTransition,
+} from "react";
 import { JSONTree } from "react-json-tree";
 import { lexer, parse, refineLineType, splitToCleanLines } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
@@ -28,6 +34,11 @@ b:I{"id":"25548","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:sta
 
 export function Parser() {
   const [payload, setPayload] = useState(defaultPayload);
+
+  useEffect(() => {
+    const previous = localStorage.getItem("payload");
+    setPayload(previous ?? defaultPayload);
+  }, []);
 
   return (
     <div className="flex flex-col gap-2 items-center max-w-full">
