@@ -130,7 +130,7 @@ describe("lexer", () => {
 });
 
 describe("parser", () => {
-  it("should parse a number signifer", () => {
+  it("should parse a number signifier", () => {
     const line = `0:""`;
     const tokens = lexer(line);
     const result = parse(tokens);
@@ -138,7 +138,7 @@ describe("parser", () => {
     expect(result).toStrictEqual({ signifier: "0", type: "", data: `""` });
   });
 
-  it("should parse a letter signifer", () => {
+  it("should parse a letter signifier", () => {
     const line = `a:""`;
     const tokens = lexer(line);
     const result = parse(tokens);
@@ -146,7 +146,7 @@ describe("parser", () => {
     expect(result).toStrictEqual({ signifier: "a", type: "", data: `""` });
   });
 
-  it("should parse a two-char signifer empty data string", () => {
+  it("should parse a two-char signifier empty data string", () => {
     const line = `0a:""`;
     const tokens = lexer(line);
     const result = parse(tokens);

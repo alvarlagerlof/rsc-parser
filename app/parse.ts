@@ -72,13 +72,13 @@ export function parse(tokens: ReturnType<typeof lexer>) {
   const getSignifier = () => {
     const firstColonIndex = tokens.findIndex((token) => token.type === "COLON");
     const tokensBeforeColon = tokens.slice(0, firstColonIndex);
-    const signifer = tokensBeforeColon.map((token) => token.value).join("");
+    const signifier = tokensBeforeColon.map((token) => token.value).join("");
 
-    if (signifer === "") {
+    if (signifier === "") {
       throw new Error("No signifier found.");
     }
 
-    return signifer;
+    return signifier;
   };
 
   const getType = () => {
