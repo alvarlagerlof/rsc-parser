@@ -1,4 +1,5 @@
-import { parseData } from "./TreeLine";
+import { JsonValue } from "type-fest";
+import { refineRawTreeNode, parseData } from "./TreeLine";
 
 describe("parseData", () => {
   it("handles a string", () => {
@@ -341,5 +342,90 @@ describe("parseData", () => {
         },
       ],
     });
+  });
+});
+
+describe("getTreeNode", () => {
+  it("handles a null", () => {
+    const rawNode: JsonValue = null;
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("OTHER");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles a string", () => {
+    const rawNode: JsonValue = "test";
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("OTHER");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles a number", () => {
+    const rawNode: JsonValue = 10;
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("OTHER");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles an empty array", () => {
+    const rawNode: JsonValue = [];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("ARRAY");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles an array with null", () => {
+    const rawNode: JsonValue = [null];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("ARRAY");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles an array four null", () => {
+    // A length for 4 is part of the matcher for the COMPONENT
+    // type, but it shoukld not trigger here because the
+    // array does not start with "$"
+    const rawNode: JsonValue = [null, null, null, null];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("ARRAY");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles an array four null", () => {
+    // A length for 4 is part of the matcher for the COMPONENT
+    // type, but it shoukld not trigger here because the
+    // array does not start with "$"
+    const rawNode: JsonValue = [null, null, null, null];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("ARRAY");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles a react component", () => {
+    // A length for 4 is part of the matcher for the COMPONENT
+    // type, but it shoukld not trigger here because the
+    // array does not start with "$"
+    const rawNode: JsonValue = [
+      "$",
+      "$La",
+      "36c4cb3f-3940-4d09-a711-a47abf53b566",
+      {
+        _id: "36c4cb3f-3940-4d09-a711-a47abf53b566",
+        name: "Scoreboarder",
+        description: "Website for Discord bot managing scoreboards",
+        link: "https://scoreboarder.xyz",
+      },
+    ];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("COMPONENT");
+    expect(refined.node).toStrictEqual(rawNode);
   });
 });
