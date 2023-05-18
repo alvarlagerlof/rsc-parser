@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useContext } from "react";
+import React, { ReactNode, Suspense, createContext, useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
 import { PayloadContext, TabContext, stringToKilobytes } from "../Parser";
 import { lexer, parse, splitToCleanLines } from "../parse";
@@ -63,7 +63,9 @@ function Node({ value }: { value: JsonValue }) {
           FallbackComponent={GenericErrorBoundaryFallback}
           key={refinedNode.value?.toString()}
         >
-          <NodeArray values={refinedNode.value} />
+          <Suspense>
+            <NodeArray values={refinedNode.value} />
+          </Suspense>
         </ErrorBoundary>
       );
     case TYPE_COMPONENT: {
@@ -109,7 +111,9 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
             value={backgroundColorLightness - 30}
           >
             <li>
-              <Node value={refinedSubNode.value} />
+              <Suspense>
+                <Node value={refinedSubNode.value} />
+              </Suspense>
             </li>
           </BackgroundColorLightnessContext.Provider>
         );
@@ -129,9 +133,13 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
       }}
     >
       <Expandable summary={<ComponentHeader tag={tag} />} open>
-        {tag.startsWith("$L") ? <ComponentImportReference tag={tag} /> : null}
+        <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
+          {tag.startsWith("$L") ? <ComponentImportReference tag={tag} /> : null}
+        </ErrorBoundary>
 
-        <ComponentProps props={props} />
+        <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
+          <ComponentProps props={props} />
+        </ErrorBoundary>
 
         {"children" in props ? (
           <div>
