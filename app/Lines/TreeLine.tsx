@@ -170,9 +170,9 @@ function PropValue({ value }: { value: unknown }) {
   return (
     <span>
       <span className="text-blue-500">&#123;</span>
-      <pre className="break-all whitespace-break-spaces text-sm">
+      <code className="break-all whitespace-break-spaces text-sm">
         {JSON.stringify(value, null, 2)}
-      </pre>
+      </code>
       <span className="text-blue-500">&#125;</span>
     </span>
   );
