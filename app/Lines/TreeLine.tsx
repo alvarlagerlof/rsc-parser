@@ -257,13 +257,13 @@ function CodeProps({ props }: { props: JsonObject }) {
 
 function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
   return (
-    <div className="flex flex-col gap-1">
-      <div>
+    <details className="flex flex-col gap-1" open>
+      <summary className="cursor-pointer rounded-lg hover:bg-gray-200 px-2 py-1 -mx-2 -my-1">
         <span className="text-purple-500">&lt;</span>
         <span className="text-pink-700">{tag}</span>
         <CodeProps props={props} />
         <span className="text-purple-500">&gt;</span>
-      </div>
+      </summary>
 
       <div className="pl-4">
         <Node value={props.children} />
@@ -296,7 +296,7 @@ function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
           </div>
         ) : null} */}
       {/* </Expandable>*/}
-    </div>
+    </details>
   );
 }
 
