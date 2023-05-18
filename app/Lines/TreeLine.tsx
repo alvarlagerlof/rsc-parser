@@ -236,7 +236,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
 
   return (
     <>
-      {/* left curly brace and square bracket */}
+      {/* left curly brace */}
       {isInsideProps ? (
         <>
           <span className="text-blue-500">&#123;</span>
@@ -284,7 +284,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
           <span className="text-purple-500">&gt;</span>
         </div>
       </details>
-      {/* right curly brace and square bracket */}
+      {/* right curly brace */}
       {isInsideProps ? (
         <>
           <span className="text-blue-500">&#125;</span>
