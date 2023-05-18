@@ -97,40 +97,42 @@ function Node({ value }: { value: JsonValue }) {
 }
 
 function JSValue({ value }: { value: JsonValue }) {
-  let formattedValue = JSON.stringify(value);
-
-  if (value == null) {
-    formattedValue = "null";
-  }
-
-  if (value == "$undefined") {
-    formattedValue = "undefined";
-  }
-
   return (
-    <div className="inline-flex flex-row gap-1.5 items-center bg-yellow-200 rounded-md px-1.5 py-px text-sm">
-      <div className="bg-yellow-200 text-yellow-600 rounded font-semibold">
-        JS
-      </div>
-      <pre className="mt-px">{formattedValue}</pre>
-    </div>
+    <span>
+      <span className="text-blue-500">&#123;</span>
+      <code className="break-all whitespace-break-spaces text-sm">
+        {typeof value === "string" ? value : JSON.stringify(value, null, 2)}
+      </code>
+      <span className="text-blue-500">&#125;</span>
+    </span>
   );
 }
 
+function StringValue({ value }: { value: string }) {
+  return <span className="text-yellow-600">&quot;{value}&quot;</span>;
+}
+
 function NodeOther({ value }: { value: JsonValue }) {
-  // TODO: handle $undefined in a better way
-  if (typeof value !== "string" || value === "$undefined") {
+  if (value === "$undefined") {
+    return <JSValue value="undefined" />;
+  }
+
+  if (value === null) {
+    return <JSValue value="null" />;
+  }
+
+  if (value === undefined) {
+    return <JSValue value="undefined" />;
+  }
+
+  if (typeof value !== "string") {
     return <JSValue value={value} />;
   }
 
-  return <span>{value}</span>;
+  return <StringValue value={value} />;
 }
 
-export const BackgroundColorLightnessContext = createContext<number>(290);
-
 function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
-  const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
-
   if (values.length == 0) {
     return <>No items</>;
   }
@@ -141,49 +143,23 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
         const refinedSubNode = refineRawTreeNode(subValue);
 
         return (
-          <BackgroundColorLightnessContext.Provider
-            key={
-              JSON.stringify(refinedSubNode.value) +
-              String(i) +
-              String(backgroundColorLightness)
-            }
-            value={backgroundColorLightness - 30}
-          >
-            <li>
-              <Suspense>
-                <Node value={refinedSubNode.value} />
-              </Suspense>
-            </li>
-          </BackgroundColorLightnessContext.Provider>
+          <li key={JSON.stringify(refinedSubNode.value) + String(i)}>
+            <Suspense>
+              <Node value={refinedSubNode.value} />
+            </Suspense>
+          </li>
         );
       })}
     </ul>
   );
 }
 
-function PropValue({ value }: { value: unknown }) {
-  if (typeof value === "string") {
-    return <span className="text-yellow-600">&quot;{value}&quot;</span>;
-  }
-
-  // The special codes are curly braces
-  return (
-    <span>
-      <span className="text-blue-500">&#123;</span>
-      <code className="break-all whitespace-break-spaces text-sm">
-        {JSON.stringify(value, null, 2)}
-      </code>
-      <span className="text-blue-500">&#125;</span>
-    </span>
-  );
-}
-
-function Prop({ propKey, value }: { propKey: string; value: unknown }) {
+function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
   return (
     <>
       <span className="text-green-700">{propKey}</span>
       <span className="text-pink-700">{`=`}</span>
-      <PropValue value={value} />
+      <Node value={value} />
     </>
   );
 }
