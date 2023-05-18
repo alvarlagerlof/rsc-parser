@@ -170,7 +170,9 @@ function PropValue({ value }: { value: unknown }) {
   return (
     <span>
       <span className="text-blue-500">&#123;</span>
-      <span className="">{JSON.stringify(value)}</span>
+      <pre className="break-all whitespace-break-spaces text-sm">
+        {JSON.stringify(value, null, 2)}
+      </pre>
       <span className="text-blue-500">&#125;</span>
     </span>
   );
@@ -186,7 +188,7 @@ function Prop({ propKey, value }: { propKey: string; value: unknown }) {
   );
 }
 
-function CodeProps({ props }: { props: JsonObject }) {
+function Props({ props }: { props: JsonObject }) {
   const rootProps = Object.keys(props);
 
   if (
@@ -243,7 +245,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
           <>
             <span className="text-purple-500">&lt;</span>
             <span className="text-pink-700">{tag}</span>
-            <CodeProps props={props} />
+            <Props props={props} />
             <span className="text-purple-500">&gt;</span>
           </>
         ) : (
@@ -293,7 +295,7 @@ function ComponentImportReference({ tag }: { tag: string }) {
       <div className="bg-blue-200 rounded-md flex flex-row text-sm p-1">
         <span className="flex flex-row gap-2 px-2 items-center">
           <span className="text-blue-700 font-semibold">INFO</span>
-          <span>{tag} indicates an imported componet</span>
+          <span>{tag} indicates an imported component</span>
         </span>
         <button
           className="text-left bg-blue-800 text-white rounded px-2 py-1"
