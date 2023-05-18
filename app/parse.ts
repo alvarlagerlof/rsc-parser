@@ -1,6 +1,6 @@
 export function splitToCleanLines(payload: string) {
   if (typeof payload !== "string") {
-    throw new Error("Payload is not a string");
+    throw new Error("Payload is not a string.");
   }
 
   const lines = payload.split("\n");

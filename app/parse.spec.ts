@@ -28,6 +28,13 @@ import {
  */
 
 describe("splitToCleanLines", () => {
+  it("should fail if the input is not a string", () => {
+    const lines = null;
+
+    // @ts-expect-error Not a string
+    expect(() => splitToCleanLines(lines)).toThrow("Payload is not a string.");
+  });
+
   it("should return an empty array for an empty input", () => {
     const lines = ``;
 
