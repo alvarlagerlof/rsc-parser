@@ -99,7 +99,7 @@ function Tabs({ payload }: { payload: string }) {
     >
       <div className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2 bg-white z-10">
         <div
-          className="flex flex-row gap-4 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full"
+          className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full"
           role="tablist"
           aria-label="Tabs"
         >
