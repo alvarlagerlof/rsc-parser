@@ -156,7 +156,6 @@ function TabContent({
       <div className="text-xl font-semibold -mt-px">{signifier}</div>
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>
-        {/* <div className="whitespace-nowrap">{lineSize} KB</div> */}
         <meter
           value={lineSize / payloadSize}
           min="0"

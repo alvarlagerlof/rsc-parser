@@ -136,7 +136,6 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
         <details
           className="flex flex-col space-y-1 rounded-md md:px-2 py-px"
           style={{
-            //  `hsl(200, 100%, ${backgroundColorLightness}%)`,
             backgroundColor: `hsl(${backgroundColorLightness}, 100%, 90%)`,
           }}
           open={treeItem.value.length !== 0}
@@ -240,7 +239,6 @@ function Props({ treeItem }: { treeItem: TreeComponent }) {
             open={formattedJSON.length < 300}
             className="flex flex-col space-y-1 rounded-md px-2 py-px"
             style={{
-              // backgroundColor: `hsl(200, 100%, ${backgroundColorLightness}%)`,
               backgroundColor: `hsl(${
                 backgroundColorLightness - 30
               }, 100%, 90%)`,
