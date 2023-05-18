@@ -138,24 +138,18 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
       }
 
       return (
-        <>
-          {/* <span>
-            ({treeItem.value.length}{" "}
-            {treeItem.value.length === 1 ? "item" : "items"})
-          </span> */}
-          <ul className="flex flex-col gap-4">
-            {treeItem.value.map((item) => (
-              <BackgroundColorLightnessContext.Provider
-                key={JSON.stringify(item.value)}
-                value={backgroundColorLightness - 30}
-              >
-                <li>
-                  <Node treeItem={item} />
-                </li>
-              </BackgroundColorLightnessContext.Provider>
-            ))}
-          </ul>
-        </>
+        <ul className="flex flex-col gap-4">
+          {treeItem.value.map((item) => (
+            <BackgroundColorLightnessContext.Provider
+              key={JSON.stringify(item.value)}
+              value={backgroundColorLightness - 30}
+            >
+              <li>
+                <Node treeItem={item} />
+              </li>
+            </BackgroundColorLightnessContext.Provider>
+          ))}
+        </ul>
       );
     }
 
@@ -167,7 +161,6 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
         <div
           className="flex flex-col space-y-1 rounded-md items-start w-full"
           style={{
-            // backgroundColor: `hsl(200, 100%, ${backgroundColorLightness}%)`,
             backgroundColor: `hsl(${backgroundColorLightness}, 100%, 90%)`,
           }}
         >
