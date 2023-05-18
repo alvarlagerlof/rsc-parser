@@ -3,9 +3,7 @@
 import React, {
   ChangeEvent,
   ReactNode,
-  Suspense,
   createContext,
-  useContext,
   useEffect,
   useState,
   useTransition,
@@ -220,12 +218,12 @@ function TabContent({
 }) {
   const lineSize = parseFloat(stringToKilobytes(line));
   const tokens = lexer(line);
-  const { signifier, type } = parse(tokens);
+  const { identifier, type } = parse(tokens);
   const refinedType = refineLineType(type);
 
   return (
     <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 group-aria-selected:bg-blue-600 group-aria-selected:text-white">
-      <div className="text-xl font-semibold -mt-px">{signifier}</div>
+      <div className="text-xl font-semibold -mt-px">{identifier}</div>
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>
         <meter
@@ -288,13 +286,13 @@ function TabPanelContent({
 
 function TabPanelMeta({ line }: { line: string }) {
   const tokens = lexer(line);
-  const { signifier, type } = parse(tokens);
+  const { identifier, type } = parse(tokens);
   const refinedType = refineLineType(type);
 
   return (
     <div className="flex flex-col gap-1">
       <h3 className="font-bold text-xl inline-block rounded-full">
-        {signifier} <span className="text-slate-400">/ $L{signifier}</span>
+        {identifier} <span className="text-slate-400">/ $L{identifier}</span>
       </h3>
       <h4 className="font-medium">
         {refinedType}{" "}

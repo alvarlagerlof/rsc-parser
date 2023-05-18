@@ -130,28 +130,28 @@ describe("lexer", () => {
 });
 
 describe("parser", () => {
-  it("should parse a number signifier", () => {
+  it("should parse a number identifier", () => {
     const line = `0:""`;
     const tokens = lexer(line);
     const result = parse(tokens);
 
-    expect(result).toStrictEqual({ signifier: "0", type: "", data: `""` });
+    expect(result).toStrictEqual({ identifier: "0", type: "", data: `""` });
   });
 
-  it("should parse a letter signifier", () => {
+  it("should parse a letter identifier", () => {
     const line = `a:""`;
     const tokens = lexer(line);
     const result = parse(tokens);
 
-    expect(result).toStrictEqual({ signifier: "a", type: "", data: `""` });
+    expect(result).toStrictEqual({ identifier: "a", type: "", data: `""` });
   });
 
-  it("should parse a two-char signifier empty data string", () => {
+  it("should parse a two-char identifier empty data string", () => {
     const line = `0a:""`;
     const tokens = lexer(line);
     const result = parse(tokens);
 
-    expect(result).toStrictEqual({ signifier: "0a", type: "", data: `""` });
+    expect(result).toStrictEqual({ identifier: "0a", type: "", data: `""` });
   });
 
   it("should parse an empty data string", () => {
@@ -159,7 +159,7 @@ describe("parser", () => {
     const tokens = lexer(line);
     const result = parse(tokens);
 
-    expect(result).toStrictEqual({ signifier: "0", type: "", data: `""` });
+    expect(result).toStrictEqual({ identifier: "0", type: "", data: `""` });
   });
 
   it("should parse an non-empty data string", () => {
@@ -168,7 +168,7 @@ describe("parser", () => {
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
-      signifier: "0",
+      identifier: "0",
       type: "",
       data: `"$Sreact.suspense"`,
     });
@@ -180,7 +180,7 @@ describe("parser", () => {
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
-      signifier: "0",
+      identifier: "0",
       type: "",
       data: `"{}"`,
     });
@@ -192,7 +192,7 @@ describe("parser", () => {
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
-      signifier: "0",
+      identifier: "0",
       type: "",
       data: `"[]"`,
     });
@@ -204,7 +204,7 @@ describe("parser", () => {
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
-      signifier: "0",
+      identifier: "0",
       type: "",
       data: `"[{}]"`,
     });
@@ -216,7 +216,7 @@ describe("parser", () => {
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
-      signifier: "0",
+      identifier: "0",
       type: "",
       data: `"[{"a":"b"},{"foo":"bar"}]"`,
     });

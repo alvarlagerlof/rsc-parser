@@ -211,7 +211,7 @@ function Header({ treeItem }: { treeItem: TreeComponent }) {
                 tab !== undefined &&
                 tab !== null
               ) {
-                const buttonSignifier = String(treeItem.value.tag).replace(
+                const buttonIdentifier = String(treeItem.value.tag).replace(
                   "$L",
                   ""
                 );
@@ -220,9 +220,9 @@ function Header({ treeItem }: { treeItem: TreeComponent }) {
 
                 for (const line of lines) {
                   const tokens = lexer(line);
-                  const { signifier } = parse(tokens);
+                  const { identifier } = parse(tokens);
 
-                  if (buttonSignifier === signifier) {
+                  if (buttonIdentifier === identifier) {
                     tab.setTab(line);
                   }
                 }
