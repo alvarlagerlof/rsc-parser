@@ -93,7 +93,11 @@ function JSValue({ value }: { value: JsonValue }) {
   let formattedValue = JSON.stringify(value);
 
   if (value == null) {
-    formattedValue = "NULL";
+    formattedValue = "null";
+  }
+
+  if (value == "$undefined") {
+    formattedValue = "undefined";
   }
 
   return (
@@ -107,7 +111,8 @@ function JSValue({ value }: { value: JsonValue }) {
 }
 
 function NodeOther({ value }: { value: JsonValue }) {
-  if (typeof value !== "string") {
+  // TODO: handle $undefined in a better way
+  if (typeof value !== "string" || value === "$undefined") {
     return <JSValue value={value} />;
   }
 
