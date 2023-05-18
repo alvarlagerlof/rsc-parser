@@ -41,7 +41,11 @@ export function refineRawTreeNode(value: JsonValue) {
 export function TreeLine({ data }: { data: string }) {
   const json = JSON.parse(data);
 
-  return <Node value={json} />;
+  return (
+    <div className="bg-slate-100">
+      <Node value={json} />
+    </div>
+  );
 }
 
 function Node({ value }: { value: JsonValue }) {
@@ -76,15 +80,36 @@ function Node({ value }: { value: JsonValue }) {
           FallbackComponent={GenericErrorBoundaryFallback}
           key={refinedNode.value?.toString()}
         >
-          <NodeComponent tag={tag} props={props} />
+          <NodeComponentCode tag={tag} props={props} />
         </ErrorBoundary>
       );
     }
   }
 }
 
+function JSValue({ value }: { value: JsonValue }) {
+  let formattedValue = JSON.stringify(value);
+
+  if (value == null) {
+    formattedValue = "NULL";
+  }
+
+  return (
+    <div className="inline-flex flex-row gap-1.5 items-center bg-yellow-200 rounded px-1.5 py-px text-sm">
+      <div className="bg-yellow-200 text-yellow-600 rounded font-semibold">
+        JS
+      </div>
+      <pre className="mt-px">{formattedValue}</pre>
+    </div>
+  );
+}
+
 function NodeOther({ value }: { value: JsonValue }) {
-  return <p className="font-semibold">{JSON.stringify(value)}</p>;
+  if (typeof value !== "string") {
+    return <JSValue value={value} />;
+  }
+
+  return <span>{value}</span>;
 }
 
 export const BackgroundColorLightnessContext = createContext<number>(290);
@@ -153,6 +178,87 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
           </div>
         ) : null}
       </Expandable>
+    </div>
+  );
+}
+
+function PropValue({ value }: { value: unknown }) {
+  if (typeof value === "string") {
+    return <span className="text-yellow-600">&quot;{value}&quot;</span>;
+  }
+
+  // The special codes are curly braces
+  return (
+    <span>
+      <span className="text-blue-500">&#123;</span>
+      <span className="">{JSON.stringify(value)}</span>
+      <span className="text-blue-500">&#125;</span>
+    </span>
+  );
+}
+
+function CodeProps({ props }: { props: JsonObject }) {
+  const propsWithoutChildren =
+    "children" in props ? removeKey(props, "children") : props;
+
+  const rootProps = Object.keys(propsWithoutChildren);
+
+  return (
+    <>
+      {rootProps.map((rootProp, i) => {
+        return (
+          <span key={rootProp}>
+            <span className="text-green-700">{rootProp}</span>
+            <span className="text-pink-700">{`=`}</span>
+            <PropValue value={propsWithoutChildren[rootProp]} />
+            {i < rootProps.length - 1 ? " " : null}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
+function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
+  return (
+    <div className="flex flex-col gap-1">
+      <div>
+        <span className="text-purple-500">&lt;</span>
+        <span className="text-pink-700">{tag}</span> <CodeProps props={props} />
+        <span className="text-purple-500">&gt;</span>
+      </div>
+
+      <div className="pl-4">
+        <Node value={props.children} />
+      </div>
+
+      <div>
+        <span className="text-purple-500">&lt;/</span>
+        <span className="text-pink-700">{tag}</span>
+        <span className="text-purple-500">&gt;</span>
+      </div>
+
+      {/*<Expandable summary={<ComponentHeader tag={tag} />} open>*/}
+      {/* <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
+          {tag.startsWith("$L") ? <ComponentImportReference tag={tag} /> : null}
+        </ErrorBoundary> */}
+
+      {/* <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
+          <ComponentProps props={props} />
+        </ErrorBoundary> */}
+
+      {/* {"children" in props ? (
+          <div>
+            <Expandable summary="Children" open>
+              <BackgroundColorLightnessContext.Provider
+                value={backgroundColorLightness - 30}
+              >
+                <Node value={props.children} />
+              </BackgroundColorLightnessContext.Provider>
+            </Expandable>
+          </div>
+        ) : null} */}
+      {/* </Expandable>*/}
     </div>
   );
 }
