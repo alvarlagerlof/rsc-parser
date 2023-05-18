@@ -132,39 +132,35 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
   const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
 
   switch (treeItem.type) {
-    case "ARRAY":
+    case "ARRAY": {
+      if (treeItem.value.length == 0) {
+        return <>No items</>;
+      }
+
       return (
         <>
-          <span>
+          {/* <span>
             ({treeItem.value.length}{" "}
             {treeItem.value.length === 1 ? "item" : "items"})
-          </span>
-
-          {treeItem.value.length > 0 ? (
-            <ul className="flex flex-col gap-4">
-              {treeItem.value.map((item) => (
-                <BackgroundColorLightnessContext.Provider
-                  key={JSON.stringify(item.value)}
-                  value={backgroundColorLightness - 30}
-                >
-                  <li>
-                    <Node treeItem={item} />
-                  </li>
-                </BackgroundColorLightnessContext.Provider>
-              ))}
-            </ul>
-          ) : (
-            "No items."
-          )}
+          </span> */}
+          <ul className="flex flex-col gap-4">
+            {treeItem.value.map((item) => (
+              <BackgroundColorLightnessContext.Provider
+                key={JSON.stringify(item.value)}
+                value={backgroundColorLightness - 30}
+              >
+                <li>
+                  <Node treeItem={item} />
+                </li>
+              </BackgroundColorLightnessContext.Provider>
+            ))}
+          </ul>
         </>
       );
+    }
 
     case "OTHER":
-      return (
-        <p className="px-2 py-px rounded-md transition-all duration-100 font-semibold">
-          {JSON.stringify(treeItem.value)}
-        </p>
-      );
+      return <p className="font-semibold">{JSON.stringify(treeItem.value)}</p>;
 
     case "COMPONENT":
       return (
