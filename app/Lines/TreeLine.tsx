@@ -111,7 +111,14 @@ function JSValue({ value }: { value: JsonValue }) {
 }
 
 function StringValue({ value }: { value: string }) {
-  return <span className="text-yellow-600">&quot;{value}&quot;</span>;
+  return (
+    <div className="inline-flex flex-col gap-2">
+      <span className="text-yellow-600">&quot;{value}&quot;</span>
+      {value.startsWith("$L") ? (
+        <ComponenTreeReference reference={value} />
+      ) : null}
+    </div>
+  );
 }
 
 function NodeOther({ value }: { value: JsonValue }) {
@@ -354,6 +361,20 @@ function ComponentImportReference({ tag }: { tag: string }) {
       <TabJumpButton destinationTab={tag}>
         Go to &quot;
         {tag.replace("$L", "")}
+        &quot;
+      </TabJumpButton>
+    </InfoBox>
+  );
+}
+
+function ComponenTreeReference({ reference }: { reference: string }) {
+  return (
+    <InfoBox>
+      <span className="text-blue-700 font-semibold">INFO</span>
+      <span>{reference} indicates an a tree renference</span>
+      <TabJumpButton destinationTab={reference}>
+        Go to &quot;
+        {reference.replace("$L", "")}
         &quot;
       </TabJumpButton>
     </InfoBox>
