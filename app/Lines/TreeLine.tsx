@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
-import { TabContext, stringToKilobytes } from "../Parser";
+import { PayloadContext, TabContext, stringToKilobytes } from "../Parser";
+import { lexer, parse, splitToCleanLines } from "../parse";
 
 interface TreeOther {
   type: "OTHER";
@@ -184,6 +185,16 @@ function Node({ treeItem }: { treeItem: TreeItem }) {
 
 function Header({ treeItem }: { treeItem: TreeComponent }) {
   const tab = useContext(TabContext);
+  if (tab === undefined) {
+    throw new Error("TabContext must be used within a TabContext.Provder");
+  }
+
+  const payload = useContext(PayloadContext);
+  if (tab === undefined) {
+    throw new Error(
+      "PayloadContext must be used within a PayloadContext.Provder"
+    );
+  }
 
   return (
     <div className="flex flex-row gap-4">
@@ -193,8 +204,6 @@ function Header({ treeItem }: { treeItem: TreeComponent }) {
           <button
             className="underline p-0"
             onClick={() => {
-              tab?.select("line");
-
               if (
                 treeItem.value instanceof Object &&
                 treeItem.value &&
@@ -202,13 +211,21 @@ function Header({ treeItem }: { treeItem: TreeComponent }) {
                 tab !== undefined &&
                 tab !== null
               ) {
-                const signifier = String(treeItem.value.tag).replace("$L", "");
+                const buttonSignifier = String(treeItem.value.tag).replace(
+                  "$L",
+                  ""
+                );
 
-                const id = tab
-                  .getState()
-                  .items?.find((item) => item.id.startsWith(signifier))?.id;
+                const lines = splitToCleanLines(payload);
 
-                tab.setSelectedId(id);
+                for (const line of lines) {
+                  const tokens = lexer(line);
+                  const { signifier } = parse(tokens);
+
+                  if (buttonSignifier === signifier) {
+                    tab.setTab(line);
+                  }
+                }
               }
             }}
           >

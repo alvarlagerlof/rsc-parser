@@ -74,6 +74,10 @@ export function parse(tokens: ReturnType<typeof lexer>) {
     const tokensBeforeColon = tokens.slice(0, firstColonIndex);
     const signifer = tokensBeforeColon.map((token) => token.value).join("");
 
+    if (signifer === "") {
+      throw new Error("No signifier found.");
+    }
+
     return signifer;
   };
 
@@ -103,6 +107,10 @@ export function parse(tokens: ReturnType<typeof lexer>) {
     );
     const tokensAfterJsonStart = tokens.slice(firstJsonStartIndex);
     const data = tokensAfterJsonStart.map((token) => token.value).join("");
+
+    if (data === "") {
+      throw new Error("No data found.");
+    }
 
     return data;
   }

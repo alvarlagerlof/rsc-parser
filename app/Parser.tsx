@@ -3,12 +3,14 @@
 import React, {
   ChangeEvent,
   ReactNode,
+  Suspense,
+  createContext,
   useContext,
   useEffect,
   useState,
+  useTransition,
 } from "react";
 import { JSONTree } from "react-json-tree";
-import * as Ariakit from "@ariakit/react";
 import { lexer, parse, refineLineType, splitToCleanLines } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { TreeLine } from "./Lines/TreeLine";
@@ -32,6 +34,8 @@ b:I{"id":"25548","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:sta
 export function stringToKilobytes(data: string) {
   return ((encodeURI(data).split(/%..|./).length - 1) / 1024).toFixed(2);
 }
+
+export const PayloadContext = createContext("");
 
 export function Parser() {
   const [payload, setPayload] = useState("");
@@ -61,74 +65,150 @@ export function Parser() {
         />
       </form>
       <div className="w-full min-h-[calc(100vh-120px)] max-w-full">
-        <ErrorBoundary FallbackComponent={GenericFallback} key={payload}>
-          <Tabs payload={payload} />
-        </ErrorBoundary>
+        <PayloadContext.Provider value={payload}>
+          <ErrorBoundary FallbackComponent={GenericFallback} key={payload}>
+            <Tabs payload={payload} />
+          </ErrorBoundary>
+        </PayloadContext.Provider>
       </div>
     </div>
   );
 }
 
-export const TabContext = React.createContext<Ariakit.TabStore | null>(null);
-const LineContext = React.createContext<string | null>(null);
+export const TabContext = createContext<
+  | {
+      setTab: (tab: string) => void;
+    }
+  | undefined
+>(undefined);
 
 function Tabs({ payload }: { payload: string }) {
-  const tab = Ariakit.useTabStore();
-  const selectedId = tab.useState("selectedId");
+  const [isPending, startTransition] = useTransition();
+  const [selectedTab, setSelectedTab] = useState<string | null>(null);
+  const [currentTab, setCurrentTab] = useState<string | null>(null);
+
   const payloadSize = parseFloat(stringToKilobytes(payload));
   const lines = splitToCleanLines(payload);
 
+  const setTab = (tab: string) => {
+    if (tab !== selectedTab) {
+      setSelectedTab(tab);
+      startTransition(() => {
+        setCurrentTab(tab);
+      });
+    }
+  };
+
   return (
-    <TabContext.Provider value={tab}>
-      <Ariakit.TabList
-        store={tab}
-        className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2 sticky bg-white top-0 z-10"
-        aria-label="Lines"
-      >
-        <div className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full">
-          {lines.map((line) => (
-            <Tab id={line} key={line}>
-              <LineContext.Provider value={line}>
-                <ErrorBoundary FallbackComponent={TabFallback} key={line}>
-                  <TabContent payloadSize={payloadSize} line={line} />
-                </ErrorBoundary>
-              </LineContext.Provider>
-            </Tab>
+    <TabContext.Provider
+      value={{
+        setTab,
+      }}
+    >
+      <div className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2 sticky bg-white top-0 z-10">
+        <div
+          className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full"
+          role="tablist"
+          aria-label="Tabs"
+        >
+          {lines.map((line, i) => (
+            <button
+              onClick={() => {
+                setSelectedTab(line);
+                startTransition(() => {
+                  setCurrentTab(line);
+                });
+              }}
+              className="group outline-none border-0 text-left"
+              key={line}
+              role="tab"
+              aria-selected={line === selectedTab}
+              aria-controls={`panel-${line}`}
+              id={`tab-button-${line}`}
+              tabIndex={i == 0 ? 0 : -1}
+            >
+              <ErrorBoundary
+                fallbackRender={({ error }) => (
+                  <TabFallback
+                    error={error}
+                    line={line}
+                    payloadSize={payloadSize}
+                  />
+                )}
+                key={`tab-${line}`}
+              >
+                <div
+                  id={`panel-${line}`}
+                  role="tabpanel"
+                  tabIndex={0}
+                  aria-labelledby={`tab-${line}`}
+                >
+                  <TabContent line={line} payloadSize={payloadSize} />
+                </div>
+              </ErrorBoundary>
+            </button>
           ))}
         </div>
 
         <div>Total size: {stringToKilobytes(payload)} KB</div>
-      </Ariakit.TabList>
+      </div>
 
-      <div className="bg-slate-100 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl">
-        {payload === "" ? <p>Please enter a payload to see results.</p> : null}
+      <div
+        className="bg-slate-100 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl transition-opacity duration-100 delay-75"
+        aria-label="Lines"
+        style={{
+          opacity: isPending ? "0.6" : "1",
+        }}
+      >
+        {payload === "" ? (
+          <p>Please enter a payload to see results.</p>
+        ) : !lines.includes(currentTab ?? "") ? (
+          <p>Please select a tab</p>
+        ) : null}
 
         {lines
-          .filter((line) => line === selectedId)
+          .filter((line) => line === currentTab)
           .map((line) => (
-            <TabPanel id={line} key={line}>
-              <ErrorBoundary
-                FallbackComponent={GenericFallback}
-                key={`tab${line}`}
-              >
-                <TabPanelContent payloadSize={payloadSize} line={line} />
-              </ErrorBoundary>
-            </TabPanel>
+            <ErrorBoundary
+              FallbackComponent={GenericFallback}
+              key={`tab-panel-${line}`}
+            >
+              <TabPanelContent line={line} payloadSize={payloadSize} />
+            </ErrorBoundary>
           ))}
       </div>
     </TabContext.Provider>
   );
 }
 
-function Tab({ id, children }: { id: string; children: ReactNode }) {
-  return (
-    <Ariakit.Tab
-      className="bg-slate-200 rounded-xl px-2 py-1 group aria-selected:bg-blue-600 aria-selected:text-white"
-      id={id}
-    >
-      {children}
-    </Ariakit.Tab>
-  );
+function TabFallback({
+  error,
+  line,
+  payloadSize,
+}: {
+  error: Error;
+  line: string;
+  payloadSize: number;
+}) {
+  const lineSize = parseFloat(stringToKilobytes(line));
+
+  if (error instanceof Error) {
+    return (
+      <div className="flex flex-col bg-red-200 rounded-xl px-2 py-1 group-aria-selected:bg-red-600 group-aria-selected:text-white">
+        <div>Error</div>
+        <meter
+          value={lineSize / payloadSize}
+          min="0"
+          max="1"
+          className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14 h-3"
+        >
+          {((lineSize / payloadSize) * 100).toFixed(2)}%
+        </meter>
+      </div>
+    );
+  }
+
+  return <span>Error</span>;
 }
 
 function TabContent({
@@ -144,7 +224,7 @@ function TabContent({
   const refinedType = refineLineType(type);
 
   return (
-    <div className="flex flex-row gap-1.5">
+    <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 group-aria-selected:bg-blue-600 group-aria-selected:text-white">
       <div className="text-xl font-semibold -mt-px">{signifier}</div>
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>
@@ -158,19 +238,6 @@ function TabContent({
         </meter>
       </div>
     </div>
-  );
-}
-
-function TabPanel({ id, children }: { id: string; children: ReactNode }) {
-  const tab = React.useContext(TabContext);
-  if (!tab) {
-    throw new Error("TabPanel must be wrapped in a Tabs component");
-  }
-
-  return (
-    <Ariakit.TabPanel tabId={id} store={tab}>
-      {children}
-    </Ariakit.TabPanel>
   );
 }
 
@@ -270,27 +337,4 @@ function GenericFallback({ error }: { error: Error }) {
       <pre className="text-red-600">{error.message}</pre>
     </div>
   );
-}
-
-function TabFallback({ error }: { error: Error }) {
-  const line = useContext(LineContext);
-  if (!line) {
-    throw new Error("TabFallback must be wrapped in a Tabs component");
-  }
-
-  if (error instanceof Error) {
-    return (
-      <div className="w-32 text-left flex-col flex gap-1">
-        <div className="grid w-full">
-          <pre className="overflow-hidden col-start-1 row-start-1">{line}</pre>
-          <div className="col-start-1 row-start-1 bg-gradient-to-l from-slate-200 group-aria-selected:from-blue-600" />
-        </div>
-        <span className="whitespace-normal line-clamp-2 text-red-500 group-aria-selected:text-white">
-          {error.message}
-        </span>
-      </div>
-    );
-  }
-
-  return <span>Error</span>;
 }
