@@ -58,7 +58,7 @@ export function refineRawTreeNode(rawNode: JsonValue) {
   return { type: "ARRAY" satisfies TreeItem["type"], node: rawNode } as const;
 }
 
-export function parseData(rawNode: JsonValue): TreeItem {
+export function parseRawNode(rawNode: JsonValue): TreeItem {
   const treeType = refineRawTreeNode(rawNode);
 
   switch (treeType.type) {
@@ -78,7 +78,7 @@ export function parseData(rawNode: JsonValue): TreeItem {
             } satisfies TreeOther;
           }
 
-          const parseTest = parseData(item);
+          const parseTest = parseRawNode(item);
 
           return parseTest;
         }),
@@ -99,7 +99,7 @@ export function parseData(rawNode: JsonValue): TreeItem {
             ...base.value,
             props: {
               ...base.value.props,
-              children: parseData(treeType.node[3].children),
+              children: parseRawNode(treeType.node[3].children),
             } satisfies Props,
           },
         } satisfies TreeComponent;
@@ -136,7 +136,7 @@ function removeChildren(myObj: Record<string, unknown>) {
 
 export function TreeLine({ data }: { data: string }) {
   const json = JSON.parse(data);
-  const parsed = parseData(json);
+  const parsed = parseRawNode(json);
 
   return <Node treeItem={parsed} />;
 }

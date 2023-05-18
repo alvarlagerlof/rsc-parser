@@ -1,21 +1,21 @@
 import { JsonValue } from "type-fest";
-import { refineRawTreeNode, parseData } from "./TreeLine";
+import { refineRawTreeNode, parseRawNode } from "./TreeLine";
 
-describe("parseData", () => {
+describe("parseRawNode", () => {
   it("handles a string", () => {
-    const parsed = parseData("$Sreact.suspense");
+    const parsed = parseRawNode("$Sreact.suspense");
 
     expect(parsed).toStrictEqual({ type: "OTHER", value: "$Sreact.suspense" });
   });
 
   it("handles a null", () => {
-    const parsed = parseData(null);
+    const parsed = parseRawNode(null);
 
     expect(parsed).toStrictEqual({ type: "OTHER", value: null });
   });
 
   it("handles an array of null", () => {
-    const parsed = parseData([null, null, null]);
+    const parsed = parseRawNode([null, null, null]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -28,7 +28,7 @@ describe("parseData", () => {
   });
 
   it("handles an array of strings", () => {
-    const parsed = parseData(["children", "(main)", "children", "__PAGE__"]);
+    const parsed = parseRawNode(["children", "(main)", "children", "__PAGE__"]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -42,7 +42,7 @@ describe("parseData", () => {
   });
 
   it("handles a nested array of null", () => {
-    const parsed = parseData([null, null, null, [null, [null, null]]]);
+    const parsed = parseRawNode([null, null, null, [null, [null, null]]]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -68,7 +68,7 @@ describe("parseData", () => {
   });
 
   it("handles an array with a react component", () => {
-    const parsed = parseData([["$", "ul", null, {}]]);
+    const parsed = parseRawNode([["$", "ul", null, {}]]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -85,7 +85,7 @@ describe("parseData", () => {
   });
 
   it("handles an array with a react component with props", () => {
-    const parsed = parseData([["$", "ul", null, { className: "p-4" }]]);
+    const parsed = parseRawNode([["$", "ul", null, { className: "p-4" }]]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -102,7 +102,7 @@ describe("parseData", () => {
   });
 
   it("handles an array with two react components plus other things", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       null,
       null,
       ["$", "ul", null, {}],
@@ -144,7 +144,7 @@ describe("parseData", () => {
   });
 
   it("handles a react component with basic children", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       ["$", "ul", null, { children: [null, null, "foobar"] }],
     ]);
 
@@ -181,7 +181,7 @@ describe("parseData", () => {
   });
 
   it("handles a react component with another react component in children", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       ["$", "ul", null, { children: [["$", "ul", null, {}]] }],
     ]);
 
@@ -213,7 +213,7 @@ describe("parseData", () => {
   });
 
   it("handles a react component directly at the root", () => {
-    const parsed = parseData(["$", "ul", null, {}]);
+    const parsed = parseRawNode(["$", "ul", null, {}]);
 
     expect(parsed).toStrictEqual({
       type: "COMPONENT",
@@ -225,7 +225,7 @@ describe("parseData", () => {
   });
 
   it("handles a react component directly in children", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       "$",
       "div",
       null,
@@ -252,7 +252,7 @@ describe("parseData", () => {
   });
 
   it("special", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       [
         "$",
         "$La",
@@ -286,7 +286,7 @@ describe("parseData", () => {
   });
 
   it("special nested", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       [
         "$",
         "ul",
