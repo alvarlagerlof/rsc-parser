@@ -14,6 +14,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { TreeLine } from "./Lines/TreeLine";
 import { ImportLine } from "./Lines/ImportLine";
 import { AssetLine } from "./Lines/AssetLine";
+import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 
 const defaultPayload = `0:[["children","(main)","children","__PAGE__",["__PAGE__",{}],"$L1",[[],["$L2",["$","meta",null,{"name":"next-size-adjust"}]]]]]
 3:I{"id":"29854","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:static/chunks/1004-456f71c9bb70e7ee.js","3213:static/chunks/3213-648f64f230debb40.js","7974:static/chunks/app/(main)/page-16ca770141ca5c0a.js"],"name":"Item","async":false}
@@ -64,7 +65,10 @@ export function Parser() {
       </form>
       <div className="w-full min-h-[calc(100vh-120px)] max-w-full">
         <PayloadContext.Provider value={payload}>
-          <ErrorBoundary FallbackComponent={GenericFallback} key={payload}>
+          <ErrorBoundary
+            FallbackComponent={GenericErrorBoundaryFallback}
+            key={payload}
+          >
             <Tabs payload={payload} />
           </ErrorBoundary>
         </PayloadContext.Provider>
@@ -168,7 +172,7 @@ function Tabs({ payload }: { payload: string }) {
           .filter((line) => line === currentTab)
           .map((line) => (
             <ErrorBoundary
-              FallbackComponent={GenericFallback}
+              FallbackComponent={GenericErrorBoundaryFallback}
               key={`tab-panel-${line}`}
             >
               <TabPanelContent line={line} payloadSize={payloadSize} />
@@ -250,13 +254,13 @@ function TabPanelContent({
     <div className="flex flex-col gap-6">
       <div className="flex flex-row justify-between">
         <ErrorBoundary
-          FallbackComponent={GenericFallback}
+          FallbackComponent={GenericErrorBoundaryFallback}
           key={`meta-${line.toString()}`}
         >
           <TabPanelMeta line={line} />
         </ErrorBoundary>
         <ErrorBoundary
-          FallbackComponent={GenericFallback}
+          FallbackComponent={GenericErrorBoundaryFallback}
           key={`size-${line.toString()}`}
         >
           <TabPanelSize line={line} payloadSize={payloadSize} />
@@ -266,7 +270,7 @@ function TabPanelContent({
       <div className="bg-slate-300 h-0.5 w-full" />
 
       <ErrorBoundary
-        FallbackComponent={GenericFallback}
+        FallbackComponent={GenericErrorBoundaryFallback}
         key={`line-${line.toString()}`}
       >
         <TabPanelExplorer line={line} />
@@ -275,7 +279,7 @@ function TabPanelContent({
       <div className="bg-slate-300 h-0.5 w-full" />
 
       <ErrorBoundary
-        FallbackComponent={GenericFallback}
+        FallbackComponent={GenericErrorBoundaryFallback}
         key={`tree.${line.toString()}`}
       >
         <TabPanelGenericData line={line} />
@@ -353,7 +357,7 @@ function TabPanelGenericData({ line }: { line: string }) {
     <div className="flex flex-col gap-2">
       <Details summary="JSON Parsed Data">
         <ErrorBoundary
-          FallbackComponent={GenericFallback}
+          FallbackComponent={GenericErrorBoundaryFallback}
           key={`raw-json-${data.toString()}`}
         >
           <RawJson data={data} />
@@ -386,13 +390,4 @@ function RawJson({ data }: { data: string }) {
   const json = JSON.parse(data);
 
   return <JSONTree data={json} shouldExpandNodeInitially={() => true} />;
-}
-
-function GenericFallback({ error }: { error: Error }) {
-  return (
-    <div role="alert" className="bg-red-100 rounded-lg p-4">
-      <p>Something went wrong:</p>
-      <pre className="text-red-600">{error.message}</pre>
-    </div>
-  );
 }

@@ -1,42 +1,18 @@
-import { ReactNode, createContext, useContext } from "react";
+import React, { ReactNode, createContext, useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
 import { PayloadContext, TabContext, stringToKilobytes } from "../Parser";
 import { lexer, parse, splitToCleanLines } from "../parse";
+import { ErrorBoundary } from "react-error-boundary";
+import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
 
 export const TYPE_OTHER = "TYPE_OTHER";
 export const TYPE_COMPONENT = "TYPE_COMPONENT";
 export const TYPE_ARRAY = "TYPE_ARRAY";
 
-interface NodeOther {
-  type: typeof TYPE_OTHER;
-  value: string | number | boolean | JsonObject | null;
-}
-
-type Props = {
-  [x: string]: JsonValue | Node;
-} & {
-  [x: string]: JsonValue | undefined | Node;
-};
-
-interface NodeComponent {
-  type: typeof TYPE_COMPONENT;
-  value: {
-    tag: string;
-    props: Props;
-  };
-}
-
-interface NodeArray {
-  type: typeof TYPE_ARRAY;
-  value: Node[];
-}
-
-type Node = NodeOther | NodeComponent | NodeArray;
-
 export function refineRawTreeNode(value: JsonValue) {
   if (!Array.isArray(value) && !(value instanceof Array)) {
     return {
-      type: TYPE_OTHER satisfies Node["type"],
+      type: TYPE_OTHER,
       value: value,
     } as const;
   }
@@ -51,145 +27,206 @@ export function refineRawTreeNode(value: JsonValue) {
   ) {
     // eg. ["$","ul",null,{}]
     return {
-      type: TYPE_COMPONENT satisfies Node["type"],
+      type: TYPE_COMPONENT,
       value: [value[0], value[1], value[2], value[3]] as const,
     } as const;
   }
 
   return {
-    type: TYPE_ARRAY satisfies Node["type"],
+    type: TYPE_ARRAY,
     value: value,
   } as const;
 }
 
-export function parseRawNode(rawNode: JsonValue): Node {
-  const treeType = refineRawTreeNode(rawNode);
+export function TreeLine({ data }: { data: string }) {
+  const json = JSON.parse(data);
 
-  switch (treeType.type) {
+  return <Node value={json} />;
+}
+
+function Node({ value }: { value: JsonValue }) {
+  const refinedNode = refineRawTreeNode(value);
+
+  switch (refinedNode.type) {
     case TYPE_OTHER:
-      return {
-        type: TYPE_OTHER,
-        value: treeType.value,
-      } satisfies NodeOther;
+      return (
+        <ErrorBoundary
+          FallbackComponent={GenericErrorBoundaryFallback}
+          key={refinedNode.value?.toString()}
+        >
+          <NodeOther value={refinedNode.value} />
+        </ErrorBoundary>
+      );
     case TYPE_ARRAY:
-      return {
-        type: TYPE_ARRAY,
-        value: treeType.value.map((item) => {
-          if (!Array.isArray(item) && !(item instanceof Array)) {
-            return {
-              type: TYPE_OTHER,
-              value: item,
-            } satisfies NodeOther;
-          }
-
-          const parseTest = parseRawNode(item);
-
-          return parseTest;
-        }),
-      } satisfies NodeArray;
+      return (
+        <ErrorBoundary
+          FallbackComponent={GenericErrorBoundaryFallback}
+          key={refinedNode.value?.toString()}
+        >
+          <NodeArray values={refinedNode.value} />
+        </ErrorBoundary>
+      );
     case TYPE_COMPONENT: {
-      const base = {
-        type: TYPE_COMPONENT,
-        value: {
-          tag: treeType.value[1],
-          props: treeType.value[3] satisfies Props,
-        },
-      } satisfies NodeComponent;
+      const [reactComponentMarker, tag, unknown, props] = refinedNode.value;
 
-      if ("children" in base.value.props) {
-        return {
-          ...base,
-          value: {
-            ...base.value,
-            props: {
-              ...base.value.props,
-              children: parseRawNode(treeType.value[3].children),
-            } satisfies Props,
-          },
-        } satisfies NodeComponent;
-      }
-
-      return base satisfies NodeComponent;
+      return (
+        <ErrorBoundary
+          FallbackComponent={GenericErrorBoundaryFallback}
+          key={refinedNode.value?.toString()}
+        >
+          <NodeComponent tag={tag} props={props} />
+        </ErrorBoundary>
+      );
     }
   }
 }
 
-function isPropsWithChildren(props: unknown): props is Record<string, unknown> {
-  return (
-    typeof props === "object" && props instanceof Object && "children" in props
-  );
-}
-
-function isTreeItem(item: Props[keyof Props]): item is Node {
-  return (
-    typeof item === "object" &&
-    item instanceof Object &&
-    "type" in item &&
-    "value" in item
-  );
-}
-
-function removeChildren(myObj: Record<string, unknown>) {
-  return Object.keys(myObj)
-    .filter((key) => key !== "children")
-    .reduce<Record<string, unknown>>((result, current) => {
-      result[current] = myObj[current];
-      return result;
-    }, {});
-}
-
-export function TreeLine({ data }: { data: string }) {
-  const json = JSON.parse(data);
-  const parsed = parseRawNode(json);
-
-  return <Node treeItem={parsed} />;
+function NodeOther({ value }: { value: JsonValue }) {
+  return <p className="font-semibold">{JSON.stringify(value)}</p>;
 }
 
 export const BackgroundColorLightnessContext = createContext<number>(290);
 
-function Node({ treeItem }: { treeItem: Node }) {
+function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
 
-  switch (treeItem.type) {
-    case TYPE_ARRAY: {
-      if (treeItem.value.length == 0) {
-        return <>No items</>;
-      }
-
-      return (
-        <ul className="flex flex-col gap-4">
-          {treeItem.value.map((subTreeItem) => (
-            <BackgroundColorLightnessContext.Provider
-              key={JSON.stringify(subTreeItem.value)}
-              value={backgroundColorLightness - 30}
-            >
-              <li>
-                <Node treeItem={subTreeItem} />
-              </li>
-            </BackgroundColorLightnessContext.Provider>
-          ))}
-        </ul>
-      );
-    }
-
-    case TYPE_OTHER:
-      return <p className="font-semibold">{JSON.stringify(treeItem.value)}</p>;
-
-    case TYPE_COMPONENT:
-      return (
-        <div
-          className="flex flex-col space-y-1 rounded-md items-start w-full"
-          style={{
-            backgroundColor: `hsl(${backgroundColorLightness}, 100%, 90%)`,
-          }}
-        >
-          <Expandable summary={<ComponentHeader treeItem={treeItem} />} open>
-            <ComponentImportReference treeItem={treeItem} />
-            <ComponentProps treeItem={treeItem} />
-          </Expandable>
-        </div>
-      );
+  if (values.length == 0) {
+    return <>No items</>;
   }
+
+  return (
+    <ul className="flex flex-col gap-4">
+      {values.map((subValue, i) => {
+        const refinedSubNode = refineRawTreeNode(subValue);
+
+        return (
+          <BackgroundColorLightnessContext.Provider
+            key={
+              JSON.stringify(refinedSubNode.value) +
+              String(i) +
+              String(backgroundColorLightness)
+            }
+            value={backgroundColorLightness - 30}
+          >
+            <li>
+              <Node value={refinedSubNode.value} />
+            </li>
+          </BackgroundColorLightnessContext.Provider>
+        );
+      })}
+    </ul>
+  );
+}
+
+function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
+  const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
+
+  return (
+    <div
+      className="flex flex-col space-y-1 rounded-md items-start w-full"
+      style={{
+        backgroundColor: `hsl(${backgroundColorLightness}, 100%, 90%)`,
+      }}
+    >
+      <Expandable summary={<ComponentHeader tag={tag} />} open>
+        {tag.startsWith("$L") ? <ComponentImportReference tag={tag} /> : null}
+
+        <ComponentProps props={props} />
+
+        {"children" in props ? (
+          <div>
+            <Expandable summary="Children" open>
+              <BackgroundColorLightnessContext.Provider
+                value={backgroundColorLightness - 30}
+              >
+                <Node value={props.children} />
+              </BackgroundColorLightnessContext.Provider>
+            </Expandable>
+          </div>
+        ) : null}
+      </Expandable>
+    </div>
+  );
+}
+
+function ComponentHeader({ tag }: { tag: string }) {
+  return <span className="font-bold">{tag}</span>;
+}
+
+function ComponentImportReference({ tag }: { tag: string }) {
+  const tab = useContext(TabContext);
+  if (tab === undefined) {
+    throw new Error("TabContext must be used within a TabContext.Provder");
+  }
+
+  const payload = useContext(PayloadContext);
+  if (tab === undefined) {
+    throw new Error(
+      "PayloadContext must be used within a PayloadContext.Provder"
+    );
+  }
+
+  if (tag.startsWith("$L")) {
+    return (
+      <button
+        className="underline p-0 text-left w-auto px-2"
+        onClick={() => {
+          if (tag) {
+            const buttonIdentifier = tag.replace("$L", "");
+
+            const lines = splitToCleanLines(payload);
+
+            for (const line of lines) {
+              const tokens = lexer(line);
+              const { identifier } = parse(tokens);
+
+              if (buttonIdentifier === identifier) {
+                tab.setTab(line);
+              }
+            }
+          }
+        }}
+      >
+        Ref to: &quot;
+        {tag.replace("$L", "")}
+        &quot;
+      </button>
+    );
+  }
+
+  return null;
+}
+
+function removeKey(object: Record<string, unknown>, key: string) {
+  return Object.keys(object)
+    .filter((objectKey) => objectKey !== key)
+    .reduce<Record<string, unknown>>((result, current) => {
+      result[current] = object[current];
+      return result;
+    }, {});
+}
+
+function ComponentProps({ props }: { props: JsonObject }) {
+  const propsWithoutChildren =
+    "children" in props ? removeKey(props, "children") : props;
+  const formattedProps = JSON.stringify(propsWithoutChildren, null, 2);
+
+  return (
+    <>
+      {Object.keys(props).length !== 0 ? (
+        <span>
+          <Expandable
+            open={formattedProps.length < 300}
+            summary={<>Props ({stringToKilobytes(formattedProps)} KB)</>}
+          >
+            <pre className="break-all whitespace-break-spaces text-sm">
+              {formattedProps}
+            </pre>
+          </Expandable>
+        </span>
+      ) : null}
+    </>
+  );
 }
 
 function Expandable({
@@ -208,102 +245,5 @@ function Expandable({
       </summary>
       <div className="px-2 flex flex-col space-y-1 pb-2">{children}</div>
     </details>
-  );
-}
-
-function ComponentHeader({ treeItem }: { treeItem: NodeComponent }) {
-  return <span className="font-bold">{String(treeItem.value.tag)}</span>;
-}
-
-function ComponentImportReference({ treeItem }: { treeItem: NodeComponent }) {
-  const tab = useContext(TabContext);
-  if (tab === undefined) {
-    throw new Error("TabContext must be used within a TabContext.Provder");
-  }
-
-  const payload = useContext(PayloadContext);
-  if (tab === undefined) {
-    throw new Error(
-      "PayloadContext must be used within a PayloadContext.Provder"
-    );
-  }
-
-  if (String(treeItem.value.tag).startsWith("$L")) {
-    return (
-      <button
-        className="underline p-0 text-left w-auto px-2"
-        onClick={() => {
-          if (
-            treeItem.value instanceof Object &&
-            treeItem.value &&
-            "tag" in treeItem.value &&
-            tab !== undefined &&
-            tab !== null
-          ) {
-            const buttonIdentifier = String(treeItem.value.tag).replace(
-              "$L",
-              ""
-            );
-
-            const lines = splitToCleanLines(payload);
-
-            for (const line of lines) {
-              const tokens = lexer(line);
-              const { identifier } = parse(tokens);
-
-              if (buttonIdentifier === identifier) {
-                tab.setTab(line);
-              }
-            }
-          }
-        }}
-      >
-        Ref to: &quot;
-        {String(treeItem.value.tag).replace("$L", "")}
-        &quot;
-      </button>
-    );
-  }
-
-  return null;
-}
-
-function ComponentProps({ treeItem }: { treeItem: NodeComponent }) {
-  const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
-
-  const props = isPropsWithChildren(treeItem.value.props)
-    ? removeChildren(treeItem.value.props)
-    : treeItem.value.props;
-
-  const formattedJSON = JSON.stringify(props, null, 2);
-
-  return (
-    <>
-      {Object.keys(props).length !== 0 ? (
-        <span>
-          <Expandable
-            open={formattedJSON.length < 300}
-            summary={<>Props ({stringToKilobytes(formattedJSON)} KB)</>}
-          >
-            <pre className="break-all whitespace-break-spaces text-sm">
-              {formattedJSON}
-            </pre>
-          </Expandable>
-        </span>
-      ) : null}
-
-      {"children" in treeItem.value.props &&
-      isTreeItem(treeItem.value.props.children) ? (
-        <div>
-          <Expandable summary="Children" open>
-            <BackgroundColorLightnessContext.Provider
-              value={backgroundColorLightness - 30}
-            >
-              <Node treeItem={treeItem.value.props.children} />
-            </BackgroundColorLightnessContext.Provider>
-          </Expandable>
-        </div>
-      ) : null}
-    </>
   );
 }
