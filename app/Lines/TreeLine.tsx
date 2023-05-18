@@ -29,70 +29,85 @@ interface TreeArray {
   value: TreeItem[];
 }
 
-export function parseData(data: JsonValue): TreeItem {
-  if (!Array.isArray(data) && !(data instanceof Array)) {
-    return {
-      type: "OTHER",
-      value: data,
-    } satisfies TreeOther;
-  }
-
-  if (data === null) {
-    return {
-      type: "OTHER",
-      value: data,
-    } satisfies TreeOther;
+export function refineRawTreeNode(rawNode: JsonValue) {
+  if (!Array.isArray(rawNode) && !(rawNode instanceof Array)) {
+    return { type: "OTHER" satisfies TreeItem["type"], node: rawNode } as const;
   }
 
   if (
-    data.length === 4 &&
-    data[0] === "$" &&
-    typeof data[1] === "string" &&
-    typeof data[3] === "object" &&
-    data[3] !== null &&
-    !(data[3] instanceof Array)
+    rawNode.length === 4 &&
+    rawNode[0] === "$" &&
+    typeof rawNode[1] === "string" &&
+    typeof rawNode[3] === "object" &&
+    rawNode[3] !== null &&
+    !(rawNode[3] instanceof Array)
   ) {
     // eg. ["$","ul",null,{}]
-
-    const base = {
-      type: "COMPONENT",
-      value: {
-        tag: data[1],
-        props: data[3] satisfies Props,
-      },
-    } satisfies TreeComponent;
-
-    if ("children" in base.value.props) {
-      return {
-        ...base,
-        value: {
-          ...base.value,
-          props: {
-            ...base.value.props,
-            children: parseData(data[3].children),
-          } satisfies Props,
-        },
-      } satisfies TreeComponent;
-    }
-
-    return base satisfies TreeComponent;
+    const returnNode = [
+      rawNode[0],
+      rawNode[1],
+      rawNode[2],
+      rawNode[3],
+    ] as const;
+    return {
+      type: "COMPONENT" satisfies TreeItem["type"],
+      node: returnNode,
+    } as const;
   }
 
-  return {
-    type: "ARRAY",
-    value: data.map((item) => {
-      if (!Array.isArray(item) && !(item instanceof Array)) {
+  return { type: "ARRAY" satisfies TreeItem["type"], node: rawNode } as const;
+}
+
+export function parseRawNode(rawNode: JsonValue): TreeItem {
+  const treeType = refineRawTreeNode(rawNode);
+
+  switch (treeType.type) {
+    case "OTHER":
+      return {
+        type: "OTHER",
+        value: treeType.node,
+      } satisfies TreeOther;
+    case "ARRAY":
+      return {
+        type: "ARRAY",
+        value: treeType.node.map((item) => {
+          if (!Array.isArray(item) && !(item instanceof Array)) {
+            return {
+              type: "OTHER",
+              value: item,
+            } satisfies TreeOther;
+          }
+
+          const parseTest = parseRawNode(item);
+
+          return parseTest;
+        }),
+      } satisfies TreeArray;
+    case "COMPONENT": {
+      const base = {
+        type: "COMPONENT",
+        value: {
+          tag: treeType.node[1],
+          props: treeType.node[3] satisfies Props,
+        },
+      } satisfies TreeComponent;
+
+      if ("children" in base.value.props) {
         return {
-          type: "OTHER",
-          value: item,
-        } satisfies TreeOther;
+          ...base,
+          value: {
+            ...base.value,
+            props: {
+              ...base.value.props,
+              children: parseRawNode(treeType.node[3].children),
+            } satisfies Props,
+          },
+        } satisfies TreeComponent;
       }
 
-      const parseTest = parseData(item);
-
-      return parseTest;
-    }),
-  } satisfies TreeArray;
+      return base satisfies TreeComponent;
+    }
+  }
 }
 
 function isPropsWithChildren(props: unknown): props is Record<string, unknown> {
@@ -121,7 +136,7 @@ function removeChildren(myObj: Record<string, unknown>) {
 
 export function TreeLine({ data }: { data: string }) {
   const json = JSON.parse(data);
-  const parsed = parseData(json);
+  const parsed = parseRawNode(json);
 
   return <Node treeItem={parsed} />;
 }

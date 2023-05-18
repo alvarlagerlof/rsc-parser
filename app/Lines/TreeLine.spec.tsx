@@ -1,20 +1,21 @@
-import { parseData } from "./TreeLine";
+import { JsonValue } from "type-fest";
+import { refineRawTreeNode, parseRawNode } from "./TreeLine";
 
-describe("parseData", () => {
+describe("parseRawNode", () => {
   it("handles a string", () => {
-    const parsed = parseData("$Sreact.suspense");
+    const parsed = parseRawNode("$Sreact.suspense");
 
     expect(parsed).toStrictEqual({ type: "OTHER", value: "$Sreact.suspense" });
   });
 
   it("handles a null", () => {
-    const parsed = parseData(null);
+    const parsed = parseRawNode(null);
 
     expect(parsed).toStrictEqual({ type: "OTHER", value: null });
   });
 
   it("handles an array of null", () => {
-    const parsed = parseData([null, null, null]);
+    const parsed = parseRawNode([null, null, null]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -27,7 +28,7 @@ describe("parseData", () => {
   });
 
   it("handles an array of strings", () => {
-    const parsed = parseData(["children", "(main)", "children", "__PAGE__"]);
+    const parsed = parseRawNode(["children", "(main)", "children", "__PAGE__"]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -41,7 +42,7 @@ describe("parseData", () => {
   });
 
   it("handles a nested array of null", () => {
-    const parsed = parseData([null, null, null, [null, [null, null]]]);
+    const parsed = parseRawNode([null, null, null, [null, [null, null]]]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -67,7 +68,7 @@ describe("parseData", () => {
   });
 
   it("handles an array with a react component", () => {
-    const parsed = parseData([["$", "ul", null, {}]]);
+    const parsed = parseRawNode([["$", "ul", null, {}]]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -84,7 +85,7 @@ describe("parseData", () => {
   });
 
   it("handles an array with a react component with props", () => {
-    const parsed = parseData([["$", "ul", null, { className: "p-4" }]]);
+    const parsed = parseRawNode([["$", "ul", null, { className: "p-4" }]]);
 
     expect(parsed).toStrictEqual({
       type: "ARRAY",
@@ -101,7 +102,7 @@ describe("parseData", () => {
   });
 
   it("handles an array with two react components plus other things", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       null,
       null,
       ["$", "ul", null, {}],
@@ -143,7 +144,7 @@ describe("parseData", () => {
   });
 
   it("handles a react component with basic children", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       ["$", "ul", null, { children: [null, null, "foobar"] }],
     ]);
 
@@ -180,7 +181,7 @@ describe("parseData", () => {
   });
 
   it("handles a react component with another react component in children", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       ["$", "ul", null, { children: [["$", "ul", null, {}]] }],
     ]);
 
@@ -212,7 +213,7 @@ describe("parseData", () => {
   });
 
   it("handles a react component directly at the root", () => {
-    const parsed = parseData(["$", "ul", null, {}]);
+    const parsed = parseRawNode(["$", "ul", null, {}]);
 
     expect(parsed).toStrictEqual({
       type: "COMPONENT",
@@ -224,7 +225,7 @@ describe("parseData", () => {
   });
 
   it("handles a react component directly in children", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       "$",
       "div",
       null,
@@ -251,7 +252,7 @@ describe("parseData", () => {
   });
 
   it("special", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       [
         "$",
         "$La",
@@ -285,7 +286,7 @@ describe("parseData", () => {
   });
 
   it("special nested", () => {
-    const parsed = parseData([
+    const parsed = parseRawNode([
       [
         "$",
         "ul",
@@ -341,5 +342,90 @@ describe("parseData", () => {
         },
       ],
     });
+  });
+});
+
+describe("getTreeNode", () => {
+  it("handles a null", () => {
+    const rawNode: JsonValue = null;
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("OTHER");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles a string", () => {
+    const rawNode: JsonValue = "test";
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("OTHER");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles a number", () => {
+    const rawNode: JsonValue = 10;
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("OTHER");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles an empty array", () => {
+    const rawNode: JsonValue = [];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("ARRAY");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles an array with null", () => {
+    const rawNode: JsonValue = [null];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("ARRAY");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles an array four null", () => {
+    // A length for 4 is part of the matcher for the COMPONENT
+    // type, but it shoukld not trigger here because the
+    // array does not start with "$"
+    const rawNode: JsonValue = [null, null, null, null];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("ARRAY");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles an array four null", () => {
+    // A length for 4 is part of the matcher for the COMPONENT
+    // type, but it shoukld not trigger here because the
+    // array does not start with "$"
+    const rawNode: JsonValue = [null, null, null, null];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("ARRAY");
+    expect(refined.node).toBe(rawNode);
+  });
+
+  it("handles a react component", () => {
+    // A length for 4 is part of the matcher for the COMPONENT
+    // type, but it shoukld not trigger here because the
+    // array does not start with "$"
+    const rawNode: JsonValue = [
+      "$",
+      "$La",
+      "36c4cb3f-3940-4d09-a711-a47abf53b566",
+      {
+        _id: "36c4cb3f-3940-4d09-a711-a47abf53b566",
+        name: "Scoreboarder",
+        description: "Website for Discord bot managing scoreboards",
+        link: "https://scoreboarder.xyz",
+      },
+    ];
+    const refined = refineRawTreeNode(rawNode);
+
+    expect(refined.type).toBe("COMPONENT");
+    expect(refined.node).toStrictEqual(rawNode);
   });
 });
