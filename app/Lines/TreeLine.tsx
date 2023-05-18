@@ -99,10 +99,12 @@ function Node({ value }: { value: JsonValue }) {
 function JSValue({ value }: { value: JsonValue }) {
   return (
     <span>
+      {/* left curly brace */}
       <span className="text-blue-500">&#123;</span>
       <code className="break-all whitespace-break-spaces text-sm">
         {typeof value === "string" ? value : JSON.stringify(value, null, 2)}
       </code>
+      {/* right curly brace */}
       <span className="text-blue-500">&#125;</span>
     </span>
   );
@@ -133,33 +135,57 @@ function NodeOther({ value }: { value: JsonValue }) {
 }
 
 function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
+  const isInsideProps = useContext(PropsContext);
+
   if (values.length == 0) {
     return <>No items</>;
   }
 
   return (
-    <ul className="flex flex-col gap-2 my-2 w-full">
-      {values.map((subValue, i) => {
-        const refinedSubNode = refineRawTreeNode(subValue);
+    <>
+      {/* left curly brace and square bracket */}
+      {isInsideProps ? (
+        <>
+          <span className="text-blue-500">&#123;</span>&#91;
+        </>
+      ) : null}
+      <ul
+        className={`flex flex-col gap-2 w-full ${
+          isInsideProps ? "pl-4" : "my-2 "
+        }`}
+      >
+        {values.map((subValue, i) => {
+          const refinedSubNode = refineRawTreeNode(subValue);
 
-        return (
-          <li key={JSON.stringify(refinedSubNode.value) + String(i)}>
-            <Suspense>
-              <Node value={refinedSubNode.value} />
-            </Suspense>
-          </li>
-        );
-      })}
-    </ul>
+          return (
+            <li key={JSON.stringify(refinedSubNode.value) + String(i)}>
+              <Suspense>
+                <Node value={refinedSubNode.value} />
+              </Suspense>
+            </li>
+          );
+        })}
+      </ul>
+      {/* right curly brace and square bracket */}
+      {isInsideProps ? (
+        <>
+          <span className="text-blue-500">&#125;</span>&#93;
+        </>
+      ) : null}
+    </>
   );
 }
+
+const PropsContext = createContext(false);
 
 function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
   return (
     <>
       <span className="text-green-700">{propKey}</span>
       <span className="text-pink-700">{`=`}</span>
-      <Node value={value} />
+      <PropsContext.Provider value={true}>
+        <Node value={value} />
+      </PropsContext.Provider>
     </>
   );
 }
@@ -205,51 +231,66 @@ function Props({ props }: { props: JsonObject }) {
 }
 
 function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
+  const isInsideProps = useContext(PropsContext);
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <details
-      className="flex flex-col gap-1 w-full"
-      open={isOpen}
-      onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
-        event.stopPropagation();
-        setIsOpen(event.target.open);
-      }}
-    >
-      <summary className="cursor-pointer rounded-lg hover:bg-gray-200 px-2 py-1 -mx-2 -my-1">
-        {isOpen ? (
-          <>
-            <span className="text-purple-500">&lt;</span>
-            <span className="text-pink-700">{tag}</span>
-            <Props props={props} />
-            <span className="text-purple-500">&gt;</span>
-          </>
-        ) : (
-          <>
-            <span className="text-purple-500">&lt;</span>
-            <span className="text-pink-700">{tag}</span>
-            <span className="text-purple-500">&gt;</span>
-            <span className="rounded-lg border-1 border-slate-400 border-solid px-1.5 mx-1">
-              ⋯
-            </span>
-            <span className="text-purple-500">&lt;/</span>
-            <span className="text-pink-700">{tag}</span>
-            <span className="text-purple-500">&gt;</span>
-          </>
-        )}
-      </summary>
+    <>
+      {/* left curly brace and square bracket */}
+      {isInsideProps ? (
+        <>
+          <span className="text-blue-500">&#123;</span>
+        </>
+      ) : null}
+      <details
+        className="flex flex-col gap-1 w-full"
+        open={isOpen}
+        onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
+          event.stopPropagation();
+          setIsOpen(event.target.open);
+        }}
+      >
+        <summary className="cursor-pointer rounded-lg hover:bg-gray-200 px-2 py-1 -mx-2 -my-1">
+          {isOpen ? (
+            <>
+              <span className="text-purple-500">&lt;</span>
+              <span className="text-pink-700">{tag}</span>
+              <Props props={props} />
+              <span className="text-purple-500">&gt;</span>
+            </>
+          ) : (
+            <>
+              <span className="text-purple-500">&lt;</span>
+              <span className="text-pink-700">{tag}</span>
+              <span className="text-purple-500">&gt;</span>
+              <span className="rounded-lg border-1 border-slate-400 border-solid px-1.5 mx-1">
+                ⋯
+              </span>
+              <span className="text-purple-500">&lt;/</span>
+              <span className="text-pink-700">{tag}</span>
+              <span className="text-purple-500">&gt;</span>
+            </>
+          )}
+        </summary>
 
-      <div className="pl-4 flex flex-col gap-2 items-start">
-        <ComponentImportReference tag={tag} />
-        <Node value={props.children} />
-      </div>
+        <div className="pl-4 flex flex-col gap-2 items-start">
+          <ComponentImportReference tag={tag} />
+          <Node value={props.children} />
+        </div>
 
-      <div>
-        <span className="text-purple-500">&lt;/</span>
-        <span className="text-pink-700">{tag}</span>
-        <span className="text-purple-500">&gt;</span>
-      </div>
-    </details>
+        <div>
+          <span className="text-purple-500">&lt;/</span>
+          <span className="text-pink-700">{tag}</span>
+          <span className="text-purple-500">&gt;</span>
+        </div>
+      </details>
+      {/* right curly brace and square bracket */}
+      {isInsideProps ? (
+        <>
+          <span className="text-blue-500">&#125;</span>
+        </>
+      ) : null}
+    </>
   );
 }
 
