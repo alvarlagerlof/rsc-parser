@@ -138,7 +138,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   const isInsideProps = useContext(PropsContext);
 
   if (values.length == 0) {
-    return <>No items</>;
+    return <>&#91;&#93;</>;
   }
 
   return (
