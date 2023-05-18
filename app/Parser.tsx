@@ -1,13 +1,6 @@
 "use client";
 
-import React, {
-  ChangeEvent,
-  ReactNode,
-  createContext,
-  useEffect,
-  useState,
-  useTransition,
-} from "react";
+import React, { ChangeEvent, ReactNode, useState, useTransition } from "react";
 import { JSONTree } from "react-json-tree";
 import { lexer, parse, refineLineType, splitToCleanLines } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
@@ -15,6 +8,9 @@ import { TreeLine } from "./Lines/TreeLine";
 import { ImportLine } from "./Lines/ImportLine";
 import { AssetLine } from "./Lines/AssetLine";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
+import { TabContext } from "./TabContext";
+import { stringToKiloBytes } from "./stringtoKiloBytes";
+import { PayloadContext } from "./PayloadContext";
 
 const defaultPayload = `0:[["children","(main)","children","__PAGE__",["__PAGE__",{}],"$L1",[[],["$L2",["$","meta",null,{"name":"next-size-adjust"}]]]]]
 3:I{"id":"29854","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:static/chunks/1004-456f71c9bb70e7ee.js","3213:static/chunks/3213-648f64f230debb40.js","7974:static/chunks/app/(main)/page-16ca770141ca5c0a.js"],"name":"Item","async":false}
@@ -30,26 +26,16 @@ b:I{"id":"25548","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:sta
 9:[["$","$Lb","9b1d7e4d-d418-46ff-a539-9fab5bc4ab7b",{"post":{"_id":"9b1d7e4d-d418-46ff-a539-9fab5bc4ab7b","slug":{"current":"skeleton-loading-with-suspense-in-next-js-13","_type":"slug"},"title":"Skeleton Loading with Suspense in Next.js 13","description":"My strategy for handling skeleton loading with Suspense.","date":{"published":"2022-12-29","updated":"2022-12-29"}}}],["$","$Lb","7cdcfec7-d8c4-40f7-9b71-cc323c2e8136",{"post":{"title":"TailwindCSS with @next/font","description":"Here's how to integrate the new @next/font in Next.js 13 with TailwindCSS.","date":{"published":"2022-10-30","updated":"2022-10-30"},"_id":"7cdcfec7-d8c4-40f7-9b71-cc323c2e8136","slug":{"current":"tailwindcss-with-next-font","_type":"slug"}}}],["$","$Lb","eb686ea0-cdd4-48eb-89d0-0876e5a39e01",{"post":{"_id":"eb686ea0-cdd4-48eb-89d0-0876e5a39e01","slug":{"current":"thoughts-on-photography-tools","_type":"slug"},"title":"Thoughts on Photography Tools","description":"The tool I'm looking for doesn't seem to exist","date":{"published":"2022-07-15","updated":null}}}],["$","$Lb","a32c3dcf-6a61-42dd-ab7a-c36fa21016ac",{"post":{"_id":"a32c3dcf-6a61-42dd-ab7a-c36fa21016ac","slug":{"_type":"slug","current":"always-add-name-to-type-radio"},"title":"Always add \\"name to type=\\"radio\\"","description":"Otherwise, you'll think your tab keys hate you","date":{"published":"2022-04-06","updated":null}}}]]
 `;
 
-export function stringToKilobytes(data: string) {
-  return ((encodeURI(data).split(/%..|./).length - 1) / 1024).toFixed(2);
-}
-
-export const PayloadContext = createContext("");
-
 export function Parser() {
-  const [payload, setPayload] = useState("");
-
-  useEffect(() => {
-    const previous = localStorage.getItem("payload");
-    setPayload(previous ?? defaultPayload);
-  }, []);
+  const [payload, setPayload] = useState(defaultPayload);
 
   return (
-    <div className="flex flex-col gap-6 items-center max-w-full">
+    <div className="flex flex-col gap-2 items-center max-w-full">
       <form className="flex flex-col gap-2 px-4 max-w-5xl w-full">
         <label htmlFor="paylod" className="font-medium">
           Payload
         </label>
+
         <textarea
           name="payload"
           placeholder="RCS paylod"
@@ -77,19 +63,12 @@ export function Parser() {
   );
 }
 
-export const TabContext = createContext<
-  | {
-      setTab: (tab: string) => void;
-    }
-  | undefined
->(undefined);
-
 function Tabs({ payload }: { payload: string }) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null>(null);
   const [currentTab, setCurrentTab] = useState<string | null>(null);
 
-  const payloadSize = parseFloat(stringToKilobytes(payload));
+  const payloadSize = parseFloat(stringToKiloBytes(payload));
   const lines = splitToCleanLines(payload);
 
   const setTab = (tab: string) => {
@@ -107,9 +86,9 @@ function Tabs({ payload }: { payload: string }) {
         setTab,
       }}
     >
-      <div className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2 sticky bg-white top-0 z-10">
+      <div className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2 bg-white z-10">
         <div
-          className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full"
+          className="flex flex-row gap-4 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full"
           role="tablist"
           aria-label="Tabs"
         >
@@ -152,7 +131,7 @@ function Tabs({ payload }: { payload: string }) {
           ))}
         </div>
 
-        <div>Total size: {stringToKilobytes(payload)} KB</div>
+        <div>Total size: {stringToKiloBytes(payload)} KB</div>
       </div>
 
       <div
@@ -169,7 +148,7 @@ function Tabs({ payload }: { payload: string }) {
         ) : null}
 
         {lines
-          .filter((line) => line === currentTab)
+          .filter((line) => line == currentTab)
           .map((line) => (
             <ErrorBoundary
               FallbackComponent={GenericErrorBoundaryFallback}
@@ -192,7 +171,7 @@ function TabFallback({
   line: string;
   payloadSize: number;
 }) {
-  const lineSize = parseFloat(stringToKilobytes(line));
+  const lineSize = parseFloat(stringToKiloBytes(line));
 
   if (error instanceof Error) {
     return (
@@ -220,7 +199,7 @@ function TabContent({
   line: string;
   payloadSize: number;
 }) {
-  const lineSize = parseFloat(stringToKilobytes(line));
+  const lineSize = parseFloat(stringToKiloBytes(line));
   const tokens = lexer(line);
   const { identifier, type } = parse(tokens);
   const refinedType = refineLineType(type);
@@ -313,7 +292,7 @@ function TabPanelSize({
   line: string;
   payloadSize: number;
 }) {
-  const lineSize = parseFloat(stringToKilobytes(line));
+  const lineSize = parseFloat(stringToKiloBytes(line));
 
   return (
     <div className="text-right">

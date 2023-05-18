@@ -1,9 +1,11 @@
 import React, { ReactNode, Suspense, createContext, useContext } from "react";
 import { JsonObject, JsonValue } from "type-fest";
-import { PayloadContext, TabContext, stringToKilobytes } from "../Parser";
+import { stringToKiloBytes } from "../stringtoKiloBytes";
 import { lexer, parse, splitToCleanLines } from "../parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
+import { TabContext } from "../TabContext";
+import { PayloadContext } from "../PayloadContext";
 
 export const TYPE_OTHER = "TYPE_OTHER";
 export const TYPE_COMPONENT = "TYPE_COMPONENT";
@@ -203,8 +205,13 @@ function CodeProps({ props }: { props: JsonObject }) {
 
   const rootProps = Object.keys(propsWithoutChildren);
 
+  if (rootProps.length === 0) {
+    return null;
+  }
+
   return (
     <>
+      {" "}
       {rootProps.map((rootProp, i) => {
         return (
           <span key={rootProp}>
@@ -224,7 +231,8 @@ function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
     <div className="flex flex-col gap-1">
       <div>
         <span className="text-purple-500">&lt;</span>
-        <span className="text-pink-700">{tag}</span> <CodeProps props={props} />
+        <span className="text-pink-700">{tag}</span>
+        <CodeProps props={props} />
         <span className="text-purple-500">&gt;</span>
       </div>
 
@@ -331,7 +339,7 @@ function ComponentProps({ props }: { props: JsonObject }) {
         <span>
           <Expandable
             open={formattedProps.length < 300}
-            summary={<>Props ({stringToKilobytes(formattedProps)} KB)</>}
+            summary={<>Props ({stringToKiloBytes(formattedProps)} KB)</>}
           >
             <pre className="break-all whitespace-break-spaces text-sm">
               {formattedProps}

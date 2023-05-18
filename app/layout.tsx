@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}s </body>
+      <body className={inter.className}>{children}</body>
       <Script
         defer
         data-domain="rsc-parser.vercel.app"
