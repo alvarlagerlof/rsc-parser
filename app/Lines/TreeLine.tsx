@@ -89,7 +89,7 @@ function Node({ value }: { value: JsonValue }) {
           FallbackComponent={GenericErrorBoundaryFallback}
           key={refinedNode.value?.toString()}
         >
-          <NodeComponentCode tag={tag} props={props} />
+          <NodeComponent tag={tag} props={props} />
         </ErrorBoundary>
       );
     }
@@ -161,41 +161,6 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   );
 }
 
-function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
-  const backgroundColorLightness = useContext(BackgroundColorLightnessContext);
-
-  return (
-    <div
-      className="flex flex-col space-y-1 rounded-md items-start w-full"
-      style={{
-        backgroundColor: `hsl(${backgroundColorLightness}, 100%, 90%)`,
-      }}
-    >
-      <Expandable summary={<ComponentHeader tag={tag} />} open>
-        <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
-          {tag.startsWith("$L") ? <ComponentImportReference tag={tag} /> : null}
-        </ErrorBoundary>
-
-        <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
-          <ComponentProps props={props} />
-        </ErrorBoundary>
-
-        {"children" in props ? (
-          <div>
-            <Expandable summary="Children" open>
-              <BackgroundColorLightnessContext.Provider
-                value={backgroundColorLightness - 30}
-              >
-                <Node value={props.children} />
-              </BackgroundColorLightnessContext.Provider>
-            </Expandable>
-          </div>
-        ) : null}
-      </Expandable>
-    </div>
-  );
-}
-
 function PropValue({ value }: { value: unknown }) {
   if (typeof value === "string") {
     return <span className="text-yellow-600">&quot;{value}&quot;</span>;
@@ -222,12 +187,12 @@ function Prop({ propKey, value }: { propKey: string; value: unknown }) {
 }
 
 function CodeProps({ props }: { props: JsonObject }) {
-  const propsWithoutChildren =
-    "children" in props ? removeKey(props, "children") : props;
+  const rootProps = Object.keys(props);
 
-  const rootProps = Object.keys(propsWithoutChildren);
-
-  if (rootProps.length === 0) {
+  if (
+    rootProps.length === 0 ||
+    (rootProps.length === 1 && rootProps[0] === "children")
+  ) {
     return null;
   }
 
@@ -235,34 +200,33 @@ function CodeProps({ props }: { props: JsonObject }) {
   if (
     rootProps.length === 1 &&
     // Long props should break the line
-    String(propsWithoutChildren[rootProps[0]]).length < 80
+    String(props[rootProps[0]]).length < 80
   ) {
     return (
       <>
         {" "}
-        <Prop
-          propKey={rootProps[0]}
-          value={propsWithoutChildren[rootProps[0]]}
-        />
+        <Prop propKey={rootProps[0]} value={props[rootProps[0]]} />
       </>
     );
   }
 
   return (
     <div className="pl-4 flex flex-col">
-      {rootProps.map((rootProp, i) => {
-        return (
-          <span key={rootProp}>
-            <Prop propKey={rootProp} value={propsWithoutChildren[rootProp]} />
-            {i < rootProps.length - 1 ? " " : null}
-          </span>
-        );
-      })}
+      {rootProps
+        .filter((rootProp) => rootProp !== "children")
+        .map((rootProp, i) => {
+          return (
+            <span key={rootProp}>
+              <Prop propKey={rootProp} value={props[rootProp]} />
+              {i < rootProps.length - 1 ? " " : null}
+            </span>
+          );
+        })}
     </div>
   );
 }
 
-function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
+function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -307,34 +271,8 @@ function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
         <span className="text-pink-700">{tag}</span>
         <span className="text-purple-500">&gt;</span>
       </div>
-
-      {/*<Expandable summary={<ComponentHeader tag={tag} />} open>*/}
-      {/* <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
-          {tag.startsWith("$L") ? <ComponentImportReference tag={tag} /> : null}
-        </ErrorBoundary> */}
-
-      {/* <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
-          <ComponentProps props={props} />
-        </ErrorBoundary> */}
-
-      {/* {"children" in props ? (
-          <div>
-            <Expandable summary="Children" open>
-              <BackgroundColorLightnessContext.Provider
-                value={backgroundColorLightness - 30}
-              >
-                <Node value={props.children} />
-              </BackgroundColorLightnessContext.Provider>
-            </Expandable>
-          </div>
-        ) : null} */}
-      {/* </Expandable>*/}
     </details>
   );
-}
-
-function ComponentHeader({ tag }: { tag: string }) {
-  return <span className="font-bold">{tag}</span>;
 }
 
 function ComponentImportReference({ tag }: { tag: string }) {
@@ -385,55 +323,4 @@ function ComponentImportReference({ tag }: { tag: string }) {
   }
 
   return null;
-}
-
-function removeKey(object: Record<string, unknown>, key: string) {
-  return Object.keys(object)
-    .filter((objectKey) => objectKey !== key)
-    .reduce<Record<string, unknown>>((result, current) => {
-      result[current] = object[current];
-      return result;
-    }, {});
-}
-
-function ComponentProps({ props }: { props: JsonObject }) {
-  const propsWithoutChildren =
-    "children" in props ? removeKey(props, "children") : props;
-  const formattedProps = JSON.stringify(propsWithoutChildren, null, 2);
-
-  return (
-    <>
-      {Object.keys(props).length !== 0 ? (
-        <span>
-          <Expandable
-            open={formattedProps.length < 300}
-            summary={<>Props ({stringToKiloBytes(formattedProps)} KB)</>}
-          >
-            <pre className="break-all whitespace-break-spaces text-sm">
-              {formattedProps}
-            </pre>
-          </Expandable>
-        </span>
-      ) : null}
-    </>
-  );
-}
-
-function Expandable({
-  summary,
-  open,
-  children,
-}: {
-  summary: ReactNode;
-  open?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <details open={open} className="flex flex-col space-y-1 rounded-md w-full">
-      <summary className="hover:bg-black hover:text-white px-2 py-px rounded-md transition-all duration-100 cursor-pointer">
-        {summary}
-      </summary>
-      <div className="px-2 flex flex-col space-y-1 pb-2">{children}</div>
-    </details>
-  );
 }
