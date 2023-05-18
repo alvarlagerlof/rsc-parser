@@ -33,14 +33,6 @@ export function stringToKilobytes(data: string) {
   return ((encodeURI(data).split(/%..|./).length - 1) / 1024).toFixed(2);
 }
 
-function payloadToLines(payload: string) {
-  if (typeof payload !== "string") {
-    throw new Error("Payload is not a string");
-  }
-
-  return splitToCleanLines(payload);
-}
-
 export function Parser() {
   const [payload, setPayload] = useState("");
 
@@ -84,7 +76,7 @@ function Tabs({ payload }: { payload: string }) {
   const tab = Ariakit.useTabStore();
   const selectedId = tab.useState("selectedId");
   const payloadSize = parseFloat(stringToKilobytes(payload));
-  const lines = payloadToLines(payload);
+  const lines = splitToCleanLines(payload);
 
   return (
     <TabContext.Provider value={tab}>
