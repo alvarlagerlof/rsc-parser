@@ -108,7 +108,7 @@ function JSValue({ value }: { value: JsonValue }) {
   }
 
   return (
-    <div className="inline-flex flex-row gap-1.5 items-center bg-yellow-200 rounded px-1.5 py-px text-sm">
+    <div className="inline-flex flex-row gap-1.5 items-center bg-yellow-200 rounded-md px-1.5 py-px text-sm">
       <div className="bg-yellow-200 text-yellow-600 rounded font-semibold">
         JS
       </div>
@@ -297,7 +297,8 @@ function NodeComponentCode({ tag, props }: { tag: string; props: JsonObject }) {
         )}
       </summary>
 
-      <div className="pl-4">
+      <div className="pl-4 flex flex-col gap-2 items-start">
+        <ComponentImportReference tag={tag} />
         <Node value={props.children} />
       </div>
 
@@ -351,29 +352,35 @@ function ComponentImportReference({ tag }: { tag: string }) {
 
   if (tag.startsWith("$L")) {
     return (
-      <button
-        className="underline p-0 text-left w-auto px-2"
-        onClick={() => {
-          if (tag) {
-            const buttonIdentifier = tag.replace("$L", "");
+      <div className="bg-blue-200 rounded-md flex flex-row text-sm p-1">
+        <span className="flex flex-row gap-2 px-2 items-center">
+          <span className="text-blue-700 font-semibold">INFO</span>
+          <span>{tag} indicates an imported componet</span>
+        </span>
+        <button
+          className="text-left bg-blue-800 text-white rounded px-2 py-1"
+          onClick={() => {
+            if (tag) {
+              const buttonIdentifier = tag.replace("$L", "");
 
-            const lines = splitToCleanLines(payload);
+              const lines = splitToCleanLines(payload);
 
-            for (const line of lines) {
-              const tokens = lexer(line);
-              const { identifier } = parse(tokens);
+              for (const line of lines) {
+                const tokens = lexer(line);
+                const { identifier } = parse(tokens);
 
-              if (buttonIdentifier === identifier) {
-                tab.setTab(line);
+                if (buttonIdentifier === identifier) {
+                  tab.setTab(line);
+                }
               }
             }
-          }
-        }}
-      >
-        Ref to: &quot;
-        {tag.replace("$L", "")}
-        &quot;
-      </button>
+          }}
+        >
+          Go to &quot;
+          {tag.replace("$L", "")}
+          &quot;
+        </button>
+      </div>
     );
   }
 
