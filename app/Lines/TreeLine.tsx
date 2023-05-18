@@ -274,7 +274,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
         </summary>
 
         <div className="pl-4 flex flex-col gap-2 items-start">
-          <ComponentImportReference tag={tag} />
+          {tag.startsWith("$L") ? <ComponentImportReference tag={tag} /> : null}
           <Node value={props.children} />
         </div>
 
@@ -347,19 +347,15 @@ function InfoBox({ children }: { children: ReactNode }) {
 }
 
 function ComponentImportReference({ tag }: { tag: string }) {
-  if (tag.startsWith("$L")) {
-    return (
-      <InfoBox>
-        <span className="text-blue-700 font-semibold">INFO</span>
-        <span>{tag} indicates an imported component</span>
-        <TabJumpButton destinationTab={tag}>
-          Go to &quot;
-          {tag.replace("$L", "")}
-          &quot;
-        </TabJumpButton>
-      </InfoBox>
-    );
-  }
-
-  return null;
+  return (
+    <InfoBox>
+      <span className="text-blue-700 font-semibold">INFO</span>
+      <span>{tag} indicates an imported component</span>
+      <TabJumpButton destinationTab={tag}>
+        Go to &quot;
+        {tag.replace("$L", "")}
+        &quot;
+      </TabJumpButton>
+    </InfoBox>
+  );
 }
