@@ -7,7 +7,6 @@ import React, {
   useState,
 } from "react";
 import { JsonObject, JsonValue } from "type-fest";
-import { stringToKiloBytes } from "../stringtoKiloBytes";
 import { lexer, parse, splitToCleanLines } from "../parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
@@ -96,13 +95,13 @@ function Node({ value }: { value: JsonValue }) {
   }
 }
 
-function JSValue({ value }: { value: JsonValue }) {
+function JSContainer({ children }: { children: ReactNode }) {
   return (
     <span>
       {/* left curly brace */}
       <span className="text-blue-500">&#123;</span>
       <code className="break-all whitespace-break-spaces text-sm">
-        {typeof value === "string" ? value : JSON.stringify(value, null, 2)}
+        {children}
       </code>
       {/* right curly brace */}
       <span className="text-blue-500">&#125;</span>
@@ -110,35 +109,110 @@ function JSValue({ value }: { value: JsonValue }) {
   );
 }
 
-function StringValue({ value }: { value: string }) {
+const ObjectContext = createContext(false);
+
+function JSObjectValue({ value }: { value: JsonObject }) {
   return (
-    <div className="inline-flex flex-col gap-2">
+    <JSContainer>
+      <div className="flex flex-col pl-4">
+        {Object.entries(value).map(([entryKey, entryValue], i) => {
+          return (
+            <span key={entryKey}>
+              <span>{entryKey}: </span>
+              <Node value={entryValue} />
+              {i !== Object.keys(value).length - 1 ? <>,</> : null}
+            </span>
+          );
+        })}
+      </div>
+    </JSContainer>
+  );
+}
+
+function NodeOther({ value }: { value: JsonValue }) {
+  const isInsideObject = useContext(ObjectContext);
+
+  if (isInsideObject === undefined) {
+    throw new Error(
+      "ObjectContext must be used within a ObjectContext.Provder"
+    );
+  }
+
+  if (value === "$undefined") {
+    if (isInsideObject) {
+      return <>undefined</>;
+    }
+    return <JSContainer>undefined</JSContainer>;
+  }
+
+  if (value === undefined) {
+    if (isInsideObject) {
+      return <>undefined</>;
+    }
+    return <JSContainer>undefined</JSContainer>;
+    // TODO: Potentially don't render {undefined}
+    // return null;
+  }
+
+  if (value === null) {
+    if (isInsideObject) {
+      return <>null</>;
+    }
+    return <JSContainer>null</JSContainer>;
+  }
+
+  if (typeof value === "string") {
+    return <StringValue value={value} />;
+  }
+
+  if (
+    value !== null &&
+    typeof value === "object" &&
+    Array.isArray(value) === false &&
+    !(value instanceof Array)
+  ) {
+    return (
+      <ObjectContext.Provider value={true}>
+        <JSObjectValue value={value} />
+      </ObjectContext.Provider>
+    );
+  }
+
+  if (isInsideObject) {
+    return <>{JSON.stringify(value, null, 2)}</>;
+  }
+
+  return <JSContainer>{JSON.stringify(value, null, 2)}</JSContainer>;
+}
+
+function StringValue({ value }: { value: string }) {
+  const isInsideProp = useContext(PropsContext);
+
+  if (isInsideProp === undefined) {
+    throw new Error(
+      "ObjectCoPropsContextntext must be used within a PropsContext.Provder"
+    );
+  }
+
+  if (!isInsideProp) {
+    return (
+      <div className="inline flex-col gap-2">
+        <span>{value}</span>
+        {value.startsWith("$L") ? (
+          <ComponenTreeReference reference={value} />
+        ) : null}
+      </div>
+    );
+  }
+
+  return (
+    <div className="inline flex-col gap-2">
       <span className="text-yellow-600">&quot;{value}&quot;</span>
       {value.startsWith("$L") ? (
         <ComponenTreeReference reference={value} />
       ) : null}
     </div>
   );
-}
-
-function NodeOther({ value }: { value: JsonValue }) {
-  if (value === "$undefined") {
-    return <JSValue value="undefined" />;
-  }
-
-  if (value === null) {
-    return <JSValue value="null" />;
-  }
-
-  if (value === undefined) {
-    return <JSValue value="undefined" />;
-  }
-
-  if (typeof value !== "string") {
-    return <JSValue value={value} />;
-  }
-
-  return <StringValue value={value} />;
 }
 
 function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
@@ -157,8 +231,8 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
         </>
       ) : null}
       <ul
-        className={`flex flex-col gap-2 w-full ${
-          isInsideProps ? "pl-4" : "my-2 "
+        className={`flex flex-col w-full ${
+          isInsideProps ? "pl-4" : "my-2 gap-2"
         }`}
       >
         {values.map((subValue, i) => {
@@ -168,6 +242,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
             <li key={JSON.stringify(refinedSubNode.value) + String(i)}>
               <Suspense>
                 <Node value={refinedSubNode.value} />
+                {isInsideProps && i !== values.length - 1 ? <>,</> : null}
               </Suspense>
             </li>
           );
@@ -222,7 +297,7 @@ function Props({ props }: { props: JsonObject }) {
   }
 
   return (
-    <div className="pl-4 flex flex-col">
+    <div className="pl-6 flex flex-col">
       {rootProps
         .filter((rootProp) => rootProp !== "children")
         .map((rootProp, i) => {
@@ -237,67 +312,77 @@ function Props({ props }: { props: JsonObject }) {
   );
 }
 
+const ChildrenContext = createContext(false);
+
 function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
   const isInsideProps = useContext(PropsContext);
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <>
-      {/* left curly brace */}
-      {isInsideProps ? (
-        <>
-          <span className="text-blue-500">&#123;</span>
-        </>
-      ) : null}
-      <details
-        className="flex flex-col gap-1 w-full"
-        open={isOpen}
-        onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
-          event.stopPropagation();
-          setIsOpen(event.target.open);
-        }}
-      >
-        <summary className="cursor-pointer rounded-lg hover:bg-gray-200 px-2 py-1 -mx-2 -my-1">
-          {isOpen ? (
-            <>
-              <span className="text-purple-500">&lt;</span>
-              <span className="text-pink-700">{tag}</span>
-              <Props props={props} />
-              <span className="text-purple-500">&gt;</span>
-            </>
-          ) : (
-            <>
-              <span className="text-purple-500">&lt;</span>
-              <span className="text-pink-700">{tag}</span>
-              <span className="text-purple-500">&gt;</span>
-              <span className="rounded-lg border-1 border-slate-400 border-solid px-1.5 mx-1">
-                ⋯
-              </span>
-              <span className="text-purple-500">&lt;/</span>
-              <span className="text-pink-700">{tag}</span>
-              <span className="text-purple-500">&gt;</span>
-            </>
-          )}
-        </summary>
+    <ObjectContext.Provider value={false}>
+      <ChildrenContext.Provider value={false}>
+        {/* left curly brace */}
+        {isInsideProps ? (
+          <>
+            <span className="text-blue-500">&#123;</span>
+          </>
+        ) : null}
+        <details
+          className="flex flex-col gap-1 w-full"
+          open={isOpen}
+          onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
+            event.stopPropagation();
+            setIsOpen(event.target.open);
+          }}
+        >
+          <summary className="cursor-pointer rounded-lg hover:bg-gray-200 px-2 py-1 -mx-2 -my-1">
+            {isOpen ? (
+              <>
+                <span className="text-purple-500">&lt;</span>
+                <span className="text-pink-700">{tag}</span>
+                <Props props={props} />
+                <span className="text-purple-500">&gt;</span>
+              </>
+            ) : (
+              <>
+                <span className="text-purple-500">&lt;</span>
+                <span className="text-pink-700">{tag}</span>
+                <span className="text-purple-500">&gt;</span>
+                <span className="rounded-lg border-1 border-slate-400 border-solid px-1.5 mx-1">
+                  ⋯
+                </span>
+                <span className="text-purple-500">&lt;/</span>
+                <span className="text-pink-700">{tag}</span>
+                <span className="text-purple-500">&gt;</span>
+              </>
+            )}
+          </summary>
 
-        <div className="pl-4 flex flex-col gap-2 items-start">
-          {tag.startsWith("$L") ? <ComponentImportReference tag={tag} /> : null}
-          <Node value={props.children} />
-        </div>
+          <PropsContext.Provider value={false}>
+            <ChildrenContext.Provider value={false}>
+              <div className="pl-4 flex flex-col gap-2 items-start">
+                {tag.startsWith("$L") ? (
+                  <ComponentImportReference tag={tag} />
+                ) : null}
+                <Node value={props.children} />
+              </div>
+            </ChildrenContext.Provider>
+          </PropsContext.Provider>
 
-        <div>
-          <span className="text-purple-500">&lt;/</span>
-          <span className="text-pink-700">{tag}</span>
-          <span className="text-purple-500">&gt;</span>
-        </div>
-      </details>
-      {/* right curly brace */}
-      {isInsideProps ? (
-        <>
-          <span className="text-blue-500">&#125;</span>
-        </>
-      ) : null}
-    </>
+          <div>
+            <span className="text-purple-500">&lt;/</span>
+            <span className="text-pink-700">{tag}</span>
+            <span className="text-purple-500">&gt;</span>
+          </div>
+        </details>
+        {/* right curly brace */}
+        {isInsideProps ? (
+          <>
+            <span className="text-blue-500">&#125;</span>
+          </>
+        ) : null}
+      </ChildrenContext.Provider>
+    </ObjectContext.Provider>
   );
 }
 
