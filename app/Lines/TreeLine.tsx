@@ -139,6 +139,8 @@ function NodeOther({ value }: { value: JsonValue }) {
   }
 
   if (value === "$undefined") {
+    // TODO: These isInsideObject conditions are a bit messy,
+    // I need to find antoher way to handle it.
     if (isInsideObject) {
       return <>undefined</>;
     }
