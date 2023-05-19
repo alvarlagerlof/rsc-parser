@@ -142,7 +142,7 @@ function Tabs({ payload }: { payload: string }) {
           ))}
         </div>
 
-        <div>Total size: {stringToKiloBytes(payload)} KB</div>
+        <div>Total size: {stringToKiloBytes(payload)} KB (uncompressed)</div>
       </div>
 
       <div
@@ -307,7 +307,7 @@ function TabPanelSize({
 
   return (
     <div className="text-right">
-      <div className="whitespace-nowrap">{lineSize} KB line size</div>
+      <div className="whitespace-nowrap">{lineSize} KB line (uncompressed)</div>
       <div>{((lineSize / payloadSize) * 100).toFixed(2)}% of total</div>
       <meter
         value={lineSize / payloadSize}
