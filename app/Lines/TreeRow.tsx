@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   useState,
+  useTransition,
 } from "react";
 import { JsonObject, JsonValue } from "type-fest";
 import { lexer, parse, splitToCleanRows } from "../parse";
@@ -311,24 +312,39 @@ function Props({ props }: { props: JsonObject }) {
   }
 
   return (
-    <div className="pl-[3ch] flex flex-col">
+    <div className="pl-[3ch]">
       {rootProps
         .filter((rootProp) => rootProp !== "children")
         .map((rootProp, i) => {
           return (
-            <span key={rootProp}>
+            <div key={rootProp}>
               <Prop propKey={rootProp} value={props[rootProp]} />
               {i < rootProps.length - 1 ? " " : null}
-            </span>
+            </div>
           );
         })}
     </div>
   );
 }
 
+function removeChildren(props: Record<string, unknown>) {
+  return Object.keys(props)
+    .filter((key) => key !== "children")
+    .reduce<Record<string, unknown>>((result, current) => {
+      result[current] = props[current];
+      return result;
+    }, {});
+}
+
 function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
   const isInsideProps = useContext(PropsContext);
   const [isOpen, setIsOpen] = useState(true);
+  const [isPending, startTransition] = useTransition();
+
+  const propsWithoutChildren = removeChildren(props);
+  const hasVisibleProps =
+    propsWithoutChildren !== undefined &&
+    Object.keys(propsWithoutChildren).length > 0;
 
   return (
     <ObjectContext.Provider value={false}>
@@ -343,30 +359,33 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
         open={isOpen}
         onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
           event.stopPropagation();
-          setIsOpen(event.target.open);
+          startTransition(() => {
+            setIsOpen(event.target.open);
+          });
         }}
       >
-        <summary className="cursor-pointer rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 px-2 py-1 -mx-2 -my-1">
+        <summary
+          className="cursor-pointer rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 px-2 py-1 -mx-2 -my-1 transition-opacity duration-75"
+          style={{ opacity: isPending ? 0.7 : 1 }}
+        >
+          <Purple>
+            <LeftArrow />
+          </Purple>
+          <Pink>{tag}</Pink>
           {isOpen ? (
             <>
-              <Purple>
-                <LeftArrow />
-              </Purple>
-              <Pink>{tag}</Pink>
-              <Props props={props} />
-              <Purple>
-                <RightArrow />
-              </Purple>
+              {hasVisibleProps ? null : (
+                <Purple>
+                  <RightArrow />
+                </Purple>
+              )}
             </>
           ) : (
             <>
               <Purple>
-                <LeftArrow />
-              </Purple>
-              <Pink>{tag}</Pink>
-              <Purple>
                 <RightArrow />
               </Purple>
+
               <span className="rounded-lg border-1 border-slate-400 border-solid px-1.5 mx-1">
                 ⋯
               </span>
@@ -381,24 +400,41 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
           )}
         </summary>
 
-        <PropsContext.Provider value={false}>
-          <div className="pl-[2ch] flex flex-col gap-2 items-start">
-            {tag.startsWith("$L") ? (
-              <ClientReferenceAnnotation tag={tag} />
+        {isOpen ? (
+          // This is kind of misusing <details><summary>, but it lets us
+          // avoid rendering the children if it is not open
+          <>
+            {hasVisibleProps ? (
+              <>
+                <Props props={props} />
+                <div className="pl-[2ch]">
+                  <Purple>
+                    <RightArrow />
+                  </Purple>
+                </div>
+              </>
             ) : null}
-            <Node value={props.children} />
-          </div>
-        </PropsContext.Provider>
 
-        <div>
-          <Purple>
-            <LeftArrow />/
-          </Purple>
-          <Pink>{tag}</Pink>
-          <Purple>
-            <RightArrow />
-          </Purple>
-        </div>
+            <PropsContext.Provider value={false}>
+              <div className="pl-[2ch] flex flex-col gap-2 items-start">
+                {tag.startsWith("$L") ? (
+                  <ClientReferenceAnnotation tag={tag} />
+                ) : null}
+                <Node value={props.children} />
+              </div>
+            </PropsContext.Provider>
+
+            <div>
+              <Purple>
+                <LeftArrow />/
+              </Purple>
+              <Pink>{tag}</Pink>
+              <Purple>
+                <RightArrow />
+              </Purple>
+            </div>
+          </>
+        ) : null}
       </details>
       {/* right curly brace */}
       {isInsideProps ? (
