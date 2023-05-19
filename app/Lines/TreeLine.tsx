@@ -373,7 +373,7 @@ function ComponenTreeReference({ reference }: { reference: string }) {
   return (
     <InfoBox>
       <span className="text-blue-700 font-semibold">INFO</span>
-      <span>{reference} indicates an a tree renference</span>
+      <span>{reference} indicates a tree renference</span>
       <TabJumpButton destinationTab={reference}>
         Go to &quot;
         {reference.replace("$L", "")}
