@@ -22,7 +22,7 @@ export default function Home() {
             See the{" "}
             <Link
               href="https://github.com/alvarlagerlof/rsc-parser"
-              className="text-blue-700"
+              className="text-blue-700 dark:text-blue-500"
             >
               Github Repo
             </Link>{" "}

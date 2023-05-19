@@ -50,7 +50,7 @@ export function Parser() {
         <textarea
           name="payload"
           placeholder="RCS paylod"
-          className="bg-slate-200 outline-none focus:outline-blue-400 rounded-lg p-3 resize-none"
+          className="bg-slate-200 outline-none focus:outline-blue-400 rounded-lg p-3 resize-none dark:bg-slate-900 dark:text-slate-200"
           rows={16}
           value={payload}
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -97,7 +97,7 @@ function Tabs({ payload }: { payload: string }) {
         setTab,
       }}
     >
-      <div className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2 bg-white z-10">
+      <div className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2">
         <div
           className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full"
           role="tablist"
@@ -146,7 +146,7 @@ function Tabs({ payload }: { payload: string }) {
       </div>
 
       <div
-        className="bg-slate-100 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl transition-opacity duration-100 delay-75"
+        className="bg-slate-100 dark:bg-slate-800 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl transition-opacity duration-100 delay-75"
         aria-label="Lines"
         style={{
           opacity: isPending ? "0.6" : "1",
@@ -216,7 +216,7 @@ function TabContent({
   const refinedType = refineLineType(type);
 
   return (
-    <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 group-aria-selected:bg-blue-600 group-aria-selected:text-white">
+    <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
       <div className="text-xl font-semibold -mt-px">{identifier}</div>
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>
@@ -257,7 +257,7 @@ function TabPanelContent({
         </ErrorBoundary>
       </div>
 
-      <div className="bg-slate-300 h-0.5 w-full" />
+      <div className="bg-slate-300 dark:bg-slate-600 h-0.5 w-full" />
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
@@ -266,7 +266,7 @@ function TabPanelContent({
         <TabPanelExplorer line={line} />
       </ErrorBoundary>
 
-      <div className="bg-slate-300 h-0.5 w-full" />
+      <div className="bg-slate-300 dark:bg-slate-600 h-0.5 w-full" />
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
@@ -367,7 +367,7 @@ function Details({
   children: ReactNode;
 }) {
   return (
-    <details className="bg-slate-200 rounded-lg p-3">
+    <details className="bg-slate-200 dark:bg-slate-700 rounded-lg p-3">
       <summary className="cursor-pointer">{summary}</summary>
       <div className="pt-4">
         <pre className="whitespace-normal break-all text-sm">{children}</pre>

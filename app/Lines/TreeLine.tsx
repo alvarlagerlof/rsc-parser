@@ -50,7 +50,7 @@ export function TreeLine({ data }: { data: string }) {
   const json = JSON.parse(data);
 
   return (
-    <div className="bg-slate-100">
+    <div>
       <Node value={json} />
     </div>
   );
@@ -346,7 +346,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
           setIsOpen(event.target.open);
         }}
       >
-        <summary className="cursor-pointer rounded-lg hover:bg-gray-200 px-2 py-1 -mx-2 -my-1">
+        <summary className="cursor-pointer rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 px-2 py-1 -mx-2 -my-1">
           {isOpen ? (
             <>
               <Purple>
@@ -458,7 +458,10 @@ function TabJumpButton({
 
 function InfoBox({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-blue-200 rounded-md text-sm p-1 flex flex-row gap-2 px-2 items-center">
+    <div className="bg-blue-200 dark:bg-slate-600 rounded-md text-sm p-1 flex flex-row gap-2 px-2 items-center">
+      <span className="text-blue-700 dark:text-blue-300 font-semibold">
+        INFO
+      </span>
       {children}
     </div>
   );
@@ -467,7 +470,6 @@ function InfoBox({ children }: { children: ReactNode }) {
 function ComponentImportReference({ tag }: { tag: string }) {
   return (
     <InfoBox>
-      <span className="text-blue-700 font-semibold">INFO</span>
       <span>{tag} indicates an imported component</span>
       <TabJumpButton destinationTab={tag}>
         Go to &quot;
@@ -481,7 +483,6 @@ function ComponentImportReference({ tag }: { tag: string }) {
 function ComponenTreeReference({ reference }: { reference: string }) {
   return (
     <InfoBox>
-      <span className="text-blue-700 font-semibold">INFO</span>
       <span>{reference} indicates a tree reference</span>
       <TabJumpButton destinationTab={reference}>
         Go to &quot;
@@ -497,11 +498,13 @@ function Purple({ children }: { children: ReactNode }) {
 }
 
 function Pink({ children }: { children: ReactNode }) {
-  return <span className="text-pink-700">{children}</span>;
+  return <span className="text-pink-700 dark:text-pink-500">{children}</span>;
 }
 
 function Yellow({ children }: { children: ReactNode }) {
-  return <span className="text-yellow-600">{children}</span>;
+  return (
+    <span className="text-yellow-600 dark:text-yellow-300">{children}</span>
+  );
 }
 
 function Blue({ children }: { children: ReactNode }) {
@@ -509,7 +512,7 @@ function Blue({ children }: { children: ReactNode }) {
 }
 
 function Green({ children }: { children: ReactNode }) {
-  return <span className="text-green-700">{children}</span>;
+  return <span className="text-green-700 dark:text-green-400">{children}</span>;
 }
 
 function LeftCurlyBrace() {
