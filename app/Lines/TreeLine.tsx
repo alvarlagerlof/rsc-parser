@@ -334,6 +334,8 @@ function TabJumpButton({
             const { identifier } = parse(tokens);
 
             if (buttonIdentifier === identifier) {
+              // TODO: Don't hard-code this
+              window.scrollTo(0, 590);
               tab.setTab(line);
             }
           }
