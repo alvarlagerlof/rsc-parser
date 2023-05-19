@@ -98,13 +98,16 @@ function Node({ value }: { value: JsonValue }) {
 function JSContainer({ children }: { children: ReactNode }) {
   return (
     <span>
-      {/* left curly brace */}
-      <span className="text-blue-500">&#123;</span>
+      <Blue>
+        <LeftCurlyBrace />
+      </Blue>
       <code className="break-all whitespace-break-spaces text-sm">
         {children}
       </code>
-      {/* right curly brace */}
-      <span className="text-blue-500">&#125;</span>
+
+      <Blue>
+        <RightCurlyBrace />
+      </Blue>
     </span>
   );
 }
@@ -209,7 +212,7 @@ function StringValue({ value }: { value: string }) {
 
   return (
     <div className="inline flex-col gap-2">
-      <span className="text-yellow-600">&quot;{value}&quot;</span>
+      <Yellow>&quot;{value}&quot;</Yellow>
       {value.startsWith("$L") ? (
         <ComponenTreeReference reference={value} />
       ) : null}
@@ -221,15 +224,22 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   const isInsideProps = useContext(PropsContext);
 
   if (values.length == 0) {
-    return <>&#91;&#93;</>;
+    return (
+      <>
+        <LeftSquareBracket />
+        <RightSquareBracket />
+      </>
+    );
   }
 
   return (
     <>
-      {/* left curly brace and square bracket */}
       {isInsideProps ? (
         <>
-          <span className="text-blue-500">&#123;</span>&#91;
+          <Blue>
+            <LeftCurlyBrace />
+          </Blue>
+          <LeftSquareBracket />
         </>
       ) : null}
       <ul
@@ -250,10 +260,12 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
           );
         })}
       </ul>
-      {/* right curly brace and square bracket */}
       {isInsideProps ? (
         <>
-          <span className="text-blue-500">&#125;</span>&#93;
+          <Blue>
+            <RightCurlyBrace />
+          </Blue>
+          <RightSquareBracket />
         </>
       ) : null}
     </>
@@ -265,8 +277,8 @@ const PropsContext = createContext(false);
 function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
   return (
     <>
-      <span className="text-green-700">{propKey}</span>
-      <span className="text-pink-700">{`=`}</span>
+      <Green>{propKey}</Green>
+      <Pink>{`=`}</Pink>
       <PropsContext.Provider value={true}>
         <Node value={value} />
       </PropsContext.Provider>
@@ -323,7 +335,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
       {/* left curly brace */}
       {isInsideProps ? (
         <>
-          <span className="text-blue-500">&#123;</span>
+          <Blue>&#123;</Blue>
         </>
       ) : null}
       <details
@@ -337,22 +349,34 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
         <summary className="cursor-pointer rounded-lg hover:bg-gray-200 px-2 py-1 -mx-2 -my-1">
           {isOpen ? (
             <>
-              <span className="text-purple-500">&lt;</span>
-              <span className="text-pink-700">{tag}</span>
+              <Purple>
+                <LeftArrow />
+              </Purple>
+              <Pink>{tag}</Pink>
               <Props props={props} />
-              <span className="text-purple-500">&gt;</span>
+              <Purple>
+                <RightArrow />
+              </Purple>
             </>
           ) : (
             <>
-              <span className="text-purple-500">&lt;</span>
-              <span className="text-pink-700">{tag}</span>
-              <span className="text-purple-500">&gt;</span>
+              <Purple>
+                <LeftArrow />
+              </Purple>
+              <Pink>{tag}</Pink>
+              <Purple>
+                <RightArrow />
+              </Purple>
               <span className="rounded-lg border-1 border-slate-400 border-solid px-1.5 mx-1">
                 ⋯
               </span>
-              <span className="text-purple-500">&lt;/</span>
-              <span className="text-pink-700">{tag}</span>
-              <span className="text-purple-500">&gt;</span>
+              <Purple>
+                <LeftArrow />/
+              </Purple>
+              <Pink>{tag}</Pink>
+              <Purple>
+                <RightArrow />
+              </Purple>
             </>
           )}
         </summary>
@@ -367,15 +391,19 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
         </PropsContext.Provider>
 
         <div>
-          <span className="text-purple-500">&lt;/</span>
-          <span className="text-pink-700">{tag}</span>
-          <span className="text-purple-500">&gt;</span>
+          <Purple>
+            <LeftArrow />/
+          </Purple>
+          <Pink>{tag}</Pink>
+          <Purple>
+            <RightArrow />
+          </Purple>
         </div>
       </details>
       {/* right curly brace */}
       {isInsideProps ? (
         <>
-          <span className="text-blue-500">&#125;</span>
+          <Blue>&#125;</Blue>
         </>
       ) : null}
     </ObjectContext.Provider>
@@ -462,4 +490,48 @@ function ComponenTreeReference({ reference }: { reference: string }) {
       </TabJumpButton>
     </InfoBox>
   );
+}
+
+function Purple({ children }: { children: ReactNode }) {
+  return <span className="text-purple-500">{children}</span>;
+}
+
+function Pink({ children }: { children: ReactNode }) {
+  return <span className="text-pink-700">{children}</span>;
+}
+
+function Yellow({ children }: { children: ReactNode }) {
+  return <span className="text-yellow-600">{children}</span>;
+}
+
+function Blue({ children }: { children: ReactNode }) {
+  return <span className="text-blue-500">{children}</span>;
+}
+
+function Green({ children }: { children: ReactNode }) {
+  return <span className="text-green-700">{children}</span>;
+}
+
+function LeftCurlyBrace() {
+  return <>&#123;</>;
+}
+
+function RightCurlyBrace() {
+  return <>&#125;</>;
+}
+
+function LeftSquareBracket() {
+  return <>&#91;</>;
+}
+
+function RightSquareBracket() {
+  return <>&#93;</>;
+}
+
+function LeftArrow() {
+  return <>&lt;</>;
+}
+
+function RightArrow() {
+  return <>&gt;</>;
 }
