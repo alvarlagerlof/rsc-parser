@@ -12,6 +12,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
 import { TabContext } from "../TabContext";
 import { PayloadContext } from "../PayloadContext";
+import { JetBrains_Mono } from "next/font/google";
+
+const jetBrainsMono = JetBrains_Mono({ subsets: ["latin-ext"] });
 
 export const TYPE_OTHER = "TYPE_OTHER";
 export const TYPE_COMPONENT = "TYPE_COMPONENT";
@@ -50,7 +53,7 @@ export function TreeLine({ data }: { data: string }) {
   const json = JSON.parse(data);
 
   return (
-    <div>
+    <div className={`${jetBrainsMono.className} text-sm`}>
       <Node value={json} />
     </div>
   );
@@ -101,9 +104,7 @@ function JSContainer({ children }: { children: ReactNode }) {
       <Blue>
         <LeftCurlyBrace />
       </Blue>
-      <code className="break-all whitespace-break-spaces text-sm">
-        {children}
-      </code>
+      <code className="break-all whitespace-break-spaces">{children}</code>
 
       <Blue>
         <RightCurlyBrace />
@@ -117,7 +118,7 @@ const ObjectContext = createContext(false);
 function JSObjectValue({ value }: { value: JsonObject }) {
   return (
     <JSContainer>
-      <div className="flex flex-col pl-4">
+      <div className="flex flex-col pl-[2ch]">
         {Object.entries(value).map(([entryKey, entryValue], i) => {
           return (
             <span key={entryKey}>
@@ -242,7 +243,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
       ) : null}
       <ul
         className={`flex flex-col w-full ${
-          isInsideProps ? "pl-4" : "my-2 gap-2"
+          isInsideProps ? "pl-[2ch]" : "my-2 gap-2"
         }`}
       >
         {values.map((subValue, i) => {
@@ -309,7 +310,7 @@ function Props({ props }: { props: JsonObject }) {
   }
 
   return (
-    <div className="pl-6 flex flex-col">
+    <div className="pl-[3ch] flex flex-col">
       {rootProps
         .filter((rootProp) => rootProp !== "children")
         .map((rootProp, i) => {
@@ -380,7 +381,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
         </summary>
 
         <PropsContext.Provider value={false}>
-          <div className="pl-4 flex flex-col gap-2 items-start">
+          <div className="pl-[2ch] flex flex-col gap-2 items-start">
             {tag.startsWith("$L") ? (
               <ComponentImportReference tag={tag} />
             ) : null}
