@@ -1,11 +1,13 @@
 import { z } from "zod";
 
+const stringOrNumber = z.union([z.string(), z.number()]);
+
 const schema = z
   .object({
-    async: z.boolean(),
-    id: z.string(),
+    async: z.boolean().optional(),
+    id: stringOrNumber,
     name: z.string(),
-    chunks: z.array(z.string()),
+    chunks: z.array(stringOrNumber),
   })
   .strict();
 
