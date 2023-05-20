@@ -6,94 +6,101 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { JsonObject, JsonValue } from "type-fest";
-import { lexer, parse, splitToCleanLines } from "../parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
 import { TabContext } from "../TabContext";
 import { PayloadContext } from "../PayloadContext";
+import {
+  LazyComponentReference,
+  ParsedElement,
+  ParsedModel,
+  PickVariant,
+  isComponentReference,
+} from "../parse-payload";
 import { JetBrains_Mono } from "next/font/google";
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin-ext"] });
 
 export const TYPE_OTHER = "TYPE_OTHER";
-export const TYPE_COMPONENT = "TYPE_COMPONENT";
+export const TYPE_ELEMENT = "TYPE_ELEMENT";
 export const TYPE_ARRAY = "TYPE_ARRAY";
 
-export function refineRawTreeNode(value: JsonValue) {
-  if (!Array.isArray(value) && !(value instanceof Array)) {
+type RefinedNode = ReturnType<typeof refineRawTreeNode>;
+
+export function refineRawTreeNode(value: ParsedModel) {
+  if (typeof value !== "object" || !value) {
     return {
       type: TYPE_OTHER,
       value: value,
     } as const;
   }
 
-  if (
-    value.length === 4 &&
-    value[0] === "$" &&
-    typeof value[1] === "string" &&
-    typeof value[3] === "object" &&
-    value[3] !== null &&
-    !(value[3] instanceof Array)
-  ) {
-    // eg. ["$","ul",null,{}]
+  if (Array.isArray(value)) {
     return {
-      type: TYPE_COMPONENT,
-      value: [value[0], value[1], value[2], value[3]] as const,
+      type: TYPE_ARRAY,
+      value: value,
+    } as const;
+  }
+
+  if (!("type" in value) || value.type !== "element") {
+    return {
+      type: TYPE_OTHER,
+      value: value as Exclude<typeof value, ParsedElement>,
     } as const;
   }
 
   return {
-    type: TYPE_ARRAY,
-    value: value,
+    type: TYPE_ELEMENT,
+    value: value as ParsedElement,
   } as const;
 }
 
-export function TreeLine({ data }: { data: string }) {
-  const json = JSON.parse(data);
-
+export function TreeLine({ data }: { data: any }) {
   return (
     <div className={`${jetBrainsMono.className} text-sm`}>
-      <Node value={json} />
+      <Node value={data} />
     </div>
   );
 }
 
-function Node({ value }: { value: JsonValue }) {
+function Node({ value }: { value: ParsedModel }) {
   const refinedNode = refineRawTreeNode(value);
+  console.log("Node", refinedNode);
+
+  // if (typeof refinedNode !== "object") {
+  //   return JSON.stringify(refinedNode);
+  // }
+
+  // if (!("type" in refinedNode) || typeof refinedNode.type !== "string") {
+  //   return JSON.stringify(refinedNode);
+  // }
 
   switch (refinedNode.type) {
     case TYPE_OTHER:
       return (
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={refinedNode.value?.toString()}
-        >
+        <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
           <NodeOther value={refinedNode.value} />
         </ErrorBoundary>
       );
     case TYPE_ARRAY:
       return (
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={refinedNode.value?.toString()}
-        >
+        <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
           <Suspense>
             <NodeArray values={refinedNode.value} />
           </Suspense>
         </ErrorBoundary>
       );
-    case TYPE_COMPONENT: {
-      const [reactComponentMarker, tag, unknown, props] = refinedNode.value;
+    case TYPE_ELEMENT: {
+      const { elementType, props } = refinedNode.value;
 
       return (
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={refinedNode.value?.toString()}
-        >
-          <NodeComponent tag={tag} props={props} />
+        <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
+          <NodeComponent elementType={elementType} props={props} />
         </ErrorBoundary>
       );
+    }
+    default: {
+      throw new Error("huh?");
     }
   }
 }
@@ -115,7 +122,7 @@ function JSContainer({ children }: { children: ReactNode }) {
 
 const ObjectContext = createContext(false);
 
-function JSObjectValue({ value }: { value: JsonObject }) {
+function JSObjectValue({ value }: { value: Record<string, ParsedModel> }) {
   return (
     <JSContainer>
       <div className="flex flex-col pl-[2ch]">
@@ -133,7 +140,11 @@ function JSObjectValue({ value }: { value: JsonObject }) {
   );
 }
 
-function NodeOther({ value }: { value: JsonValue }) {
+function NodeOther({
+  value,
+}: {
+  value: PickVariant<RefinedNode, "TYPE_OTHER">["value"];
+}) {
   const isInsideObject = useContext(ObjectContext);
 
   if (isInsideObject === undefined) {
@@ -142,22 +153,13 @@ function NodeOther({ value }: { value: JsonValue }) {
     );
   }
 
-  if (value === "$undefined") {
+  if (value === undefined) {
     // TODO: These isInsideObject conditions are a bit messy,
     // I need to find antoher way to handle it.
     if (isInsideObject) {
       return <>undefined</>;
     }
     return <JSContainer>undefined</JSContainer>;
-  }
-
-  if (value === undefined) {
-    if (isInsideObject) {
-      return <>undefined</>;
-    }
-    return <JSContainer>undefined</JSContainer>;
-    // TODO: Potentially don't render {undefined}
-    // return null;
   }
 
   if (value === null) {
@@ -171,12 +173,20 @@ function NodeOther({ value }: { value: JsonValue }) {
     return <StringValue value={value} />;
   }
 
+  if (typeof value === "symbol") {
+    return (
+      <JSContainer>Symbol.for({JSON.stringify(value.toString())})</JSContainer>
+    );
+  }
+
   if (
-    value !== null &&
     typeof value === "object" &&
-    Array.isArray(value) === false &&
+    !Array.isArray(value) &&
     !(value instanceof Array)
   ) {
+    if (value instanceof Date) {
+      return <JSContainer>new Date({value.toJSON()})</JSContainer>;
+    }
     return (
       <ObjectContext.Provider value={true}>
         <JSObjectValue value={value} />
@@ -202,9 +212,10 @@ function StringValue({ value }: { value: string }) {
     return (
       <div className="inline flex-col gap-2">
         <span>{value}</span>
-        {value.startsWith("$L") ? (
+        {/* {value.startsWith("$L") ? (
           <ComponentTreeReference reference={value} />
         ) : null}
+        {value.startsWith("$@") ? <PromiseReference reference={value} /> : null} */}
       </div>
     );
   }
@@ -212,14 +223,19 @@ function StringValue({ value }: { value: string }) {
   return (
     <div className="inline flex-col gap-2">
       <Yellow>&quot;{value}&quot;</Yellow>
-      {value.startsWith("$L") ? (
+      {/* {value.startsWith("$L") ? (
         <ComponentTreeReference reference={value} />
       ) : null}
+      {value.startsWith("$@") ? <PromiseReference reference={value} /> : null} */}
     </div>
   );
 }
 
-function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
+function NodeArray({
+  values,
+}: {
+  values: ParsedModel[] | readonly ParsedModel[];
+}) {
   const isInsideProps = useContext(PropsContext);
 
   if (values.length == 0) {
@@ -273,7 +289,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
 
 const PropsContext = createContext(false);
 
-function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
+function Prop({ propKey, value }: { propKey: string; value: ParsedModel }) {
   return (
     <>
       <Green>{propKey}</Green>
@@ -285,7 +301,7 @@ function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
   );
 }
 
-function Props({ props }: { props: JsonObject }) {
+function Props({ props }: { props: Record<string, ParsedModel> }) {
   const rootProps = Object.keys(props);
 
   if (
@@ -325,9 +341,42 @@ function Props({ props }: { props: JsonObject }) {
   );
 }
 
-function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
+const getComponentNameForTag = (
+  tag: ParsedElement["elementType"]
+  // parsed: ParsedPayload
+) => {
+  if (typeof tag === "string") {
+    return tag;
+  }
+  // TODO: read component name from chunks
+  return `Lazy(${tag.id})`;
+};
+
+function NodeComponent({
+  elementType,
+  props,
+}: {
+  elementType: ParsedElement["elementType"];
+  props: ParsedElement["config"];
+}) {
   const isInsideProps = useContext(PropsContext);
   const [isOpen, setIsOpen] = useState(true);
+
+  // const payload = useContext(PayloadContext);
+  // const parsedPayload = parsePayload(payload);
+
+  const componentLabel = getComponentNameForTag(
+    elementType /* parsedPayload */
+  );
+  const componentLabelEl = isComponentReference(elementType) ? (
+    <Blue>{componentLabel}</Blue>
+  ) : (
+    <Pink>{componentLabel}</Pink>
+  );
+
+  // const componentLabel = componentName
+  //   ? `${componentName} (${elementType})`
+  //   : elementType;
 
   return (
     <ObjectContext.Provider value={false}>
@@ -351,7 +400,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
               <Purple>
                 <LeftArrow />
               </Purple>
-              <Pink>{tag}</Pink>
+              {componentLabelEl}
               <Props props={props} />
               <Purple>
                 <RightArrow />
@@ -362,7 +411,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
               <Purple>
                 <LeftArrow />
               </Purple>
-              <Pink>{tag}</Pink>
+              {componentLabelEl}
               <Purple>
                 <RightArrow />
               </Purple>
@@ -372,7 +421,8 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
               <Purple>
                 <LeftArrow />/
               </Purple>
-              <Pink>{tag}</Pink>
+              {componentLabelEl}
+              {/* <Pink>{elementType}</Pink> */}
               <Purple>
                 <RightArrow />
               </Purple>
@@ -382,8 +432,8 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
 
         <PropsContext.Provider value={false}>
           <div className="pl-[2ch] flex flex-col gap-2 items-start">
-            {tag.startsWith("$L") ? (
-              <ComponentImportReference tag={tag} />
+            {isComponentReference(elementType) ? (
+              <ComponentImportReference reference={elementType} />
             ) : null}
             <Node value={props.children} />
           </div>
@@ -393,7 +443,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
           <Purple>
             <LeftArrow />/
           </Purple>
-          <Pink>{tag}</Pink>
+          <Pink>{componentLabel}</Pink>
           <Purple>
             <RightArrow />
           </Purple>
@@ -413,7 +463,7 @@ function TabJumpButton({
   destinationTab,
   children,
 }: {
-  destinationTab: string;
+  destinationTab: number;
   children: ReactNode;
 }) {
   const tab = useContext(TabContext);
@@ -433,26 +483,20 @@ function TabJumpButton({
       className="text-left bg-blue-800 text-white rounded px-2 py-1"
       onClick={() => {
         if (destinationTab) {
-          const buttonIdentifier = destinationTab.replace("$L", "");
-
-          const lines = splitToCleanLines(payload);
-
-          for (const line of lines) {
-            const tokens = lexer(line);
-            const { identifier } = parse(tokens);
-
-            if (buttonIdentifier === identifier) {
-              // TODO: Don't hard-code this
-              window.scrollTo(0, 680);
-              tab.setTab(line);
-            }
-          }
+          // const buttonIdentifier = getRowIdFromTag(destinationTab);
+          window.scrollTo(0, 680);
+          tab.setTab(destinationTab);
         }
       }}
     >
       {children}
     </button>
   );
+}
+
+function getRowIdFromTag(tag: string) {
+  const referenceRegex = /\$(L|@)(\d+)/;
+  return tag.match(referenceRegex)?.[1] ?? null;
 }
 
 function InfoBox({ children }: { children: ReactNode }) {
@@ -466,26 +510,46 @@ function InfoBox({ children }: { children: ReactNode }) {
   );
 }
 
-function ComponentImportReference({ tag }: { tag: string }) {
+function ComponentImportReference({
+  reference,
+}: {
+  reference: LazyComponentReference;
+}) {
+  const textReference = `$L${reference.id}`;
   return (
     <InfoBox>
-      <span>{tag} indicates an imported component</span>
-      <TabJumpButton destinationTab={tag}>
+      <span>{textReference} indicates a client component</span>
+      <TabJumpButton destinationTab={reference.id}>
         Go to &quot;
-        {tag.replace("$L", "")}
+        {reference.id}
         &quot;
       </TabJumpButton>
     </InfoBox>
   );
 }
 
-function ComponentTreeReference({ reference }: { reference: string }) {
+// function PromiseReference({ reference }: { reference: string }) {
+//   const textReference = `$@${reference.id}`;
+//   return (
+//     <InfoBox>
+//       <span>{reference} indicates a promise</span>
+//       <TabJumpButton destinationTab={reference.id}>
+//         Go to &quot;
+//         {getRowIdFromTag(reference)}
+//         &quot;
+//       </TabJumpButton>
+//     </InfoBox>
+//   );
+// }
+
+function ComponentTreeReference({ reference }: { reference: { id: number } }) {
+  const textReference = "$TODO" + reference.id;
   return (
     <InfoBox>
-      <span>{reference} indicates a tree reference</span>
-      <TabJumpButton destinationTab={reference}>
+      <span>{textReference} indicates a reference</span>
+      <TabJumpButton destinationTab={reference.id}>
         Go to &quot;
-        {reference.replace("$L", "")}
+        {reference.id}
         &quot;
       </TabJumpButton>
     </InfoBox>

@@ -1,14 +1,10 @@
 import {
-  splitToCleanLines,
-  lexer,
-  UNKNOWN,
-  COLON,
-  LEFT_BRACE,
-  RIGHT_BRACE,
-  LEFT_BRACKET,
-  RIGHT_BRACKET,
-  parse,
-} from "./parse";
+  ParsedPayload,
+  Row,
+  parsedElement,
+  parsePayload,
+  ClientReferenceMetadata,
+} from "./parse-payload";
 
 /**
  * Example payload
@@ -27,198 +23,148 @@ import {
  *
  */
 
-describe("splitToCleanLines", () => {
-  it("should fail if the input is not a string", () => {
-    const lines = null;
+const toHex = (n: number) => n.toString(16);
 
-    // @ts-expect-error Not a string
-    expect(() => splitToCleanLines(lines)).toThrow("Payload is not a string.");
-  });
+const joinLines = (lines: string[]) => lines.join("\n") + "\n";
 
-  it("should return an empty array for an empty input", () => {
-    const lines = ``;
+type ParsedRowWithId = ParsedPayload["rows"][number]["parsed"];
 
-    expect(splitToCleanLines(lines)).toStrictEqual([]);
-  });
-
-  it("should split into clean lines", () => {
-    const lines = `foo
-bar
-baz
-`;
-
-    expect(splitToCleanLines(lines)).toStrictEqual(["foo", "bar", "baz"]);
-  });
-
-  it("should not accept empty lines in between", () => {
-    const lines = `foo
-bar
-baz
-`;
-
-    expect(splitToCleanLines(lines)).toStrictEqual(["foo", "bar", "baz"]);
-  });
-
-  it("should fail if the last line is not empty", () => {
-    const lines = `foo
-bar
-baz`;
-
-    expect(() => splitToCleanLines(lines)).toThrow(
-      "RSC payload is missing an empty newline at the end indicating that it is not complete."
-    );
-  });
-});
-
-describe("lexer", () => {
-  it("split nothing into an empty array", () => {
-    const line = ``;
-
-    const result = lexer(line);
-
-    expect(result).toStrictEqual([]);
-  });
-
-  it("split into array of objects", () => {
-    const line = `:{}[]01ab,`;
-
-    const result = lexer(line);
-
-    expect(result).toStrictEqual([
-      {
-        type: COLON,
-        value: ":",
-      },
-      {
-        type: LEFT_BRACE,
-        value: "{",
-      },
-      {
-        type: RIGHT_BRACE,
-        value: "}",
-      },
-      {
-        type: LEFT_BRACKET,
-        value: "[",
-      },
-      {
-        type: RIGHT_BRACKET,
-        value: "]",
-      },
-      {
-        type: UNKNOWN,
-        value: "0",
-      },
-      {
-        type: UNKNOWN,
-        value: "1",
-      },
-      {
-        type: UNKNOWN,
-        value: "a",
-      },
-      {
-        type: UNKNOWN,
-        value: "b",
-      },
-      {
-        type: UNKNOWN,
-        value: ",",
-      },
-    ]);
-  });
-});
+const testClientReference: ClientReferenceMetadata = {
+  id: "61981",
+  chunks: [
+    "414:static/chunks/414-9ee1a4f70730f5c0.js",
+    "1004:static/chunks/1004-456f71c9bb70e7ee.js",
+    "3213:static/chunks/3213-648f64f230debb40.js",
+    "7974:static/chunks/app/(main)/page-16ca770141ca5c0a.js",
+  ],
+  name: "ItemLoading",
+  async: false,
+};
 
 describe("parser", () => {
-  it("should parse a number identifier", () => {
-    const line = `0:""`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
+  describe("row identifiers", () => {
+    it.each([
+      ["zero", 0],
+      ["single hex character", 0xa],
+      ["multiple hex characters", 0x1a],
+    ])("%s", (_, id) => {
+      const line = `${toHex(id)}:""`;
+      const result = parsePayload(line);
 
-    expect(result).toStrictEqual({ identifier: "0", type: "", data: `""` });
-  });
-
-  it("should parse a letter identifier", () => {
-    const line = `a:""`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
-
-    expect(result).toStrictEqual({ identifier: "a", type: "", data: `""` });
-  });
-
-  it("should parse a two-char identifier empty data string", () => {
-    const line = `0a:""`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
-
-    expect(result).toStrictEqual({ identifier: "0a", type: "", data: `""` });
-  });
-
-  it("should parse an empty data string", () => {
-    const line = `0:""`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
-
-    expect(result).toStrictEqual({ identifier: "0", type: "", data: `""` });
-  });
-
-  it("should parse an non-empty data string", () => {
-    const line = `0:"$Sreact.suspense"`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
-
-    expect(result).toStrictEqual({
-      identifier: "0",
-      type: "",
-      data: `"$Sreact.suspense"`,
+      expect(result.rows[0].parsed).toStrictEqual<ParsedRowWithId>({
+        id: id,
+        row: {
+          type: "model",
+          data: "",
+        },
+      });
     });
   });
 
-  it("should parse a data object", () => {
-    const line = `0:"{}"`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
+  describe("module imports", () => {
+    it("should parse module imports", () => {
+      const reference = testClientReference;
 
-    expect(result).toStrictEqual({
-      identifier: "0",
-      type: "",
-      data: `"{}"`,
+      const line = `0:I${JSON.stringify(reference)}`;
+      const result = parsePayload(line);
+      expect(result.rows[0].parsed).toStrictEqual<ParsedRowWithId>({
+        id: 0,
+        row: {
+          type: "module-import",
+          meta: reference,
+        },
+      });
     });
   });
 
-  it("should parse a data array", () => {
-    const line = `0:"[]"`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
+  describe("elements", () => {
+    test("element type: div", () => {
+      const element = ["$", "div", null, { className: "foobar" }] as const;
+      const line = `0:${JSON.stringify(element)}`;
+      const result = parsePayload(line);
+      expect(result.rows[0].parsed).toStrictEqual<ParsedRowWithId>({
+        id: 0,
+        row: {
+          type: "model",
+          data: parsedElement(element[1], element[2], element[3]),
+        },
+      });
+    });
 
-    expect(result).toStrictEqual({
-      identifier: "0",
-      type: "",
-      data: `"[]"`,
+    test("element type: client reference", () => {
+      const element = ["$", "$L0", null, { className: "foobar" }] as const;
+      const lines = joinLines([
+        `0:I${JSON.stringify(testClientReference)}`,
+        `1:${JSON.stringify(element)}`,
+      ]);
+      const result = parsePayload(lines);
+      expect(result.rows[1].parsed).toStrictEqual<ParsedRowWithId>({
+        id: 1,
+        row: {
+          type: "model",
+          data: parsedElement(
+            { type: "lazy-component-reference", id: 0 },
+            element[2],
+            element[3]
+          ),
+        },
+      });
+    });
+
+    test("element type: react builtin", () => {
+      const element = ["$", "$0", null, { fallback: "my-fallback" }] as const;
+      const lines = joinLines([
+        `0:"$Sreact.suspense"`,
+        `1:${JSON.stringify(element)}`,
+      ]);
+      const result = parsePayload(lines);
+      expect(result.rows[1].parsed).toStrictEqual<ParsedRowWithId>({
+        id: 1,
+        row: {
+          type: "model",
+          data: parsedElement(
+            { type: "reference", id: 0 },
+            element[2],
+            element[3]
+          ),
+        },
+      });
     });
   });
 
-  it("should parse a data array an empty object inside of it", () => {
-    const line = `0:"[{}]"`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
+  describe("models", () => {
+    it("should parse symbols", () => {
+      const line = `0:"$Sreact.suspense"`;
+      const result = parsePayload(line);
 
-    expect(result).toStrictEqual({
-      identifier: "0",
-      type: "",
-      data: `"[{}]"`,
+      expect(result.rows[0].parsed).toStrictEqual<ParsedRowWithId>({
+        id: 0,
+        row: {
+          type: "model",
+          data: Symbol.for("react.suspense"),
+        },
+      });
     });
-  });
 
-  it("should parse a data array multiple objects inside of it", () => {
-    const line = `0:"[{"a":"b"},{"foo":"bar"}]"`;
-    const tokens = lexer(line);
-    const result = parse(tokens);
+    it.each([
+      ["an empty string", ""],
+      ["an non-empty string", "foobar"],
+      ["null", null],
+      ["an empty object", {}],
+      ["an empty array", []],
+      ["an object in array", [{}]],
+      ["complex objects in array", [{ a: "b" }, { foo: "bar" }]],
+    ])("should parse %s", (_, data) => {
+      const line = `0:${JSON.stringify(data)}`;
+      const result = parsePayload(line);
 
-    expect(result).toStrictEqual({
-      identifier: "0",
-      type: "",
-      data: `"[{"a":"b"},{"foo":"bar"}]"`,
+      expect(result.rows[0].parsed).toStrictEqual<ParsedRowWithId>({
+        id: 0,
+        row: {
+          type: "model",
+          data,
+        },
+      });
     });
   });
 });
