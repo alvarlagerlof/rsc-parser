@@ -179,7 +179,7 @@ function NodeOther({
 
   if (typeof value === "symbol") {
     return (
-      <JSContainer>Symbol.for({JSON.stringify(value.toString())})</JSContainer>
+      <JSContainer>Symbol.for({JSON.stringify(value.description)})</JSContainer>
     );
   }
 
