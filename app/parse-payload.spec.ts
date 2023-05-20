@@ -103,7 +103,7 @@ describe("parser", () => {
         row: {
           type: "model",
           data: parsedElement(
-            { type: "lazy-component-reference", id: 0 },
+            { type: "lazy-reference", id: 0 },
             element[2],
             element[3]
           ),

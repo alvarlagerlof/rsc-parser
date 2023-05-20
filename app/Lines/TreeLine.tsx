@@ -14,8 +14,12 @@ import {
   LazyComponentReference,
   ParsedElement,
   ParsedModel,
+  ParsedPayload,
   PickVariant,
+  SomeTreeReference as SomeReference,
   isComponentReference,
+  isLazyReference,
+  isPromiseReference,
 } from "../parse-payload";
 import { JetBrains_Mono } from "next/font/google";
 
@@ -184,6 +188,14 @@ function NodeOther({
     !Array.isArray(value) &&
     !(value instanceof Array)
   ) {
+    if (isLazyReference(value)) {
+      return <ComponentTreeReference reference={value} />;
+    }
+
+    if (isPromiseReference(value)) {
+      return <ComponentTreeReference reference={value} />;
+    }
+
     if (value instanceof Date) {
       return <JSContainer>new Date({value.toJSON()})</JSContainer>;
     }
@@ -212,10 +224,6 @@ function StringValue({ value }: { value: string }) {
     return (
       <div className="inline flex-col gap-2">
         <span>{value}</span>
-        {/* {value.startsWith("$L") ? (
-          <ComponentTreeReference reference={value} />
-        ) : null}
-        {value.startsWith("$@") ? <PromiseReference reference={value} /> : null} */}
       </div>
     );
   }
@@ -223,10 +231,6 @@ function StringValue({ value }: { value: string }) {
   return (
     <div className="inline flex-col gap-2">
       <Yellow>&quot;{value}&quot;</Yellow>
-      {/* {value.startsWith("$L") ? (
-        <ComponentTreeReference reference={value} />
-      ) : null}
-      {value.startsWith("$@") ? <PromiseReference reference={value} /> : null} */}
     </div>
   );
 }
@@ -342,14 +346,27 @@ function Props({ props }: { props: Record<string, ParsedModel> }) {
 }
 
 const getComponentNameForTag = (
-  tag: ParsedElement["elementType"]
+  tag: ParsedElement["elementType"],
+  chunks: ParsedPayload["chunks"]
   // parsed: ParsedPayload
 ) => {
   if (typeof tag === "string") {
     return tag;
   }
   // TODO: read component name from chunks
-  return `Lazy(${tag.id})`;
+
+  const ref = chunks.get(tag.id);
+  if (ref?.type === "module-import") {
+    return ref.meta.name || `unnamed(${tag.id})`;
+  }
+  if (ref?.type === "model") {
+    console.log("got model", ref.data);
+    if (typeof ref.data === "symbol") {
+      return ref.data.description;
+    }
+    return JSON.stringify(ref.data);
+  }
+  return `unresolved(${tag.id})`;
 };
 
 function NodeComponent({
@@ -362,17 +379,15 @@ function NodeComponent({
   const isInsideProps = useContext(PropsContext);
   const [isOpen, setIsOpen] = useState(true);
 
-  // const payload = useContext(PayloadContext);
+  const { chunks } = useContext(PayloadContext);
+
   // const parsedPayload = parsePayload(payload);
 
-  const componentLabel = getComponentNameForTag(
-    elementType /* parsedPayload */
-  );
-  const componentLabelEl = isComponentReference(elementType) ? (
-    <Blue>{componentLabel}</Blue>
-  ) : (
-    <Pink>{componentLabel}</Pink>
-  );
+  const componentLabel = getComponentNameForTag(elementType, chunks);
+
+  const ComponentName = isComponentReference(elementType) ? Blue : Pink;
+
+  const componentLabelEl = <ComponentName>{componentLabel}</ComponentName>;
 
   // const componentLabel = componentName
   //   ? `${componentName} (${elementType})`
@@ -435,7 +450,7 @@ function NodeComponent({
             {isComponentReference(elementType) ? (
               <ComponentImportReference reference={elementType} />
             ) : null}
-            <Node value={props.children} />
+            {props.children !== undefined && <Node value={props.children} />}
           </div>
         </PropsContext.Provider>
 
@@ -443,7 +458,7 @@ function NodeComponent({
           <Purple>
             <LeftArrow />/
           </Purple>
-          <Pink>{componentLabel}</Pink>
+          {componentLabelEl}
           <Purple>
             <RightArrow />
           </Purple>
@@ -542,11 +557,30 @@ function ComponentImportReference({
 //   );
 // }
 
-function ComponentTreeReference({ reference }: { reference: { id: number } }) {
-  const textReference = "$TODO" + reference.id;
+const getTextReference = (ref: SomeReference) => {
+  switch (ref.type) {
+    case "lazy-reference":
+      return `$L${ref.id}`;
+    case "promise-reference":
+      return `$@${ref.id}`;
+  }
+};
+
+function ComponentTreeReference({ reference }: { reference: SomeReference }) {
+  const textReference = getTextReference(reference);
+  const referenceType = () => {
+    switch (reference.type) {
+      case "lazy-reference":
+        return "async tree reference";
+      case "promise-reference":
+        return "promise reference";
+    }
+  };
   return (
     <InfoBox>
-      <span>{textReference} indicates a reference</span>
+      <span>
+        {textReference} indicates a {referenceType()}
+      </span>
       <TabJumpButton destinationTab={reference.id}>
         Go to &quot;
         {reference.id}

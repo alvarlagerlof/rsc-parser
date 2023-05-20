@@ -43,6 +43,7 @@ export function Parser() {
   }, []);
 
   const parsedPayload = useMemo(() => parsePayload(rawPayload), [rawPayload]);
+  console.log(parsedPayload);
 
   return (
     <div className="flex flex-col gap-2 items-center max-w-full">
@@ -53,7 +54,7 @@ export function Parser() {
 
         <textarea
           name="payload"
-          placeholder="RCS paylod"
+          placeholder="RSC payload"
           className="bg-slate-200 outline-none focus:outline-blue-400 rounded-lg p-3 resize-none dark:bg-slate-900 dark:text-slate-200"
           rows={16}
           value={rawPayload}

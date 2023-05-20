@@ -10,9 +10,16 @@ export function parsePayload(payload: string) {
 
   const parsedRows = rows
     .map((row) => {
-      return { raw: row, parsed: processFullRow(response, row)! };
+      const processed = processFullRow(response, row);
+      if (!processed) {
+        return null;
+      }
+      response._chunks.set(processed.id, processed.row);
+      return { raw: row, parsed: processed };
     })
-    .filter(({ parsed }) => !!parsed);
+    .filter((x) => !!x)
+    .map((x) => x!);
+
   return {
     raw: payload,
     rows: parsedRows,
@@ -28,7 +35,9 @@ type _Response = {
   _fromJSON?: (key: string, value: JSONValue) => any;
 };
 
-type ParsedResponseValue = ReturnType<typeof processFullRow>;
+type ParsedResponseValue = NonNullable<
+  ReturnType<typeof processFullRow>
+>["row"];
 
 type UninitializedModel = string;
 
@@ -80,11 +89,11 @@ function processFullRow(response: _Response, row: string) {
       // return;
       return {
         id,
-        row: register(response, id, {
+        row: {
           type: "model" as const,
           // id,
           data: parseModel(response, row.slice(colon + 1)),
-        }),
+        },
       };
     }
   }
@@ -97,11 +106,6 @@ export type ClientReferenceMetadata = {
   async: boolean;
 };
 
-function register<T>(response: _Response, id: number, value: T): T {
-  response._chunks.set(id, value as any);
-  return value;
-}
-
 function parseModule(
   response: _Response,
   id: number,
@@ -113,11 +117,11 @@ function parseModule(
     response,
     model
   );
-  return register(response, id, {
+  return {
     type: "module-import" as const,
     // id,
     meta: clientReferenceMetadata,
-  });
+  };
 }
 
 // This typing is a bit lazy, React has more detailed types for it
@@ -141,6 +145,7 @@ function parseModel<T = ParsedModel>(
 
 export type ParsedModel =
   | ParsedElement
+  | SomeTreeReference
   | ParsedPrimitive
   | ParsedModel[]
   | { [key: string]: ParsedModel };
@@ -158,8 +163,40 @@ function createFromJSONCallback(response: _Response) {
   };
 }
 
+export type SomeTreeReference = LazyReference | PromiseReference;
+
+export type LazyReference = PickVariant<
+  ParsedStringReference,
+  "lazy-reference"
+>;
+
+export function isLazyReference(value: ParsedModel): value is LazyReference {
+  return !!(
+    typeof value === "object" &&
+    value &&
+    "type" in value &&
+    value.type === "lazy-reference"
+  );
+}
+
+export type PromiseReference = PickVariant<
+  ParsedStringReference,
+  "promise-reference"
+>;
+
+export function isPromiseReference(
+  value: ParsedModel
+): value is PromiseReference {
+  return !!(
+    typeof value === "object" &&
+    value &&
+    "type" in value &&
+    value.type === "promise-reference"
+  );
+}
+
 type ParsedStringReference =
-  | { type: "lazy-component-reference"; id: number }
+  | { type: "lazy-reference"; id: number }
   | { type: "promise-reference"; id: number }
   | {
       type: "server-context-provider";
@@ -202,7 +239,7 @@ function parseModelString(
         // // When passed into React, we'll know how to suspend on this.
         // return createLazyChunkWrapper(chunk);
 
-        return { type: "lazy-component-reference" as const, id };
+        return { type: "lazy-reference" as const, id };
       }
       case "@": {
         // Promise
@@ -282,8 +319,7 @@ export function isComponentReference(
 ): elementType is LazyComponentReference {
   return (
     typeof elementType === "object" &&
-    (elementType.type === "lazy-component-reference" ||
-      elementType.type === "reference")
+    (elementType.type === "lazy-reference" || elementType.type === "reference")
   );
 }
 
@@ -291,7 +327,7 @@ export type ParsedElement = ReturnType<typeof parsedElement>;
 
 export type LazyComponentReference = PickVariant<
   ParsedStringReference,
-  "lazy-component-reference"
+  "lazy-reference"
 >;
 
 export type OtherComponentReference = PickVariant<
