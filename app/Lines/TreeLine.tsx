@@ -194,9 +194,7 @@ function StringValue({ value }: { value: string }) {
   const isInsideProp = useContext(PropsContext);
 
   if (isInsideProp === undefined) {
-    throw new Error(
-      "ObjectCoPropsContextntext must be used within a PropsContext.Provder"
-    );
+    throw new Error("PropsContext must be used within a PropsContext.Provder");
   }
 
   if (!isInsideProp) {
@@ -204,7 +202,7 @@ function StringValue({ value }: { value: string }) {
       <div className="inline flex-col gap-2">
         <span>{value}</span>
         {value.startsWith("$L") ? (
-          <ComponenTreeReference reference={value} />
+          <ComponentTreeReference reference={value} />
         ) : null}
       </div>
     );
@@ -214,7 +212,7 @@ function StringValue({ value }: { value: string }) {
     <div className="inline flex-col gap-2">
       <Yellow>&quot;{value}&quot;</Yellow>
       {value.startsWith("$L") ? (
-        <ComponenTreeReference reference={value} />
+        <ComponentTreeReference reference={value} />
       ) : null}
     </div>
   );
@@ -480,7 +478,7 @@ function ComponentImportReference({ tag }: { tag: string }) {
   );
 }
 
-function ComponenTreeReference({ reference }: { reference: string }) {
+function ComponentTreeReference({ reference }: { reference: string }) {
   return (
     <InfoBox>
       <span>{reference} indicates a tree reference</span>
