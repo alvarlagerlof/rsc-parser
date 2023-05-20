@@ -6,7 +6,7 @@ I made this tool to more easily let you understand the data and explore it visua
 
 With this tool:
 
-<img width="739" alt="image" src="https://github.com/alvarlagerlof/rsc-parser/assets/14835120/34ab2a44-2acb-459b-97c1-d0a933fdf234">
+<img width="1295" alt="image" src="https://github.com/alvarlagerlof/rsc-parser/assets/14835120/e883642d-3ab0-44aa-a1c0-1783479eb369">
 
 Without this tool:
 
