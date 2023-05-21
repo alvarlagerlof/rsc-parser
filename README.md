@@ -30,9 +30,9 @@ Please make an issue on https://github.com/alvarlagerlof/rsc-parser/issues/new a
 
 Currently this is is a standalone site, which means that it is not able to handle live streaming payloads, but I plan on exploring using doing this as a browser extension or possibly an embedded debugging component similar to the [React Query devtools](https://tanstack.com/query/v4/docs/react/devtools). The latter would probably need a service worker to intercept network requests. If you know anything about this I'd love to talk. I'm [@alvarlagerlof](https://twitter.com/alvarlagerlof) on Twitter.
 
-~~I'm also considering a rendering of the component tree that looks more like your code itself. I think it should be possible to replicate it pretty well. In this area I am also considering attempting to combine the different lines in the stream and stitch them together into a single tree.~~ Done in #7
+~~I'm also considering a rendering of the component tree that looks more like your code itself. I think it should be possible to replicate it pretty well. In this area I am also considering attempting to combine the different rows in the stream and stitch them together into a single tree.~~ Done in #7
 
-Another area of improvement is better rendering of sizes of lines/objects. Browsers and servers have compression like gzip and brotli, but this codes does not take that into account.
+Another area of improvement is better rendering of sizes of rows/objects. Browsers and servers have compression like gzip and brotli, but this codes does not take that into account.
 
 I do want to note that all of this was put together quickly, so it likely needs a bit of refactoring to make more sense.
 

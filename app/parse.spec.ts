@@ -1,5 +1,5 @@
 import {
-  splitToCleanLines,
+  splitToCleanRows,
   lexer,
   UNKNOWN,
   COLON,
@@ -27,44 +27,44 @@ import {
  *
  */
 
-describe("splitToCleanLines", () => {
+describe("splitToCleanrows", () => {
   it("should fail if the input is not a string", () => {
-    const lines = null;
+    const rows = null;
 
     // @ts-expect-error Not a string
-    expect(() => splitToCleanLines(lines)).toThrow("Payload is not a string.");
+    expect(() => splitToCleanRows(rows)).toThrow("Payload is not a string.");
   });
 
   it("should return an empty array for an empty input", () => {
-    const lines = ``;
+    const rows = ``;
 
-    expect(splitToCleanLines(lines)).toStrictEqual([]);
+    expect(splitToCleanRows(rows)).toStrictEqual([]);
   });
 
-  it("should split into clean lines", () => {
-    const lines = `foo
+  it("should split into clean rows", () => {
+    const rows = `foo
 bar
 baz
 `;
 
-    expect(splitToCleanLines(lines)).toStrictEqual(["foo", "bar", "baz"]);
+    expect(splitToCleanRows(rows)).toStrictEqual(["foo", "bar", "baz"]);
   });
 
-  it("should not accept empty lines in between", () => {
-    const lines = `foo
+  it("should not accept empty rows in between", () => {
+    const rows = `foo
 bar
 baz
 `;
 
-    expect(splitToCleanLines(lines)).toStrictEqual(["foo", "bar", "baz"]);
+    expect(splitToCleanRows(rows)).toStrictEqual(["foo", "bar", "baz"]);
   });
 
-  it("should fail if the last line is not empty", () => {
-    const lines = `foo
+  it("should fail if the last row is not empty", () => {
+    const rows = `foo
 bar
 baz`;
 
-    expect(() => splitToCleanLines(lines)).toThrow(
+    expect(() => splitToCleanRows(rows)).toThrow(
       "RSC payload is missing an empty newline at the end indicating that it is not complete."
     );
   });
@@ -72,17 +72,17 @@ baz`;
 
 describe("lexer", () => {
   it("split nothing into an empty array", () => {
-    const line = ``;
+    const row = ``;
 
-    const result = lexer(line);
+    const result = lexer(row);
 
     expect(result).toStrictEqual([]);
   });
 
   it("split into array of objects", () => {
-    const line = `:{}[]01ab,`;
+    const row = `:{}[]01ab,`;
 
-    const result = lexer(line);
+    const result = lexer(row);
 
     expect(result).toStrictEqual([
       {
@@ -131,40 +131,40 @@ describe("lexer", () => {
 
 describe("parser", () => {
   it("should parse a number identifier", () => {
-    const line = `0:""`;
-    const tokens = lexer(line);
+    const row = `0:""`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({ identifier: "0", type: "", data: `""` });
   });
 
   it("should parse a letter identifier", () => {
-    const line = `a:""`;
-    const tokens = lexer(line);
+    const row = `a:""`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({ identifier: "a", type: "", data: `""` });
   });
 
   it("should parse a two-char identifier empty data string", () => {
-    const line = `0a:""`;
-    const tokens = lexer(line);
+    const row = `0a:""`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({ identifier: "0a", type: "", data: `""` });
   });
 
   it("should parse an empty data string", () => {
-    const line = `0:""`;
-    const tokens = lexer(line);
+    const row = `0:""`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({ identifier: "0", type: "", data: `""` });
   });
 
   it("should parse an non-empty data string", () => {
-    const line = `0:"$Sreact.suspense"`;
-    const tokens = lexer(line);
+    const row = `0:"$Sreact.suspense"`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
@@ -175,8 +175,8 @@ describe("parser", () => {
   });
 
   it("should parse a data object", () => {
-    const line = `0:"{}"`;
-    const tokens = lexer(line);
+    const row = `0:"{}"`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
@@ -187,8 +187,8 @@ describe("parser", () => {
   });
 
   it("should parse a data array", () => {
-    const line = `0:"[]"`;
-    const tokens = lexer(line);
+    const row = `0:"[]"`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
@@ -199,8 +199,8 @@ describe("parser", () => {
   });
 
   it("should parse a data array an empty object inside of it", () => {
-    const line = `0:"[{}]"`;
-    const tokens = lexer(line);
+    const row = `0:"[{}]"`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({
@@ -211,8 +211,8 @@ describe("parser", () => {
   });
 
   it("should parse a data array multiple objects inside of it", () => {
-    const line = `0:"[{"a":"b"},{"foo":"bar"}]"`;
-    const tokens = lexer(line);
+    const row = `0:"[{"a":"b"},{"foo":"bar"}]"`;
+    const tokens = lexer(row);
     const result = parse(tokens);
 
     expect(result).toStrictEqual({

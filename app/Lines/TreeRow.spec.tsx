@@ -2,9 +2,9 @@ import { JsonValue } from "type-fest";
 import {
   refineRawTreeNode,
   TYPE_OTHER,
-  TYPE_COMPONENT,
+  TYPE_ELEMENT,
   TYPE_ARRAY,
-} from "./TreeLine";
+} from "./TreeRow";
 
 describe("getTreeNode", () => {
   it("handles a null", () => {
@@ -86,7 +86,7 @@ describe("getTreeNode", () => {
     ];
     const refined = refineRawTreeNode(rawValue);
 
-    expect(refined.type).toBe(TYPE_COMPONENT);
+    expect(refined.type).toBe(TYPE_ELEMENT);
     expect(refined.value).toStrictEqual(rawValue);
   });
 });

@@ -8,7 +8,7 @@ const schema = z.tuple([
   ]),
 ]);
 
-export function AssetLine({ data }: { data: string }) {
+export function HintRow({ data }: { data: string }) {
   const json = JSON.parse(data);
   const parsed = schema.parse(json);
 

@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { JsonObject, JsonValue } from "type-fest";
-import { lexer, parse, splitToCleanLines } from "../parse";
+import { lexer, parse, splitToCleanRows } from "../parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
 import { TabContext } from "../TabContext";
@@ -17,7 +17,7 @@ import { JetBrains_Mono } from "next/font/google";
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin-ext"] });
 
 export const TYPE_OTHER = "TYPE_OTHER";
-export const TYPE_COMPONENT = "TYPE_COMPONENT";
+export const TYPE_ELEMENT = "TYPE_ELEMENT";
 export const TYPE_ARRAY = "TYPE_ARRAY";
 
 export function refineRawTreeNode(value: JsonValue) {
@@ -38,7 +38,7 @@ export function refineRawTreeNode(value: JsonValue) {
   ) {
     // eg. ["$","ul",null,{}]
     return {
-      type: TYPE_COMPONENT,
+      type: TYPE_ELEMENT,
       value: [value[0], value[1], value[2], value[3]] as const,
     } as const;
   }
@@ -49,7 +49,7 @@ export function refineRawTreeNode(value: JsonValue) {
   } as const;
 }
 
-export function TreeLine({ data }: { data: string }) {
+export function TreeRow({ data }: { data: string }) {
   const json = JSON.parse(data);
 
   return (
@@ -83,15 +83,16 @@ function Node({ value }: { value: JsonValue }) {
           </Suspense>
         </ErrorBoundary>
       );
-    case TYPE_COMPONENT: {
-      const [reactComponentMarker, tag, unknown, props] = refinedNode.value;
+    case TYPE_ELEMENT: {
+      const [reactElementMarker, elementType, unknown, props] =
+        refinedNode.value;
 
       return (
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
           key={refinedNode.value?.toString()}
         >
-          <NodeComponent tag={tag} props={props} />
+          <NodeElement tag={elementType} props={props} />
         </ErrorBoundary>
       );
     }
@@ -203,7 +204,7 @@ function StringValue({ value }: { value: string }) {
       <div className="inline flex-col gap-2">
         <span>{value}</span>
         {value.startsWith("$L") ? (
-          <ComponentTreeReference reference={value} />
+          <TreeReferenceAnnotation reference={value} />
         ) : null}
       </div>
     );
@@ -213,7 +214,7 @@ function StringValue({ value }: { value: string }) {
     <div className="inline flex-col gap-2">
       <Yellow>&quot;{value}&quot;</Yellow>
       {value.startsWith("$L") ? (
-        <ComponentTreeReference reference={value} />
+        <TreeReferenceAnnotation reference={value} />
       ) : null}
     </div>
   );
@@ -298,7 +299,7 @@ function Props({ props }: { props: JsonObject }) {
   // Only show props inline if there is just one prop
   if (
     rootProps.length === 1 &&
-    // Long props should break the line
+    // Long props should break the row
     String(props[rootProps[0]]).length < 80
   ) {
     return (
@@ -325,7 +326,7 @@ function Props({ props }: { props: JsonObject }) {
   );
 }
 
-function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
+function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
   const isInsideProps = useContext(PropsContext);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -383,7 +384,7 @@ function NodeComponent({ tag, props }: { tag: string; props: JsonObject }) {
         <PropsContext.Provider value={false}>
           <div className="pl-[2ch] flex flex-col gap-2 items-start">
             {tag.startsWith("$L") ? (
-              <ComponentImportReference tag={tag} />
+              <ClientReferenceAnnotation tag={tag} />
             ) : null}
             <Node value={props.children} />
           </div>
@@ -435,16 +436,16 @@ function TabJumpButton({
         if (destinationTab) {
           const buttonIdentifier = destinationTab.replace("$L", "");
 
-          const lines = splitToCleanLines(payload);
+          const rows = splitToCleanRows(payload);
 
-          for (const line of lines) {
-            const tokens = lexer(line);
+          for (const row of rows) {
+            const tokens = lexer(row);
             const { identifier } = parse(tokens);
 
             if (buttonIdentifier === identifier) {
               // TODO: Don't hard-code this
               window.scrollTo(0, 680);
-              tab.setTab(line);
+              tab.setTab(row);
             }
           }
         }
@@ -466,10 +467,10 @@ function InfoBox({ children }: { children: ReactNode }) {
   );
 }
 
-function ComponentImportReference({ tag }: { tag: string }) {
+function ClientReferenceAnnotation({ tag }: { tag: string }) {
   return (
     <InfoBox>
-      <span>{tag} indicates an imported component</span>
+      <span>{tag} indicates an a client reference</span>
       <TabJumpButton destinationTab={tag}>
         Go to &quot;
         {tag.replace("$L", "")}
@@ -479,7 +480,7 @@ function ComponentImportReference({ tag }: { tag: string }) {
   );
 }
 
-function ComponentTreeReference({ reference }: { reference: string }) {
+function TreeReferenceAnnotation({ reference }: { reference: string }) {
   return (
     <InfoBox>
       <span>{reference} indicates a tree reference</span>
