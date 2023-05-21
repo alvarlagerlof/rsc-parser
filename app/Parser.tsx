@@ -329,6 +329,7 @@ function TabPanelExplorer({ row }: { row: string }) {
 
   switch (refinedType) {
     case "client ref":
+      // This is a bit iffy. Should probably have separate names for these.
       return <ClientReferenceRow data={data} />;
     case "hint":
       return <HintRow data={data} />;
