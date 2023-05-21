@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { HintModel } from "../parse-payload";
 
 const schema = z.tuple([
   z.string(),
@@ -8,9 +9,8 @@ const schema = z.tuple([
   ]),
 ]);
 
-export function AssetLine({ data }: { data: string }) {
-  const json = JSON.parse(data);
-  const parsed = schema.parse(json);
+export function AssetLine({ code, value }: { code: string; value: HintModel }) {
+  const parsed = schema.parse([code, value]);
 
   return (
     <div className="flex flex-col gap-8">

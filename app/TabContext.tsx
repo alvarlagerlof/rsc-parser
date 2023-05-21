@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 export const TabContext = createContext<
   | {
-      setTab: (tab: string) => void;
+      setTab: (tab: number) => void;
     }
   | undefined
 >(undefined);
