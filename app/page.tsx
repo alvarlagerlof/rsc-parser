@@ -15,7 +15,7 @@ export default function Home() {
           <p>
             This is a parser for React Server Components (RSC) when sent over
             the network. React uses a format to represent a tree of
-            components/html or metadata such as requiered imports, suspense
+            components/html or metadata such as required imports, suspense
             boundaries, and css/fonts that needs to be loaded.
           </p>
           <p>
