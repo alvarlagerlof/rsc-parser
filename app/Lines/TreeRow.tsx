@@ -297,20 +297,6 @@ function Props({ props }: { props: JsonObject }) {
     return null;
   }
 
-  // Only show props inline if there is just one prop
-  if (
-    rootProps.length === 1 &&
-    // Long props should break the row
-    String(props[rootProps[0]]).length < 80
-  ) {
-    return (
-      <>
-        {" "}
-        <Prop propKey={rootProps[0]} value={props[rootProps[0]]} />
-      </>
-    );
-  }
-
   return (
     <div className="pl-[3ch]">
       {rootProps
