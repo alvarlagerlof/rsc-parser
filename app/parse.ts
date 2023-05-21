@@ -1,19 +1,19 @@
-export function splitToCleanLines(payload: string) {
+export function splitToCleanRows(payload: string) {
   if (typeof payload !== "string") {
     throw new Error("Payload is not a string.");
   }
 
-  const lines = payload.split("\n");
+  const rows = payload.split("\n");
 
-  if (lines.at(-1) !== "") {
+  if (rows.at(-1) !== "") {
     throw new Error(
       "RSC payload is missing an empty newline at the end indicating that it is not complete."
     );
   }
 
-  lines.pop();
+  rows.pop();
 
-  return lines;
+  return rows;
 }
 
 export const COLON = "COLON" as const;
@@ -24,8 +24,8 @@ export const RIGHT_BRACE = "RIGHT_BRACE" as const;
 export const RIGHT_BRACKET = "RIGHT_BRACKET" as const;
 export const UNKNOWN = "UNKNOWN" as const;
 
-export function lexer(line: string) {
-  const chars = line.split("");
+export function lexer(row: string) {
+  const chars = row.split("");
 
   return chars.map((char) => {
     switch (char) {
@@ -122,16 +122,16 @@ export function parse(tokens: ReturnType<typeof lexer>) {
   };
 }
 
-export function refineLineType(rawType: string | undefined) {
+export function refineRowType(rawType: string | undefined) {
   switch (rawType) {
     case "": {
       return "tree";
     }
     case "I": {
-      return "import";
+      return "client ref";
     }
     case "HL": {
-      return "asset";
+      return "hint";
     }
     default: {
       return "unknown";

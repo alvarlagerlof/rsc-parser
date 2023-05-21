@@ -8,11 +8,11 @@ import React, {
   useTransition,
 } from "react";
 import { JSONTree } from "react-json-tree";
-import { lexer, parse, refineLineType, splitToCleanLines } from "./parse";
+import { lexer, parse, refineRowType, splitToCleanRows } from "./parse";
 import { ErrorBoundary } from "react-error-boundary";
-import { TreeLine } from "./Lines/TreeLine";
-import { ImportLine } from "./Lines/ImportLine";
-import { AssetLine } from "./Lines/AssetLine";
+import { TreeRow } from "./Lines/TreeRow";
+import { ClientReferenceRow } from "./Lines/ClientReferenceRow";
+import { HintRow } from "./Lines/HintRow";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 import { TabContext } from "./TabContext";
 import { stringToKiloBytes } from "./stringtoKiloBytes";
@@ -80,7 +80,7 @@ function Tabs({ payload }: { payload: string }) {
   const [currentTab, setCurrentTab] = useState<string | null>(null);
 
   const payloadSize = parseFloat(stringToKiloBytes(payload));
-  const lines = splitToCleanLines(payload);
+  const rows = splitToCleanRows(payload);
 
   const setTab = (tab: string) => {
     if (tab !== selectedTab) {
@@ -103,39 +103,39 @@ function Tabs({ payload }: { payload: string }) {
           role="tablist"
           aria-label="Tabs"
         >
-          {lines.map((line, i) => (
+          {rows.map((row, i) => (
             <button
               onClick={() => {
-                setSelectedTab(line);
+                setSelectedTab(row);
                 startTransition(() => {
-                  setCurrentTab(line);
+                  setCurrentTab(row);
                 });
               }}
               className="group outline-none border-0 text-left"
-              key={line}
+              key={row}
               role="tab"
-              aria-selected={line === selectedTab}
-              aria-controls={`panel-${line}`}
-              id={`tab-button-${line}`}
+              aria-selected={row === selectedTab}
+              aria-controls={`panel-${row}`}
+              id={`tab-button-${row}`}
               tabIndex={i == 0 ? 0 : -1}
             >
               <ErrorBoundary
                 fallbackRender={({ error }) => (
                   <TabFallback
                     error={error}
-                    line={line}
+                    row={row}
                     payloadSize={payloadSize}
                   />
                 )}
-                key={`tab-${line}`}
+                key={`tab-${row}`}
               >
                 <div
-                  id={`panel-${line}`}
+                  id={`panel-${row}`}
                   role="tabpanel"
                   tabIndex={0}
-                  aria-labelledby={`tab-${line}`}
+                  aria-labelledby={`tab-${row}`}
                 >
-                  <TabContent line={line} payloadSize={payloadSize} />
+                  <TabContent row={row} payloadSize={payloadSize} />
                 </div>
               </ErrorBoundary>
             </button>
@@ -154,18 +154,18 @@ function Tabs({ payload }: { payload: string }) {
       >
         {payload === "" ? (
           <p>Please enter a payload to see results.</p>
-        ) : !lines.includes(currentTab ?? "") ? (
+        ) : !rows.includes(currentTab ?? "") ? (
           <p>Please select a tab</p>
         ) : null}
 
-        {lines
-          .filter((line) => line == currentTab)
-          .map((line) => (
+        {rows
+          .filter((row) => row == currentTab)
+          .map((row) => (
             <ErrorBoundary
               FallbackComponent={GenericErrorBoundaryFallback}
-              key={`tab-panel-${line}`}
+              key={`tab-panel-${row}`}
             >
-              <TabPanelContent line={line} payloadSize={payloadSize} />
+              <TabPanelContent row={row} payloadSize={payloadSize} />
             </ErrorBoundary>
           ))}
       </div>
@@ -175,26 +175,26 @@ function Tabs({ payload }: { payload: string }) {
 
 function TabFallback({
   error,
-  line,
+  row,
   payloadSize,
 }: {
   error: Error;
-  line: string;
+  row: string;
   payloadSize: number;
 }) {
-  const lineSize = parseFloat(stringToKiloBytes(line));
+  const rowSize = parseFloat(stringToKiloBytes(row));
 
   if (error instanceof Error) {
     return (
       <div className="flex flex-col bg-red-200 rounded-xl px-2 py-1 group-aria-selected:bg-red-600 group-aria-selected:text-white">
         <div>Error</div>
         <meter
-          value={lineSize / payloadSize}
+          value={rowSize / payloadSize}
           min="0"
           max="1"
           className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14 h-3"
         >
-          {((lineSize / payloadSize) * 100).toFixed(2)}%
+          {((rowSize / payloadSize) * 100).toFixed(2)}%
         </meter>
       </div>
     );
@@ -204,16 +204,16 @@ function TabFallback({
 }
 
 function TabContent({
-  line,
+  row,
   payloadSize,
 }: {
-  line: string;
+  row: string;
   payloadSize: number;
 }) {
-  const lineSize = parseFloat(stringToKiloBytes(line));
-  const tokens = lexer(line);
+  const rowSize = parseFloat(stringToKiloBytes(row));
+  const tokens = lexer(row);
   const { identifier, type } = parse(tokens);
-  const refinedType = refineLineType(type);
+  const refinedType = refineRowType(type);
 
   return (
     <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
@@ -221,12 +221,12 @@ function TabContent({
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>
         <meter
-          value={lineSize / payloadSize}
+          value={rowSize / payloadSize}
           min="0"
           max="1"
           className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14 h-3"
         >
-          {((lineSize / payloadSize) * 100).toFixed(2)}%
+          {((rowSize / payloadSize) * 100).toFixed(2)}%
         </meter>
       </div>
     </div>
@@ -234,10 +234,10 @@ function TabContent({
 }
 
 function TabPanelContent({
-  line,
+  row,
   payloadSize,
 }: {
-  line: string;
+  row: string;
   payloadSize: number;
 }) {
   return (
@@ -245,15 +245,15 @@ function TabPanelContent({
       <div className="flex flex-row justify-between">
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`meta-${line.toString()}`}
+          key={`meta-${row.toString()}`}
         >
-          <TabPanelMeta line={line} />
+          <TabPanelMeta row={row} />
         </ErrorBoundary>
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`size-${line.toString()}`}
+          key={`size-${row.toString()}`}
         >
-          <TabPanelSize line={line} payloadSize={payloadSize} />
+          <TabPanelSize row={row} payloadSize={payloadSize} />
         </ErrorBoundary>
       </div>
 
@@ -261,27 +261,27 @@ function TabPanelContent({
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
-        key={`line-${line.toString()}`}
+        key={`row-${row.toString()}`}
       >
-        <TabPanelExplorer line={line} />
+        <TabPanelExplorer row={row} />
       </ErrorBoundary>
 
       <div className="bg-slate-300 dark:bg-slate-600 h-0.5 w-full" />
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
-        key={`tree.${line.toString()}`}
+        key={`tree.${row.toString()}`}
       >
-        <TabPanelGenericData line={line} />
+        <TabPanelGenericData row={row} />
       </ErrorBoundary>
     </div>
   );
 }
 
-function TabPanelMeta({ line }: { line: string }) {
-  const tokens = lexer(line);
+function TabPanelMeta({ row }: { row: string }) {
+  const tokens = lexer(row);
   const { identifier, type } = parse(tokens);
-  const refinedType = refineLineType(type);
+  const refinedType = refineRowType(type);
 
   return (
     <div className="flex flex-col gap-1">
@@ -297,50 +297,50 @@ function TabPanelMeta({ line }: { line: string }) {
 }
 
 function TabPanelSize({
-  line,
+  row,
   payloadSize,
 }: {
-  line: string;
+  row: string;
   payloadSize: number;
 }) {
-  const lineSize = parseFloat(stringToKiloBytes(line));
+  const rowSize = parseFloat(stringToKiloBytes(row));
 
   return (
     <div className="text-right">
-      <div className="whitespace-nowrap">{lineSize} KB line (uncompressed)</div>
-      <div>{((lineSize / payloadSize) * 100).toFixed(2)}% of total</div>
+      <div className="whitespace-nowrap">{rowSize} KB row (uncompressed)</div>
+      <div>{((rowSize / payloadSize) * 100).toFixed(2)}% of total</div>
       <meter
-        value={lineSize / payloadSize}
+        value={rowSize / payloadSize}
         min="0"
         max="1"
         className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-24"
       >
-        {((lineSize / payloadSize) * 100).toFixed(2)}%
+        {((rowSize / payloadSize) * 100).toFixed(2)}%
       </meter>
     </div>
   );
 }
 
-function TabPanelExplorer({ line }: { line: string }) {
-  const tokens = lexer(line);
+function TabPanelExplorer({ row }: { row: string }) {
+  const tokens = lexer(row);
   const { type, data } = parse(tokens);
 
-  const refinedType = refineLineType(type);
+  const refinedType = refineRowType(type);
 
   switch (refinedType) {
-    case "import":
-      return <ImportLine data={data} />;
-    case "asset":
-      return <AssetLine data={data} />;
+    case "client ref":
+      return <ClientReferenceRow data={data} />;
+    case "hint":
+      return <HintRow data={data} />;
     case "tree":
-      return <TreeLine data={data} />;
+      return <TreeRow data={data} />;
     case "unknown":
-      throw new Error(`Unknown line type: ${type}`);
+      throw new Error(`Unknown row type: ${type}`);
   }
 }
 
-function TabPanelGenericData({ line }: { line: string }) {
-  const tokens = lexer(line);
+function TabPanelGenericData({ row }: { row: string }) {
+  const tokens = lexer(row);
   const { data } = parse(tokens);
 
   return (
