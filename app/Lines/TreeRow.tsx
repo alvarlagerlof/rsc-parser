@@ -13,9 +13,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
 import { TabContext } from "../TabContext";
 import { PayloadContext } from "../PayloadContext";
-import { JetBrains_Mono } from "next/font/google";
-
-const jetBrainsMono = JetBrains_Mono({ subsets: ["latin-ext"] });
 
 export const TYPE_OTHER = "TYPE_OTHER";
 export const TYPE_ELEMENT = "TYPE_ELEMENT";
@@ -54,7 +51,7 @@ export function TreeRow({ data }: { data: string }) {
   const json = JSON.parse(data);
 
   return (
-    <div className={`${jetBrainsMono.className} text-sm`}>
+    <div className="font-code text-sm">
       <Node value={json} />
     </div>
   );

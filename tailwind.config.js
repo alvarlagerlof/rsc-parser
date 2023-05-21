@@ -15,6 +15,9 @@ module.exports = {
       borderWidth: {
         1: "1px",
       },
+      fontFamily: {
+        code: ["var(--font-code)"],
+      },
     },
   },
   plugins: [],

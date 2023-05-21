@@ -1,8 +1,14 @@
 import Script from "next/script";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin-ext"],
+  variable: "--font-code",
+  display: "block",
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -16,7 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark:bg-slate-950 dark:text-white">
-      <body className={inter.className}>{children}</body>
+      <body className={[inter.className, jetBrainsMono.variable].join(" ")}>
+        {children}
+      </body>
       <Script
         defer
         data-domain="rsc-parser.vercel.app"
