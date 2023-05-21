@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin-ext"],
   variable: "--font-code",
+  display: "block",
 });
 
 export const metadata = {
