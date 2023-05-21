@@ -49,7 +49,7 @@ describe("getTreeNode", () => {
 
   it("handles an array four null", () => {
     // A length for 4 is part of the matcher for the COMPONENT
-    // type, but it shoukld not trigger here because the
+    // type, but it should not trigger here because the
     // array does not start with "$"
     const rawValue: JsonValue = [null, null, null, null];
     const refined = refineRawTreeNode(rawValue);
@@ -60,7 +60,7 @@ describe("getTreeNode", () => {
 
   it("handles an array four null", () => {
     // A length for 4 is part of the matcher for the COMPONENT
-    // type, but it shoukld not trigger here because the
+    // type, but it should not trigger here because the
     // array does not start with "$"
     const rawValue: JsonValue = [null, null, null, null];
     const refined = refineRawTreeNode(rawValue);
@@ -71,7 +71,7 @@ describe("getTreeNode", () => {
 
   it("handles a react component", () => {
     // A length for 4 is part of the matcher for the COMPONENT
-    // type, but it shoukld not trigger here because the
+    // type, but it should not trigger here because the
     // array does not start with "$"
     const rawValue: JsonValue = [
       "$",

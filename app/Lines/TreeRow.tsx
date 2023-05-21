@@ -139,13 +139,13 @@ function NodeOther({ value }: { value: JsonValue }) {
 
   if (isInsideObject === undefined) {
     throw new Error(
-      "ObjectContext must be used within a ObjectContext.Provder"
+      "ObjectContext must be used within a ObjectContext.Provider"
     );
   }
 
   if (value === "$undefined") {
     // TODO: These isInsideObject conditions are a bit messy,
-    // I need to find antoher way to handle it.
+    // I need to find another way to handle it.
     if (isInsideObject) {
       return <>undefined</>;
     }
@@ -196,7 +196,7 @@ function StringValue({ value }: { value: string }) {
   const isInsideProp = useContext(PropsContext);
 
   if (isInsideProp === undefined) {
-    throw new Error("PropsContext must be used within a PropsContext.Provder");
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
   }
 
   if (!isInsideProp) {
@@ -419,13 +419,13 @@ function TabJumpButton({
 }) {
   const tab = useContext(TabContext);
   if (tab === undefined) {
-    throw new Error("TabContext must be used within a TabContext.Provder");
+    throw new Error("TabContext must be used within a TabContext.Provider");
   }
 
   const payload = useContext(PayloadContext);
   if (tab === undefined) {
     throw new Error(
-      "PayloadContext must be used within a PayloadContext.Provder"
+      "PayloadContext must be used within a PayloadContext.Provider"
     );
   }
 
