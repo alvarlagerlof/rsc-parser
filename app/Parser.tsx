@@ -132,8 +132,9 @@ function Tabs({ payload }: { payload: string }) {
 
       <Ariakit.TabPanel
         store={tab}
-        tabId={selectedTab}
-        className="w-screen max-w-7xl rounded-3xl bg-slate-100 p-4 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 dark:bg-slate-800 md:px-12"
+        tabId={currentTab}
+        alwaysVisible={true}
+        className="w-screen max-w-7xl rounded-3xl bg-slate-100 p-4 outline outline-2 outline-offset-2 outline-transparent transition-all delay-100 duration-200 focus:outline-blue-400 dark:bg-slate-800 md:px-12"
         aria-label="Lines"
         aria-busy={isPending}
         style={{
