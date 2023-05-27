@@ -51,7 +51,7 @@ export function Parser() {
         <textarea
           name="payload"
           placeholder="RCS paylod"
-          className="bg-slate-200 outline-none focus:outline-blue-400 rounded-lg p-3 resize-none dark:bg-slate-900 dark:text-slate-200"
+          className="bg-slate-200 outline-none focsus:outline-2 focus:outline-offset-4 focus:outline-blue-400 rounded-lg p-3 resize-none dark:bg-slate-900 dark:text-slate-200"
           rows={16}
           value={payload}
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -108,7 +108,7 @@ function Tabs({ payload }: { payload: string }) {
         >
           {rows.map((row) => (
             <Ariakit.Tab
-              className="group outline-none border-0 text-left"
+              className="group border-none outline-none focsus:outline-2 focus:outline-offset-2 focus:outline-blue-400 text-left rounded-xl overflow-hidden"
               key={row}
               id={row}
             >
@@ -132,8 +132,8 @@ function Tabs({ payload }: { payload: string }) {
 
       <Ariakit.TabPanel
         store={tab}
-        tabId={currentTab}
-        className="bg-slate-100 dark:bg-slate-800 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl transition-opacity duration-100 delay-75"
+        tabId={selectedTab}
+        className="bg-slate-100 dark:bg-slate-800 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl transition-opacity duration-100 delay-75 border-none outline-none focsus:outline-2 focus:outline-offset-2 focus:outline-blue-400"
         aria-label="Lines"
         style={{
           opacity: isPending ? "0.6" : "1",
@@ -169,7 +169,7 @@ function TabFallback({
 
   if (error instanceof Error) {
     return (
-      <div className="flex flex-col bg-red-200 rounded-xl px-2 py-1 group-aria-selected:bg-red-600 group-aria-selected:text-white">
+      <div className="flex flex-col bg-red-200 px-2 py-1 group-aria-selected:bg-red-600 group-aria-selected:text-white">
         <div>Error</div>
         <meter
           value={rowSize / payloadSize}
@@ -199,7 +199,7 @@ function TabContent({
   const refinedType = refineRowType(type);
 
   return (
-    <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
+    <div className="flex flex-row gap-1.5 bg-slate-200 px-2 py-1 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
       <div className="text-xl font-semibold -mt-px">{identifier}</div>
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>
