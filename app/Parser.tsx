@@ -9,14 +9,15 @@ import React, {
 } from "react";
 import { JSONTree } from "react-json-tree";
 import { lexer, parse, refineRowType, splitToCleanRows } from "./parse";
+import * as Ariakit from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { TreeRow } from "./Lines/TreeRow";
 import { ClientReferenceRow } from "./Lines/ClientReferenceRow";
 import { HintRow } from "./Lines/HintRow";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
-import { TabContext } from "./TabContext";
 import { stringToKiloBytes } from "./stringtoKiloBytes";
 import { PayloadContext } from "./PayloadContext";
+import { TabContext } from "./TabContext";
 
 const defaultPayload = `0:[["children","(main)","children","__PAGE__",["__PAGE__",{}],"$L1",[[],["$L2",["$","meta",null,{"name":"next-size-adjust"}]]]]]
 3:I{"id":"29854","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:static/chunks/1004-456f71c9bb70e7ee.js","3213:static/chunks/3213-648f64f230debb40.js","7974:static/chunks/app/(main)/page-16ca770141ca5c0a.js"],"name":"Item","async":false}
@@ -50,7 +51,7 @@ export function Parser() {
         <textarea
           name="payload"
           placeholder="RCS paylod"
-          className="bg-slate-200 outline-none focus:outline-blue-400 rounded-lg p-3 resize-none dark:bg-slate-900 dark:text-slate-200"
+          className="bg-slate-200 outline-none focsus:outline-2 focus:outline-offset-4 focus:outline-blue-400 rounded-lg p-3 resize-none dark:bg-slate-900 dark:text-slate-200"
           rows={16}
           value={payload}
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -76,48 +77,40 @@ export function Parser() {
 
 function Tabs({ payload }: { payload: string }) {
   const [isPending, startTransition] = useTransition();
-  const [selectedTab, setSelectedTab] = useState<string | null>(null);
-  const [currentTab, setCurrentTab] = useState<string | null>(null);
+  const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
+    null
+  );
+  const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
   const payloadSize = parseFloat(stringToKiloBytes(payload));
   const rows = splitToCleanRows(payload);
 
-  const setTab = (tab: string) => {
-    if (tab !== selectedTab) {
-      setSelectedTab(tab);
+  const selectTab = (nextTab: string | null | undefined) => {
+    if (nextTab !== selectedTab) {
+      setSelectedTab(nextTab);
       startTransition(() => {
-        setCurrentTab(tab);
+        setCurrentTab(nextTab);
       });
     }
   };
 
+  const tab = Ariakit.useTabStore({
+    selectedId: selectedTab,
+    setSelectedId: selectTab,
+  });
+
   return (
-    <TabContext.Provider
-      value={{
-        setTab,
-      }}
-    >
+    <TabContext.Provider value={tab}>
       <div className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2">
-        <div
+        <Ariakit.TabList
+          store={tab}
           className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full"
-          role="tablist"
-          aria-label="Tabs"
         >
-          {rows.map((row, i) => (
-            <button
-              onClick={() => {
-                setSelectedTab(row);
-                startTransition(() => {
-                  setCurrentTab(row);
-                });
-              }}
-              className="group outline-none border-0 text-left"
+          {rows.map((row) => (
+            <Ariakit.Tab
+              className="group border-none outline-none focsus:outline-2 focus:outline-offset-2 focus:outline-blue-400 text-left rounded-xl overflow-hidden"
               key={row}
-              role="tab"
-              aria-selected={row === selectedTab}
-              aria-controls={`panel-${row}`}
-              id={`tab-button-${row}`}
-              tabIndex={i == 0 ? 0 : -1}
+              id={row}
             >
               <ErrorBoundary
                 fallbackRender={({ error }) => (
@@ -127,36 +120,27 @@ function Tabs({ payload }: { payload: string }) {
                     payloadSize={payloadSize}
                   />
                 )}
-                key={`tab-${row}`}
               >
-                <div
-                  id={`panel-${row}`}
-                  role="tabpanel"
-                  tabIndex={0}
-                  aria-labelledby={`tab-${row}`}
-                >
-                  <TabContent row={row} payloadSize={payloadSize} />
-                </div>
+                <TabContent row={row} payloadSize={payloadSize} />
               </ErrorBoundary>
-            </button>
+            </Ariakit.Tab>
           ))}
-        </div>
+        </Ariakit.TabList>
 
         <div>Total size: {stringToKiloBytes(payload)} KB (uncompressed)</div>
       </div>
 
-      <div
-        className="bg-slate-100 dark:bg-slate-800 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl transition-opacity duration-100 delay-75"
+      <Ariakit.TabPanel
+        store={tab}
+        tabId={selectedTab}
+        className="bg-slate-100 dark:bg-slate-800 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl transition-opacity duration-100 delay-75 border-none outline-none focsus:outline-2 focus:outline-offset-2 focus:outline-blue-400"
         aria-label="Lines"
+        aria-busy={isPending}
         style={{
           opacity: isPending ? "0.6" : "1",
         }}
       >
-        {payload === "" ? (
-          <p>Please enter a payload to see results.</p>
-        ) : !rows.includes(currentTab ?? "") ? (
-          <p>Please select a tab</p>
-        ) : null}
+        {payload === "" ? <p>Please enter a payload to see results.</p> : null}
 
         {rows
           .filter((row) => row == currentTab)
@@ -168,7 +152,7 @@ function Tabs({ payload }: { payload: string }) {
               <TabPanelContent row={row} payloadSize={payloadSize} />
             </ErrorBoundary>
           ))}
-      </div>
+      </Ariakit.TabPanel>
     </TabContext.Provider>
   );
 }
@@ -186,7 +170,7 @@ function TabFallback({
 
   if (error instanceof Error) {
     return (
-      <div className="flex flex-col bg-red-200 rounded-xl px-2 py-1 group-aria-selected:bg-red-600 group-aria-selected:text-white">
+      <div className="flex flex-col bg-red-200 px-2 py-1 group-aria-selected:bg-red-600 group-aria-selected:text-white">
         <div>Error</div>
         <meter
           value={rowSize / payloadSize}
@@ -216,7 +200,7 @@ function TabContent({
   const refinedType = refineRowType(type);
 
   return (
-    <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
+    <div className="flex flex-row gap-1.5 bg-slate-200 px-2 py-1 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
       <div className="text-xl font-semibold -mt-px">{identifier}</div>
       <div className="flex flex-col items-start">
         <div>{refinedType}</div>

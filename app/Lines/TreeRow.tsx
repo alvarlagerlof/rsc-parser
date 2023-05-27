@@ -11,8 +11,8 @@ import { JsonObject, JsonValue } from "type-fest";
 import { lexer, parse, splitToCleanRows } from "../parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
-import { TabContext } from "../TabContext";
 import { PayloadContext } from "../PayloadContext";
+import { TabContext } from "../TabContext";
 
 export const TYPE_OTHER = "TYPE_OTHER";
 export const TYPE_ELEMENT = "TYPE_ELEMENT";
@@ -464,7 +464,7 @@ function TabJumpButton({
             if (buttonIdentifier === identifier) {
               // TODO: Don't hard-code this
               window.scrollTo(0, 680);
-              tab.setTab(row);
+              tab.setSelectedId(row);
             }
           }
         }
