@@ -101,14 +101,14 @@ function Tabs({ payload }: { payload: string }) {
 
   return (
     <TabContext.Provider value={tab}>
-      <div className="flex justify-center lex flex-col gap-2 items-center w-full px-4 md:max-w-7xl py-2">
+      <div className="flex justify-center flex-col gap-2 items-center w-full px-2 py-6 md:max-w-7xl">
         <Ariakit.TabList
           store={tab}
-          className="flex flex-row gap-2 md:flex-wrap overflow-x-auto pb-4 md:pb-0 max-w-full"
+          className="flex flex-row gap-2 md:flex-wrap overflow-x-auto md:pb-0 max-w-full !p-2"
         >
           {rows.map((row) => (
             <Ariakit.Tab
-              className="group border-none outline-none focsus:outline-2 focus:outline-offset-2 focus:outline-blue-400 text-left rounded-xl overflow-hidden"
+              className="group border-none outline-none rounded-xl focsus:outline-2 focus:outline-offset-2 focus:outline-blue-400 text-left"
               key={row}
               id={row}
             >
@@ -170,7 +170,7 @@ function TabFallback({
 
   if (error instanceof Error) {
     return (
-      <div className="flex flex-col bg-red-200 px-2 py-1 group-aria-selected:bg-red-600 group-aria-selected:text-white">
+      <div className="flex flex-col bg-red-200 px-2 py-1 h-full rounded-xl group-aria-selected:bg-red-600 group-aria-selected:text-white">
         <div>Error</div>
         <meter
           value={rowSize / payloadSize}
@@ -200,10 +200,10 @@ function TabContent({
   const refinedType = refineRowType(type);
 
   return (
-    <div className="flex flex-row gap-1.5 bg-slate-200 px-2 py-1 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
+    <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
       <div className="text-xl font-semibold -mt-px">{identifier}</div>
       <div className="flex flex-col items-start">
-        <div>{refinedType}</div>
+        <div className="whitespace-nowrap">{refinedType}</div>
         <meter
           value={rowSize / payloadSize}
           min="0"
