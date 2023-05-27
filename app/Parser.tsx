@@ -135,6 +135,7 @@ function Tabs({ payload }: { payload: string }) {
         tabId={selectedTab}
         className="bg-slate-100 dark:bg-slate-800 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl transition-opacity duration-100 delay-75 border-none outline-none focsus:outline-2 focus:outline-offset-2 focus:outline-blue-400"
         aria-label="Lines"
+        aria-busy={isPending}
         style={{
           opacity: isPending ? "0.6" : "1",
         }}
