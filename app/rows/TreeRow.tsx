@@ -8,6 +8,8 @@ import React, {
   useTransition,
 } from "react";
 import { JsonObject, JsonValue } from "type-fest";
+import * as Ariakit from "@ariakit/react";
+
 import { lexer, parse, splitToCleanRows } from "../parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
@@ -319,10 +321,46 @@ function removeChildren(props: Record<string, unknown>) {
     }, {});
 }
 
+function DownArrowIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width={18}
+      className="inline text-slate-900 dark:text-slate-100"
+    >
+      <title>Down arrow</title>
+      <path d="M12 16L6 10H18L12 16Z" fill="currentColor"></path>
+    </svg>
+  );
+}
+
+function RightArrowIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width={18}
+      className="inline text-slate-900 dark:text-slate-100"
+    >
+      <title>Right arrow</title>
+      <path d="M16 12L10 18V6L16 12Z" fill="currentColor"></path>
+    </svg>
+  );
+}
+
 function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
   const isInsideProps = useContext(PropsContext);
   const [isOpen, setIsOpen] = useState(true);
   const [isPending, startTransition] = useTransition();
+  const disclosure = Ariakit.useDisclosureStore({
+    open: isOpen,
+    setOpen: (open) => {
+      startTransition(() => {
+        setIsOpen(open);
+      });
+    },
+  });
 
   const propsWithoutChildren = removeChildren(props);
   const hasVisibleProps =
@@ -337,52 +375,45 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
           <Blue>&#123;</Blue>
         </>
       ) : null}
-      <details
-        className="flex w-full flex-col gap-1"
-        open={isOpen}
-        onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
-          event.stopPropagation();
-          startTransition(() => {
-            setIsOpen(event.target.open);
-          });
-        }}
+      <Ariakit.Disclosure
+        store={disclosure}
+        className="-mx-2 -my-1 cursor-pointer rounded-lg p-1 outline outline-2 outline-transparent transition-all duration-200 hover:bg-slate-700/10 focus:bg-slate-700/10 dark:hover:bg-white/10 dark:focus:bg-white/10"
+        style={{ opacity: isPending ? 0.7 : 1 }}
       >
-        <summary
-          className="-mx-2 -my-1 cursor-pointer rounded-lg px-2 py-1 transition-opacity duration-75 hover:bg-gray-200 dark:hover:bg-slate-700"
-          style={{ opacity: isPending ? 0.7 : 1 }}
-        >
-          <Purple>
-            <LeftArrow />
-          </Purple>
-          <Pink>{tag}</Pink>
-          {isOpen ? (
-            <>
-              {hasVisibleProps ? null : (
-                <Purple>
-                  <RightArrow />
-                </Purple>
-              )}
-            </>
-          ) : (
-            <>
+        {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
+        <Purple>
+          <LeftArrow />
+        </Purple>
+        <Pink>{tag}</Pink>
+        {isOpen ? (
+          <>
+            {hasVisibleProps ? null : (
               <Purple>
                 <RightArrow />
               </Purple>
+            )}
+          </>
+        ) : (
+          <>
+            <Purple>
+              <RightArrow />
+            </Purple>
 
-              <span className="mx-1 rounded-lg border-1 border-solid border-slate-400 px-1.5">
-                ⋯
-              </span>
-              <Purple>
-                <LeftArrow />/
-              </Purple>
-              <Pink>{tag}</Pink>
-              <Purple>
-                <RightArrow />
-              </Purple>
-            </>
-          )}
-        </summary>
+            <span className="mx-1 rounded-lg border-1 border-solid border-slate-400 px-1.5">
+              ⋯
+            </span>
+            <Purple>
+              <LeftArrow />/
+            </Purple>
+            <Pink>{tag}</Pink>
+            <Purple>
+              <RightArrow />
+            </Purple>
+          </>
+        )}
+      </Ariakit.Disclosure>
 
+      <Ariakit.DisclosureContent store={disclosure}>
         {isOpen ? (
           // This is kind of misusing <details><summary>, but it lets us
           // avoid rendering the children if it is not open
@@ -399,7 +430,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
             ) : null}
 
             <PropsContext.Provider value={false}>
-              <div className="flex flex-col items-start gap-2 pl-[2ch]">
+              <div className="flex flex-col items-start gap-2 py-1 pl-[2ch]">
                 {tag.startsWith("$L") ? (
                   <ClientReferenceAnnotation tag={tag} />
                 ) : null}
@@ -418,7 +449,8 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
             </div>
           </>
         ) : null}
-      </details>
+      </Ariakit.DisclosureContent>
+
       {/* right curly brace */}
       {isInsideProps ? (
         <>
