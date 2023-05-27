@@ -103,7 +103,7 @@ function JSContainer({ children }: { children: ReactNode }) {
       <Blue>
         <LeftCurlyBrace />
       </Blue>
-      <code className="break-all whitespace-break-spaces">{children}</code>
+      <code className="whitespace-break-spaces break-all">{children}</code>
 
       <Blue>
         <RightCurlyBrace />
@@ -241,7 +241,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
         </>
       ) : null}
       <ul
-        className={`flex flex-col w-full ${
+        className={`flex w-full flex-col ${
           isInsideProps ? "pl-[2ch]" : "my-2 gap-2"
         }`}
       >
@@ -338,7 +338,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
         </>
       ) : null}
       <details
-        className="flex flex-col gap-1 w-full"
+        className="flex w-full flex-col gap-1"
         open={isOpen}
         onToggle={(event: ChangeEvent<HTMLDetailsElement>) => {
           event.stopPropagation();
@@ -348,7 +348,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
         }}
       >
         <summary
-          className="cursor-pointer rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 px-2 py-1 -mx-2 -my-1 transition-opacity duration-75"
+          className="-mx-2 -my-1 cursor-pointer rounded-lg px-2 py-1 transition-opacity duration-75 hover:bg-gray-200 dark:hover:bg-slate-700"
           style={{ opacity: isPending ? 0.7 : 1 }}
         >
           <Purple>
@@ -369,7 +369,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
                 <RightArrow />
               </Purple>
 
-              <span className="rounded-lg border-1 border-slate-400 border-solid px-1.5 mx-1">
+              <span className="mx-1 rounded-lg border-1 border-solid border-slate-400 px-1.5">
                 ⋯
               </span>
               <Purple>
@@ -399,7 +399,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
             ) : null}
 
             <PropsContext.Provider value={false}>
-              <div className="pl-[2ch] flex flex-col gap-2 items-start">
+              <div className="flex flex-col items-start gap-2 pl-[2ch]">
                 {tag.startsWith("$L") ? (
                   <ClientReferenceAnnotation tag={tag} />
                 ) : null}
@@ -450,7 +450,7 @@ function TabJumpButton({
 
   return (
     <button
-      className="text-left bg-blue-800 text-white rounded px-2 py-1"
+      className="rounded bg-blue-800 px-2 py-1 text-left text-white"
       onClick={() => {
         if (destinationTab) {
           const buttonIdentifier = destinationTab.replace("$L", "");
@@ -477,8 +477,8 @@ function TabJumpButton({
 
 function InfoBox({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-blue-200 dark:bg-slate-600 rounded-md text-sm p-1 flex flex-row gap-2 px-2 items-center">
-      <span className="text-blue-700 dark:text-blue-300 font-semibold">
+    <div className="flex flex-row items-center gap-2 rounded-md bg-blue-200 p-1 px-2 text-sm dark:bg-slate-600">
+      <span className="font-semibold text-blue-700 dark:text-blue-300">
         INFO
       </span>
       {children}
