@@ -141,7 +141,11 @@ function Tabs({ payload }: { payload: string }) {
           opacity: isPending ? "0.6" : "1",
         }}
       >
-        {payload === "" ? <p>Please enter a payload to see results.</p> : null}
+        {payload === "" ? (
+          <p>Please enter a payload to see results</p>
+        ) : selectedTab === null || selectTab === undefined ? (
+          <p>Please select a tab</p>
+        ) : null}
 
         {rows
           .filter((row) => row == currentTab)
