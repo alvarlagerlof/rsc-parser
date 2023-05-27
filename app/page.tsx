@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="gap-8 md:gap-12 flex flex-col items-center py-12">
-      <div className="flex flex-col gap-6 px-4 max-w-5xl w-full">
-        <h1 className="font-medium text-3xl">RSC parser</h1>
+    <main className="flex flex-col items-center gap-8 py-12 md:gap-12">
+      <div className="flex w-full max-w-5xl flex-col gap-6 px-4">
+        <h1 className="text-3xl font-medium">RSC parser</h1>
         <div className="flex flex-col gap-2">
           <p>
             This is a parser for React Server Components (RSC) when sent over

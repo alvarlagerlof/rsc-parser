@@ -42,8 +42,8 @@ export function Parser() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2 items-center max-w-full">
-      <form className="flex flex-col gap-2 px-4 max-w-5xl w-full">
+    <div className="flex max-w-full flex-col items-center gap-2">
+      <form className="flex w-full max-w-5xl flex-col gap-2 px-4">
         <label htmlFor="paylod" className="font-medium">
           Payload
         </label>
@@ -51,7 +51,7 @@ export function Parser() {
         <textarea
           name="payload"
           placeholder="RCS paylod"
-          className="bg-slate-200 outline-transparent outline outline-2 outline-offset-2 focus:outline-blue-400 transition-all duration-200 rounded-lg p-3 resize-none dark:bg-slate-900 dark:text-slate-200"
+          className="resize-none rounded-lg bg-slate-200 p-3 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 dark:bg-slate-900 dark:text-slate-200"
           rows={16}
           value={payload}
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,7 +61,7 @@ export function Parser() {
           spellCheck="false"
         />
       </form>
-      <div className="w-full min-h-[calc(100vh-120px)] max-w-full">
+      <div className="min-h-[calc(100vh-120px)] w-full max-w-full">
         <PayloadContext.Provider value={payload}>
           <ErrorBoundary
             FallbackComponent={GenericErrorBoundaryFallback}
@@ -101,14 +101,14 @@ function Tabs({ payload }: { payload: string }) {
 
   return (
     <TabContext.Provider value={tab}>
-      <div className="flex justify-center flex-col gap-2 items-center w-full px-2 py-6 md:max-w-7xl">
+      <div className="flex w-full flex-col items-center justify-center gap-2 px-2 py-6 md:max-w-7xl">
         <Ariakit.TabList
           store={tab}
-          className="flex flex-row gap-2 md:flex-wrap overflow-x-auto md:pb-0 max-w-full !p-2 outline-transparent outline outline-2 outline-offset-2 focus:outline-blue-400 transition-all duration-200 rounded-2xl"
+          className="flex max-w-full flex-row gap-2 overflow-x-auto rounded-2xl !p-2 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 md:flex-wrap md:pb-0"
         >
           {rows.map((row) => (
             <Ariakit.Tab
-              className="group border-none outline-transparent rounded-xl outline-offset-2 outline outline-2 focus:outline-blue-400 text-left transition-all duration-200"
+              className="group rounded-xl border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400"
               key={row}
               id={row}
             >
@@ -133,7 +133,7 @@ function Tabs({ payload }: { payload: string }) {
       <Ariakit.TabPanel
         store={tab}
         tabId={selectedTab}
-        className="bg-slate-100 dark:bg-slate-800 w-screen px-4 md:px-12 py-4 rounded-3xl max-w-7xl outline-transparent outline outline-2 outline-offset-2 focus:outline-blue-400 transition-all duration-200"
+        className="w-screen max-w-7xl rounded-3xl bg-slate-100 p-4 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 dark:bg-slate-800 md:px-12"
         aria-label="Lines"
         aria-busy={isPending}
         style={{
@@ -170,13 +170,13 @@ function TabFallback({
 
   if (error instanceof Error) {
     return (
-      <div className="flex flex-col bg-red-200 px-2 py-1 h-full rounded-xlt transition-all duration-200 group-aria-selected:bg-red-600 group-aria-selected:text-white">
+      <div className="flex h-full flex-col rounded-xl bg-red-200 px-2 py-1 transition-all duration-200 group-aria-selected:bg-red-600 group-aria-selected:text-white">
         <div>Error</div>
         <meter
           value={rowSize / payloadSize}
           min="0"
           max="1"
-          className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14 h-3"
+          className="h-3 w-14 [&::-moz-meter-bar]:bg-black [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-optimum-value]:bg-black"
         >
           {((rowSize / payloadSize) * 100).toFixed(2)}%
         </meter>
@@ -200,15 +200,15 @@ function TabContent({
   const refinedType = refineRowType(type);
 
   return (
-    <div className="flex flex-row gap-1.5 bg-slate-200 rounded-xl px-2 py-1 transition-all duration-150 group-aria-selected:bg-blue-600 dark:group-aria-selected:bg-blue-700 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200">
-      <div className="text-xl font-semibold -mt-px">{identifier}</div>
+    <div className="flex flex-row gap-1.5 rounded-xl bg-slate-200 px-2 py-1 transition-all duration-150 group-aria-selected:bg-blue-600 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200 dark:group-aria-selected:bg-blue-700">
+      <div className="-mt-px text-xl font-semibold">{identifier}</div>
       <div className="flex flex-col items-start">
         <div className="whitespace-nowrap">{refinedType}</div>
         <meter
           value={rowSize / payloadSize}
           min="0"
           max="1"
-          className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-14 h-3"
+          className="h-3 w-14 [&::-moz-meter-bar]:bg-black [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-optimum-value]:bg-black"
         >
           {((rowSize / payloadSize) * 100).toFixed(2)}%
         </meter>
@@ -241,7 +241,7 @@ function TabPanelContent({
         </ErrorBoundary>
       </div>
 
-      <div className="bg-slate-300 dark:bg-slate-600 h-0.5 w-full" />
+      <div className="h-0.5 w-full bg-slate-300 dark:bg-slate-600" />
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
@@ -250,7 +250,7 @@ function TabPanelContent({
         <TabPanelExplorer row={row} />
       </ErrorBoundary>
 
-      <div className="bg-slate-300 dark:bg-slate-600 h-0.5 w-full" />
+      <div className="h-0.5 w-full bg-slate-300 dark:bg-slate-600" />
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
@@ -269,7 +269,7 @@ function TabPanelMeta({ row }: { row: string }) {
 
   return (
     <div className="flex flex-col gap-1">
-      <h3 className="font-bold text-xl inline-block rounded-full">
+      <h3 className="inline-block rounded-full text-xl font-bold">
         {identifier} <span className="text-slate-400">/ $L{identifier}</span>
       </h3>
       <h4 className="font-medium">
@@ -297,7 +297,7 @@ function TabPanelSize({
         value={rowSize / payloadSize}
         min="0"
         max="1"
-        className="[&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:bg-black [&::-moz-meter-bar]:bg-black w-24"
+        className="w-24 [&::-moz-meter-bar]:bg-black [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-optimum-value]:bg-black"
       >
         {((rowSize / payloadSize) * 100).toFixed(2)}%
       </meter>
@@ -352,7 +352,7 @@ function Details({
   children: ReactNode;
 }) {
   return (
-    <details className="bg-slate-200 dark:bg-slate-700 rounded-lg p-3">
+    <details className="rounded-lg bg-slate-200 p-3 dark:bg-slate-700">
       <summary className="cursor-pointer">{summary}</summary>
       <div className="pt-4">
         <pre className="whitespace-normal break-all text-sm">{children}</pre>

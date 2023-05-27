@@ -17,12 +17,12 @@ export function ClientReferenceRow({ data }: { data: string }) {
 
   return (
     <div className="flex flex-col">
-      <h3 className="text-3xl font-semibold mb-4">
+      <h3 className="mb-4 text-3xl font-semibold">
         Import {parsed.name ? `"${parsed.name}"` : "unknown"}
       </h3>
       <p className="mb-8">ID: {parsed.id}</p>
       <h4 className="font-semibold">Chunks</h4>
-      <ul className="list-disc ml-4">
+      <ul className="ml-4 list-disc">
         {parsed.chunks.map((item) => {
           return <li key={item}>{item}</li>;
         })}
