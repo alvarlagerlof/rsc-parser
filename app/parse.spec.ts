@@ -65,7 +65,7 @@ bar
 baz`;
 
     expect(() => splitToCleanRows(rows)).toThrow(
-      "RSC payload is missing an empty newline at the end indicating that it is not complete."
+      "RSC payload is missing an empty newline at the end indicating that it is not complete.",
     );
   });
 });
