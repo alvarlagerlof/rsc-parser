@@ -78,7 +78,7 @@ export function Parser() {
 function Tabs({ payload }: { payload: string }) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
-    null
+    null,
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 

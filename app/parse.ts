@@ -7,7 +7,7 @@ export function splitToCleanRows(payload: string) {
 
   if (rows.at(-1) !== "") {
     throw new Error(
-      "RSC payload is missing an empty newline at the end indicating that it is not complete."
+      "RSC payload is missing an empty newline at the end indicating that it is not complete.",
     );
   }
 
@@ -87,11 +87,11 @@ export function parse(tokens: ReturnType<typeof lexer>) {
       (token) =>
         token.type === "DOUBLE_QUOTE" ||
         token.type === "LEFT_BRACE" ||
-        token.type === "LEFT_BRACKET"
+        token.type === "LEFT_BRACKET",
     );
     const tokensBetweenColonAndJson = tokens.slice(
       firstColonIndex + 1,
-      firstJsonStartIndex
+      firstJsonStartIndex,
     );
     const type = tokensBetweenColonAndJson.map((token) => token.value).join("");
 
@@ -103,7 +103,7 @@ export function parse(tokens: ReturnType<typeof lexer>) {
       (token) =>
         token.type === "DOUBLE_QUOTE" ||
         token.type === "LEFT_BRACE" ||
-        token.type === "LEFT_BRACKET"
+        token.type === "LEFT_BRACKET",
     );
     const tokensAfterJsonStart = tokens.slice(firstJsonStartIndex);
     const data = tokensAfterJsonStart.map((token) => token.value).join("");

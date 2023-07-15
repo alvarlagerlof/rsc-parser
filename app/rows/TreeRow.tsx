@@ -139,7 +139,7 @@ function NodeOther({ value }: { value: JsonValue }) {
 
   if (isInsideObject === undefined) {
     throw new Error(
-      "ObjectContext must be used within a ObjectContext.Provider"
+      "ObjectContext must be used within a ObjectContext.Provider",
     );
   }
 
@@ -476,7 +476,7 @@ function TabJumpButton({
   const payload = useContext(PayloadContext);
   if (tab === undefined) {
     throw new Error(
-      "PayloadContext must be used within a PayloadContext.Provider"
+      "PayloadContext must be used within a PayloadContext.Provider",
     );
   }
 
