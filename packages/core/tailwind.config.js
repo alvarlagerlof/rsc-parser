@@ -12,7 +12,7 @@ module.exports = {
         1: "1px",
       },
       fontFamily: {
-        code: ["JetBrains Mono"],
+        code: ["var(--font-code)"],
       },
     },
   },
