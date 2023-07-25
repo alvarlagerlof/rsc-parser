@@ -1,0 +1,15 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "pipeline": {
+    "build": {
+      "outputs": ["dist/**"],
+      "inputs": [
+        "src/**",
+        "vite.config.ts",
+        "tsconfig.json",
+        "postcss.config.cjs"
+      ]
+    }
+  }
+}
