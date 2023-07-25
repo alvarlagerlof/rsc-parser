@@ -3,6 +3,7 @@
 import React, {
   ChangeEvent,
   ReactNode,
+  useContext,
   useEffect,
   useState,
   useTransition,
@@ -11,13 +12,15 @@ import { JSONTree } from "react-json-tree";
 import { lexer, parse, refineRowType, splitToCleanRows } from "./parse";
 import * as Ariakit from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
-import { TreeRow } from "./rows/TreeRow";
-import { ClientReferenceRow } from "./rows/ClientReferenceRow";
-import { HintRow } from "./rows/HintRow";
+import { TreeRow } from "@rsc-parser/core";
+import { ClientReferenceRow } from "@rsc-parser/core";
+import { HintRow } from "@rsc-parser/core";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 import { stringToKiloBytes } from "./stringtoKiloBytes";
 import { PayloadContext } from "./PayloadContext";
 import { TabContext } from "./TabContext";
+
+import "@rsc-parser/core/style.css";
 
 const defaultPayload = `0:[["children","(main)","children","__PAGE__",["__PAGE__",{}],"$L1",[[],["$L2",["$","meta",null,{"name":"next-size-adjust"}]]]]]
 3:I{"id":"29854","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:static/chunks/1004-456f71c9bb70e7ee.js","3213:static/chunks/3213-648f64f230debb40.js","7974:static/chunks/app/(main)/page-16ca770141ca5c0a.js"],"name":"Item","async":false}
@@ -78,7 +81,7 @@ export function Parser() {
 function Tabs({ payload }: { payload: string }) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
-    null,
+    null
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
@@ -316,6 +319,18 @@ function TabPanelExplorer({ row }: { row: string }) {
 
   const refinedType = refineRowType(type);
 
+  const tab = useContext(TabContext);
+  if (tab === undefined) {
+    throw new Error("TabContext must be used within a TabContext.Provider");
+  }
+
+  const payload = useContext(PayloadContext);
+  if (payload === undefined) {
+    throw new Error(
+      "PayloadContext must be used within a PayloadContext.Provider"
+    );
+  }
+
   switch (refinedType) {
     case "client ref":
       // This is a bit iffy. Should probably have separate names for these.
@@ -323,7 +338,27 @@ function TabPanelExplorer({ row }: { row: string }) {
     case "hint":
       return <HintRow data={data} />;
     case "tree":
-      return <TreeRow data={data} />;
+      return (
+        <TreeRow
+          data={data}
+          onClickClientReference={(name) => {
+            const buttonIdentifier = name.replace("$L", "");
+
+            const rows = splitToCleanRows(payload);
+
+            for (const row of rows) {
+              const tokens = lexer(row);
+              const { identifier } = parse(tokens);
+
+              if (buttonIdentifier === identifier) {
+                // TODO: Don't hard-code this
+                window.scrollTo(0, 680);
+                tab.setSelectedId(row);
+              }
+            }
+          }}
+        />
+      );
     case "unknown":
       throw new Error(`Unknown row type: ${type}`);
   }
