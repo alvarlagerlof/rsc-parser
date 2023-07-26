@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "vite build && yarn tailwindcss -o dist/style.css --minify",
-    "dev": "vite build --watch",
+    "dev": "concurrently  \"vite build --watch\" \"yarn tailwindcss -o dist/style.css --minify --watch\"",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build"
   },
@@ -23,6 +23,7 @@
     "@vitejs/plugin-react": "^4.0.3",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.14",
+    "concurrently": "^8.2.0",
     "postcss": "^8.4.27",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

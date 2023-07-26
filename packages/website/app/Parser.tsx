@@ -12,7 +12,7 @@ import { JSONTree } from "react-json-tree";
 import { lexer, parse, refineRowType, splitToCleanRows } from "./parse";
 import * as Ariakit from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
-import { TreeRow } from "@rsc-parser/core";
+import { Meter, TreeRow } from "@rsc-parser/core";
 import { ClientReferenceRow } from "@rsc-parser/core";
 import { HintRow } from "@rsc-parser/core";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
@@ -180,14 +180,7 @@ function TabFallback({
     return (
       <div className="flex h-full flex-col rounded-xl bg-red-200 px-2 py-1 transition-all duration-200 group-aria-selected:bg-red-600 group-aria-selected:text-white">
         <div>Error</div>
-        <meter
-          value={rowSize / payloadSize}
-          min="0"
-          max="1"
-          className="h-3 w-14 [&::-moz-meter-bar]:bg-black [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-optimum-value]:bg-black"
-        >
-          {((rowSize / payloadSize) * 100).toFixed(2)}%
-        </meter>
+        <Meter fraction={rowSize / payloadSize} />
       </div>
     );
   }
@@ -208,18 +201,11 @@ function TabContent({
   const refinedType = refineRowType(type);
 
   return (
-    <div className="flex flex-row gap-1.5 rounded-xl bg-slate-200 px-2 py-1 transition-all duration-150 group-aria-selected:bg-blue-600 group-aria-selected:text-white dark:bg-slate-800 dark:text-slate-200 dark:group-aria-selected:bg-blue-700">
+    <div className="flex flex-row gap-1.5 rounded-xl bg-slate-200 px-2 py-1 transition-all duration-150 group-aria-selected:bg-blue-300  dark:bg-slate-800  dark:group-aria-selected:bg-blue-700">
       <div className="-mt-px text-xl font-semibold">{identifier}</div>
       <div className="flex flex-col items-start">
         <div className="whitespace-nowrap">{refinedType}</div>
-        <meter
-          value={rowSize / payloadSize}
-          min="0"
-          max="1"
-          className="h-3 w-14 [&::-moz-meter-bar]:bg-black [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-optimum-value]:bg-black"
-        >
-          {((rowSize / payloadSize) * 100).toFixed(2)}%
-        </meter>
+        <Meter fraction={rowSize / payloadSize} />
       </div>
     </div>
   );
@@ -301,14 +287,7 @@ function TabPanelSize({
     <div className="text-right">
       <div className="whitespace-nowrap">{rowSize} KB row (uncompressed)</div>
       <div>{((rowSize / payloadSize) * 100).toFixed(2)}% of total</div>
-      <meter
-        value={rowSize / payloadSize}
-        min="0"
-        max="1"
-        className="w-24 [&::-moz-meter-bar]:bg-black [&::-webkit-meter-bar]:rounded-lg [&::-webkit-meter-bar]:border-0 [&::-webkit-meter-bar]:bg-slate-300 [&::-webkit-meter-optimum-value]:rounded-lg [&::-webkit-meter-optimum-value]:bg-black"
-      >
-        {((rowSize / payloadSize) * 100).toFixed(2)}%
-      </meter>
+      <Meter fraction={rowSize / payloadSize} />
     </div>
   );
 }
