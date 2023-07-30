@@ -8,7 +8,7 @@ function Pill({ children }: { children: ReactNode }) {
 }
 
 export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
-  const timeScrubber = useTimeScrubber(messages);
+  const timeScrubber = useTimeScrubber(messages, { follow: false });
 
   const timeFilteredMessages = useFilterMessagesByEndTime(
     messages,
