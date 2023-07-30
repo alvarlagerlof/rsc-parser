@@ -38,13 +38,13 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/core.js"
+      "import": "./dist/js/core.js"
     },
     "./style.css": {
       "import": "./dist/style.css"
     }
   },
-  "types": "./dist/src/main.d.ts",
+  "types": "./dist/js/src/main.d.ts",
   "style": "./dist/style.css",
   "dependencies": {
     "react-json-tree": "^0.18.0"
