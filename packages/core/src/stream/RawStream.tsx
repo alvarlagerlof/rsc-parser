@@ -4,7 +4,11 @@ import { useFilterMessagesByEndTime } from "./hooks";
 import { TimeScrubber, useTimeScrubber } from "./TimeScrubber";
 
 function Pill({ children }: { children: ReactNode }) {
-  return <span className="bg-blue-700 px-1 rounded">{children}</span>;
+  return (
+    <span className="bg-blue-300 dark:bg-blue-700 px-1 rounded">
+      {children}
+    </span>
+  );
 }
 
 export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
