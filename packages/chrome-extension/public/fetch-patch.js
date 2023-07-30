@@ -1,0 +1,42 @@
+const { fetch: originalFetch } = window;
+
+window.fetch = async (...args) => {
+  const fetchStartTime = Date.now();
+
+  let [url, config] = args;
+  const response = await originalFetch(url, config);
+
+  if (config.headers["RSC"] !== "1") return response;
+
+  const clonedResponse = response.clone();
+  const reader = clonedResponse.body
+    .pipeThrough(new TextDecoderStream())
+    .getReader();
+
+  while (true) {
+    const chunkStartTime = Date.now();
+    const { value, done } = await reader.read();
+    if (done) break;
+    const chunkEndTime = Date.now();
+
+    window.postMessage(
+      {
+        type: "RSC_CHUNK",
+        data: {
+          fetchUrl: url.toString(),
+          fetchHeaders:
+            config.headers instanceof Headers
+              ? Object.fromEntries(config.headers.entries())
+              : config.headers,
+          fetchStartTime,
+          chunkValue: value,
+          chunkStartTime,
+          chunkEndTime,
+        },
+      },
+      "*"
+    );
+  }
+
+  return response;
+};
