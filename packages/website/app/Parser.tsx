@@ -39,7 +39,7 @@ export function Parser() {
         <textarea
           name="payload"
           placeholder="RCS paylod"
-          className="resize-none rounded-lg bg-slate-300 p-3 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 dark:bg-slate-900 dark:text-slate-200"
+          className="resize-none rounded-lg bg-slate-300 p-3 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 dark:bg-slate-800 dark:text-slate-200"
           rows={16}
           value={payload}
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
