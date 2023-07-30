@@ -370,7 +370,7 @@ function RightArrowIcon() {
 
 function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
   const isInsideProps = useContext(PropsContext);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const disclosure = Ariakit.useDisclosureStore({
     open: isOpen,
