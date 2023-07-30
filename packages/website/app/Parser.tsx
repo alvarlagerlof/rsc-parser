@@ -9,12 +9,19 @@ import React, {
   useTransition,
 } from "react";
 import { JSONTree } from "react-json-tree";
-import { lexer, parse, refineRowType, splitToCleanRows } from "./parse";
+
 import * as Ariakit from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Meter, TreeRow } from "@rsc-parser/core";
-import { ClientReferenceRow } from "@rsc-parser/core";
-import { HintRow } from "@rsc-parser/core";
+import {
+  Meter,
+  TreeRow,
+  ClientReferenceRow,
+  HintRow,
+  lexer,
+  parse,
+  refineRowType,
+  splitToCleanRows,
+} from "@rsc-parser/core";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 import { stringToKiloBytes } from "./stringtoKiloBytes";
 import { PayloadContext } from "./PayloadContext";
