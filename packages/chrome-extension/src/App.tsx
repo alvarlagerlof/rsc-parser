@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // @ts-ignore
-import { StreamTabs, RscChunkMessage } from "@rsc-parser/core";
+import { StreamTabs, RawStream, RscChunkMessage } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
 export function App() {
@@ -79,18 +79,7 @@ export function App() {
               Result
             </p>
             {isRawRenderMode ? (
-              <ul className="divide divide-y">
-                {filteredMessages.map((message) => (
-                  <li
-                    key={message.data.chunkStartTime}
-                    className="py-4 first:pt-0 last:pb-0"
-                  >
-                    <pre className="break-all whitespace-break-spaces dark:text-white">
-                      {JSON.stringify(message.data, null, 2)}
-                    </pre>
-                  </li>
-                ))}
-              </ul>
+              <RawStream messages={filteredMessages} />
             ) : (
               <StreamTabs messages={filteredMessages} />
             )}
