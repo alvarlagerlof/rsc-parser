@@ -8,7 +8,6 @@ import { TimeScrubber, useTimeScrubber } from "./TimeScrubber";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { PathTabs, usePathTabs } from "../tabs/path/PathTabs";
-import { RowTabs } from "../tabs/row/RowTabs";
 
 export function StreamTabs({ messages }: { messages: RscChunkMessage[] }) {
   const timeScrubber = useTimeScrubber(messages);
@@ -33,11 +32,7 @@ export function StreamTabs({ messages }: { messages: RscChunkMessage[] }) {
           <p>Please select a tab</p>
         ) : (
           <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
-            <RowTabs
-              payload={(groupedMessages.get(pathTabs.currentTab) ?? [])
-                .map((message) => message.data.chunkValue)
-                .join()}
-            />
+            <p>Content will go here</p>
           </ErrorBoundary>
         )}
       </PathTabs>
