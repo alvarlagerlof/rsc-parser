@@ -11,7 +11,9 @@ import { PathTabs, usePathTabs } from "../tabs/path/PathTabs";
 import { RowTabs } from "../tabs/row/RowTabs";
 
 export function StreamTabs({ messages }: { messages: RscChunkMessage[] }) {
-  const timeScrubber = useTimeScrubber(messages);
+  const timeScrubber = useTimeScrubber(messages, {
+    follow: true,
+  });
 
   const timeFilteredMessages = useFilterMessagesByEndTime(
     messages,

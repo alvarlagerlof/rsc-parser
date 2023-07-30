@@ -1,8 +1,11 @@
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { RscChunkMessage } from "./message";
 import { useFilterMessagesByEndTime, useTimeRange } from "./hooks";
 
-export function useTimeScrubber(messages: RscChunkMessage[]) {
+export function useTimeScrubber(
+  messages: RscChunkMessage[],
+  { follow }: { follow: boolean }
+) {
   const { minStartTime, maxEndTime } = useTimeRange(messages);
   const [endTime, setEndTime] = useState(maxEndTime);
 
@@ -15,6 +18,14 @@ export function useTimeScrubber(messages: RscChunkMessage[]) {
       setEndTime(value);
     });
   };
+
+  useEffect(() => {
+    if (follow) {
+      if (endTime !== maxEndTime) {
+        changeEndTime(maxEndTime);
+      }
+    }
+  }, [messages]);
 
   return {
     messages,
@@ -49,9 +60,9 @@ export function TimeScrubber({
   const filteredMessages = useFilterMessagesByEndTime(messages, endTime);
 
   return (
-    <div className="flex flex-col gap-2 w-full bg-slate-100 dark:bg-slate-800  dark:text-white rounded-lg px-2 py-1">
+    <div className="flex flex-col gap-2 w-full bg-slate-200 dark:bg-slate-700  dark:text-white rounded-lg px-2 py-1">
       <div className="flex flex-row gap-2">
-        <div className="text-slate-780 tabular-nums">
+        <div className="text-slate-700 dark:text-slate-300 tabular-nums">
           {new Date(visibleEndTime).toLocaleTimeString()} /{" "}
           {new Date(maxEndTime).toLocaleTimeString()}
         </div>
@@ -73,7 +84,7 @@ export function TimeScrubber({
           isPending ? "opacity-60" : ""
         }`}
       >
-        <div className="text-slate-780 tabular-nums whitespace-nowrap">
+        <div className="text-slate-700 dark:text-slate-300 tabular-nums whitespace-nowrap">
           {String(filteredMessages.length).padStart(
             String(messages.length).length,
             "0"
@@ -85,7 +96,7 @@ export function TimeScrubber({
           version="1.1"
           width="100%"
           height="20px"
-          className="stroke-slate-300"
+          className="stroke-slate-400 dark:stroke-slate-300"
         >
           <circle cx="100px" cy="100px" r="1px" stroke="black" />
           {messageTimePercentages.map((percentage, idx) => (

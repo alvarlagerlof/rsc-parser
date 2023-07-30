@@ -12,7 +12,9 @@ type Story = StoryObj<typeof TimeScrubber>;
 
 export const NextJsExample: Story = {
   render: () => {
-    const timeScrubber = useTimeScrubber(nextJsDocs);
+    const timeScrubber = useTimeScrubber(nextJsDocs, {
+      follow: false,
+    });
 
     return <TimeScrubber {...timeScrubber} />;
   },
