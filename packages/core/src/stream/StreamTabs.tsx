@@ -5,6 +5,9 @@ import {
   useTabs,
 } from "./hooks";
 import { TimeScrubber, useTimeScrubber } from "./TimeScrubber";
+import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
+import { ErrorBoundary } from "react-error-boundary";
+import { PathTabs, usePathTabs } from "../tabs/path/PathTabs";
 
 export function StreamTabs({ messages }: { messages: RscChunkMessage[] }) {
   const timeScrubber = useTimeScrubber(messages);
@@ -14,26 +17,25 @@ export function StreamTabs({ messages }: { messages: RscChunkMessage[] }) {
     timeScrubber.endTime
   );
   const groupedMessages = useGroupedMessages(timeFilteredMessages);
+
   const tabs = useTabs(groupedMessages);
+  const pathTabs = usePathTabs(tabs, {
+    follow: true,
+  });
 
   return (
     <div className="flex flex-col gap-4">
       <TimeScrubber {...timeScrubber} />
 
-      <ul className="flex flex-col gap-1">
-        {tabs.map((tab) => (
-          <li className="flex flex-col gap-2">
-            <div className="text-2xl">
-              <span className="text-slate-900  dark:text-white">
-                {new URL(tab).pathname}
-              </span>
-              <span className="text-slate-500 dark:text-slate-400">
-                {new URL(tab).search}
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <PathTabs {...pathTabs}>
+        {!pathTabs.currentTab ? (
+          <p>Please select a tab</p>
+        ) : (
+          <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
+            <p>Content will go here</p>
+          </ErrorBoundary>
+        )}
+      </PathTabs>
     </div>
   );
 }
