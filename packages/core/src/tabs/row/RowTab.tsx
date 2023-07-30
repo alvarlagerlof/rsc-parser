@@ -15,10 +15,14 @@ export function RowTab({
   const refinedType = refineRowType(type);
 
   return (
-    <div className="flex flex-row gap-1.5 rounded-xl bg-slate-200 px-2 py-1 transition-all duration-150 group-aria-selected:bg-blue-300  dark:bg-slate-800  dark:group-aria-selected:bg-blue-700">
-      <div className="-mt-px text-xl font-semibold">{identifier}</div>
+    <div className="flex flex-row gap-1.5 rounded-xl bg-slate-200 px-2 py-1 transition-all duration-150 group-aria-selected:bg-blue-300 dark:bg-slate-800  dark:group-aria-selected:bg-blue-700">
+      <div className="-mt-px text-xl font-semibold text-black dark:text-white">
+        {identifier}
+      </div>
       <div className="flex flex-col items-start">
-        <div className="whitespace-nowrap">{refinedType}</div>
+        <div className="whitespace-nowrap text-black dark:text-white">
+          {refinedType}
+        </div>
         <Meter fraction={rowSize / payloadSize} />
       </div>
     </div>

@@ -66,12 +66,17 @@ function RowTabPanelMeta({ row }: { row: string }) {
 
   return (
     <div className="flex flex-col gap-1">
-      <h3 className="inline-block rounded-full text-xl font-bold">
-        {identifier} <span className="text-slate-400">/ $L{identifier}</span>
+      <h3 className="inline-block rounded-full text-xl font-bold dark:text-white">
+        {identifier}{" "}
+        <span className="text-slate-400 dark:text-slate-200">
+          / $L{identifier}
+        </span>
       </h3>
-      <h4 className="font-medium">
+      <h4 className="font-medium dark:text-white">
         {refinedType}{" "}
-        <span className="text-slate-400">/ &quot;{type}&quot;</span>{" "}
+        <span className="text-slate-400 dark:text-slate-200">
+          / &quot;{type}&quot;
+        </span>{" "}
       </h4>
     </div>
   );
@@ -87,7 +92,7 @@ function RowTabPanelSize({
   const rowSize = parseFloat(stringToKiloBytes(row));
 
   return (
-    <div className="text-right">
+    <div className="text-right dark:text-white">
       <div className="whitespace-nowrap">{rowSize} KB row (uncompressed)</div>
       <div>{((rowSize / payloadSize) * 100).toFixed(2)}% of total</div>
       <Meter fraction={rowSize / payloadSize} />
@@ -156,7 +161,7 @@ function RowTabDetails({
   children: ReactNode;
 }) {
   return (
-    <details className="rounded-lg bg-slate-300 p-3 dark:bg-slate-700">
+    <details className="rounded-lg bg-slate-300 p-3 dark:bg-slate-700 dark:text-white">
       <summary className="cursor-pointer">{summary}</summary>
       <div className="pt-4">
         <pre className="whitespace-normal break-all text-sm">{children}</pre>

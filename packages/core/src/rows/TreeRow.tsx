@@ -564,6 +564,7 @@ function ClientReferenceAnnotation({ tag }: { tag: string }) {
       <span className="dark:text-white">
         {tag} indicates a client reference
       </span>
+
       <TabJumpButton destinationTab={tag}>
         Go to &quot;
         {tag.replace("$L", "")}

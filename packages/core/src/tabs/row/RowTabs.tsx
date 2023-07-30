@@ -72,14 +72,16 @@ export function RowTabs({ payload }: { payload: string }) {
           ))}
         </Ariakit.TabList>
 
-        <div>Total size: {stringToKiloBytes(payload)} KB (uncompressed)</div>
+        <div className="text-black dark:text-white">
+          Total size: {stringToKiloBytes(payload)} KB (uncompressed)
+        </div>
       </div>
 
       <Ariakit.TabPanel
         store={tab}
         tabId={currentTab}
         alwaysVisible={true}
-        className="rounded-3xl w-full p-4 outline outline-2 outline-offset-2 outline-transparent transition-all delay-100 duration-200 focus:outline-blue-400 bg-slate-100 dark:bg-slate-800"
+        className="rounded-3xl w-full p-4 outline outline-2 outline-offset-2 outline-transparent transition-all delay-100 duration-200 focus:outline-blue-400 bg-slate-200 dark:bg-slate-800"
         aria-label="Lines"
         aria-busy={isPending}
         style={{
@@ -87,9 +89,11 @@ export function RowTabs({ payload }: { payload: string }) {
         }}
       >
         {payload === "" ? (
-          <p>Please enter a payload to see results</p>
+          <p className="text-black dark:text-white">
+            Please enter a payload to see results
+          </p>
         ) : selectedTab === null || selectTab === undefined ? (
-          <p>Please select a tab</p>
+          <p className="text-black dark:text-white">Please select a tab</p>
         ) : null}
 
         {rows

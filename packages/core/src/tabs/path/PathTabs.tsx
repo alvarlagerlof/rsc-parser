@@ -60,13 +60,9 @@ export function PathTabs({
         className="flex max-w-full flex-row gap-2 overflow-x-auto rounded-2xl !p-2 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 md:flex-wrap md:pb-0"
       >
         {tabs.map((tab) => (
-          <Ariakit.Tab
-            className="rounded-lg px-2 bg-slate-200 py-0.5 border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 aria-selected:bg-blue-300"
-            key={tab}
-            id={tab}
-          >
-            <div>
-              <span className="text-slate-900  dark:text-white">
+          <Ariakit.Tab className="group" key={tab} id={tab}>
+            <div className="rounded-lg px-2 bg-slate-200 dark:bg-slate-800 dark:group-aria-selected:bg-blue-700 group-aria-selected:bg-blue-300 py-0.5 border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 ">
+              <span className="text-slate-900 dark:text-white">
                 {new URL(tab).pathname}
               </span>
               <span className="text-slate-500 dark:text-slate-400">
