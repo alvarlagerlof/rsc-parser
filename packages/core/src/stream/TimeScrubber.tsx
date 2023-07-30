@@ -1,18 +1,42 @@
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { RscChunkMessage } from "./message";
 import { useFilterMessagesByEndTime, useTimeRange } from "./hooks";
 
-export function TimeScrubber({
-  messages,
-  onEndTimeChange,
-}: {
-  messages: RscChunkMessage[];
-  onEndTimeChange: (time: number) => void;
-}) {
+export function useTimeScrubber(messages: RscChunkMessage[]) {
   const { minStartTime, maxEndTime } = useTimeRange(messages);
-
   const [endTime, setEndTime] = useState(maxEndTime);
 
+  const [visibleEndTime, setVisibleEndTime] = useState(endTime);
+  const [isPending, startTransition] = useTransition();
+
+  const changeEndTime = (value: number) => {
+    setVisibleEndTime(value);
+    startTransition(() => {
+      setEndTime(value);
+    });
+  };
+
+  return {
+    messages,
+    endTime,
+    visibleEndTime,
+    changeEndTime,
+    isPending,
+    startTransition,
+    minStartTime,
+    maxEndTime,
+  };
+}
+
+export function TimeScrubber({
+  messages,
+  endTime,
+  visibleEndTime,
+  changeEndTime,
+  isPending,
+  minStartTime,
+  maxEndTime,
+}: ReturnType<typeof useTimeScrubber>) {
   const messageTimePercentages = messages.map((message) => {
     const percentage =
       ((message.data.chunkStartTime - minStartTime) /
@@ -25,10 +49,10 @@ export function TimeScrubber({
   const filteredMessages = useFilterMessagesByEndTime(messages, endTime);
 
   return (
-    <div className="flex flex-col gap-2 w-full bg-slate-200 dark:bg-slate-800  dark:text-white rounded-lg px-2 py-1">
+    <div className="flex flex-col gap-2 w-full bg-slate-100 dark:bg-slate-800  dark:text-white rounded-lg px-2 py-1">
       <div className="flex flex-row gap-2">
         <div className="text-slate-780 tabular-nums">
-          {new Date(endTime).toLocaleTimeString()} /{" "}
+          {new Date(visibleEndTime).toLocaleTimeString()} /{" "}
           {new Date(maxEndTime).toLocaleTimeString()}
         </div>
         <input
@@ -36,15 +60,19 @@ export function TimeScrubber({
           className="flex-grow"
           min={minStartTime}
           max={maxEndTime}
-          value={endTime}
+          value={visibleEndTime}
           onChange={(event) => {
             const numberValue = Number.parseFloat(event.target.value);
-            onEndTimeChange(numberValue);
-            setEndTime(numberValue);
+            changeEndTime(numberValue);
           }}
         ></input>
       </div>
-      <div className="flex flex-row gap-2">
+
+      <div
+        className={`flex flex-row gap-2 transition-opacity duration-100 delay-[50] ${
+          isPending ? "opacity-60" : ""
+        }`}
+      >
         <div className="text-slate-780 tabular-nums whitespace-nowrap">
           {String(filteredMessages.length).padStart(
             String(messages.length).length,
