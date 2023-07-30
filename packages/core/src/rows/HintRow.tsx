@@ -15,7 +15,7 @@ export function HintRow({ data }: { data: string }) {
   return (
     <div className="flex flex-col gap-8 dark:text-white">
       <div className="flex flex-col gap-4">
-        <h3 className="text-3xl font-semibold">
+        <h3 className="text-xl font-semibold">
           Load asset of type &quot;{parsed[1].as}&quot;
         </h3>
         {"type" in parsed[1] ? <p>Type: {parsed[1].type}</p> : null}
