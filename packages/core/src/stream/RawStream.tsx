@@ -31,12 +31,12 @@ export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
             </div>
             <div>
               <Pill>Headers</Pill>{" "}
-              {/* <pre className="break-all whitespace-break-spaces">
-              {JSON.stringify(data.fetchHeaders, null, 2)}
-            </pre> */}
               <pre className="break-all whitespace-break-spaces">
-                {JSON.stringify(data.fetchHeaders).substring(0, 100)}
+                {JSON.stringify(data.fetchHeaders, null, 2)}
               </pre>
+              {/* <pre className="break-all whitespace-break-spaces">
+                {JSON.stringify(data.fetchHeaders).substring(0, 100)}
+              </pre> */}
             </div>
             <div>
               <Pill>Fetch start</Pill> {data.fetchStartTime}
@@ -48,8 +48,8 @@ export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
               <Pill>Chunk end</Pill> {data.chunkEndTime}
             </div>
             <div>
-              {/* <Pill>Chunk value</Pill> {data.chunkValue} */}
-              <Pill>Chunk value</Pill> {data.chunkValue.substring(0, 100)}
+              <Pill>Chunk value</Pill> {data.chunkValue}
+              {/* <Pill>Chunk value</Pill> {data.chunkValue.substring(0, 100)} */}
             </div>
           </li>
         ))}
