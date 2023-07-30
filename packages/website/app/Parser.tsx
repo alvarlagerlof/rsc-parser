@@ -16,6 +16,7 @@ import {
   Meter,
   TreeRow,
   ClientReferenceRow,
+  HintRow,
   lexer,
   parse,
   refineRowType,
