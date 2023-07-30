@@ -4,6 +4,8 @@ import { HintRow } from "./rows/HintRow";
 import { TreeRow } from "./rows/TreeRow";
 import { RowTabs } from "./tabs/row/RowTabs";
 import { parse, refineRowType, lexer, splitToCleanRows } from "./parse";
+import { StreamTabs } from "./stream/StreamTabs";
+import { RscChunkMessage } from "./stream/message";
 
 export {
   TreeRow,
@@ -15,4 +17,6 @@ export {
   lexer,
   splitToCleanRows,
   RowTabs,
+  StreamTabs,
+  type RscChunkMessage,
 };
