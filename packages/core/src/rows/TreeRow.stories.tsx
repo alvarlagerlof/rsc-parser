@@ -115,6 +115,17 @@ export const ArrayProp: Story = {
   },
 };
 
+export const ArrayObjectProp: Story = {
+  args: {
+    data: JSON.stringify([
+      "$",
+      "div",
+      "0",
+      { x: { y: [{ foo: "bar" }, { foo: "bar" }] } },
+    ]),
+  },
+};
+
 export const ElementArray: Story = {
   args: {
     data: JSON.stringify([
