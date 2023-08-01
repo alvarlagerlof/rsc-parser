@@ -4,7 +4,7 @@ import { useFilterMessagesByEndTime, useTimeRange } from "./hooks";
 
 export function useTimeScrubber(
   messages: RscChunkMessage[],
-  { follow }: { follow: boolean }
+  { follow }: { follow: boolean },
 ) {
   const { minStartTime, maxEndTime } = useTimeRange(messages);
   const [endTime, setEndTime] = useState(maxEndTime);
@@ -60,15 +60,15 @@ export function TimeScrubber({
   const filteredMessages = useFilterMessagesByEndTime(messages, endTime);
 
   return (
-    <div className="flex flex-col gap-2 w-full bg-slate-200 dark:bg-slate-700  dark:text-white rounded-lg px-2 py-1">
+    <div className="flex w-full flex-col gap-2 rounded-lg bg-slate-200  px-2 py-1 dark:bg-slate-700 dark:text-white">
       <div className="flex flex-row gap-2">
-        <div className="text-slate-700 dark:text-slate-300 tabular-nums">
+        <div className="tabular-nums text-slate-700 dark:text-slate-300">
           {new Date(visibleEndTime).toLocaleTimeString()} /{" "}
           {new Date(maxEndTime).toLocaleTimeString()}
         </div>
         <input
           type="range"
-          className="flex-grow"
+          className="grow"
           min={minStartTime}
           max={maxEndTime}
           value={visibleEndTime}
@@ -80,14 +80,14 @@ export function TimeScrubber({
       </div>
 
       <div
-        className={`flex flex-row gap-2 transition-opacity duration-100 delay-[50] ${
+        className={`flex flex-row gap-2 transition-opacity delay-[50] duration-100 ${
           isPending ? "opacity-60" : ""
         }`}
       >
-        <div className="text-slate-700 dark:text-slate-300 tabular-nums whitespace-nowrap">
+        <div className="whitespace-nowrap tabular-nums text-slate-700 dark:text-slate-300">
           {String(filteredMessages.length).padStart(
             String(messages.length).length,
-            "0"
+            "0",
           )}{" "}
           / {messages.length}
         </div>

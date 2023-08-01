@@ -1,6 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-    "build": {}
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "release": {},
+    "lint": {},
+    "test": {},
+    "format": {},
+    "ci": {
+      "dependsOn": ["build", "release", "lint", "test", "format"]
+    }
   }
 }

@@ -1,10 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+import { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
+
+const config: Config = {
+  content: ["./src/**/*.tsx"],
   theme: {
     extend: {
       backgroundImage: {
@@ -20,5 +18,15 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".ligatures-none": {
+          fontVariantLigatures: "none",
+        },
+      });
+    }),
+  ],
 };
+
+export default config;

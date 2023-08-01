@@ -17,7 +17,7 @@ export function StreamTabs({ messages }: { messages: RscChunkMessage[] }) {
 
   const timeFilteredMessages = useFilterMessagesByEndTime(
     messages,
-    timeScrubber.endTime
+    timeScrubber.endTime,
   );
   const groupedMessages = useGroupedMessages(timeFilteredMessages);
 

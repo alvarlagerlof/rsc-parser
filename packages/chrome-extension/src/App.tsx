@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-// @ts-ignore
 import { StreamTabs, RawStream, RscChunkMessage } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
@@ -9,11 +8,12 @@ export function App() {
   const [isRawRenderMode, setIsRawRenderMode] = useState(false);
 
   useEffect(() => {
-    // @ts-ignore
-    chrome.runtime.onMessage.addListener(function (
+    chrome.runtime.onMessage.addListener(function handler(
       request: unknown,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sender: unknown,
-      _sendResponse: unknown
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      _sendResponse: unknown,
     ) {
       if (isRscChunkMessage(request)) {
         // if (request.data.fetchUrl !== tab.getState().activeId) {
@@ -22,6 +22,8 @@ export function App() {
 
         setMessages((previous) => [...previous, request]);
       }
+
+      return true;
     });
   }, []);
 
@@ -29,14 +31,14 @@ export function App() {
     (accumulator, current) => {
       if (
         !accumulator.find(
-          (item) => item.data.chunkValue === current.data.chunkValue
+          (item) => item.data.chunkValue === current.data.chunkValue,
         )
       ) {
         accumulator.push(current);
       }
       return accumulator;
     },
-    [] as RscChunkMessage[]
+    [] as RscChunkMessage[],
   );
 
   const sortedMessages = deduplicatedMessages.sort((a, b) => {
@@ -44,7 +46,7 @@ export function App() {
   });
 
   const filteredMessages = sortedMessages.filter(
-    (message) => !message.data.chunkValue.includes("DOCTYPE")
+    (message) => !message.data.chunkValue.includes("DOCTYPE"),
   );
 
   return (
@@ -54,17 +56,17 @@ export function App() {
       ) : (
         <div className="flex flex-col gap-8">
           <button
-            className="w-full bg-slate-300 dark:bg-slate-700 dark:text-white p-2 rounded-lg"
+            className="w-full rounded-lg bg-slate-300 p-2 dark:bg-slate-700 dark:text-white"
             onClick={() => setMessages([])}
           >
             Clear
           </button>
 
           <div>
-            <p className="mb-2 text-slate-700 dark:text-slate-300 italic">
+            <p className="mb-2 italic text-slate-700 dark:text-slate-300">
               Settings
             </p>
-            <label className="flex flex-row gap-1 items-center dark:text-white">
+            <label className="flex flex-row items-center gap-1 dark:text-white">
               <input
                 type="checkbox"
                 checked={isRawRenderMode}
@@ -75,7 +77,7 @@ export function App() {
           </div>
 
           <div>
-            <p className="mb-2 text-slate-700 dark:text-slate-300  italic">
+            <p className="mb-2 italic text-slate-700  dark:text-slate-300">
               Result
             </p>
             {isRawRenderMode ? (
@@ -90,6 +92,6 @@ export function App() {
   );
 }
 
-function isRscChunkMessage(message: any): message is RscChunkMessage {
+function isRscChunkMessage(message: unknown): message is RscChunkMessage {
   return (message as RscChunkMessage).type === "RSC_CHUNK";
 }

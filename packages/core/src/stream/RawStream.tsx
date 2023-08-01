@@ -5,7 +5,7 @@ import { TimeScrubber, useTimeScrubber } from "./TimeScrubber";
 
 function Pill({ children }: { children: ReactNode }) {
   return (
-    <span className="bg-blue-300 dark:bg-blue-700 px-1 rounded">
+    <span className="rounded bg-blue-300 px-1 dark:bg-blue-700">
       {children}
     </span>
   );
@@ -16,22 +16,22 @@ export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
 
   const timeFilteredMessages = useFilterMessagesByEndTime(
     messages,
-    timeScrubber.endTime
+    timeScrubber.endTime,
   );
 
   return (
     <div className="flex flex-col gap-4">
       <TimeScrubber {...timeScrubber} />
 
-      <ul className="dark:text-white flex flex-col font-code divide-y divide-slate-500 darK:divide-slate-400 transition-opacity duration-100 delay-75">
+      <ul className="flex flex-col divide-y divide-slate-500 font-code transition-opacity delay-75 duration-100 dark:divide-slate-400 dark:text-white">
         {timeFilteredMessages.map(({ data }) => (
-          <li className="py-8 last:pb-0 first:pt-0">
+          <li className="py-8 first:pt-0 last:pb-0">
             <div>
               <Pill>URL</Pill> {data.fetchUrl}
             </div>
             <div>
               <Pill>Headers</Pill>{" "}
-              <pre className="break-all whitespace-break-spaces">
+              <pre className="whitespace-break-spaces break-all">
                 {JSON.stringify(data.fetchHeaders, null, 2)}
               </pre>
               {/* <pre className="break-all whitespace-break-spaces">

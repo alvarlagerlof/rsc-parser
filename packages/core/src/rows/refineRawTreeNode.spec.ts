@@ -4,7 +4,7 @@ import {
   TYPE_OTHER,
   TYPE_ELEMENT,
   TYPE_ARRAY,
-} from "./TreeRow.js";
+} from "./refineRawTreeNode";
 
 describe("getTreeNode", () => {
   it("handles a null", () => {
