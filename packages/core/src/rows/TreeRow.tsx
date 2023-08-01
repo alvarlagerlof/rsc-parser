@@ -199,9 +199,7 @@ function NodeOther({ value }: { value: JsonValue }) {
     if (isInsideObject) {
       return <>undefined</>;
     }
-    return <JSContainer>undefined</JSContainer>;
-    // TODO: Potentially don't render {undefined}
-    // return null;
+    return null;
   }
 
   if (value === null) {
@@ -424,19 +422,40 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
     },
   });
 
+  const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
+
   const propsWithoutChildren = removeChildren(props);
   const hasVisibleProps =
     propsWithoutChildren !== undefined &&
     Object.keys(propsWithoutChildren).length > 0;
 
+  if (Object.keys(props).length === 0) {
+    return (
+      <span className={isInsideProps ? "" : "ml-[18px]"}>
+        <Purple>
+          <LeftArrow />
+        </Purple>
+        <Pink>{tag}</Pink>{" "}
+        <Purple>
+          /<RightArrow />
+        </Purple>
+      </span>
+    );
+  }
+
   return (
     <ObjectContext.Provider value={false}>
       <Ariakit.Disclosure
         store={disclosure}
-        className="-mx-2 -my-1 cursor-pointer ligatures-none rounded-lg p-1 outline outline-2 outline-transparent transition-all duration-200 hover:bg-slate-700/10 focus:bg-slate-700/10 dark:hover:bg-white/10 dark:focus:bg-white/10"
+        className="-mx-2 -my-1  ligatures-none rounded-lg p-1 outline outline-2 outline-transparent transition-all duration-200 focus:bg-slate-700/10 dark:focus:bg-white/10 cursor-pointer hover:bg-slate-700/10 dark:hover:bg-white/10"
         style={{ opacity: isPending ? 0.7 : 1 }}
       >
         {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
+
         <Purple>
           <LeftArrow />
         </Purple>
@@ -445,7 +464,14 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
           <>
             {hasVisibleProps ? null : (
               <Purple>
-                <RightArrow />
+                {props.children === undefined ? (
+                  <>
+                    {" "}
+                    /<RightArrow />
+                  </>
+                ) : (
+                  <RightArrow />
+                )}
               </Purple>
             )}
           </>
@@ -477,32 +503,44 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
             {hasVisibleProps ? (
               <>
                 <Props props={props} />
-                <div className="pl-[2ch]">
+                <div className="pl-[18px]">
                   <Purple>
-                    <RightArrow />
+                    {props.children === undefined ? (
+                      <>
+                        <Purple>
+                          /<RightArrow />
+                        </Purple>
+                      </>
+                    ) : (
+                      <RightArrow />
+                    )}
                   </Purple>
                 </div>
               </>
             ) : null}
 
-            <PropsContext.Provider value={false}>
-              <div className="flex flex-col items-start gap-2 py-1 pl-[calc(2ch+14px)]">
-                {tag.startsWith("$L") ? (
-                  <ClientReferenceAnnotation tag={tag} />
-                ) : null}
-                <Node value={props.children} />
-              </div>
-            </PropsContext.Provider>
+            {props.children === undefined ? null : (
+              <>
+                <PropsContext.Provider value={false}>
+                  <div className="flex flex-col items-start gap-2 py-1 pl-[calc(2ch+18px)]">
+                    {tag.startsWith("$L") ? (
+                      <ClientReferenceAnnotation tag={tag} />
+                    ) : null}
+                    <Node value={props.children} />
+                  </div>
+                </PropsContext.Provider>
 
-            <div className="pl-[14px]">
-              <Purple>
-                <LeftArrow />/
-              </Purple>
-              <Pink>{tag}</Pink>
-              <Purple>
-                <RightArrow />
-              </Purple>
-            </div>
+                <div className="pl-[18px]">
+                  <Purple>
+                    <LeftArrow />/
+                  </Purple>
+                  <Pink>{tag}</Pink>
+                  <Purple>
+                    <RightArrow />
+                  </Purple>
+                </div>
+              </>
+            )}
           </>
         ) : null}
       </Ariakit.DisclosureContent>
