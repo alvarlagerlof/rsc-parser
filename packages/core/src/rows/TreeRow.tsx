@@ -240,10 +240,38 @@ function StringValue({ value }: { value: string }) {
     throw new Error("PropsContext must be used within a PropsContext.Provider");
   }
 
+  const needsSpecialHandling =
+    value.includes("\\") || value.includes("{") || value.includes("}");
+
+  const formattedString = value.replaceAll(`"`, `&#92;"`);
+
   if (!isInsideProps) {
     return (
       <div className="inline flex-col gap-2">
-        <span className="dark:text-white">{value}</span>
+        {needsSpecialHandling ? (
+          <>
+            <Blue>
+              <LeftCurlyBrace />
+            </Blue>
+            <Yellow>
+              "
+              <span
+                className="dark:text-white"
+                dangerouslySetInnerHTML={{ __html: formattedString }}
+              />
+              "
+            </Yellow>
+            <Blue>
+              <RightCurlyBrace />
+            </Blue>
+          </>
+        ) : (
+          <span
+            className="dark:text-white"
+            dangerouslySetInnerHTML={{ __html: formattedString }}
+          />
+        )}
+
         {value.startsWith("$L") ? (
           <TreeReferenceAnnotation reference={value} />
         ) : null}
@@ -255,9 +283,7 @@ function StringValue({ value }: { value: string }) {
     <div className="inline flex-col gap-2">
       <Yellow>
         &quot;
-        <span
-          dangerouslySetInnerHTML={{ __html: value.replaceAll(`"`, `&#92;"`) }}
-        />
+        <span dangerouslySetInnerHTML={{ __html: formattedString }} />
         &quot;
       </Yellow>
       {value.startsWith("$L") ? (

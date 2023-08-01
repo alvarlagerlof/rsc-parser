@@ -58,6 +58,12 @@ export const ElementWithChildren: Story = {
   },
 };
 
+export const ElementWithCodeChildren: Story = {
+  args: {
+    data: JSON.stringify(["$", "p", "0", { children: "{}" }]),
+  },
+};
+
 export const StringProp: Story = {
   args: {
     data: JSON.stringify(["$", "div", "0", { className: "test" }]),
