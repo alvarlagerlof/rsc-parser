@@ -7,7 +7,7 @@ function handleHidden() {
 }
 
 // eslint-disable-next-line no-undef
-chrome.devtools.panels.create(
+browser.devtools.panels.create(
   "RSC Devtools",
   "",
   "./index.html",
@@ -15,5 +15,5 @@ chrome.devtools.panels.create(
     console.log("Hello! from panel create");
     panel.onShown.addListener(handleShown);
     panel.onHidden.addListener(handleHidden);
-  },
+  }
 );

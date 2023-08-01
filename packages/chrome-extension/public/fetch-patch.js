@@ -25,6 +25,21 @@ window.fetch = async (...args) => {
     }
     const chunkEndTime = Date.now();
 
+    console.log("post", {
+      type: "RSC_CHUNK",
+      data: {
+        fetchUrl: url.toString(),
+        fetchHeaders:
+          config.headers instanceof Headers
+            ? Object.fromEntries(config.headers.entries())
+            : config.headers,
+        fetchStartTime,
+        chunkValue: value,
+        chunkStartTime,
+        chunkEndTime,
+      },
+    });
+
     window.postMessage(
       {
         type: "RSC_CHUNK",
@@ -40,7 +55,7 @@ window.fetch = async (...args) => {
           chunkEndTime,
         },
       },
-      "*",
+      "*"
     );
   }
 

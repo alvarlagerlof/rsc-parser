@@ -14,7 +14,7 @@ function injectScript(file_path, tag) {
 }
 
 // eslint-disable-next-line no-undef
-injectScript(chrome.runtime.getURL("fetch-patch.js"), "body");
+injectScript(browser.runtime.getURL("fetch-patch.js"), "body");
 window.addEventListener(
   "message",
   function (event) {
@@ -25,8 +25,13 @@ window.addEventListener(
 
     if (event.data.type && event.data.type == "RSC_CHUNK") {
       // eslint-disable-next-line no-undef
-      chrome.runtime.sendMessage(event.data); // broadcasts it to rest of extension, or could just broadcast event.data.payload...
+      console.log("send message", event.data);
+      console.log(browser);
+      browser.runtime.sendMessage(
+        "84f1c0c9f0e0718ea92c2b4da93dce3d7790a5a1@temporary-addon",
+        event.data
+      ); // broadcasts it to rest of extension, or could just broadcast event.data.payload...
     } // else ignore messages seemingly not sent to yourself
   },
-  false,
+  false
 );

@@ -16,6 +16,16 @@ const dev = {
       src: "http://localhost:6020/src/main.tsx",
       type: "module",
     } as ScriptTag,
+    // {
+    //   async: false,
+    //   src: "browser-polyfill.js",
+    //   type: "module",
+    // } as ScriptTag,
+    // {
+    //   async: false,
+    //   src: "background.js",
+    //   type: "module",
+    // } as ScriptTag,
   ],
 } satisfies Options;
 
@@ -26,6 +36,16 @@ const build = {
       src: "./src/main.tsx",
       type: "module",
     } as ScriptTag,
+    // {
+    //   async: false,
+    //   src: "browser-polyfill.js",
+    //   type: "module",
+    // } as ScriptTag,
+    // {
+    //   async: false,
+    //   src: "background.js",
+    //   type: "module",
+    // } as ScriptTag,
   ],
 } satisfies Options;
 
@@ -36,6 +56,9 @@ export default defineConfig(({ mode }) => {
       base: "",
       build: {
         outDir: "./dist",
+        rollupOptions: {
+          external: (id) => id.includes("browser-polyfill.js"),
+        },
       },
       server: {
         port: 6020,
@@ -48,6 +71,9 @@ export default defineConfig(({ mode }) => {
     base: "",
     build: {
       outDir: "./dist",
+      rollupOptions: {
+        external: (id) => id.includes("browser-polyfill.js"),
+      },
     },
     server: {
       port: 6020,

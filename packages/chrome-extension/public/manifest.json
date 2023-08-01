@@ -5,14 +5,17 @@
   "permissions": ["webRequest"],
   "host_permissions": ["*://*/*"],
   "content_security_policy": {
-    "extension_pages": "script-src 'self' http://localhost:6020; object-src 'self'"
+    "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "manifest_version": 3,
   "devtools_page": "devtools-page.html",
+  "background": {
+    "scripts": ["browser-polyfill.js", "background.js"]
+  },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["content-script.js"],
+      "js": ["browser-polyfill.js", "content-script.js"],
       "all_frames": true
     }
   ],
@@ -21,5 +24,8 @@
       "resources": ["fetch-patch.js"],
       "matches": ["http://*/*", "https://*/*"]
     }
-  ]
+  ],
+  "externally_connectable": {
+    "matches": ["http://*/*", "https://*/*"]
+  }
 }
