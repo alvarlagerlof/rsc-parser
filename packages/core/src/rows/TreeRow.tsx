@@ -10,11 +10,8 @@ import React, {
 import { JsonObject, JsonValue } from "type-fest";
 import * as Ariakit from "@ariakit/react";
 
-// import { lexer, parse, splitToCleanRows } from "../parse.js";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback.js";
-// import { PayloadContext } from "../PayloadContext.js";
-// import { TabContext } from "../TabContext.js";
 
 export const TYPE_OTHER = "TYPE_OTHER";
 export const TYPE_ELEMENT = "TYPE_ELEMENT";
@@ -64,7 +61,7 @@ export function TreeRow({
   const json = JSON.parse(data);
 
   return (
-    <div className="font-code text-md">
+    <div className="font-code text-md ligatures-none">
       <ClickClientReferenceContext.Provider
         value={{ onClickClientReference: onClickClientReference }}
       >
@@ -115,38 +112,76 @@ function Node({ value }: { value: JsonValue }) {
 }
 
 function JSContainer({ children }: { children: ReactNode }) {
+  const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
+
   return (
     <span>
-      <Blue>
-        <LeftCurlyBrace />
-      </Blue>
+      {isInsideProps ? null : (
+        <Blue>
+          <LeftCurlyBrace />
+        </Blue>
+      )}
+
       <code className="whitespace-break-spaces break-all dark:text-white">
         {children}
       </code>
 
-      <Blue>
-        <RightCurlyBrace />
-      </Blue>
+      {isInsideProps ? null : (
+        <Blue>
+          <RightCurlyBrace />
+        </Blue>
+      )}
     </span>
   );
 }
 
 const ObjectContext = createContext(false);
 
+function isLetter(letter: string) {
+  return RegExp(/^\p{L}/, "u").test(letter);
+}
+
 function JSObjectValue({ value }: { value: JsonObject }) {
+  const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
+
   return (
     <JSContainer>
+      {isInsideProps ? (
+        <Blue>
+          <LeftCurlyBrace />
+        </Blue>
+      ) : null}
+
       <div className="flex flex-col pl-[2ch]">
         {Object.entries(value).map(([entryKey, entryValue], i) => {
+          const needsDoubleQuotes = !isLetter(entryKey[0]);
           return (
             <span key={entryKey}>
-              <span>{entryKey}: </span>
+              <span>
+                {needsDoubleQuotes ? `"` : null}
+                {entryKey}
+                {needsDoubleQuotes ? `"` : null}:{" "}
+              </span>
               <Node value={entryValue} />
               {i !== Object.keys(value).length - 1 ? <>,</> : null}
             </span>
           );
         })}
       </div>
+
+      {isInsideProps ? (
+        <Blue>
+          <RightCurlyBrace />
+        </Blue>
+      ) : null}
     </JSContainer>
   );
 }
@@ -173,9 +208,7 @@ function NodeOther({ value }: { value: JsonValue }) {
     if (isInsideObject) {
       return <>undefined</>;
     }
-    return <JSContainer>undefined</JSContainer>;
-    // TODO: Potentially don't render {undefined}
-    // return null;
+    return null;
   }
 
   if (value === null) {
@@ -210,16 +243,53 @@ function NodeOther({ value }: { value: JsonValue }) {
 }
 
 function StringValue({ value }: { value: string }) {
-  const isInsideProp = useContext(PropsContext);
+  const isInsideProps = useContext(PropsContext);
 
-  if (isInsideProp === undefined) {
+  if (isInsideProps === undefined) {
     throw new Error("PropsContext must be used within a PropsContext.Provider");
   }
 
-  if (!isInsideProp) {
+  const needsSpecialHandling =
+    value.includes("\\") ||
+    value.includes("{") ||
+    value.includes("}") ||
+    value.includes("<") ||
+    value.includes(">") ||
+    value.includes("(") ||
+    value.includes(")") ||
+    value.includes("`");
+
+  const formattedString = value
+    .replaceAll(`"`, `&#92;"`)
+    .replaceAll(`\``, "\\`");
+
+  if (!isInsideProps) {
     return (
       <div className="inline flex-col gap-2">
-        <span className="dark:text-white">{value}</span>
+        {needsSpecialHandling ? (
+          <>
+            <Blue>
+              <LeftCurlyBrace />
+            </Blue>
+            <Yellow>
+              `
+              <span
+                className="dark:text-white"
+                dangerouslySetInnerHTML={{ __html: formattedString }}
+              />
+              `
+            </Yellow>
+            <Blue>
+              <RightCurlyBrace />
+            </Blue>
+          </>
+        ) : (
+          <span
+            className="dark:text-white"
+            dangerouslySetInnerHTML={{ __html: formattedString }}
+          />
+        )}
+
         {value.startsWith("$L") ? (
           <TreeReferenceAnnotation reference={value} />
         ) : null}
@@ -229,7 +299,11 @@ function StringValue({ value }: { value: string }) {
 
   return (
     <div className="inline flex-col gap-2">
-      <Yellow>&quot;{value}&quot;</Yellow>
+      <Yellow>
+        &quot;
+        <span dangerouslySetInnerHTML={{ __html: formattedString }} />
+        &quot;
+      </Yellow>
       {value.startsWith("$L") ? (
         <TreeReferenceAnnotation reference={value} />
       ) : null}
@@ -239,6 +313,10 @@ function StringValue({ value }: { value: string }) {
 
 function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
 
   if (values.length == 0) {
     return (
@@ -250,18 +328,15 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   }
 
   return (
-    <>
+    <div>
       {isInsideProps ? (
-        <div className="dark:text-white">
-          <Blue>
-            <LeftCurlyBrace />
-          </Blue>
+        <div className="dark:text-white pl-[2ch]">
           <LeftSquareBracket />
         </div>
       ) : null}
       <ul
         className={`flex w-full flex-col ${
-          isInsideProps ? "pl-[2ch]" : "my-2 gap-2"
+          isInsideProps ? "pl-[4ch]" : "gap-1"
         }`}
       >
         {values.map((subValue, i) => {
@@ -280,14 +355,11 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
         })}
       </ul>
       {isInsideProps ? (
-        <div className="dark:text-white">
-          <Blue>
-            <RightCurlyBrace />
-          </Blue>
+        <div className="dark:text-white pl-[2ch]">
           <RightSquareBracket />
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
 
@@ -298,9 +370,23 @@ function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
     <>
       <Green>{propKey}</Green>
       <Pink>{`=`}</Pink>
+      {(typeof value === "string" && value === "$undefined") ||
+      typeof value !== "string" ? (
+        <Blue>
+          <LeftCurlyBrace />
+        </Blue>
+      ) : null}
+
       <PropsContext.Provider value={true}>
         <Node value={value} />
       </PropsContext.Provider>
+
+      {(typeof value === "string" && value === "$undefined") ||
+      typeof value !== "string" ? (
+        <Blue>
+          <RightCurlyBrace />
+        </Blue>
+      ) : null}
     </>
   );
 }
@@ -369,7 +455,6 @@ function RightArrowIcon() {
 }
 
 function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
-  const isInsideProps = useContext(PropsContext);
   const [isOpen, setIsOpen] = useState(true);
   const [isPending, startTransition] = useTransition();
   const disclosure = Ariakit.useDisclosureStore({
@@ -381,25 +466,40 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
     },
   });
 
+  const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
+
   const propsWithoutChildren = removeChildren(props);
   const hasVisibleProps =
     propsWithoutChildren !== undefined &&
     Object.keys(propsWithoutChildren).length > 0;
 
+  if (Object.keys(props).length === 0) {
+    return (
+      <span className={isInsideProps ? "" : "ml-[18px]"}>
+        <Purple>
+          <LeftArrow />
+        </Purple>
+        <Pink>{tag}</Pink>{" "}
+        <Purple>
+          /<RightArrow />
+        </Purple>
+      </span>
+    );
+  }
+
   return (
     <ObjectContext.Provider value={false}>
-      {/* left curly brace */}
-      {isInsideProps ? (
-        <>
-          <Blue>&#123;</Blue>
-        </>
-      ) : null}
       <Ariakit.Disclosure
         store={disclosure}
-        className="-mx-2 -my-1 cursor-pointer rounded-lg p-1 outline outline-2 outline-transparent transition-all duration-200 hover:bg-slate-700/10 focus:bg-slate-700/10 dark:hover:bg-white/10 dark:focus:bg-white/10"
+        className="ligatures-none rounded-lg py-0.5 -my-0.5 outline outline-2 outline-transparent transition-all duration-200 focus:bg-slate-700/10 dark:focus:bg-white/10 cursor-pointer hover:bg-slate-700/10 dark:hover:bg-white/10"
         style={{ opacity: isPending ? 0.7 : 1 }}
       >
         {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
+
         <Purple>
           <LeftArrow />
         </Purple>
@@ -408,7 +508,14 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
           <>
             {hasVisibleProps ? null : (
               <Purple>
-                <RightArrow />
+                {props.children === undefined ? (
+                  <>
+                    {" "}
+                    /<RightArrow />
+                  </>
+                ) : (
+                  <RightArrow />
+                )}
               </Purple>
             )}
           </>
@@ -440,42 +547,47 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
             {hasVisibleProps ? (
               <>
                 <Props props={props} />
-                <div className="pl-[2ch]">
+                <div className="pl-[18px]">
                   <Purple>
-                    <RightArrow />
+                    {props.children === undefined ? (
+                      <>
+                        <Purple>
+                          /<RightArrow />
+                        </Purple>
+                      </>
+                    ) : (
+                      <RightArrow />
+                    )}
                   </Purple>
                 </div>
               </>
             ) : null}
 
-            <PropsContext.Provider value={false}>
-              <div className="flex flex-col items-start gap-2 py-1 pl-[2ch]">
-                {tag.startsWith("$L") ? (
-                  <ClientReferenceAnnotation tag={tag} />
-                ) : null}
-                <Node value={props.children} />
-              </div>
-            </PropsContext.Provider>
+            {props.children === undefined ? null : (
+              <>
+                <PropsContext.Provider value={false}>
+                  <div className="flex flex-col items-start gap-2 pl-[calc(2ch+18px)]">
+                    {tag.startsWith("$L") ? (
+                      <ClientReferenceAnnotation tag={tag} />
+                    ) : null}
+                    <Node value={props.children} />
+                  </div>
+                </PropsContext.Provider>
 
-            <div>
-              <Purple>
-                <LeftArrow />/
-              </Purple>
-              <Pink>{tag}</Pink>
-              <Purple>
-                <RightArrow />
-              </Purple>
-            </div>
+                <div className="pl-[18px]">
+                  <Purple>
+                    <LeftArrow />/
+                  </Purple>
+                  <Pink>{tag}</Pink>
+                  <Purple>
+                    <RightArrow />
+                  </Purple>
+                </div>
+              </>
+            )}
           </>
         ) : null}
       </Ariakit.DisclosureContent>
-
-      {/* right curly brace */}
-      {isInsideProps ? (
-        <>
-          <Blue>&#125;</Blue>
-        </>
-      ) : null}
     </ObjectContext.Provider>
   );
 }
@@ -501,55 +613,9 @@ function TabJumpButton({
   );
 }
 
-// function TabJumpButton({
-//   destinationTab,
-//   children,
-// }: {
-//   destinationTab: string;
-//   children: ReactNode;
-// }) {
-//   const tab = useContext(TabContext);
-//   if (tab === undefined) {
-//     throw new Error("TabContext must be used within a TabContext.Provider");
-//   }
-
-//   const payload = useContext(PayloadContext);
-//   if (tab === undefined) {
-//     throw new Error(
-//       "PayloadContext must be used within a PayloadContext.Provider"
-//     );
-//   }
-
-//   return (
-//     <button
-//       className="rounded bg-blue-800 px-2 py-1 text-left text-white"
-//       onClick={() => {
-//         if (destinationTab) {
-//           const buttonIdentifier = destinationTab.replace("$L", "");
-
-//           const rows = splitToCleanRows(payload);
-
-//           for (const row of rows) {
-//             const tokens = lexer(row);
-//             const { identifier } = parse(tokens);
-
-//             if (buttonIdentifier === identifier) {
-//               // TODO: Don't hard-code this
-//               window.scrollTo(0, 680);
-//               tab.setSelectedId(row);
-//             }
-//           }
-//         }
-//       }}
-//     >
-//       {children}
-//     </button>
-//   );
-// }
-
 function InfoBox({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-row items-center gap-2 rounded-md bg-blue-200 p-0.5 px-2 dark:bg-slate-600">
+    <div className="select-none flex flex-row items-center gap-2 rounded-md bg-blue-200 p-0.5 px-2 dark:bg-slate-600">
       <span className="font-semibold text-blue-700 dark:text-blue-300">
         INFO
       </span>

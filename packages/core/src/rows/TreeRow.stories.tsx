@@ -58,9 +58,27 @@ export const ElementWithChildren: Story = {
   },
 };
 
+export const ElementsWithCodeChildren: Story = {
+  args: {
+    data: JSON.stringify([
+      ["$", "p", "0", { children: "{}" }],
+      ["$", "p", "0", { children: "()" }],
+      ["$", "p", "0", { children: "<>" }],
+      ["$", "p", "0", { children: "`" }],
+      ["$", "p", "0", { children: "``" }],
+    ]),
+  },
+};
+
 export const StringProp: Story = {
   args: {
     data: JSON.stringify(["$", "div", "0", { className: "test" }]),
+  },
+};
+
+export const EscapedStringProp: Story = {
+  args: {
+    data: JSON.stringify(["$", "div", "0", { className: 'this a "quote"' }]),
   },
 };
 
@@ -112,6 +130,17 @@ export const NestedObjectProps: Story = {
 export const ArrayProp: Story = {
   args: {
     data: JSON.stringify(["$", "div", "0", { data: ["test", "hello"] }]),
+  },
+};
+
+export const ArrayObjectProp: Story = {
+  args: {
+    data: JSON.stringify([
+      "$",
+      "div",
+      "0",
+      { x: { y: [{ foo: "bar" }, { foo: "bar" }] } },
+    ]),
   },
 };
 
