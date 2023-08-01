@@ -4,12 +4,11 @@
     "build": {
       "dependsOn": ["^build"]
     },
-    "release": {},
     "lint": {},
     "test": {},
     "format": {},
     "ci": {
-      "dependsOn": ["build", "release", "lint", "test", "format"]
+      "dependsOn": ["build", "lint", "test", "format"]
     }
   }
 }
