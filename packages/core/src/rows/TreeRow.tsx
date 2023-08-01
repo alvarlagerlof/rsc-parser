@@ -255,7 +255,13 @@ function StringValue({ value }: { value: string }) {
 
   return (
     <div className="inline flex-col gap-2">
-      <Yellow>&quot;{value}&quot;</Yellow>
+      <Yellow>
+        &quot;
+        <span
+          dangerouslySetInnerHTML={{ __html: value.replaceAll(`"`, `&#92;"`) }}
+        />
+        &quot;
+      </Yellow>
       {value.startsWith("$L") ? (
         <TreeReferenceAnnotation reference={value} />
       ) : null}

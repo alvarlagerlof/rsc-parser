@@ -64,6 +64,12 @@ export const StringProp: Story = {
   },
 };
 
+export const EscapedStringProp: Story = {
+  args: {
+    data: JSON.stringify(["$", "div", "0", { className: 'this a "quote"' }]),
+  },
+};
+
 export const NumberProp: Story = {
   args: {
     data: JSON.stringify(["$", "Component", "0", { something: 0 }]),
