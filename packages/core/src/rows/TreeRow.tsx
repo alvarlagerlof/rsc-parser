@@ -141,6 +141,10 @@ function JSContainer({ children }: { children: ReactNode }) {
 
 const ObjectContext = createContext(false);
 
+function isLetter(letter: string) {
+  return RegExp(/^\p{L}/, "u").test(letter);
+}
+
 function JSObjectValue({ value }: { value: JsonObject }) {
   const isInsideProps = useContext(PropsContext);
 
@@ -158,9 +162,14 @@ function JSObjectValue({ value }: { value: JsonObject }) {
 
       <div className="flex flex-col pl-[2ch]">
         {Object.entries(value).map(([entryKey, entryValue], i) => {
+          const needsDoubleQuotes = !isLetter(entryKey[0]);
           return (
             <span key={entryKey}>
-              <span>{entryKey}: </span>
+              <span>
+                {needsDoubleQuotes ? `"` : null}
+                {entryKey}
+                {needsDoubleQuotes ? `"` : null}:{" "}
+              </span>
               <Node value={entryValue} />
               {i !== Object.keys(value).length - 1 ? <>,</> : null}
             </span>
@@ -241,9 +250,17 @@ function StringValue({ value }: { value: string }) {
   }
 
   const needsSpecialHandling =
-    value.includes("\\") || value.includes("{") || value.includes("}");
+    value.includes("\\") ||
+    value.includes("{") ||
+    value.includes("}") ||
+    value.includes("<") ||
+    value.includes(">") ||
+    value.includes("(") ||
+    value.includes(")");
 
-  const formattedString = value.replaceAll(`"`, `&#92;"`);
+  const formattedString = value
+    .replaceAll(`"`, `&#92;"`)
+    .replaceAll(`\``, "\\`");
 
   if (!isInsideProps) {
     return (
@@ -254,12 +271,12 @@ function StringValue({ value }: { value: string }) {
               <LeftCurlyBrace />
             </Blue>
             <Yellow>
-              "
+              `
               <span
                 className="dark:text-white"
                 dangerouslySetInnerHTML={{ __html: formattedString }}
               />
-              "
+              `
             </Yellow>
             <Blue>
               <RightCurlyBrace />
