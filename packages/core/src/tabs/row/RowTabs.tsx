@@ -10,7 +10,7 @@ import { RowTab, RowTabFallback } from "./RowTab";
 export function RowTabs({ payload }: { payload: string }) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
-    null
+    null,
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
@@ -81,7 +81,7 @@ export function RowTabs({ payload }: { payload: string }) {
         store={tab}
         tabId={currentTab}
         alwaysVisible={true}
-        className="rounded-3xl w-full p-4 outline outline-2 outline-offset-2 outline-transparent transition-all delay-100 duration-200 focus:outline-blue-400 bg-slate-200 dark:bg-slate-800"
+        className="w-full rounded-3xl bg-slate-200 p-4 outline outline-2 outline-offset-2 outline-transparent transition-all delay-100 duration-200 focus:outline-blue-400 dark:bg-slate-800"
         aria-label="Lines"
         aria-busy={isPending}
         style={{

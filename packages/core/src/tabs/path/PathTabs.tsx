@@ -7,11 +7,11 @@ export function usePathTabs(
     follow,
   }: {
     follow: boolean;
-  }
+  },
 ) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
-    null
+    null,
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
@@ -61,7 +61,7 @@ export function PathTabs({
       >
         {tabs.map((tab) => (
           <Ariakit.Tab className="group" key={tab} id={tab}>
-            <div className="rounded-lg px-2 bg-slate-200 dark:bg-slate-800 dark:group-aria-selected:bg-blue-700 group-aria-selected:bg-blue-300 py-0.5 border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 ">
+            <div className="rounded-lg border-none bg-slate-200 px-2 py-0.5 text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 group-aria-selected:bg-blue-300 dark:bg-slate-800 dark:group-aria-selected:bg-blue-700 ">
               <span className="text-slate-900 dark:text-white">
                 {new URL(tab).pathname}
               </span>
@@ -77,7 +77,7 @@ export function PathTabs({
         store={tabStore}
         tabId={currentTab}
         alwaysVisible={true}
-        className={`flex flex-col gap-4 transition-opacity duration-100 delay-[50] p-2 ${
+        className={`flex flex-col gap-4 p-2 transition-opacity delay-[50] duration-100 ${
           isPending ? "opacity-60" : ""
         }`}
         aria-label="Paths"

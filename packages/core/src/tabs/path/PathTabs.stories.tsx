@@ -22,7 +22,7 @@ export const Example: Story = {
         "https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming?_rsc=1ag7k",
         "https://nextjs.org/docs/app/building-your-application/routing/middleware?_rsc=1ag7k",
       ],
-      { follow: false }
+      { follow: false },
     );
 
     return (

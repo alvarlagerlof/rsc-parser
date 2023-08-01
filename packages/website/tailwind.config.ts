@@ -1,6 +1,11 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+import { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       backgroundImage: {
@@ -12,9 +17,11 @@ module.exports = {
         1: "1px",
       },
       fontFamily: {
-        code: ["JetBrains Mono"],
+        code: ["var(--font-code)"],
       },
     },
   },
   plugins: [],
 };
+
+export default config;

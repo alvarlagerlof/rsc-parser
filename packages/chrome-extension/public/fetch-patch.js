@@ -6,17 +6,23 @@ window.fetch = async (...args) => {
   let [url, config] = args;
   const response = await originalFetch(url, config);
 
-  if (config.headers["RSC"] !== "1") return response;
+  if (config.headers["RSC"] !== "1") {
+    return response;
+  }
 
   const clonedResponse = response.clone();
   const reader = clonedResponse.body
+    // eslint-disable-next-line no-undef
     .pipeThrough(new TextDecoderStream())
     .getReader();
 
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const chunkStartTime = Date.now();
     const { value, done } = await reader.read();
-    if (done) break;
+    if (done) {
+      break;
+    }
     const chunkEndTime = Date.now();
 
     window.postMessage(
@@ -34,7 +40,7 @@ window.fetch = async (...args) => {
           chunkEndTime,
         },
       },
-      "*"
+      "*",
     );
   }
 

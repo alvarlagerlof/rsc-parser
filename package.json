@@ -10,7 +10,13 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "release": "turbo run release",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "format": "turbo run format",
+    "ci": "turbo run ci"
   },
   "packageManager": "yarn@3.6.1",
   "devDependencies": {

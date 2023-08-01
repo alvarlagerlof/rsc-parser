@@ -1,5 +1,4 @@
 import React, {
-  ChangeEvent,
   ReactNode,
   Suspense,
   createContext,
@@ -12,42 +11,16 @@ import * as Ariakit from "@ariakit/react";
 
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback.js";
-
-export const TYPE_OTHER = "TYPE_OTHER";
-export const TYPE_ELEMENT = "TYPE_ELEMENT";
-export const TYPE_ARRAY = "TYPE_ARRAY";
-
-export function refineRawTreeNode(value: JsonValue) {
-  if (!Array.isArray(value) && !(value instanceof Array)) {
-    return {
-      type: TYPE_OTHER,
-      value: value,
-    } as const;
-  }
-
-  if (
-    value.length === 4 &&
-    value[0] === "$" &&
-    typeof value[1] === "string" &&
-    typeof value[3] === "object" &&
-    value[3] !== null &&
-    !(value[3] instanceof Array)
-  ) {
-    // eg. ["$","ul",null,{}]
-    return {
-      type: TYPE_ELEMENT,
-      value: [value[0], value[1], value[2], value[3]] as const,
-    } as const;
-  }
-
-  return {
-    type: TYPE_ARRAY,
-    value: value,
-  } as const;
-}
+import {
+  TYPE_ARRAY,
+  TYPE_ELEMENT,
+  TYPE_OTHER,
+  refineRawTreeNode,
+} from "./refineRawTreeNode.js";
 
 export const ClickClientReferenceContext = createContext<{
   onClickClientReference: (name: string) => void;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
 }>(null);
 
@@ -61,7 +34,7 @@ export function TreeRow({
   const json = JSON.parse(data);
 
   return (
-    <div className="font-code text-md ligatures-none">
+    <div className="font-code ligatures-none">
       <ClickClientReferenceContext.Provider
         value={{ onClickClientReference: onClickClientReference }}
       >
@@ -96,6 +69,7 @@ function Node({ value }: { value: JsonValue }) {
         </ErrorBoundary>
       );
     case TYPE_ELEMENT: {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [reactElementMarker, elementType, unknown, props] =
         refinedNode.value;
 
@@ -191,7 +165,7 @@ function NodeOther({ value }: { value: JsonValue }) {
 
   if (isInsideObject === undefined) {
     throw new Error(
-      "ObjectContext must be used within a ObjectContext.Provider"
+      "ObjectContext must be used within a ObjectContext.Provider",
     );
   }
 
@@ -330,7 +304,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   return (
     <div>
       {isInsideProps ? (
-        <div className="dark:text-white pl-[2ch]">
+        <div className="pl-[2ch] dark:text-white">
           <LeftSquareBracket />
         </div>
       ) : null}
@@ -355,7 +329,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
         })}
       </ul>
       {isInsideProps ? (
-        <div className="dark:text-white pl-[2ch]">
+        <div className="pl-[2ch] dark:text-white">
           <RightSquareBracket />
         </div>
       ) : null}
@@ -495,7 +469,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
     <ObjectContext.Provider value={false}>
       <Ariakit.Disclosure
         store={disclosure}
-        className="ligatures-none rounded-lg py-0.5 -my-0.5 outline outline-2 outline-transparent transition-all duration-200 focus:bg-slate-700/10 dark:focus:bg-white/10 cursor-pointer hover:bg-slate-700/10 dark:hover:bg-white/10"
+        className="-my-0.5 cursor-pointer rounded-lg py-0.5 outline outline-2 outline-transparent transition-all duration-200 ligatures-none hover:bg-slate-700/10 focus:bg-slate-700/10 dark:hover:bg-white/10 dark:focus:bg-white/10"
         style={{ opacity: isPending ? 0.7 : 1 }}
       >
         {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
@@ -615,7 +589,7 @@ function TabJumpButton({
 
 function InfoBox({ children }: { children: ReactNode }) {
   return (
-    <div className="select-none flex flex-row items-center gap-2 rounded-md bg-blue-200 p-0.5 px-2 dark:bg-slate-600">
+    <div className="flex select-none flex-row items-center gap-2 rounded-md bg-blue-200 p-0.5 px-2 dark:bg-slate-600">
       <span className="font-semibold text-blue-700 dark:text-blue-300">
         INFO
       </span>

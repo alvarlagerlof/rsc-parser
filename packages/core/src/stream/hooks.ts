@@ -20,7 +20,7 @@ export function useGroupedMessages(messages: RscChunkMessage[]) {
 }
 
 export function useTabs(
-  groupedMessages: ReturnType<typeof useGroupedMessages>
+  groupedMessages: ReturnType<typeof useGroupedMessages>,
 ) {
   return useMemo(() => {
     return Array.from(groupedMessages.keys());
@@ -49,7 +49,7 @@ export function useTimeRange(messages: RscChunkMessage[]) {
 
 export function useFilterMessagesByEndTime(
   messages: RscChunkMessage[],
-  endTime: number
+  endTime: number,
 ) {
   return useMemo(() => {
     return messages.filter((message) => message.data.chunkStartTime <= endTime);
