@@ -292,7 +292,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
       ) : null}
       <ul
         className={`flex w-full flex-col ${
-          isInsideProps ? "pl-[4ch]" : "my-2 gap-2"
+          isInsideProps ? "pl-[4ch]" : "gap-1"
         }`}
       >
         {values.map((subValue, i) => {
@@ -451,7 +451,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
     <ObjectContext.Provider value={false}>
       <Ariakit.Disclosure
         store={disclosure}
-        className="-mx-2 -my-1  ligatures-none rounded-lg p-1 outline outline-2 outline-transparent transition-all duration-200 focus:bg-slate-700/10 dark:focus:bg-white/10 cursor-pointer hover:bg-slate-700/10 dark:hover:bg-white/10"
+        className="ligatures-none rounded-lg py-0.5 -my-0.5 outline outline-2 outline-transparent transition-all duration-200 focus:bg-slate-700/10 dark:focus:bg-white/10 cursor-pointer hover:bg-slate-700/10 dark:hover:bg-white/10"
         style={{ opacity: isPending ? 0.7 : 1 }}
       >
         {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
@@ -522,7 +522,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
             {props.children === undefined ? null : (
               <>
                 <PropsContext.Provider value={false}>
-                  <div className="flex flex-col items-start gap-2 py-1 pl-[calc(2ch+18px)]">
+                  <div className="flex flex-col items-start gap-2 pl-[calc(2ch+18px)]">
                     {tag.startsWith("$L") ? (
                       <ClientReferenceAnnotation tag={tag} />
                     ) : null}
