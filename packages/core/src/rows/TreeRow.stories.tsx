@@ -58,9 +58,15 @@ export const ElementWithChildren: Story = {
   },
 };
 
-export const ElementWithCodeChildren: Story = {
+export const ElementsWithCodeChildren: Story = {
   args: {
-    data: JSON.stringify(["$", "p", "0", { children: "{}" }]),
+    data: JSON.stringify([
+      ["$", "p", "0", { children: "{}" }],
+      ["$", "p", "0", { children: "()" }],
+      ["$", "p", "0", { children: "<>" }],
+      ["$", "p", "0", { children: "`" }],
+      ["$", "p", "0", { children: "``" }],
+    ]),
   },
 };
 

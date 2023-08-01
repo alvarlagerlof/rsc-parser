@@ -256,7 +256,8 @@ function StringValue({ value }: { value: string }) {
     value.includes("<") ||
     value.includes(">") ||
     value.includes("(") ||
-    value.includes(")");
+    value.includes(")") ||
+    value.includes("`");
 
   const formattedString = value
     .replaceAll(`"`, `&#92;"`)
