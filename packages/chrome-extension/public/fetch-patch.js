@@ -59,7 +59,7 @@ window.fetch = async (...args) => {
           chunkEndTime,
         },
       },
-      "*"
+      "*",
     );
   }
 
