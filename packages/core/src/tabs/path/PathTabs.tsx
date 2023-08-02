@@ -7,11 +7,11 @@ export function usePathTabs(
     follow,
   }: {
     follow: boolean;
-  },
+  }
 ) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
-    null,
+    null
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
@@ -57,7 +57,7 @@ export function PathTabs({
     <>
       <Ariakit.TabList
         store={tabStore}
-        className="flex max-w-full flex-row gap-2 overflow-x-auto rounded-2xl !p-2 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 md:flex-wrap md:pb-0"
+        className="flex max-w-full flex-row flex-wrap gap-2 overflow-x-auto rounded-2xl !p-2 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 md:pb-0"
       >
         {tabs.map((tab) => (
           <Ariakit.Tab className="group" key={tab} id={tab}>
