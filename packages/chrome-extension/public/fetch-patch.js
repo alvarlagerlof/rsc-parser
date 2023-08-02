@@ -1,12 +1,31 @@
-const { fetch: originalFetch } = window;
+if (typeof window.originalFetch === "undefined") {
+  window.originalFetch = window.fetch;
+}
 
 window.fetch = async (...args) => {
   const fetchStartTime = Date.now();
 
-  let [url, config] = args;
-  const response = await originalFetch(url, config);
+  let url = undefined;
+  let headers = undefined;
+  if (args[0] instanceof Request) {
+    url = args[0].url;
+    headers = args[0].headers;
+  } else if (typeof args[0] === "string" || args[0] instanceof URL) {
+    url = args[0].toString();
+    headers = args[1].headers;
+  }
 
-  if (config.headers["RSC"] !== "1") {
+  const response = await window.originalFetch(...args);
+
+  if (typeof headers === "undefined" || typeof headers === "undefined") {
+    return response;
+  }
+
+  if (headers instanceof Headers && !headers.has("RSC")) {
+    return response;
+  }
+
+  if (headers instanceof Object && typeof headers["RSC"] === "undefined") {
     return response;
   }
 
@@ -29,11 +48,11 @@ window.fetch = async (...args) => {
       {
         type: "RSC_CHUNK",
         data: {
-          fetchUrl: url.toString(),
+          fetchUrl: url,
           fetchHeaders:
-            config.headers instanceof Headers
-              ? Object.fromEntries(config.headers.entries())
-              : config.headers,
+            headers instanceof Headers
+              ? Object.fromEntries(headers.entries())
+              : headers,
           fetchStartTime,
           chunkValue: value,
           chunkStartTime,
