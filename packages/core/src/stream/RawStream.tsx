@@ -16,7 +16,7 @@ export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
 
   const timeFilteredMessages = useFilterMessagesByEndTime(
     messages,
-    timeScrubber.endTime,
+    timeScrubber.endTime
   );
 
   return (
@@ -31,7 +31,7 @@ export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
             </div>
             <div>
               <Pill>Headers</Pill>{" "}
-              <pre className="whitespace-break-spaces break-all">
+              <pre className="w-full overflow-hidden whitespace-break-spaces break-all">
                 {JSON.stringify(data.fetchHeaders, null, 2)}
               </pre>
               {/* <pre className="break-all whitespace-break-spaces">
@@ -48,7 +48,10 @@ export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
               <Pill>Chunk end</Pill> {data.chunkEndTime}
             </div>
             <div>
-              <Pill>Chunk value</Pill> {data.chunkValue}
+              <Pill>Chunk value</Pill>{" "}
+              <pre className="w-full overflow-hidden whitespace-break-spaces break-all">
+                {data.chunkValue}
+              </pre>
               {/* <Pill>Chunk value</Pill> {data.chunkValue.substring(0, 100)} */}
             </div>
           </li>
