@@ -13,7 +13,7 @@ export function App() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sender: unknown,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      _sendResponse: unknown,
+      _sendResponse: unknown
     ) {
       if (isRscChunkMessage(request)) {
         // if (request.data.fetchUrl !== tab.getState().activeId) {
@@ -31,14 +31,14 @@ export function App() {
     (accumulator, current) => {
       if (
         !accumulator.find(
-          (item) => item.data.chunkValue === current.data.chunkValue,
+          (item) => item.data.chunkValue === current.data.chunkValue
         )
       ) {
         accumulator.push(current);
       }
       return accumulator;
     },
-    [] as RscChunkMessage[],
+    [] as RscChunkMessage[]
   );
 
   const sortedMessages = deduplicatedMessages.sort((a, b) => {
@@ -46,7 +46,7 @@ export function App() {
   });
 
   const filteredMessages = sortedMessages.filter(
-    (message) => !message.data.chunkValue.includes("DOCTYPE"),
+    (message) => !message.data.chunkValue.includes("DOCTYPE")
   );
 
   return (
