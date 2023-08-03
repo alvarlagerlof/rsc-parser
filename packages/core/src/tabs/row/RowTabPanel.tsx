@@ -146,11 +146,11 @@ function RowTabPanelGenericData({ row }: { row: string }) {
   });
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <Ariakit.Disclosure
         store={disclosure}
         style={{ opacity: isPending ? 0.7 : 1 }}
-        className="flex cursor-pointer items-center gap-1"
+        className="flex cursor-pointer items-center gap-1 dark:text-white"
       >
         {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
         Raw data
@@ -158,7 +158,7 @@ function RowTabPanelGenericData({ row }: { row: string }) {
       <Ariakit.DisclosureContent store={disclosure}>
         {isOpen ? <RowTabRawJson row={row} /> : null}
       </Ariakit.DisclosureContent>
-    </>
+    </div>
   );
 }
 
@@ -168,7 +168,7 @@ function RowTabRawJson({ row }: { row: string }) {
   const json = JSON.parse(data);
 
   return (
-    <pre className="overflow-hidden whitespace-break-spaces break-all text-sm">
+    <pre className="overflow-hidden whitespace-break-spaces break-all text-sm dark:text-white">
       {JSON.stringify(json, null, 1)}
     </pre>
   );
