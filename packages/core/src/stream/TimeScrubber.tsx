@@ -4,7 +4,7 @@ import { useFilterMessagesByEndTime, useTimeRange } from "./hooks";
 
 export function useTimeScrubber(
   messages: RscChunkMessage[],
-  { follow }: { follow: boolean },
+  { follow }: { follow: boolean }
 ) {
   const { minStartTime, maxEndTime } = useTimeRange(messages);
   const [endTime, setEndTime] = useState(maxEndTime);
@@ -63,7 +63,7 @@ function useTracks(messages: RscChunkMessage[]) {
 
         const lastMessageWithSameFetchUrl = messages
           .filter(
-            (m) => m.data.fetchStartTime === lastMessage.data.fetchStartTime,
+            (m) => m.data.fetchStartTime === lastMessage.data.fetchStartTime
           )
           .at(-1);
 
@@ -108,7 +108,7 @@ export function TimeScrubber({
 
   return (
     <div className="flex w-full flex-col gap-2 rounded-xl bg-slate-200 p-2 dark:bg-slate-700 dark:text-white">
-      <div className="relative flex flex-row items-center transition-opacity delay-[50] duration-100">
+      <div className="relative flex flex-row items-center transition-opacity delay-75 duration-100">
         <input
           type="range"
           className={[
@@ -123,7 +123,7 @@ export function TimeScrubber({
             "[&::-webkit-slider-thumb]:appearance-none",
             "[&::-webkit-slider-thumb]:rounded",
             "[&::-webkit-slider-thumb]:transition-colors",
-            "[&::-webkit-slider-thumb]:delay-[50]",
+            "[&::-webkit-slider-thumb]:delay-75",
             "[&::-webkit-slider-thumb]:duration-100",
             isPending
               ? "[&::-webkit-slider-thumb]:bg-blue-300"
@@ -196,7 +196,7 @@ export function TimeScrubber({
         <div className="whitespace-nowrap tabular-nums text-slate-700 dark:text-slate-300">
           {String(filteredMessages.length).padStart(
             String(messages.length).length,
-            "0",
+            "0"
           )}{" "}
           / {messages.length}
         </div>

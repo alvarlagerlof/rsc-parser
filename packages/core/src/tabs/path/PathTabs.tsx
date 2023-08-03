@@ -7,11 +7,11 @@ export function usePathTabs(
     follow,
   }: {
     follow: boolean;
-  },
+  }
 ) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
-    null,
+    null
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
@@ -77,7 +77,7 @@ export function PathTabs({
         store={tabStore}
         tabId={currentTab}
         alwaysVisible={true}
-        className={`flex flex-col gap-4 p-2 transition-opacity delay-[50] duration-100 ${
+        className={`flex flex-col gap-4 p-2 transition-opacity delay-75 duration-100 ${
           isPending ? "opacity-60" : ""
         }`}
         aria-label="Paths"
