@@ -54,7 +54,7 @@ export const NeurodiversityWiki: Story = {
       getUrlsFromMessages(neurodiversityWikiExampleData),
       {
         follow: false,
-      }
+      },
     );
 
     return (
