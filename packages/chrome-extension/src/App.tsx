@@ -48,8 +48,6 @@ export function App() {
     (message) => !message.data.chunkValue.includes("DOCTYPE"),
   );
 
-  console.log(filteredMessages);
-
   return (
     <div className="space-y-2">
       {messages.length === 0 ? (
