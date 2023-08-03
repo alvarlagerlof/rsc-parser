@@ -108,7 +108,7 @@ export function TimeScrubber({
 
   return (
     <div className="flex w-full flex-col gap-2 rounded-xl bg-slate-200 p-2 dark:bg-slate-700 dark:text-white">
-      <div className="relative flex flex-row items-center transition-opacity delay-[50] duration-100">
+      <div className="relative flex flex-row items-center transition-opacity delay-75 duration-100">
         <input
           type="range"
           className={[
@@ -123,7 +123,7 @@ export function TimeScrubber({
             "[&::-webkit-slider-thumb]:appearance-none",
             "[&::-webkit-slider-thumb]:rounded",
             "[&::-webkit-slider-thumb]:transition-colors",
-            "[&::-webkit-slider-thumb]:delay-[50]",
+            "[&::-webkit-slider-thumb]:delay-75",
             "[&::-webkit-slider-thumb]:duration-100",
             isPending
               ? "[&::-webkit-slider-thumb]:bg-blue-300"
