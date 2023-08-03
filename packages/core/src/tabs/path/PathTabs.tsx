@@ -1,7 +1,8 @@
-import { ReactNode, useEffect, useMemo, useState, useTransition } from "react";
+import { ReactNode, useEffect, useState, useTransition } from "react";
 import * as Ariakit from "@ariakit/react";
 import { RscChunkMessage } from "../../main";
 import { getColorForFetch } from "../../color";
+import { useSortedFetchPaths } from "../../stream/hooks";
 
 export function usePathTabs(
   messages: RscChunkMessage[],
@@ -11,10 +12,7 @@ export function usePathTabs(
     follow: boolean;
   },
 ) {
-  const tabs = useMemo(
-    () => Array.from(new Set(messages.map((m) => m.data.fetchUrl))),
-    [messages],
-  );
+  const tabs = useSortedFetchPaths(messages);
 
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(

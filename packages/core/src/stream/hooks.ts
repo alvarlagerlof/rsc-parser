@@ -47,3 +47,22 @@ export function useFilterMessagesByEndTime(
     return messages.filter((message) => message.data.chunkStartTime <= endTime);
   }, [messages, endTime]);
 }
+
+export function useSortedFetchPaths(messages: RscChunkMessage[]) {
+  return useMemo(() => {
+    const tabs: string[] = [];
+
+    const sorted = messages.sort(
+      (a, b) => a.data.chunkStartTime - b.data.chunkStartTime,
+    );
+
+    for (const message of sorted) {
+      const tab = message.data.fetchUrl;
+      if (!tabs.includes(tab)) {
+        tabs.push(tab);
+      }
+    }
+
+    return tabs;
+  }, [messages]);
+}
