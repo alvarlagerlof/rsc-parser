@@ -165,7 +165,7 @@ function NodeOther({ value }: { value: JsonValue }) {
 
   if (isInsideObject === undefined) {
     throw new Error(
-      "ObjectContext must be used within a ObjectContext.Provider",
+      "ObjectContext must be used within a ObjectContext.Provider"
     );
   }
 
@@ -453,15 +453,18 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
 
   if (Object.keys(props).length === 0) {
     return (
-      <span className={isInsideProps ? "" : "ml-[18px]"}>
-        <Purple>
-          <LeftArrow />
-        </Purple>
-        <Pink>{tag}</Pink>{" "}
-        <Purple>
-          /<RightArrow />
-        </Purple>
-      </span>
+      <div>
+        <span className={isInsideProps ? "" : "ml-[18px]"}>
+          <Purple>
+            <LeftArrow />
+          </Purple>
+          <Pink>{tag}</Pink>{" "}
+          <Purple>
+            /<RightArrow />
+          </Purple>
+        </span>
+        {tag.startsWith("$L") ? <ClientReferenceAnnotation tag={tag} /> : null}
+      </div>
     );
   }
 
@@ -522,17 +525,20 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
               <>
                 <Props props={props} />
                 <div className="pl-[18px]">
-                  <Purple>
-                    {props.children === undefined ? (
-                      <>
-                        <Purple>
-                          /<RightArrow />
-                        </Purple>
-                      </>
-                    ) : (
+                  {props.children === undefined ? (
+                    <>
+                      <Purple>
+                        /<RightArrow />
+                      </Purple>
+                      {tag.startsWith("$L") ? (
+                        <ClientReferenceAnnotation tag={tag} />
+                      ) : null}
+                    </>
+                  ) : (
+                    <Purple>
                       <RightArrow />
-                    )}
-                  </Purple>
+                    </Purple>
+                  )}
                 </div>
               </>
             ) : null}
