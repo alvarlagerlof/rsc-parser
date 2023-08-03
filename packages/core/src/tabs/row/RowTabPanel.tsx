@@ -1,13 +1,15 @@
-import { ReactNode } from "react";
-import { lexer, parse, refineRowType } from "../../parse";
+import { useState, useTransition } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import * as Ariakit from "@ariakit/react";
+
+import { lexer, parse, refineRowType } from "../../parse";
 import { GenericErrorBoundaryFallback } from "../../GenericErrorBoundaryFallback";
 import { Meter } from "../../Meter";
-import { JSONTree } from "react-json-tree";
 import { stringToKiloBytes } from "./stringToKiloBytes";
 import { ClientReferenceRow } from "../../rows/ClientReferenceRow";
 import { HintRow } from "../../rows/HintRow";
 import { TreeRow } from "../../rows/TreeRow";
+import { DownArrowIcon, RightArrowIcon } from "../../icons";
 
 export function RowTabPanel({
   row,
@@ -51,7 +53,7 @@ export function RowTabPanel({
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
-        key={`tree.${row.toString()}`}
+        key={`tree-${row.toString()}`}
       >
         <RowTabPanelGenericData row={row} />
       </ErrorBoundary>
@@ -134,44 +136,42 @@ export function RowTabPanelExplorer({
 }
 
 function RowTabPanelGenericData({ row }: { row: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const disclosure = Ariakit.useDisclosureStore({
+    open: isOpen,
+    setOpen: (open) => {
+      startTransition(() => {
+        setIsOpen(open);
+      });
+    },
+  });
+
+  return (
+    <>
+      <Ariakit.Disclosure
+        store={disclosure}
+        style={{ opacity: isPending ? 0.7 : 1 }}
+        className="flex cursor-pointer items-center gap-1"
+      >
+        {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
+        Raw data
+      </Ariakit.Disclosure>
+      <Ariakit.DisclosureContent store={disclosure}>
+        {isOpen ? <RowTabRawJson row={row} /> : null}
+      </Ariakit.DisclosureContent>
+    </>
+  );
+}
+
+function RowTabRawJson({ row }: { row: string }) {
   const tokens = lexer(row);
   const { data } = parse(tokens);
-
-  return (
-    <div className="flex flex-col gap-2">
-      <RowTabDetails summary="JSON Parsed Data">
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={`raw-json-${data.toString()}`}
-        >
-          <RowTabRawJson data={data} />
-        </ErrorBoundary>
-      </RowTabDetails>
-
-      <RowTabDetails summary="Raw Data">{data}</RowTabDetails>
-    </div>
-  );
-}
-
-function RowTabDetails({
-  summary,
-  children,
-}: {
-  summary: string;
-  children: ReactNode;
-}) {
-  return (
-    <details className="rounded-lg bg-slate-300 p-3 dark:bg-slate-700 dark:text-white">
-      <summary className="cursor-pointer">{summary}</summary>
-      <div className="pt-4">
-        <pre className="whitespace-normal break-all text-sm">{children}</pre>
-      </div>
-    </details>
-  );
-}
-
-function RowTabRawJson({ data }: { data: string }) {
   const json = JSON.parse(data);
 
-  return <JSONTree data={json} shouldExpandNodeInitially={() => true} />;
+  return (
+    <pre className="overflow-hidden whitespace-break-spaces break-all text-sm">
+      {JSON.stringify(json, null, 1)}
+    </pre>
+  );
 }
