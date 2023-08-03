@@ -1,6 +1,6 @@
-import { RscChunkMessage } from "./message";
+import { RscChunkMessage } from "../stream/message";
 
-export const nextJsDocs = [
+export const nextJsExampleData = [
   {
     type: "RSC_CHUNK",
     data: {

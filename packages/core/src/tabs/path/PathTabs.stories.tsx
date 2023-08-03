@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { PathTabs, usePathTabs } from "./PathTabs";
+import { RscChunkMessage } from "../../main";
+import { nextJsExampleData } from "../../example-data/nextjs";
+import { neurodiversityWikiExampleData } from "../../example-data/neurodiversity-wiki";
+import { ghNextExampleData } from "../../example-data/gh-next";
 
 const meta: Meta<typeof PathTabs> = {
   component: PathTabs,
@@ -9,20 +13,48 @@ const meta: Meta<typeof PathTabs> = {
 export default meta;
 type Story = StoryObj<typeof PathTabs>;
 
-export const Example: Story = {
+function getUrlsFromMessages(messages: RscChunkMessage[]) {
+  return Array.from(new Set(messages.map((message) => message.data.fetchUrl)));
+}
+
+export const Nextjs: Story = {
+  name: "nextjs.org",
+  render: () => {
+    const pathTabs = usePathTabs(getUrlsFromMessages(nextJsExampleData), {
+      follow: false,
+    });
+
+    return (
+      <PathTabs {...pathTabs}>
+        <p>Tab content goes</p>
+      </PathTabs>
+    );
+  },
+};
+
+export const GhNext: Story = {
+  name: "gh-issues.vercel.app",
+  render: () => {
+    const pathTabs = usePathTabs(getUrlsFromMessages(ghNextExampleData), {
+      follow: false,
+    });
+
+    return (
+      <PathTabs {...pathTabs}>
+        <p>Tab content goes</p>
+      </PathTabs>
+    );
+  },
+};
+
+export const NeurodiversityWiki: Story = {
+  name: "neurodiversity.wiki",
   render: () => {
     const pathTabs = usePathTabs(
-      [
-        "https://nextjs.org/?_rsc=1ag7k",
-        "https://nextjs.org/docs/app/building-your-application/optimizing/images?_rsc=1ag7k",
-        "https://nextjs.org/docs?_rsc=1ag7k",
-        "https://nextjs.org/blog/next-13-4?_rsc=1ag7k",
-        "https://nextjs.org/docs/app/building-your-application/styling?_rsc=1ag7k",
-        "https://nextjs.org/docs/app/building-your-application/data-fetching?_rsc=1ag7k",
-        "https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming?_rsc=1ag7k",
-        "https://nextjs.org/docs/app/building-your-application/routing/middleware?_rsc=1ag7k",
-      ],
-      { follow: false },
+      getUrlsFromMessages(neurodiversityWikiExampleData),
+      {
+        follow: false,
+      },
     );
 
     return (
