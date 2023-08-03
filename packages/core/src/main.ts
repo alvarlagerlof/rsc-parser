@@ -6,6 +6,7 @@ import { RowTabs } from "./tabs/row/RowTabs";
 import { parse, refineRowType, lexer, splitToCleanRows } from "./parse";
 import { StreamTabs } from "./stream/StreamTabs";
 import { RawStream } from "./stream/RawStream";
+import { PayloadViewer } from "./viewer/PayloadViewer";
 import { RscChunkMessage } from "./stream/message";
 
 export {
@@ -19,6 +20,7 @@ export {
   splitToCleanRows,
   RowTabs,
   StreamTabs,
+  PayloadViewer,
   RawStream,
   type RscChunkMessage,
 };
