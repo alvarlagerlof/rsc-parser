@@ -165,7 +165,7 @@ function NodeOther({ value }: { value: JsonValue }) {
 
   if (isInsideObject === undefined) {
     throw new Error(
-      "ObjectContext must be used within a ObjectContext.Provider"
+      "ObjectContext must be used within a ObjectContext.Provider",
     );
   }
 

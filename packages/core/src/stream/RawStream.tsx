@@ -16,7 +16,7 @@ export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
 
   const timeFilteredMessages = useFilterMessagesByEndTime(
     messages,
-    timeScrubber.endTime
+    timeScrubber.endTime,
   );
 
   return (

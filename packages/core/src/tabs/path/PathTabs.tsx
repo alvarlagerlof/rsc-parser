@@ -7,11 +7,11 @@ export function usePathTabs(
     follow,
   }: {
     follow: boolean;
-  }
+  },
 ) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
-    null
+    null,
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
