@@ -4,7 +4,7 @@ import {
   useGroupedMessages,
   useTabs,
 } from "../stream/hooks";
-import { TimeScrubber, useTimeScrubber } from "../TimeScrubber";
+import { TimeScrubber, useTimeScrubber } from "../stream/TimeScrubber";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { PathTabs, usePathTabs } from "../tabs/path/PathTabs";
