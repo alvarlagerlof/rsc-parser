@@ -34,7 +34,7 @@ export const NextJs: Story = {
           acc[url] = getPayloadByUrl(nextJsExampleData, url);
           return acc;
         },
-        {} as Record<string, string>
+        {} as Record<string, string>,
       ),
       control: {
         type: "select",
@@ -44,7 +44,7 @@ export const NextJs: Story = {
   args: {
     defaultPayload: getPayloadByUrl(
       nextJsExampleData,
-      getUrls(nextJsExampleData)[0]
+      getUrls(nextJsExampleData)[0],
     ),
   },
   render: ({ defaultPayload }) => (
@@ -62,7 +62,7 @@ export const GhNext: Story = {
           acc[url] = getPayloadByUrl(ghNextExampleData, url);
           return acc;
         },
-        {} as Record<string, string>
+        {} as Record<string, string>,
       ),
       control: {
         type: "select",
@@ -72,7 +72,7 @@ export const GhNext: Story = {
   args: {
     defaultPayload: getPayloadByUrl(
       ghNextExampleData,
-      getUrls(ghNextExampleData)[0]
+      getUrls(ghNextExampleData)[0],
     ),
   },
   render: ({ defaultPayload }) => (
@@ -90,7 +90,7 @@ export const NeurodiversityWiki: Story = {
           acc[url] = getPayloadByUrl(neurodiversityWikiExampleData, url);
           return acc;
         },
-        {} as Record<string, string>
+        {} as Record<string, string>,
       ),
       control: {
         type: "select",
@@ -100,7 +100,7 @@ export const NeurodiversityWiki: Story = {
   args: {
     defaultPayload: getPayloadByUrl(
       neurodiversityWikiExampleData,
-      getUrls(neurodiversityWikiExampleData)[0]
+      getUrls(neurodiversityWikiExampleData)[0],
     ),
   },
   render: ({ defaultPayload }) => (
