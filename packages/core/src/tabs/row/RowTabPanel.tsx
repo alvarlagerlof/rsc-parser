@@ -37,8 +37,6 @@ export function RowTabPanel({
         </ErrorBoundary>
       </div>
 
-      <div className="h-0.5 w-full bg-slate-300 dark:bg-slate-600" />
-
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
         key={`row-${row.toString()}`}
@@ -48,8 +46,6 @@ export function RowTabPanel({
           selectTabByIdentifier={selectTabByIdentifier}
         />
       </ErrorBoundary>
-
-      <div className="h-0.5 w-full bg-slate-300 dark:bg-slate-600" />
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
@@ -68,7 +64,7 @@ function RowTabPanelMeta({ row }: { row: string }) {
 
   return (
     <div className="flex flex-col gap-1">
-      <h3 className="inline-block rounded-full text-xl font-bold dark:text-white">
+      <h3 className="inline-block rounded-md text-xl font-bold dark:text-white">
         {identifier}{" "}
         <span className="text-slate-400 dark:text-slate-200">
           / $L{identifier}
@@ -150,11 +146,11 @@ function RowTabPanelGenericData({ row }: { row: string }) {
   });
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <Ariakit.Disclosure
         store={disclosure}
         style={{ opacity: isPending ? 0.7 : 1 }}
-        className="flex cursor-pointer items-center gap-1"
+        className="flex cursor-pointer items-center gap-1 dark:text-white"
       >
         {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
         Raw data
@@ -162,7 +158,7 @@ function RowTabPanelGenericData({ row }: { row: string }) {
       <Ariakit.DisclosureContent store={disclosure}>
         {isOpen ? <RowTabRawJson row={row} /> : null}
       </Ariakit.DisclosureContent>
-    </>
+    </div>
   );
 }
 
@@ -172,7 +168,7 @@ function RowTabRawJson({ row }: { row: string }) {
   const json = JSON.parse(data);
 
   return (
-    <pre className="overflow-hidden whitespace-break-spaces break-all text-sm">
+    <pre className="overflow-hidden whitespace-break-spaces break-all text-sm dark:text-white">
       {JSON.stringify(json, null, 1)}
     </pre>
   );

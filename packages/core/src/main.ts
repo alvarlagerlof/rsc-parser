@@ -4,8 +4,8 @@ import { HintRow } from "./rows/HintRow";
 import { TreeRow } from "./rows/TreeRow";
 import { RowTabs } from "./tabs/row/RowTabs";
 import { parse, refineRowType, lexer, splitToCleanRows } from "./parse";
-import { StreamTabs } from "./stream/StreamTabs";
 import { RawStream } from "./stream/RawStream";
+import { StreamViewer } from "./viewer/StreamViewer";
 import { PayloadViewer } from "./viewer/PayloadViewer";
 import { RscChunkMessage } from "./stream/message";
 
@@ -19,8 +19,8 @@ export {
   lexer,
   splitToCleanRows,
   RowTabs,
-  StreamTabs,
   PayloadViewer,
   RawStream,
+  StreamViewer,
   type RscChunkMessage,
 };

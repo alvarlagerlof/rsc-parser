@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { StreamTabs } from "./StreamTabs";
+import { StreamViewer } from "./StreamViewer";
 import { nextJsExampleData } from "../example-data/nextjs";
 import { ghNextExampleData } from "../example-data/gh-next";
 import { neurodiversityWikiExampleData } from "../example-data/neurodiversity-wiki";
 
-const meta: Meta<typeof StreamTabs> = {
-  component: StreamTabs,
+const meta: Meta<typeof StreamViewer> = {
+  component: StreamViewer,
 };
 
 export default meta;
-type Story = StoryObj<typeof StreamTabs>;
+type Story = StoryObj<typeof StreamViewer>;
 
 export const NextJs: Story = {
   name: "nextjs.org",

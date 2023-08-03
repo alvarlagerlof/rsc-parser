@@ -15,7 +15,7 @@ export function RowTab({
   const refinedType = refineRowType(type);
 
   return (
-    <div className="flex flex-row gap-1.5 rounded-xl bg-slate-200 px-2 py-1 transition-all duration-150 group-aria-selected:bg-blue-300 dark:bg-slate-800  dark:group-aria-selected:bg-blue-700">
+    <div className="flex flex-row gap-1.5 rounded-md border-2 border-transparent bg-slate-200 px-2 py-0.5 transition-all duration-100 group-aria-selected:border-slate-400 dark:bg-slate-800 dark:group-aria-selected:border-slate-500">
       <div className="-mt-px text-xl font-semibold text-black dark:text-white">
         {identifier}
       </div>
@@ -42,7 +42,7 @@ export function RowTabFallback({
 
   if (error instanceof Error) {
     return (
-      <div className="flex h-full flex-col rounded-xl bg-red-200 px-2 py-1 transition-all duration-200 group-aria-selected:bg-red-600 group-aria-selected:text-white">
+      <div className="flex h-full flex-col rounded-md border-2 border-transparent bg-red-200 px-2 py-0.5 transition-all duration-200 group-aria-selected:border-red-600 group-aria-selected:text-white">
         <div>Error</div>
         <Meter fraction={rowSize / payloadSize} />
       </div>
