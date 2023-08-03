@@ -4,7 +4,7 @@ import { useFilterMessagesByEndTime, useTimeRange } from "./hooks";
 
 export function useTimeScrubber(
   messages: RscChunkMessage[],
-  { follow }: { follow: boolean }
+  { follow }: { follow: boolean },
 ) {
   const { minStartTime, maxEndTime } = useTimeRange(messages);
   const [endTime, setEndTime] = useState(maxEndTime);
@@ -63,7 +63,7 @@ function useTracks(messages: RscChunkMessage[]) {
 
         const lastMessageWithSameFetchUrl = messages
           .filter(
-            (m) => m.data.fetchStartTime === lastMessage.data.fetchStartTime
+            (m) => m.data.fetchStartTime === lastMessage.data.fetchStartTime,
           )
           .at(-1);
 
@@ -196,7 +196,7 @@ export function TimeScrubber({
         <div className="whitespace-nowrap tabular-nums text-slate-700 dark:text-slate-300">
           {String(filteredMessages.length).padStart(
             String(messages.length).length,
-            "0"
+            "0",
           )}{" "}
           / {messages.length}
         </div>
