@@ -37,8 +37,6 @@ export function RowTabPanel({
         </ErrorBoundary>
       </div>
 
-      <div className="h-0.5 w-full bg-slate-300 dark:bg-slate-600" />
-
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
         key={`row-${row.toString()}`}
@@ -48,8 +46,6 @@ export function RowTabPanel({
           selectTabByIdentifier={selectTabByIdentifier}
         />
       </ErrorBoundary>
-
-      <div className="h-0.5 w-full bg-slate-300 dark:bg-slate-600" />
 
       <ErrorBoundary
         FallbackComponent={GenericErrorBoundaryFallback}
@@ -68,7 +64,7 @@ function RowTabPanelMeta({ row }: { row: string }) {
 
   return (
     <div className="flex flex-col gap-1">
-      <h3 className="inline-block rounded-full text-xl font-bold dark:text-white">
+      <h3 className="inline-block rounded-md text-xl font-bold dark:text-white">
         {identifier}{" "}
         <span className="text-slate-400 dark:text-slate-200">
           / $L{identifier}

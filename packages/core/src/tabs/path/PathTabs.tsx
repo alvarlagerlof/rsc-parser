@@ -54,14 +54,14 @@ export function PathTabs({
   children,
 }: ReturnType<typeof usePathTabs> & { children: ReactNode }) {
   return (
-    <>
+    <div className="flex grow flex-row divide-x-1">
       <Ariakit.TabList
         store={tabStore}
-        className="flex max-w-full flex-row flex-wrap gap-2 overflow-x-auto rounded-2xl !p-2 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 md:pb-0"
+        className="flex w-[30%] min-w-[30%] flex-col gap-1 pr-3"
       >
         {tabs.map((tab) => (
-          <Ariakit.Tab className="group" key={tab} id={tab}>
-            <div className="rounded-lg border-none bg-slate-200 px-2 py-0.5 text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 group-aria-selected:bg-blue-300 dark:bg-slate-800 dark:group-aria-selected:bg-blue-700 ">
+          <Ariakit.Tab className="group w-full text-left" key={tab} id={tab}>
+            <div className="w-full rounded-md border-none px-1.5 py-0.5 group-aria-selected:bg-slate-200 dark:bg-slate-800 dark:group-aria-selected:bg-slate-700">
               <span className="text-slate-900 dark:text-white">
                 {new URL(tab).pathname}
               </span>
@@ -77,7 +77,7 @@ export function PathTabs({
         store={tabStore}
         tabId={currentTab}
         alwaysVisible={true}
-        className={`flex flex-col gap-4 p-2 transition-opacity delay-75 duration-100 ${
+        className={`flex min-w-0 grow flex-col gap-4 pl-3 transition-opacity delay-75 duration-100 ${
           isPending ? "opacity-60" : ""
         }`}
         aria-label="Paths"
@@ -85,6 +85,6 @@ export function PathTabs({
       >
         {children}
       </Ariakit.TabPanel>
-    </>
+    </div>
   );
 }

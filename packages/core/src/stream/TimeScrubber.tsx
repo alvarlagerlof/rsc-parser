@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useTransition } from "react";
-import { RscChunkMessage } from "./message";
-import { useFilterMessagesByEndTime, useTimeRange } from "./hooks";
+import { RscChunkMessage } from "./stream/message";
+import { useFilterMessagesByEndTime, useTimeRange } from "./stream/hooks";
 
 export function useTimeScrubber(
   messages: RscChunkMessage[],
@@ -107,12 +107,12 @@ export function TimeScrubber({
   const trackPadding = 8;
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-xl bg-slate-200 p-2 dark:bg-slate-700 dark:text-white">
+    <div className="flex w-full flex-col gap-1.5 rounded-md bg-slate-200 p-1.5 dark:bg-slate-700 dark:text-white">
       <div className="relative flex flex-row items-center transition-opacity delay-75 duration-100">
         <input
           type="range"
           className={[
-            "absolute h-full w-full rounded-md z-20",
+            "absolute h-full w-full rounded z-20",
             "appearance-none",
             "bg-transparent bg-gradient-to-r from-blue-100/25 to-blue-100/25 bg-no-repeat",
             "[&::-webkit-slider-runnable-track]:bg-transparent",
@@ -121,7 +121,7 @@ export function TimeScrubber({
             "[&::-webkit-slider-thumb]:mt-[calc(6px/2)]",
             "[&::-webkit-slider-thumb]:w-1",
             "[&::-webkit-slider-thumb]:appearance-none",
-            "[&::-webkit-slider-thumb]:rounded",
+            "[&::-webkit-slider-thumb]:rounded-md",
             "[&::-webkit-slider-thumb]:transition-colors",
             "[&::-webkit-slider-thumb]:delay-75",
             "[&::-webkit-slider-thumb]:duration-100",
@@ -154,7 +154,7 @@ export function TimeScrubber({
               (messageHeight + (tracks.length > 1 ? trackSpacing : 0)) +
             trackPadding * 2
           }px`}
-          className="pointer-events-none z-10 rounded-md bg-white fill-slate-500"
+          className="pointer-events-none z-10 rounded bg-white fill-slate-500"
         >
           {tracks.map((track, idx) => {
             return track.map((message) => {
@@ -187,7 +187,7 @@ export function TimeScrubber({
         </svg>
       </div>
 
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between px-1 text-sm">
         <div className="tabular-nums text-slate-700 dark:text-slate-300">
           {new Date(visibleEndTime).toLocaleTimeString()} /{" "}
           {new Date(maxEndTime).toLocaleTimeString()}

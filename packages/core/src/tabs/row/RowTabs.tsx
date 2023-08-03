@@ -45,72 +45,76 @@ export function RowTabs({ payload }: { payload: string }) {
   });
 
   return (
-    <>
-      <div className="flex w-full flex-col items-center justify-center gap-2 py-6">
-        <Ariakit.TabList
-          store={tab}
-          className="flex max-w-full flex-row gap-2 overflow-x-auto rounded-2xl !p-2 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 md:flex-wrap md:pb-0"
-        >
-          {rows.map((row) => (
-            <Ariakit.Tab
-              className="group rounded-xl border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400"
-              key={row}
-              id={row}
+    <div className="divide-y-1">
+      {rows.length === 0 ? null : (
+        <>
+          <div className="flex flex-col gap-2 pb-3">
+            <div className="text-black dark:text-white">
+              Total size: {stringToKiloBytes(payload)} KB (uncompressed)
+            </div>
+
+            <Ariakit.TabList
+              store={tab}
+              className="flex flex-row flex-wrap gap-2 md:pb-0"
             >
-              <ErrorBoundary
-                fallbackRender={({ error }) => (
-                  <RowTabFallback
-                    error={error}
+              {rows.map((row) => (
+                <Ariakit.Tab
+                  className="group rounded-md border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200"
+                  key={row}
+                  id={row}
+                >
+                  <ErrorBoundary
+                    fallbackRender={({ error }) => (
+                      <RowTabFallback
+                        error={error}
+                        row={row}
+                        payloadSize={payloadSize}
+                      />
+                    )}
+                  >
+                    <RowTab row={row} payloadSize={payloadSize} />
+                  </ErrorBoundary>
+                </Ariakit.Tab>
+              ))}
+            </Ariakit.TabList>
+          </div>
+
+          <Ariakit.TabPanel
+            store={tab}
+            tabId={currentTab}
+            alwaysVisible={true}
+            className="pt-3 delay-100 duration-200 dark:bg-slate-800"
+            aria-label="Rows"
+            aria-busy={isPending}
+            style={{
+              opacity: isPending ? "0.6" : "1",
+            }}
+          >
+            {payload === "" ? (
+              <p className="text-black dark:text-white">
+                Please enter a payload to see results
+              </p>
+            ) : selectedTab === null || selectTab === undefined ? (
+              <p className="text-black dark:text-white">Please select a row</p>
+            ) : null}
+
+            {rows
+              .filter((row) => row == currentTab)
+              .map((row) => (
+                <ErrorBoundary
+                  FallbackComponent={GenericErrorBoundaryFallback}
+                  key={`tab-panel-${row}`}
+                >
+                  <RowTabPanel
                     row={row}
                     payloadSize={payloadSize}
+                    selectTabByIdentifier={selectTabByIdentifier}
                   />
-                )}
-              >
-                <RowTab row={row} payloadSize={payloadSize} />
-              </ErrorBoundary>
-            </Ariakit.Tab>
-          ))}
-        </Ariakit.TabList>
-
-        <div className="text-black dark:text-white">
-          Total size: {stringToKiloBytes(payload)} KB (uncompressed)
-        </div>
-      </div>
-
-      <Ariakit.TabPanel
-        store={tab}
-        tabId={currentTab}
-        alwaysVisible={true}
-        className="w-full rounded-3xl bg-slate-200 p-4 outline outline-2 outline-offset-2 outline-transparent transition-all delay-100 duration-200 focus:outline-blue-400 dark:bg-slate-800"
-        aria-label="Lines"
-        aria-busy={isPending}
-        style={{
-          opacity: isPending ? "0.6" : "1",
-        }}
-      >
-        {payload === "" ? (
-          <p className="text-black dark:text-white">
-            Please enter a payload to see results
-          </p>
-        ) : selectedTab === null || selectTab === undefined ? (
-          <p className="text-black dark:text-white">Please select a tab</p>
-        ) : null}
-
-        {rows
-          .filter((row) => row == currentTab)
-          .map((row) => (
-            <ErrorBoundary
-              FallbackComponent={GenericErrorBoundaryFallback}
-              key={`tab-panel-${row}`}
-            >
-              <RowTabPanel
-                row={row}
-                payloadSize={payloadSize}
-                selectTabByIdentifier={selectTabByIdentifier}
-              />
-            </ErrorBoundary>
-          ))}
-      </Ariakit.TabPanel>
-    </>
+                </ErrorBoundary>
+              ))}
+          </Ariakit.TabPanel>
+        </>
+      )}
+    </div>
   );
 }
