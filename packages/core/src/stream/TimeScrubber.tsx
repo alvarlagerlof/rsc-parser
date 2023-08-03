@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useTransition } from "react";
-import { RscChunkMessage } from "./stream/message";
-import { useFilterMessagesByEndTime, useTimeRange } from "./stream/hooks";
+import { RscChunkMessage } from "../stream/message";
+import { useFilterMessagesByEndTime, useTimeRange } from "../stream/hooks";
 
 export function useTimeScrubber(
   messages: RscChunkMessage[],
