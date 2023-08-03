@@ -1,9 +1,7 @@
 "use client";
 
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { ErrorBoundary } from "react-error-boundary";
-import { RowTabs } from "@rsc-parser/core";
-import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
+import React from "react";
+import { PayloadViewer } from "@rsc-parser/core";
 
 import "@rsc-parser/core/style.css";
 
@@ -21,44 +19,6 @@ b:I{"id":"25548","chunks":["414:static/chunks/414-9ee1a4f70730f5c0.js","1004:sta
 9:[["$","$Lb","9b1d7e4d-d418-46ff-a539-9fab5bc4ab7b",{"post":{"_id":"9b1d7e4d-d418-46ff-a539-9fab5bc4ab7b","slug":{"current":"skeleton-loading-with-suspense-in-next-js-13","_type":"slug"},"title":"Skeleton Loading with Suspense in Next.js 13","description":"My strategy for handling skeleton loading with Suspense.","date":{"published":"2022-12-29","updated":"2022-12-29"}}}],["$","$Lb","7cdcfec7-d8c4-40f7-9b71-cc323c2e8136",{"post":{"title":"TailwindCSS with @next/font","description":"Here's how to integrate the new @next/font in Next.js 13 with TailwindCSS.","date":{"published":"2022-10-30","updated":"2022-10-30"},"_id":"7cdcfec7-d8c4-40f7-9b71-cc323c2e8136","slug":{"current":"tailwindcss-with-next-font","_type":"slug"}}}],["$","$Lb","eb686ea0-cdd4-48eb-89d0-0876e5a39e01",{"post":{"_id":"eb686ea0-cdd4-48eb-89d0-0876e5a39e01","slug":{"current":"thoughts-on-photography-tools","_type":"slug"},"title":"Thoughts on Photography Tools","description":"The tool I'm looking for doesn't seem to exist","date":{"published":"2022-07-15","updated":null}}}],["$","$Lb","a32c3dcf-6a61-42dd-ab7a-c36fa21016ac",{"post":{"_id":"a32c3dcf-6a61-42dd-ab7a-c36fa21016ac","slug":{"_type":"slug","current":"always-add-name-to-type-radio"},"title":"Always add \\"name to type=\\"radio\\"","description":"Otherwise, you'll think your tab keys hate you","date":{"published":"2022-04-06","updated":null}}}]]
 `;
 
-export function Parser() {
-  const [payload, setPayload] = useState(defaultPayload);
-
-  useEffect(() => {
-    const previous = localStorage.getItem("payload");
-    setPayload(previous ?? defaultPayload);
-  }, []);
-
-  return (
-    <div className="flex max-w-full flex-col items-center gap-2">
-      <form className="flex w-full max-w-5xl flex-col gap-2 px-4">
-        <label htmlFor="paylod" className="font-medium">
-          Payload
-        </label>
-
-        <textarea
-          name="payload"
-          placeholder="RCS paylod"
-          className="resize-none rounded-lg bg-slate-300 p-3 outline outline-2 outline-offset-2 outline-transparent transition-all duration-200 focus:outline-blue-400 dark:bg-slate-800 dark:text-slate-200"
-          rows={16}
-          value={payload}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            setPayload(event.target.value);
-            localStorage.setItem("payload", event.target.value);
-          }}
-          spellCheck="false"
-        />
-      </form>
-      <div className="min-h-[calc(100vh-120px)] w-full max-w-full">
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={payload}
-        >
-          <div className="flex w-full flex-col items-center justify-center gap-2 px-2 py-6 md:max-w-7xl">
-            <RowTabs payload={payload} />
-          </div>
-        </ErrorBoundary>
-      </div>
-    </div>
-  );
+export function PayloadViewerClientWrapper() {
+  return <PayloadViewer defaultPayload={defaultPayload} />;
 }
