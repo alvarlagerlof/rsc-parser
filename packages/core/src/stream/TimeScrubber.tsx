@@ -107,14 +107,14 @@ export function TimeScrubber({
   const trackPadding = 8;
 
   return (
-    <div className="flex w-full flex-col gap-1.5 rounded-md bg-slate-200 p-1.5 dark:bg-slate-700 dark:text-white">
+    <div className="flex w-full flex-col gap-1.5 rounded-md bg-slate-200 p-1.5 dark:bg-slate-800 dark:text-white">
       <div className="relative flex flex-row items-center transition-opacity delay-75 duration-100">
         <input
           type="range"
           className={[
             "absolute h-full w-full rounded z-20",
             "appearance-none",
-            "bg-transparent bg-gradient-to-r from-blue-100/25 to-blue-100/25 bg-no-repeat",
+            "bg-transparent bg-gradient-to-r from-blue-100/25 to-blue-100/25 dark:from-blue-100/10 dark:to-blue-100/10 bg-no-repeat",
             "[&::-webkit-slider-runnable-track]:bg-transparent",
             "[&::-webkit-slider-runnable-track]:h-full",
             "[&::-webkit-slider-thumb]:h-[calc(100%-6px)]",
@@ -154,7 +154,7 @@ export function TimeScrubber({
               (messageHeight + (tracks.length > 1 ? trackSpacing : 0)) +
             trackPadding * 2
           }px`}
-          className="pointer-events-none z-10 rounded bg-white fill-slate-500"
+          className="pointer-events-none z-10 rounded bg-white fill-slate-500 dark:bg-slate-700"
         >
           {tracks.map((track, idx) => {
             return track.map((message) => {

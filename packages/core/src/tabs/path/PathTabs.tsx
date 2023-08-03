@@ -54,14 +54,14 @@ export function PathTabs({
   children,
 }: ReturnType<typeof usePathTabs> & { children: ReactNode }) {
   return (
-    <div className="flex grow flex-row divide-x-1">
+    <div className="flex grow flex-row divide-x-1 dark:divide-slate-600">
       <Ariakit.TabList
         store={tabStore}
         className="flex w-[30%] min-w-[30%] flex-col gap-1 pr-3"
       >
         {tabs.map((tab) => (
           <Ariakit.Tab className="group w-full text-left" key={tab} id={tab}>
-            <div className="w-full rounded-md border-none px-1.5 py-0.5 group-aria-selected:bg-slate-200 dark:bg-slate-800 dark:group-aria-selected:bg-slate-700">
+            <div className="w-full rounded-md border-none px-1.5 py-0.5 group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
               <span className="text-slate-900 dark:text-white">
                 {new URL(tab).pathname}
               </span>

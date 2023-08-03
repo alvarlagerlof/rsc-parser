@@ -41,14 +41,16 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
 
       <PathTabs {...pathTabs}>
         {!pathTabs.currentTab ? (
-          <p>Please select a url</p>
+          <span className="dark:text-white">Please select a url</span>
         ) : (
           <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
             <div className="flex flex-row items-center justify-between">
               {messagesForCurrentTab.length === 0 ? (
-                <span>No data for current time frame, please select a url</span>
+                <span className="dark:text-white">
+                  No data for current time frame, please select a url
+                </span>
               ) : (
-                <span>
+                <span className="dark:text-white">
                   Data from {messagesForCurrentTab.length} fetch chunk
                   {messagesForCurrentTab.length === 1 ? "" : "s"}
                 </span>
@@ -61,13 +63,13 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
               >
                 <Ariakit.Tab
                   id="parsed"
-                  className="rounded-md px-2 py-0.5  aria-selected:bg-slate-200"
+                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
                 >
                   Parsed
                 </Ariakit.Tab>
                 <Ariakit.Tab
                   id="raw"
-                  className="rounded-md px-2 py-0.5  aria-selected:bg-slate-200"
+                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
                 >
                   Raw
                 </Ariakit.Tab>

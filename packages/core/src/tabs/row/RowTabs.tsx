@@ -45,7 +45,7 @@ export function RowTabs({ payload }: { payload: string }) {
   });
 
   return (
-    <div className="divide-y-1">
+    <div className="divide-y-1 dark:divide-slate-600">
       {rows.length === 0 ? null : (
         <>
           <div className="flex flex-col gap-2 pb-3">
@@ -83,7 +83,7 @@ export function RowTabs({ payload }: { payload: string }) {
             store={tab}
             tabId={currentTab}
             alwaysVisible={true}
-            className="pt-3 delay-100 duration-200 dark:bg-slate-800"
+            className="pt-3 delay-100 duration-200"
             aria-label="Rows"
             aria-busy={isPending}
             style={{
