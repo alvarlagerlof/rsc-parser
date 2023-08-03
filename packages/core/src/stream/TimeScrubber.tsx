@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { RscChunkMessage } from "../stream/message";
 import { useFilterMessagesByEndTime, useTimeRange } from "../stream/hooks";
+import { getColorForFetch } from "../color";
 
 export function useTimeScrubber(
   messages: RscChunkMessage[],
@@ -37,11 +38,6 @@ export function useTimeScrubber(
     minStartTime,
     maxEndTime,
   };
-}
-
-function random(seed: number) {
-  const x = Math.sin(seed++) * 10000;
-  return x - Math.floor(x);
 }
 
 function useTracks(messages: RscChunkMessage[]) {
@@ -176,9 +172,7 @@ export function TimeScrubber({
                   y={`${y}px`}
                   width={width > 0.2 ? `${width}%` : "0.2%"}
                   height={messageHeight}
-                  fill={`oklch(80% 0.15 ${
-                    random(message.data.fetchStartTime) * 360
-                  })`}
+                  fill={getColorForFetch(message.data.fetchStartTime)}
                   rx="1"
                 />
               );

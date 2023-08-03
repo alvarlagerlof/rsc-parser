@@ -19,14 +19,6 @@ export function useGroupedMessages(messages: RscChunkMessage[]) {
   }, [messages]);
 }
 
-export function useTabs(
-  groupedMessages: ReturnType<typeof useGroupedMessages>,
-) {
-  return useMemo(() => {
-    return Array.from(groupedMessages.keys());
-  }, [groupedMessages]);
-}
-
 export function useTimeRange(messages: RscChunkMessage[]) {
   return useMemo(() => {
     let minStartTime = Number.MAX_SAFE_INTEGER;
