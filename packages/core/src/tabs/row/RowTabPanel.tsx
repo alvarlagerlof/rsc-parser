@@ -122,13 +122,15 @@ export function RowTabPanelExplorer({
       return <HintRow data={data} />;
     case "tree":
       return (
-        <TreeRow
-          data={data}
-          onClickClientReference={(name) => {
-            const buttonIdentifier = name.replace("$L", "");
-            selectTabByIdentifier(buttonIdentifier);
-          }}
-        />
+        <div className="max-w-full overflow-x-auto">
+          <TreeRow
+            data={data}
+            onClickClientReference={(name) => {
+              const buttonIdentifier = name.replace("$L", "");
+              selectTabByIdentifier(buttonIdentifier);
+            }}
+          />
+        </div>
       );
     case "unknown":
       throw new Error(`Unknown row type: ${type}`);
