@@ -19,14 +19,6 @@ export function useGroupedMessages(messages: RscChunkMessage[]) {
   }, [messages]);
 }
 
-export function useTabs(
-  groupedMessages: ReturnType<typeof useGroupedMessages>,
-) {
-  return useMemo(() => {
-    return Array.from(groupedMessages.keys());
-  }, [groupedMessages]);
-}
-
 export function useTimeRange(messages: RscChunkMessage[]) {
   return useMemo(() => {
     let minStartTime = Number.MAX_SAFE_INTEGER;
@@ -54,4 +46,23 @@ export function useFilterMessagesByEndTime(
   return useMemo(() => {
     return messages.filter((message) => message.data.chunkStartTime <= endTime);
   }, [messages, endTime]);
+}
+
+export function useSortedFetchPaths(messages: RscChunkMessage[]) {
+  return useMemo(() => {
+    const tabs: string[] = [];
+
+    const sorted = messages.sort(
+      (a, b) => a.data.chunkStartTime - b.data.chunkStartTime,
+    );
+
+    for (const message of sorted) {
+      const tab = message.data.fetchUrl;
+      if (!tabs.includes(tab)) {
+        tabs.push(tab);
+      }
+    }
+
+    return tabs;
+  }, [messages]);
 }

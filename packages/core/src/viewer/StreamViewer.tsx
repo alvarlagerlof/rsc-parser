@@ -2,7 +2,6 @@ import { RscChunkMessage } from "../stream/message";
 import {
   useFilterMessagesByEndTime,
   useGroupedMessages,
-  useTabs,
 } from "../stream/hooks";
 import { TimeScrubber, useTimeScrubber } from "../stream/TimeScrubber";
 import { GenericErrorBoundaryFallback } from "../GenericErrorBoundaryFallback";
@@ -26,8 +25,7 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
   );
   const groupedMessages = useGroupedMessages(timeFilteredMessages);
 
-  const tabs = useTabs(groupedMessages);
-  const pathTabs = usePathTabs(tabs, {
+  const pathTabs = usePathTabs(timeFilteredMessages, {
     follow: false,
   });
 
