@@ -21,38 +21,42 @@ export function RowTabPanel({
   selectTabByIdentifier: (tabIdentifier: string) => void;
 }) {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-row justify-between">
+    <div className="flex flex-col divide-y-1 dark:divide-slate-600">
+      <div className="pb-3">
+        <div className="flex flex-row justify-between">
+          <ErrorBoundary
+            FallbackComponent={GenericErrorBoundaryFallback}
+            key={`meta-${row.toString()}`}
+          >
+            <RowTabPanelMeta row={row} />
+          </ErrorBoundary>
+          <ErrorBoundary
+            FallbackComponent={GenericErrorBoundaryFallback}
+            key={`size-${row.toString()}`}
+          >
+            <RowTabPanelSize row={row} payloadSize={payloadSize} />
+          </ErrorBoundary>
+        </div>
+
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`meta-${row.toString()}`}
+          key={`row-${row.toString()}`}
         >
-          <RowTabPanelMeta row={row} />
-        </ErrorBoundary>
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={`size-${row.toString()}`}
-        >
-          <RowTabPanelSize row={row} payloadSize={payloadSize} />
+          <RowTabPanelExplorer
+            row={row}
+            selectTabByIdentifier={selectTabByIdentifier}
+          />
         </ErrorBoundary>
       </div>
 
-      <ErrorBoundary
-        FallbackComponent={GenericErrorBoundaryFallback}
-        key={`row-${row.toString()}`}
-      >
-        <RowTabPanelExplorer
-          row={row}
-          selectTabByIdentifier={selectTabByIdentifier}
-        />
-      </ErrorBoundary>
-
-      <ErrorBoundary
-        FallbackComponent={GenericErrorBoundaryFallback}
-        key={`tree-${row.toString()}`}
-      >
-        <RowTabPanelGenericData row={row} />
-      </ErrorBoundary>
+      <div className="pt-3">
+        <ErrorBoundary
+          FallbackComponent={GenericErrorBoundaryFallback}
+          key={`tree-${row.toString()}`}
+        >
+          <RowTabPanelGenericData row={row} />
+        </ErrorBoundary>
+      </div>
     </div>
   );
 }
