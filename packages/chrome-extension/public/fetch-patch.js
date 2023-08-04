@@ -19,12 +19,6 @@ window.fetch = async (...args) => {
     return response;
   }
 
-  const clonedResponse = response.clone();
-  const reader = clonedResponse.body
-    // eslint-disable-next-line no-undef
-    .pipeThrough(new TextDecoderStream())
-    .getReader();
-
   let url = undefined;
   let headers = undefined;
   if (args[0] instanceof Request) {
@@ -41,6 +35,12 @@ window.fetch = async (...args) => {
       headers = args[1].headers;
     }
   }
+
+  const clonedResponse = response.clone();
+  const reader = clonedResponse.body
+    // eslint-disable-next-line no-undef
+    .pipeThrough(new TextDecoderStream())
+    .getReader();
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
