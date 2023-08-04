@@ -12,7 +12,7 @@
     "format": "prettier . --check --config ../../.prettierrc"
   },
   "dependencies": {
-    "@ariakit/react": "^0.2.2",
+    "@ariakit/react": "0.2.14",
     "@rsc-parser/core": "workspace:*",
     "@types/node": "20.3.3",
     "@types/react": "18.2.17",
@@ -23,19 +23,19 @@
     "next": "13.4.12",
     "postcss": "8.4.27",
     "react": "18.2.0",
-    "react-diff-view": "^3.0.3",
-    "react-diff-viewer-continued": "^3.2.6",
+    "react-diff-view": "3.0.3",
+    "react-diff-viewer-continued": "3.2.6",
     "react-dom": "18.2.0",
-    "react-error-boundary": "^4.0.4",
-    "react-json-tree": "^0.18.0",
+    "react-error-boundary": "4.0.10",
+    "react-json-tree": "0.18.0",
     "tailwindcss": "3.3.3",
-    "type-fest": "^4.0.0",
+    "type-fest": "4.1.0",
     "typescript": "5.1.6",
-    "zod": "^3.21.4"
+    "zod": "3.21.4"
   },
   "devDependencies": {
-    "eslint-plugin-tailwindcss": "^3.12.0",
-    "prettier": "^3.0.0",
-    "turbo": "^1.10.12"
+    "eslint-plugin-tailwindcss": "3.13.0",
+    "prettier": "3.0.0",
+    "turbo": "1.10.12"
   }
 }

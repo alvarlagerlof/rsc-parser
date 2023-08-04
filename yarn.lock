@@ -57,7 +57,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ariakit/react@npm:^0.2.12, @ariakit/react@npm:^0.2.2":
+"@ariakit/react@npm:0.2.14":
   version: 0.2.14
   resolution: "@ariakit/react@npm:0.2.14"
   dependencies:
@@ -2519,31 +2519,31 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
-    "@ariakit/react": ^0.2.12
+    "@ariakit/react": 0.2.14
     "@rsc-parser/core": "workspace:*"
-    "@types/react": ^18.0.37
-    "@types/react-dom": ^18.0.11
-    "@typescript-eslint/eslint-plugin": ^6.2.1
-    "@typescript-eslint/parser": ^6.2.1
-    "@vitejs/plugin-react": ^4.0.3
-    autoprefixer: ^10.4.14
-    chrome-types: ^0.1.219
-    concurrently: ^8.2.0
-    esbuild: ^0.18.15
-    eslint: ^8.46.0
-    eslint-plugin-tailwindcss: ^3.13.0
-    postcss: ^8.4.27
-    prettier: ^3.0.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-error-boundary: ^4.0.10
-    tailwindcss: ^3.3.3
-    type-fest: ^4.0.0
-    typescript: ^5.1.6
-    vite: ^4.4.7
-    vite-plugin-html-config: ^1.0.11
-    web-vitals: ^3.0.3
-    zod: ^3.21.4
+    "@types/react": 18.2.17
+    "@types/react-dom": 18.2.7
+    "@typescript-eslint/eslint-plugin": 6.2.1
+    "@typescript-eslint/parser": 6.2.1
+    "@vitejs/plugin-react": 4.0.3
+    autoprefixer: 10.4.14
+    chrome-types: 0.1.219
+    concurrently: 8.2.0
+    esbuild: 0.18.17
+    eslint: 8.46.0
+    eslint-plugin-tailwindcss: 3.13.0
+    postcss: 8.4.27
+    prettier: 3.0.0
+    react: 18.2.0
+    react-dom: 18.2.0
+    react-error-boundary: 4.0.10
+    tailwindcss: 3.3.3
+    type-fest: 4.1.0
+    typescript: 5.1.6
+    vite: 4.4.7
+    vite-plugin-html-config: 1.0.11
+    web-vitals: 3.4.0
+    zod: 3.21.4
   languageName: unknown
   linkType: soft
 
@@ -2551,42 +2551,42 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/core@workspace:packages/core"
   dependencies:
-    "@storybook/addon-essentials": ^7.1.1
-    "@storybook/addon-interactions": ^7.1.1
-    "@storybook/addon-links": ^7.1.1
-    "@storybook/addon-onboarding": ^1.0.8
-    "@storybook/addon-styling": ^1.3.4
-    "@storybook/blocks": ^7.1.1
-    "@storybook/react": ^7.1.1
-    "@storybook/react-vite": ^7.1.1
-    "@storybook/testing-library": ^0.2.0
-    "@testing-library/jest-dom": ^5.16.5
-    "@testing-library/react": ^14.0.0
-    "@types/jest": ^29.5.1
-    "@typescript-eslint/eslint-plugin": ^6.2.1
-    "@typescript-eslint/parser": ^6.2.1
-    "@vitejs/plugin-react": ^4.0.3
-    "@vitejs/plugin-react-swc": ^3.3.2
-    autoprefixer: ^10.4.14
-    concurrently: ^8.2.0
-    eslint: ^8.46.0
-    eslint-plugin-tailwindcss: ^3.13.0
-    jest: ^29.5.0
-    jest-environment-jsdom: ^29.5.0
-    postcss: ^8.4.27
-    prettier: ^3.0.0
-    prop-types: ^15.8.1
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-error-boundary: ^4.0.10
-    storybook: ^7.1.1
-    storybook-dark-mode: ^3.0.0
-    tailwindcss: ^3.3.3
-    ts-jest: ^29.1.0
-    type-fest: ^4.0.0
-    typescript: ^5.1.6
-    vite: ^4.4.7
-    vite-plugin-dts: ^3.3.1
+    "@storybook/addon-essentials": 7.1.1
+    "@storybook/addon-interactions": 7.1.1
+    "@storybook/addon-links": 7.1.1
+    "@storybook/addon-onboarding": 1.0.8
+    "@storybook/addon-styling": 1.3.5
+    "@storybook/blocks": 7.1.1
+    "@storybook/react": 7.1.1
+    "@storybook/react-vite": 7.1.1
+    "@storybook/testing-library": 0.2.0
+    "@testing-library/jest-dom": 5.17.0
+    "@testing-library/react": 14.0.0
+    "@types/jest": 29.5.3
+    "@typescript-eslint/eslint-plugin": 6.2.1
+    "@typescript-eslint/parser": 6.2.1
+    "@vitejs/plugin-react": 4.0.3
+    "@vitejs/plugin-react-swc": 3.3.2
+    autoprefixer: 10.4.14
+    concurrently: 8.2.0
+    eslint: 8.46.0
+    eslint-plugin-tailwindcss: 3.13.0
+    jest: 29.6.2
+    jest-environment-jsdom: 29.6.2
+    postcss: 8.4.27
+    prettier: 3.0.0
+    prop-types: 15.8.1
+    react: 18.2.0
+    react-dom: 18.2.0
+    react-error-boundary: 4.0.10
+    storybook: 7.1.1
+    storybook-dark-mode: 3.0.1
+    tailwindcss: 3.3.3
+    ts-jest: 29.1.1
+    type-fest: 4.1.0
+    typescript: 5.1.6
+    vite: 4.4.7
+    vite-plugin-dts: 3.4.0
   languageName: unknown
   linkType: soft
 
@@ -2594,7 +2594,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
-    "@ariakit/react": ^0.2.2
+    "@ariakit/react": 0.2.14
     "@rsc-parser/core": "workspace:*"
     "@types/node": 20.3.3
     "@types/react": 18.2.17
@@ -2602,21 +2602,21 @@ __metadata:
     autoprefixer: 10.4.14
     eslint: 8.46.0
     eslint-config-next: 13.4.12
-    eslint-plugin-tailwindcss: ^3.12.0
+    eslint-plugin-tailwindcss: 3.13.0
     next: 13.4.12
     postcss: 8.4.27
-    prettier: ^3.0.0
+    prettier: 3.0.0
     react: 18.2.0
-    react-diff-view: ^3.0.3
-    react-diff-viewer-continued: ^3.2.6
+    react-diff-view: 3.0.3
+    react-diff-viewer-continued: 3.2.6
     react-dom: 18.2.0
-    react-error-boundary: ^4.0.4
-    react-json-tree: ^0.18.0
+    react-error-boundary: 4.0.10
+    react-json-tree: 0.18.0
     tailwindcss: 3.3.3
-    turbo: ^1.10.12
-    type-fest: ^4.0.0
+    turbo: 1.10.12
+    type-fest: 4.1.0
     typescript: 5.1.6
-    zod: ^3.21.4
+    zod: 3.21.4
   languageName: unknown
   linkType: soft
 
@@ -2809,7 +2809,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-essentials@npm:^7.1.1":
+"@storybook/addon-essentials@npm:7.1.1":
   version: 7.1.1
   resolution: "@storybook/addon-essentials@npm:7.1.1"
   dependencies:
@@ -2845,7 +2845,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-interactions@npm:^7.1.1":
+"@storybook/addon-interactions@npm:7.1.1":
   version: 7.1.1
   resolution: "@storybook/addon-interactions@npm:7.1.1"
   dependencies:
@@ -2874,7 +2874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:^7.1.1":
+"@storybook/addon-links@npm:7.1.1":
   version: 7.1.1
   resolution: "@storybook/addon-links@npm:7.1.1"
   dependencies:
@@ -2924,7 +2924,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-onboarding@npm:^1.0.8":
+"@storybook/addon-onboarding@npm:1.0.8":
   version: 1.0.8
   resolution: "@storybook/addon-onboarding@npm:1.0.8"
   dependencies:
@@ -2961,7 +2961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-styling@npm:^1.3.4":
+"@storybook/addon-styling@npm:1.3.5":
   version: 1.3.5
   resolution: "@storybook/addon-styling@npm:1.3.5"
   dependencies:
@@ -3084,7 +3084,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/blocks@npm:7.1.1, @storybook/blocks@npm:^7.1.1":
+"@storybook/blocks@npm:7.1.1":
   version: 7.1.1
   resolution: "@storybook/blocks@npm:7.1.1"
   dependencies:
@@ -3575,7 +3575,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react-vite@npm:^7.1.1":
+"@storybook/react-vite@npm:7.1.1":
   version: 7.1.1
   resolution: "@storybook/react-vite@npm:7.1.1"
   dependencies:
@@ -3595,7 +3595,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react@npm:7.1.1, @storybook/react@npm:^7.1.1":
+"@storybook/react@npm:7.1.1":
   version: 7.1.1
   resolution: "@storybook/react@npm:7.1.1"
   dependencies:
@@ -3661,7 +3661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/testing-library@npm:^0.2.0":
+"@storybook/testing-library@npm:0.2.0":
   version: 0.2.0
   resolution: "@storybook/testing-library@npm:0.2.0"
   dependencies:
@@ -3838,7 +3838,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^5.16.5":
+"@testing-library/jest-dom@npm:5.17.0":
   version: 5.17.0
   resolution: "@testing-library/jest-dom@npm:5.17.0"
   dependencies:
@@ -3855,7 +3855,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:^14.0.0":
+"@testing-library/react@npm:14.0.0":
   version: 14.0.0
   resolution: "@testing-library/react@npm:14.0.0"
   dependencies:
@@ -4106,7 +4106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:*, @types/jest@npm:^29.5.1":
+"@types/jest@npm:*, @types/jest@npm:29.5.3":
   version: 29.5.3
   resolution: "@types/jest@npm:29.5.3"
   dependencies:
@@ -4256,7 +4256,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.7, @types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.0.11":
+"@types/react-dom@npm:18.2.7, @types/react-dom@npm:^18.0.0":
   version: 18.2.7
   resolution: "@types/react-dom@npm:18.2.7"
   dependencies:
@@ -4265,7 +4265,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.2.17, @types/react@npm:>=16, @types/react@npm:^18.0.37":
+"@types/react@npm:*, @types/react@npm:18.2.17, @types/react@npm:>=16":
   version: 18.2.17
   resolution: "@types/react@npm:18.2.17"
   dependencies:
@@ -4357,7 +4357,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^6.2.1":
+"@typescript-eslint/eslint-plugin@npm:6.2.1":
   version: 6.2.1
   resolution: "@typescript-eslint/eslint-plugin@npm:6.2.1"
   dependencies:
@@ -4383,24 +4383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.42.0":
-  version: 5.62.0
-  resolution: "@typescript-eslint/parser@npm:5.62.0"
-  dependencies:
-    "@typescript-eslint/scope-manager": 5.62.0
-    "@typescript-eslint/types": 5.62.0
-    "@typescript-eslint/typescript-estree": 5.62.0
-    debug: ^4.3.4
-  peerDependencies:
-    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: d168f4c7f21a7a63f47002e2d319bcbb6173597af5c60c1cf2de046b46c76b4930a093619e69faf2d30214c29ab27b54dcf1efc7046a6a6bd6f37f59a990e752
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/parser@npm:^6.2.1":
+"@typescript-eslint/parser@npm:6.2.1":
   version: 6.2.1
   resolution: "@typescript-eslint/parser@npm:6.2.1"
   dependencies:
@@ -4415,6 +4398,23 @@ __metadata:
     typescript:
       optional: true
   checksum: cf4768cbfc696ce1d4b15ae55b3d2b52761e91a4a80e738cf3a75c501c2257d735cd6e462567965069d0d693a8cf5463ab9e8b97c36c6ed1fccd3c1c09855bdb
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/parser@npm:^5.42.0":
+  version: 5.62.0
+  resolution: "@typescript-eslint/parser@npm:5.62.0"
+  dependencies:
+    "@typescript-eslint/scope-manager": 5.62.0
+    "@typescript-eslint/types": 5.62.0
+    "@typescript-eslint/typescript-estree": 5.62.0
+    debug: ^4.3.4
+  peerDependencies:
+    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: d168f4c7f21a7a63f47002e2d319bcbb6173597af5c60c1cf2de046b46c76b4930a093619e69faf2d30214c29ab27b54dcf1efc7046a6a6bd6f37f59a990e752
   languageName: node
   linkType: hard
 
@@ -4542,7 +4542,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react-swc@npm:^3.3.2":
+"@vitejs/plugin-react-swc@npm:3.3.2":
   version: 3.3.2
   resolution: "@vitejs/plugin-react-swc@npm:3.3.2"
   dependencies:
@@ -4550,6 +4550,20 @@ __metadata:
   peerDependencies:
     vite: ^4
   checksum: 1e44b1b7c50b6ae381e2ded9a7971af42286144bf257d7ed1a9dbf8acec0c4af78fe46982941566d31b80b7886649d9b1c06a873571d228e0b8fce68742b9ff4
+  languageName: node
+  linkType: hard
+
+"@vitejs/plugin-react@npm:4.0.3":
+  version: 4.0.3
+  resolution: "@vitejs/plugin-react@npm:4.0.3"
+  dependencies:
+    "@babel/core": ^7.22.5
+    "@babel/plugin-transform-react-jsx-self": ^7.22.5
+    "@babel/plugin-transform-react-jsx-source": ^7.22.5
+    react-refresh: ^0.14.0
+  peerDependencies:
+    vite: ^4.2.0
+  checksum: dd9136aec8f30b0251b88f390c60b8ee5472454884c4f82720725c213f8988bf8e202cc2430e575a268d413c1dc7257a51b342ac431a43c02d923de932c5707c
   languageName: node
   linkType: hard
 
@@ -4565,20 +4579,6 @@ __metadata:
   peerDependencies:
     vite: ^4.1.0-beta.0
   checksum: 450fac79e67cba9e1581c860f78e687b44108ab4117663ef20db279316e03cd8e87f94fef376e27cc5e200bd52813dcc09b70ea570c7c7cc291fcd47eb260fbc
-  languageName: node
-  linkType: hard
-
-"@vitejs/plugin-react@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "@vitejs/plugin-react@npm:4.0.3"
-  dependencies:
-    "@babel/core": ^7.22.5
-    "@babel/plugin-transform-react-jsx-self": ^7.22.5
-    "@babel/plugin-transform-react-jsx-source": ^7.22.5
-    react-refresh: ^0.14.0
-  peerDependencies:
-    vite: ^4.2.0
-  checksum: dd9136aec8f30b0251b88f390c60b8ee5472454884c4f82720725c213f8988bf8e202cc2430e575a268d413c1dc7257a51b342ac431a43c02d923de932c5707c
   languageName: node
   linkType: hard
 
@@ -5155,7 +5155,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:10.4.14, autoprefixer@npm:^10.4.14":
+"autoprefixer@npm:10.4.14":
   version: 10.4.14
   resolution: "autoprefixer@npm:10.4.14"
   dependencies:
@@ -5709,7 +5709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chrome-types@npm:^0.1.219":
+"chrome-types@npm:0.1.219":
   version: 0.1.219
   resolution: "chrome-types@npm:0.1.219"
   checksum: 7f53c36594649219624b40b0abb342e5bf9f5067e1d4fb8e0acfd1bd27da04aec76c05e4183d3694e20999656539ccbdc658f27e8a31539a201538f647a3489f
@@ -5996,7 +5996,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"concurrently@npm:^8.2.0":
+"concurrently@npm:8.2.0":
   version: 8.2.0
   resolution: "concurrently@npm:8.2.0"
   dependencies:
@@ -6827,7 +6827,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.18.0, esbuild@npm:^0.18.10, esbuild@npm:^0.18.15":
+"esbuild@npm:0.18.17, esbuild@npm:^0.18.0, esbuild@npm:^0.18.10":
   version: 0.18.17
   resolution: "esbuild@npm:0.18.17"
   dependencies:
@@ -7110,7 +7110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:^3.12.0, eslint-plugin-tailwindcss@npm:^3.13.0":
+"eslint-plugin-tailwindcss@npm:3.13.0":
   version: 3.13.0
   resolution: "eslint-plugin-tailwindcss@npm:3.13.0"
   dependencies:
@@ -7139,7 +7139,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.46.0, eslint@npm:^8.46.0":
+"eslint@npm:8.46.0":
   version: 8.46.0
   resolution: "eslint@npm:8.46.0"
   dependencies:
@@ -9003,7 +9003,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-environment-jsdom@npm:^29.5.0":
+"jest-environment-jsdom@npm:29.6.2":
   version: 29.6.2
   resolution: "jest-environment-jsdom@npm:29.6.2"
   dependencies:
@@ -9307,7 +9307,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.5.0":
+"jest@npm:29.6.2":
   version: 29.6.2
   resolution: "jest@npm:29.6.2"
   dependencies:
@@ -11051,7 +11051,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.27, postcss@npm:^8.2.14, postcss@npm:^8.4.21, postcss@npm:^8.4.23, postcss@npm:^8.4.26, postcss@npm:^8.4.27, postcss@npm:^8.4.4":
+"postcss@npm:8.4.27, postcss@npm:^8.2.14, postcss@npm:^8.4.21, postcss@npm:^8.4.23, postcss@npm:^8.4.26, postcss@npm:^8.4.4":
   version: 8.4.27
   resolution: "postcss@npm:8.4.27"
   dependencies:
@@ -11069,21 +11069,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:3.0.0":
+  version: 3.0.0
+  resolution: "prettier@npm:3.0.0"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 6a832876a1552dc58330d2467874e5a0b46b9ccbfc5d3531eb69d15684743e7f83dc9fbd202db6270446deba9c82b79d24383d09924c462b457136a759425e33
+  languageName: node
+  linkType: hard
+
 "prettier@npm:^2.8.0":
   version: 2.8.8
   resolution: "prettier@npm:2.8.8"
   bin:
     prettier: bin-prettier.js
   checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "prettier@npm:3.0.0"
-  bin:
-    prettier: bin/prettier.cjs
-  checksum: 6a832876a1552dc58330d2467874e5a0b46b9ccbfc5d3531eb69d15684743e7f83dc9fbd202db6270446deba9c82b79d24383d09924c462b457136a759425e33
   languageName: node
   linkType: hard
 
@@ -11157,7 +11157,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:15.8.1, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -11349,7 +11349,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-diff-view@npm:^3.0.3":
+"react-diff-view@npm:3.0.3":
   version: 3.0.3
   resolution: "react-diff-view@npm:3.0.3"
   dependencies:
@@ -11364,7 +11364,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-diff-viewer-continued@npm:^3.2.6":
+"react-diff-viewer-continued@npm:3.2.6":
   version: 3.2.6
   resolution: "react-diff-viewer-continued@npm:3.2.6"
   dependencies:
@@ -11409,7 +11409,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
+"react-dom@npm:18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -11435,7 +11435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-error-boundary@npm:^4.0.10, react-error-boundary@npm:^4.0.4":
+"react-error-boundary@npm:4.0.10":
   version: 4.0.10
   resolution: "react-error-boundary@npm:4.0.10"
   dependencies:
@@ -11483,7 +11483,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-json-tree@npm:^0.18.0":
+"react-json-tree@npm:0.18.0":
   version: 0.18.0
   resolution: "react-json-tree@npm:0.18.0"
   dependencies:
@@ -11504,7 +11504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0, react@npm:^18.2.0":
+"react@npm:18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
@@ -11925,7 +11925,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rsc-parser@workspace:."
   dependencies:
-    turbo: ^1.10.12
+    turbo: 1.10.12
   languageName: unknown
   linkType: soft
 
@@ -12415,7 +12415,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook-dark-mode@npm:^3.0.0":
+"storybook-dark-mode@npm:3.0.1":
   version: 3.0.1
   resolution: "storybook-dark-mode@npm:3.0.1"
   dependencies:
@@ -12439,7 +12439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:^7.1.1":
+"storybook@npm:7.1.1":
   version: 7.1.1
   resolution: "storybook@npm:7.1.1"
   dependencies:
@@ -12741,7 +12741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:3.3.3, tailwindcss@npm:^3.3.3":
+"tailwindcss@npm:3.3.3":
   version: 3.3.3
   resolution: "tailwindcss@npm:3.3.3"
   dependencies:
@@ -13015,7 +13015,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.1.0":
+"ts-jest@npm:29.1.1":
   version: 29.1.1
   resolution: "ts-jest@npm:29.1.1"
   dependencies:
@@ -13127,7 +13127,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbo@npm:^1.10.12":
+"turbo@npm:1.10.12":
   version: 1.10.12
   resolution: "turbo@npm:1.10.12"
   dependencies:
@@ -13179,6 +13179,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-fest@npm:4.1.0":
+  version: 4.1.0
+  resolution: "type-fest@npm:4.1.0"
+  checksum: a9cfa9b70abaa96d7e80709aeb2197a372c2caa54d134afdb8ae955de9457aba04a71d17d68dccbb745c96f4c5bfd372da1222d8b44d70f4809074620016507c
+  languageName: node
+  linkType: hard
+
 "type-fest@npm:^0.16.0":
   version: 0.16.0
   resolution: "type-fest@npm:0.16.0"
@@ -13225,13 +13232,6 @@ __metadata:
   version: 3.13.1
   resolution: "type-fest@npm:3.13.1"
   checksum: c06b0901d54391dc46de3802375f5579868949d71f93b425ce564e19a428a0d411ae8d8cb0e300d330071d86152c3ea86e744c3f2860a42a79585b6ec2fdae8e
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^4.0.0":
-  version: 4.1.0
-  resolution: "type-fest@npm:4.1.0"
-  checksum: a9cfa9b70abaa96d7e80709aeb2197a372c2caa54d134afdb8ae955de9457aba04a71d17d68dccbb745c96f4c5bfd372da1222d8b44d70f4809074620016507c
   languageName: node
   linkType: hard
 
@@ -13299,7 +13299,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.1.6, typescript@npm:^5.1.6":
+"typescript@npm:5.1.6":
   version: 5.1.6
   resolution: "typescript@npm:5.1.6"
   bin:
@@ -13319,7 +13319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@5.1.6#~builtin<compat/typescript>, typescript@patch:typescript@^5.1.6#~builtin<compat/typescript>":
+"typescript@patch:typescript@5.1.6#~builtin<compat/typescript>":
   version: 5.1.6
   resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=5da071"
   bin:
@@ -13618,7 +13618,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-dts@npm:^3.3.1":
+"vite-plugin-dts@npm:3.4.0":
   version: 3.4.0
   resolution: "vite-plugin-dts@npm:3.4.0"
   dependencies:
@@ -13638,7 +13638,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-html-config@npm:^1.0.11":
+"vite-plugin-html-config@npm:1.0.11":
   version: 1.0.11
   resolution: "vite-plugin-html-config@npm:1.0.11"
   peerDependencies:
@@ -13647,7 +13647,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^4.4.7":
+"vite@npm:4.4.7":
   version: 4.4.7
   resolution: "vite@npm:4.4.7"
   dependencies:
@@ -13758,7 +13758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-vitals@npm:^3.0.3":
+"web-vitals@npm:3.4.0":
   version: 3.4.0
   resolution: "web-vitals@npm:3.4.0"
   checksum: 6baac515035a82f05623aa6592654af3b5fd8ca0359e368388e147c1376ca00e5f1b2256130f8e96249ee793a437b55615db21ae699d6d400bf2800f676e0114
@@ -14102,7 +14102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.21.4, zod@npm:^3.21.4":
+"zod@npm:3.21.4":
   version: 3.21.4
   resolution: "zod@npm:3.21.4"
   checksum: f185ba87342ff16f7a06686767c2b2a7af41110c7edf7c1974095d8db7a73792696bcb4a00853de0d2edeb34a5b2ea6a55871bc864227dace682a0a28de33e1f
