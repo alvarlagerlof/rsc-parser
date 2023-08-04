@@ -9,10 +9,17 @@ window.fetch = async (...args) => {
   let headers = undefined;
   if (args[0] instanceof Request) {
     url = args[0].url;
-    headers = args[0].headers;
+    if (typeof args[0].headers !== "undefined") {
+      headers = args[0].headers;
+    }
   } else if (typeof args[0] === "string" || args[0] instanceof URL) {
     url = args[0].toString();
-    headers = args[1].headers;
+    if (
+      typeof args[1] !== "undefined" &&
+      typeof args[1].headers !== "undefined"
+    ) {
+      headers = args[1].headers;
+    }
   }
 
   const response = await window.originalFetch(...args);
