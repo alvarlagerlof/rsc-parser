@@ -5,6 +5,20 @@ if (typeof window.originalFetch === "undefined") {
 window.fetch = async (...args) => {
   const fetchStartTime = Date.now();
 
+  const response = await window.originalFetch(...args);
+
+  if (typeof response.headers === "undefined") {
+    return response;
+  }
+
+  if (!response.headers.has("Content-Type")) {
+    return response;
+  }
+
+  if (response.headers.get("Content-Type") !== "text/x-component") {
+    return response;
+  }
+
   let url = undefined;
   let headers = undefined;
   if (args[0] instanceof Request) {
@@ -20,20 +34,6 @@ window.fetch = async (...args) => {
     ) {
       headers = args[1].headers;
     }
-  }
-
-  const response = await window.originalFetch(...args);
-
-  if (typeof headers === "undefined" || typeof headers === "undefined") {
-    return response;
-  }
-
-  if (headers instanceof Headers && !headers.has("RSC")) {
-    return response;
-  }
-
-  if (headers instanceof Object && typeof headers["RSC"] === "undefined") {
-    return response;
   }
 
   const clonedResponse = response.clone();
