@@ -2,8 +2,6 @@
   "name": "RSC Devtools",
   "version": "0.0.1",
   "description": "React Server Components network visualizer",
-  "permissions": ["webRequest"],
-  "host_permissions": ["*://*/*"],
   "content_security_policy": {
     "extension_pages": "script-src 'self' http://localhost:6020; object-src 'self'"
   },
