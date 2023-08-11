@@ -5,15 +5,21 @@ import "@rsc-parser/core/style.css";
 
 export function App() {
   const [messages, setMessages] = useState<RscChunkMessage[]>([]);
+  const [isRecording, setIsRecording] = useState(false);
 
   useEffect(() => {
-    function addMessage(
+    function handleMessage(
       request: unknown,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sender: unknown,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sendResponse: unknown,
     ) {
+      if (isContentScriptLoadedMessage(request)) {
+        setIsRecording(false);
+        setMessages([]);
+      }
+
       if (!isRscChunkMessage(request)) {
         return true;
       }
@@ -41,21 +47,47 @@ export function App() {
       return true;
     }
 
-    chrome.runtime.onMessage.addListener(addMessage);
+    chrome.runtime.onMessage.addListener(handleMessage);
 
     return () => {
-      chrome.runtime.onMessage.removeListener(addMessage);
+      chrome.runtime.onMessage.removeListener(handleMessage);
     };
   }, []);
 
   return (
     <div className="space-y-2">
-      {messages.length === 0 ? (
+      {messages.length === 0 || !isRecording ? (
         <div className="flex flex-col gap-8">
-          <h1 className="whitespace-nowrap text-sm dark:text-white">
-            RSC Devtools
-          </h1>
-          <p className="dark:text-white">Please navigate once</p>
+          <div className="flex flex-row items-center justify-between">
+            <h1 className="whitespace-nowrap text-sm dark:text-white">
+              RSC Devtools
+            </h1>
+
+            {isRecording ? (
+              <p className="py-0.5 dark:text-white">Recording...</p>
+            ) : (
+              <button
+                className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
+                onClick={async () => {
+                  setIsRecording(true);
+                  chrome.tabs.sendMessage(
+                    chrome.devtools.inspectedWindow.tabId,
+                    {
+                      type: "START_RECORDING",
+                    } satisfies StartRecordingMessage,
+                  );
+                }}
+              >
+                Start recording
+              </button>
+            )}
+          </div>
+
+          <p className="dark:text-white">
+            {isRecording
+              ? "Please navigate the page"
+              : "Please start recording"}
+          </p>
         </div>
       ) : (
         <div className="flex min-h-full flex-col gap-8">
@@ -81,4 +113,20 @@ export function App() {
 
 function isRscChunkMessage(message: unknown): message is RscChunkMessage {
   return (message as RscChunkMessage).type === "RSC_CHUNK";
+}
+
+type StartRecordingMessage = {
+  type: "START_RECORDING";
+};
+
+type ContentScriptLoadedMessage = {
+  type: "CONTENT_SCRIPT_LOADED";
+};
+
+function isContentScriptLoadedMessage(
+  message: unknown,
+): message is ContentScriptLoadedMessage {
+  return (
+    (message as ContentScriptLoadedMessage).type === "CONTENT_SCRIPT_LOADED"
+  );
 }

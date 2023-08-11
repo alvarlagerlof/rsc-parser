@@ -13,8 +13,19 @@ function injectScript(file_path, tag) {
   node.appendChild(script);
 }
 
+// Only inject the fetch patch script when the START_RECORDING message
+// is received from the devtools panel
 // eslint-disable-next-line no-undef
-injectScript(chrome.runtime.getURL("fetch-patch.js"), "body");
+chrome.runtime.onMessage.addListener(function (request) {
+  if (request.type === "START_RECORDING") {
+    // eslint-disable-next-line no-undef
+    injectScript(chrome.runtime.getURL("fetch-patch.js"), "body");
+  }
+
+  return true;
+});
+
+// This code passes along events from fetch-patch to the devtools panel
 window.addEventListener(
   "message",
   function (event) {
@@ -30,3 +41,9 @@ window.addEventListener(
   },
   false,
 );
+
+// When the content script is unloaded (like for a refresh), send a message to the devtools panel to reset it
+window.addEventListener("load", () => {
+  // eslint-disable-next-line no-undef
+  chrome.runtime.sendMessage({ type: "CONTENT_SCRIPT_LOADED" });
+});
