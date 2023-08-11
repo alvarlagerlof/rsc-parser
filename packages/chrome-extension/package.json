@@ -36,7 +36,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern \"/dist\"/",
     "format": "prettier . --check --config ../../.prettierrc",
     "dev": "vite build --mode development && vite dev",
-    "build": "vite build",
+    "build": "vite build && sed -i'.backup' 's| http://localhost:6020||g' dist/manifest.json && rm dist/manifest.json.backup",
     "release": "zip -r dist.zip dist"
   },
   "type": "module"
