@@ -36,6 +36,7 @@ export default defineConfig(({ mode }) => {
       base: "",
       build: {
         outDir: "./dist",
+        minify: false,
       },
       server: {
         port: 6020,
@@ -48,6 +49,7 @@ export default defineConfig(({ mode }) => {
     base: "",
     build: {
       outDir: "./dist",
+      minify: false,
     },
     server: {
       port: 6020,
