@@ -3235,7 +3235,7 @@ __metadata:
     "@types/react": 18.2.20
     "@types/react-dom": 18.2.7
     "@typescript-eslint/eslint-plugin": 6.4.0
-    "@typescript-eslint/parser": 6.3.0
+    "@typescript-eslint/parser": 6.4.0
     "@vitejs/plugin-react": 4.0.4
     autoprefixer: 10.4.15
     chrome-types: 0.1.224
@@ -3275,7 +3275,7 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@types/jest": 29.5.3
     "@typescript-eslint/eslint-plugin": 6.4.0
-    "@typescript-eslint/parser": 6.3.0
+    "@typescript-eslint/parser": 6.4.0
     "@vitejs/plugin-react": 4.0.4
     "@vitejs/plugin-react-swc": 3.3.2
     autoprefixer: 10.4.15
@@ -5302,7 +5302,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:6.3.0, @typescript-eslint/parser@npm:^5.4.2 || ^6.0.0":
+"@typescript-eslint/parser@npm:6.4.0":
+  version: 6.4.0
+  resolution: "@typescript-eslint/parser@npm:6.4.0"
+  dependencies:
+    "@typescript-eslint/scope-manager": 6.4.0
+    "@typescript-eslint/types": 6.4.0
+    "@typescript-eslint/typescript-estree": 6.4.0
+    "@typescript-eslint/visitor-keys": 6.4.0
+    debug: ^4.3.4
+  peerDependencies:
+    eslint: ^7.0.0 || ^8.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 36c8dbeacfc03af9c5a4a0f065861ac6f3747fc64be582a32b0b084de5b5247cef086a0c0052291b97145e0ea8f82acbec452dd927b7b7a1917d56381d59a17c
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/parser@npm:^5.4.2 || ^6.0.0":
   version: 6.3.0
   resolution: "@typescript-eslint/parser@npm:6.3.0"
   dependencies:
