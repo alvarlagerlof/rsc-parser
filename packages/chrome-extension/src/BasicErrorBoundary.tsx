@@ -6,8 +6,8 @@ function fallbackRender({ error }: { error: Error }) {
 
   return (
     <div role="alert">
-      <p>Something went wrong:</p>
-      <pre className="text-red-300">{error.message}</pre>
+      <p className="dark:text-white">Something went wrong:</p>
+      <pre className="text-red-600 dark:text-red-400">{error.message}</pre>
     </div>
   );
 }
