@@ -36,6 +36,12 @@ window.fetch = async (...args) => {
     }
   }
 
+  if (!url || !headers) {
+    return response;
+  }
+
+  console.log("url", url);
+
   const clonedResponse = response.clone();
   const reader = clonedResponse.body
     // eslint-disable-next-line no-undef
