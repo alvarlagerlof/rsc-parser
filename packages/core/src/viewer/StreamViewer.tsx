@@ -10,6 +10,7 @@ import { PathTabs, usePathTabs } from "../tabs/path/PathTabs";
 import { RowTabs } from "../tabs/row/RowTabs";
 import * as Ariakit from "@ariakit/react";
 import { RawStream } from "../stream/RawStream";
+import { RowStream } from "../stream/RowStream";
 
 export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
   const defaultSelectedId = "parsed";
@@ -66,6 +67,12 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
                   Parsed
                 </Ariakit.Tab>
                 <Ariakit.Tab
+                  id="rows"
+                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
+                >
+                  Rows
+                </Ariakit.Tab>
+                <Ariakit.Tab
                   id="raw"
                   className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
                 >
@@ -80,6 +87,9 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
                     .map((message) => message.data.chunkValue)
                     .join()}
                 />
+              </Ariakit.TabPanel>
+              <Ariakit.TabPanel store={tab}>
+                <RowStream messages={messagesForCurrentTab} />
               </Ariakit.TabPanel>
               <Ariakit.TabPanel store={tab}>
                 <RawStream messages={messagesForCurrentTab} />
