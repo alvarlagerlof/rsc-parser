@@ -25,6 +25,7 @@ export const LEFT_BRACE = "LEFT_BRACE" as const;
 export const LEFT_BRACKET = "LEFT_BRACKET" as const;
 export const RIGHT_BRACE = "RIGHT_BRACE" as const;
 export const RIGHT_BRACKET = "RIGHT_BRACKET" as const;
+export const LETTER_N = "LETTER_N" as const; // for null being sent as a tree type
 export const UNKNOWN = "UNKNOWN" as const;
 
 export function lexer(row: string) {
@@ -62,6 +63,11 @@ export function lexer(row: string) {
           type: RIGHT_BRACE,
           value: char,
         };
+      case "n":
+        return {
+          type: LETTER_N,
+          value: char,
+        };
       default:
         return {
           type: UNKNOWN,
@@ -90,7 +96,8 @@ export function parse(tokens: ReturnType<typeof lexer>) {
       (token) =>
         token.type === "DOUBLE_QUOTE" ||
         token.type === "LEFT_BRACE" ||
-        token.type === "LEFT_BRACKET",
+        token.type === "LEFT_BRACKET" ||
+        token.type === "LETTER_N",
     );
     const tokensBetweenColonAndJson = tokens.slice(
       firstColonIndex + 1,
@@ -106,7 +113,8 @@ export function parse(tokens: ReturnType<typeof lexer>) {
       (token) =>
         token.type === "DOUBLE_QUOTE" ||
         token.type === "LEFT_BRACE" ||
-        token.type === "LEFT_BRACKET",
+        token.type === "LEFT_BRACKET" ||
+        token.type === "LETTER_N",
     );
     const tokensAfterJsonStart = tokens.slice(firstJsonStartIndex);
     const data = tokensAfterJsonStart.map((token) => token.value).join("");

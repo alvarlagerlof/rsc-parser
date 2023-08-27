@@ -223,4 +223,16 @@ describe("parser", () => {
       data: `"[{"a":"b"},{"foo":"bar"}]"`,
     });
   });
+
+  it("should parse null", () => {
+    const row = `0:null`;
+    const tokens = lexer(row);
+    const result = parse(tokens);
+
+    expect(result).toStrictEqual({
+      identifier: "0",
+      type: "",
+      data: "null",
+    });
+  });
 });
