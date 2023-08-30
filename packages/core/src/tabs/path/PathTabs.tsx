@@ -91,7 +91,7 @@ export function PathTabs({
         </Ariakit.TabList>
       </Panel>
 
-      <PanelResizeHandle className="w-1 rounded bg-slate-600" />
+      <PanelResizeHandle className="w-1 rounded bg-slate-200 dark:bg-slate-800" />
 
       <Panel order={2} minSize={350} className="dark:text-white">
         <Ariakit.TabPanel
