@@ -3268,7 +3268,7 @@ __metadata:
     "@storybook/addon-onboarding": 1.0.8
     "@storybook/addon-styling": 1.3.7
     "@storybook/blocks": 7.4.0
-    "@storybook/react": 7.3.2
+    "@storybook/react": 7.4.0
     "@storybook/react-vite": 7.3.2
     "@storybook/testing-library": 0.2.0
     "@testing-library/jest-dom": 6.1.2
@@ -4066,6 +4066,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/core-client@npm:7.4.0":
+  version: 7.4.0
+  resolution: "@storybook/core-client@npm:7.4.0"
+  dependencies:
+    "@storybook/client-logger": 7.4.0
+    "@storybook/preview-api": 7.4.0
+  checksum: 9332d75c018e88344faabaccd47b81a4fa3b31128d33b73e690a6cd6b46b803bc32bfe8f9ad55b8bde34311442bc331611210dd928003570af3112e1e0c6c357
+  languageName: node
+  linkType: hard
+
 "@storybook/core-common@npm:7.3.2, @storybook/core-common@npm:^7.0.12":
   version: 7.3.2
   resolution: "@storybook/core-common@npm:7.3.2"
@@ -4531,6 +4541,42 @@ __metadata:
     typescript:
       optional: true
   checksum: d3d05e308b2df1c329fd6ceab19d7add317fe8bd48c8ad01a9647303ee7eb61d1b62550440bbc99980021e69e4d4ffac78d5fe02f50d3daaa8fb180cd164554e
+  languageName: node
+  linkType: hard
+
+"@storybook/react@npm:7.4.0":
+  version: 7.4.0
+  resolution: "@storybook/react@npm:7.4.0"
+  dependencies:
+    "@storybook/client-logger": 7.4.0
+    "@storybook/core-client": 7.4.0
+    "@storybook/docs-tools": 7.4.0
+    "@storybook/global": ^5.0.0
+    "@storybook/preview-api": 7.4.0
+    "@storybook/react-dom-shim": 7.4.0
+    "@storybook/types": 7.4.0
+    "@types/escodegen": ^0.0.6
+    "@types/estree": ^0.0.51
+    "@types/node": ^16.0.0
+    acorn: ^7.4.1
+    acorn-jsx: ^5.3.1
+    acorn-walk: ^7.2.0
+    escodegen: ^2.1.0
+    html-tags: ^3.1.0
+    lodash: ^4.17.21
+    prop-types: ^15.7.2
+    react-element-to-jsx-string: ^15.0.0
+    ts-dedent: ^2.0.0
+    type-fest: ~2.19
+    util-deprecate: ^1.0.2
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    typescript: "*"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 8bb7dd1eab64fb179ffe96b304362981247543135454feceaa8a1297301b504dc28f777c67316f8647d52942b546ea9364e5ec7febc49dc2833dc339868a97e3
   languageName: node
   linkType: hard
 
@@ -7947,7 +7993,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escodegen@npm:^2.0.0":
+"escodegen@npm:^2.0.0, escodegen@npm:^2.1.0":
   version: 2.1.0
   resolution: "escodegen@npm:2.1.0"
   dependencies:
