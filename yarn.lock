@@ -3319,7 +3319,7 @@ __metadata:
     postcss: 8.4.29
     prettier: 3.0.3
     react: 18.2.0
-    react-diff-view: 3.0.3
+    react-diff-view: 3.1.0
     react-diff-viewer-continued: 3.2.6
     react-dom: 18.2.0
     react-error-boundary: 4.0.11
@@ -8953,6 +8953,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gitdiff-parser@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "gitdiff-parser@npm:0.3.1"
+  checksum: 579c009055f9dac93c6e416aa5bbd85aa096c48787b7678f9daa0d3d6c04e04c59b7722197cd3697097446c3eca002321d19a557f12ea6808abf17cd5fafc560
+  languageName: node
+  linkType: hard
+
 "github-slugger@npm:^1.0.0":
   version: 1.5.0
   resolution: "github-slugger@npm:1.5.0"
@@ -12427,18 +12434,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-diff-view@npm:3.0.3":
-  version: 3.0.3
-  resolution: "react-diff-view@npm:3.0.3"
+"react-diff-view@npm:3.1.0":
+  version: 3.1.0
+  resolution: "react-diff-view@npm:3.1.0"
   dependencies:
     classnames: ^2.3.2
     diff-match-patch: ^1.0.5
+    gitdiff-parser: ^0.3.1
+    lodash: ^4.17.21
     shallow-equal: ^3.1.0
     warning: ^4.0.3
   peerDependencies:
-    prop-types: ">=15.6"
-    react: ">=16.8"
-  checksum: 6dd055ccf9d5dd5adae203fbf40bfad98e61300c63e49bb9716a434d20f2f20b2d8f8f37d26bb3db401cf4166f7ae38d8d51e84c4408aa4bd0035cf218aa06dd
+    react: ">=16.14.0"
+  checksum: e39ec4ca4541d9699f4f2dc2d927e7fbeb600d6279818b2b78e624d1abe23a78417f136cbfb82cd9d8ae1e8738d8155852eb659d4bd7431d2fa484919873d620
   languageName: node
   linkType: hard
 
