@@ -43,9 +43,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ariakit/react-core@npm:0.3.2":
-  version: 0.3.2
-  resolution: "@ariakit/react-core@npm:0.3.2"
+"@ariakit/react-core@npm:0.3.3":
+  version: 0.3.3
+  resolution: "@ariakit/react-core@npm:0.3.3"
   dependencies:
     "@ariakit/core": 0.3.2
     "@floating-ui/dom": ^1.0.0
@@ -53,19 +53,19 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 898314fc473788b591406e8bd4e6504679e19801d2d74dca4d94d6cb016b0b25bcb5ef8235e94d7e76977bac6f69bc400018a57d4bd2ab701e81895ff034a69a
+  checksum: ec7017321e380d10331f5addb38a9aacc574fae6bae1ebb05ba6bed3ac37138d929983cdf17e942c95a1c9b3c01836da69b65ed0d86d8bf1ab97eb8100443ffa
   languageName: node
   linkType: hard
 
-"@ariakit/react@npm:0.3.2":
-  version: 0.3.2
-  resolution: "@ariakit/react@npm:0.3.2"
+"@ariakit/react@npm:0.3.3":
+  version: 0.3.3
+  resolution: "@ariakit/react@npm:0.3.3"
   dependencies:
-    "@ariakit/react-core": 0.3.2
+    "@ariakit/react-core": 0.3.3
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: b44f3309116a8ae20b37613fea71148f862a732abee7381921d112c164fde70fab64f54a45fa28ae54e8b15ebbedb8be94bc3e14c178f216a33d544a9abb73f1
+  checksum: 14207635cb9b95cc741a113fcc15411e076019eb36427a98b6e204a891791d40a4728d183d2bcdf813857e2ada5157b36338bbc90e6178eb0e567a616e8aacff
   languageName: node
   linkType: hard
 
@@ -3230,7 +3230,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
-    "@ariakit/react": 0.3.2
+    "@ariakit/react": 0.3.3
     "@rsc-parser/core": "workspace:*"
     "@types/react": 18.2.22
     "@types/react-dom": 18.2.7
@@ -3306,7 +3306,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
-    "@ariakit/react": 0.3.2
+    "@ariakit/react": 0.3.3
     "@rsc-parser/core": "workspace:*"
     "@types/node": 20.6.4
     "@types/react": 18.2.22
