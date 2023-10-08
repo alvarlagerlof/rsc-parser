@@ -18,7 +18,7 @@
     "ci": "turbo run ci",
     "dev": "turbo run dev",
     "version": "bash ./apply-version.sh && changeset version",
-    "release": "changeset release"
+    "release": "changeset publish"
   },
   "packageManager": "yarn@3.6.4",
   "devDependencies": {
