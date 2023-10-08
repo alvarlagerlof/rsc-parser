@@ -1,5 +1,13 @@
 # @rsc-parser/website
 
+## 0.1.8
+
+### Patch Changes
+
+- d77eb98: Add id
+- Updated dependencies [d77eb98]
+  - @rsc-parser/core@0.1.8
+
 ## 0.1.7
 
 ### Patch Changes
