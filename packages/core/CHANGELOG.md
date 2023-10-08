@@ -1,5 +1,11 @@
 # @rsc-parser/core
 
+## 0.1.6
+
+### Patch Changes
+
+- d32eda1: Test release
+
 ## 0.1.5
 
 ### Patch Changes

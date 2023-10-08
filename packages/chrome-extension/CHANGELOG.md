@@ -1,5 +1,13 @@
 # @rsc-parser/chrome-extension
 
+## 0.1.6
+
+### Patch Changes
+
+- d32eda1: Test release
+- Updated dependencies [d32eda1]
+  - @rsc-parser/core@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes
