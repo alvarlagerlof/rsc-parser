@@ -1,9 +1,14 @@
 name: CI
 
 on:
-  pull_request:
+  pull_request_target:
+    # Types must be filtered to prevent getting stuck when a
+    # bot with GITHUB_TOKEN pushes commits against the PR branch
+    types:
+      - opened
+      - reopened
     branches:
-    - main
+      - main
 
 jobs:
   build_and_test:
