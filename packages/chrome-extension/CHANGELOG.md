@@ -1,5 +1,11 @@
 # @rsc-parser/chrome-extension
 
+## 0.1.2
+
+### Patch Changes
+
+- 4113fa7: Test release
+
 ## 0.1.1
 
 ### Patch Changes
