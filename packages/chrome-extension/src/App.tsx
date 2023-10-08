@@ -1,4 +1,4 @@
-import React, { startTransition, useEffect, useState } from "react";
+import React, { startTransition, useEffect, useMemo, useState } from "react";
 
 import { StreamViewer, RscChunkMessage } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
@@ -6,6 +6,7 @@ import "@rsc-parser/core/style.css";
 export function App() {
   const [messages, setMessages] = useState<RscChunkMessage[]>([]);
   const [isRecording, setIsRecording] = useState(false);
+  const tabId = useMemo(() => Date.now(), []);
 
   useEffect(() => {
     function handleMessage(
@@ -15,12 +16,21 @@ export function App() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sendResponse: unknown,
     ) {
-      if (isContentScriptLoadedMessage(request)) {
-        setIsRecording(false);
-        setMessages([]);
+      if (
+        !isRscChunkMessage(request) &&
+        !isContentScriptUnloadedMessage(request)
+      ) {
+        return true;
       }
 
-      if (!isRscChunkMessage(request)) {
+      // If the message is from a different tab, ignore it
+      if (request.tabId !== tabId) {
+        return true;
+      }
+
+      if (isContentScriptUnloadedMessage(request)) {
+        setIsRecording(false);
+        setMessages([]);
         return true;
       }
 
@@ -74,6 +84,7 @@ export function App() {
                     chrome.devtools.inspectedWindow.tabId,
                     {
                       type: "START_RECORDING",
+                      tabId: tabId,
                     } satisfies StartRecordingMessage,
                   );
                 }}
@@ -117,16 +128,17 @@ function isRscChunkMessage(message: unknown): message is RscChunkMessage {
 
 type StartRecordingMessage = {
   type: "START_RECORDING";
+  tabId: number;
 };
 
-type ContentScriptLoadedMessage = {
-  type: "CONTENT_SCRIPT_LOADED";
+type ContentScriptUnloadedMessage = {
+  type: "CONTENT_SCRIPT_UNLOADED";
 };
 
-function isContentScriptLoadedMessage(
+function isContentScriptUnloadedMessage(
   message: unknown,
-): message is ContentScriptLoadedMessage {
+): message is ContentScriptUnloadedMessage {
   return (
-    (message as ContentScriptLoadedMessage).type === "CONTENT_SCRIPT_LOADED"
+    (message as ContentScriptUnloadedMessage).type === "CONTENT_SCRIPT_UNLOADED"
   );
 }

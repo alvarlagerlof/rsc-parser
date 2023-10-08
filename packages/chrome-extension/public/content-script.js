@@ -13,11 +13,17 @@ function injectScript(file_path, tag) {
   node.appendChild(script);
 }
 
+// This is used in the devtools panel to only accept messages from the current tab
+let tabId = undefined;
+
 // Only inject the fetch patch script when the START_RECORDING message
 // is received from the devtools panel
 // eslint-disable-next-line no-undef
 chrome.runtime.onMessage.addListener(function (request) {
   if (request.type === "START_RECORDING") {
+    // Store the tabId so that the devtools panel can filter messages to
+    // only show the ones from the current tab
+    tabId = request.tabId;
     // eslint-disable-next-line no-undef
     injectScript(chrome.runtime.getURL("fetch-patch.js"), "body");
   }
@@ -36,8 +42,8 @@ window.addEventListener(
 
     if (event.data.type && event.data.type == "RSC_CHUNK") {
       // eslint-disable-next-line no-undef
-      chrome.runtime.sendMessage(event.data); // broadcasts it to rest of extension, or could just broadcast event.data.payload...
-    } // else ignore messages seemingly not sent to yourself
+      chrome.runtime.sendMessage({ ...event.data, tabId });
+    }
   },
   false,
 );
@@ -45,5 +51,5 @@ window.addEventListener(
 // When the content script is unloaded (like for a refresh), send a message to the devtools panel to reset it
 window.addEventListener("beforeunload", () => {
   // eslint-disable-next-line no-undef
-  chrome.runtime.sendMessage({ type: "CONTENT_SCRIPT_LOADED" });
+  chrome.runtime.sendMessage({ type: "CONTENT_SCRIPT_UNLOADED", tabId });
 });
