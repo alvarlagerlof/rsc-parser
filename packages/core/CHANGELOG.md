@@ -1,5 +1,11 @@
 # @rsc-parser/core
 
+## 0.1.7
+
+### Patch Changes
+
+- 6050c00: Change publish logic
+
 ## 0.1.6
 
 ### Patch Changes
