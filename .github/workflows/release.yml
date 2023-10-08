@@ -23,6 +23,9 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
+      - name: Run CI
+        run: yarn ci
+
       - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
@@ -31,5 +34,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Zip dist
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: zip dist.zip packages/chrome-extension/dist
+
+      - name: Edit release
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "dist.zip"
+          update_latest_release: true
 
 
