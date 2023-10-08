@@ -38,7 +38,9 @@ jobs:
 
       - name: Zip dist
         if: steps.changesets.outputs.published == 'true'
-        run: zip dist.zip packages/chrome-extension/dist
+        run: |
+          cd packages/chrome-extension
+          zip dist.zip -r dist
 
       - name: Edit release
         if: steps.changesets.outputs.published == 'true'
@@ -46,7 +48,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "dist.zip"
+          file: "packages/chrome-extension/dist.zip"
           update_latest_release: true
 
 
