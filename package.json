@@ -17,7 +17,8 @@
     "typecheck": "turbo run typecheck",
     "format": "turbo run format",
     "ci": "turbo run ci",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "version": "bash ./apply-version.sh && changeset version"
   },
   "packageManager": "yarn@3.6.4",
   "devDependencies": {
