@@ -1,5 +1,13 @@
 # @rsc-parser/website
 
+## 0.1.9
+
+### Patch Changes
+
+- ab6c252: Fix zip path for release upload
+- Updated dependencies [ab6c252]
+  - @rsc-parser/core@0.1.9
+
 ## 0.1.8
 
 ### Patch Changes
