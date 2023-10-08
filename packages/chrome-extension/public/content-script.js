@@ -43,7 +43,7 @@ window.addEventListener(
 );
 
 // When the content script is unloaded (like for a refresh), send a message to the devtools panel to reset it
-window.addEventListener("load", () => {
+window.addEventListener("beforeunload", () => {
   // eslint-disable-next-line no-undef
   chrome.runtime.sendMessage({ type: "CONTENT_SCRIPT_LOADED" });
 });
