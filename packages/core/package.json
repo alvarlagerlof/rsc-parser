@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "Alvar Lagerlöf",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "vite build && yarn tailwindcss -o dist/style.css --minify",
     "dev:build": "concurrently  \"vite build --watch\" \"yarn tailwindcss -o dist/style.css --minify --watch\"",
