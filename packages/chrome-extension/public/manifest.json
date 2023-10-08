@@ -9,25 +9,15 @@
   "devtools_page": "devtools-page.html",
   "content_scripts": [
     {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "content-script.js"
-      ],
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content-script.js"],
       "all_frames": true
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": [
-        "fetch-patch.js"
-      ],
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ]
+      "resources": ["fetch-patch.js"],
+      "matches": ["http://*/*", "https://*/*"]
     }
   ]
 }
