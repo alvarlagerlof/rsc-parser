@@ -1,6 +1,6 @@
 {
   "name": "RSC Devtools",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React Server Components network visualizer",
   "content_security_policy": {
     "extension_pages": "script-src 'self' http://localhost:6020; object-src 'self'"
@@ -9,15 +9,25 @@
   "devtools_page": "devtools-page.html",
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["content-script.js"],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content-script.js"
+      ],
       "all_frames": true
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["fetch-patch.js"],
-      "matches": ["http://*/*", "https://*/*"]
+      "resources": [
+        "fetch-patch.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
     }
   ]
 }
