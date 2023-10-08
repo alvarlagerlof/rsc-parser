@@ -6,8 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "vite build && yarn tailwindcss -o dist/style.css --minify",
-    "dev": "concurrently  \"vite build --watch\" \"yarn tailwindcss -o dist/style.css --minify --watch\"",
+    "dev:build": "concurrently  \"vite build --watch\" \"yarn tailwindcss -o dist/style.css --minify --watch\"",
     "storybook": "storybook dev -p 6006 --no-open",
+    "dev": "concurrently  \"yarn dev:build\" \"yarn storybook\"",
     "build-storybook": "storybook build",
     "test": "NODE_NO_WARNINGS=1 node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
     "test:dev": "yarn test --watch",
