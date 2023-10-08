@@ -1,5 +1,11 @@
 # @rsc-parser/core
 
+## 0.1.8
+
+### Patch Changes
+
+- d77eb98: Add id
+
 ## 0.1.7
 
 ### Patch Changes
