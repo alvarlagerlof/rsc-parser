@@ -11,14 +11,14 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "release": "turbo run release",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
     "format": "turbo run format",
     "ci": "turbo run ci",
     "dev": "turbo run dev",
-    "version": "bash ./apply-version.sh && changeset version"
+    "version": "bash ./apply-version.sh && changeset version",
+    "release": "changeset release"
   },
   "packageManager": "yarn@3.6.4",
   "devDependencies": {
