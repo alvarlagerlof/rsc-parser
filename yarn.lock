@@ -36,36 +36,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ariakit/core@npm:0.3.4":
-  version: 0.3.4
-  resolution: "@ariakit/core@npm:0.3.4"
-  checksum: cc6c13d69b3086a865dfc18c0f15c256b1500ce39d1ccefb6c2ea032ef935968ae899413deaaac5d76f7989201b0cc27d4c4c2f8d064bf3d834486b393f6c35e
+"@ariakit/core@npm:0.3.5":
+  version: 0.3.5
+  resolution: "@ariakit/core@npm:0.3.5"
+  checksum: 5e84e55fb12843d00c01198a8d35ff9b3d1a7d03ba22bddde2a457455faf0889d48cd198dc9cfccc1c81dc177025b30b662f40b26aa995abdf0933358fd31802
   languageName: node
   linkType: hard
 
-"@ariakit/react-core@npm:0.3.5":
-  version: 0.3.5
-  resolution: "@ariakit/react-core@npm:0.3.5"
+"@ariakit/react-core@npm:0.3.6":
+  version: 0.3.6
+  resolution: "@ariakit/react-core@npm:0.3.6"
   dependencies:
-    "@ariakit/core": "npm:0.3.4"
+    "@ariakit/core": "npm:0.3.5"
     "@floating-ui/dom": "npm:^1.0.0"
     use-sync-external-store: "npm:^1.2.0"
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: e51da9311a79e3dbcce8a1f74e9727fbe25375fa4a1d7363589cd2c3c5858dfe23b263167775df80cb2309a8c34ae27d093a390a4e1b141a991dc1d2f5a48eed
+  checksum: 9ebbce8d08a3bc64c016e4ed2497b12501ba8815c4c8f9e61b73b8ffaa92974dc3caca792f1aaecb490d28c01831dace1293b457a580228d6672b37e354b3ccc
   languageName: node
   linkType: hard
 
-"@ariakit/react@npm:0.3.5":
-  version: 0.3.5
-  resolution: "@ariakit/react@npm:0.3.5"
+"@ariakit/react@npm:0.3.6":
+  version: 0.3.6
+  resolution: "@ariakit/react@npm:0.3.6"
   dependencies:
-    "@ariakit/react-core": "npm:0.3.5"
+    "@ariakit/react-core": "npm:0.3.6"
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 6389a5a4a298f82d2576058b526e48e7739af47d6f1d5ab920039d36a23e8472a990e1de4ab750c93427f0b3db70f5f3c30ada7bfccfe31425c56aa92c421825
+  checksum: b0c57110d6c026743bf8d6e866a20ffcaa288b0f2933e8197567ee1d9eb877b6e02f4b862626abaadf24e92cd552c5d10a6f638fef27a31f2bd3de4453a19ba0
   languageName: node
   linkType: hard
 
@@ -3517,7 +3517,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
-    "@ariakit/react": "npm:0.3.5"
+    "@ariakit/react": "npm:0.3.6"
     "@rsc-parser/core": "workspace:*"
     "@types/react": "npm:18.2.37"
     "@types/react-dom": "npm:18.2.15"
@@ -3593,7 +3593,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
-    "@ariakit/react": "npm:0.3.5"
+    "@ariakit/react": "npm:0.3.6"
     "@rsc-parser/core": "workspace:*"
     "@types/node": "npm:20.9.2"
     "@types/react": "npm:18.2.37"
