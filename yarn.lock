@@ -3655,7 +3655,7 @@ __metadata:
   dependencies:
     "@ariakit/react": "npm:0.3.7"
     "@rsc-parser/core": "workspace:*"
-    "@types/node": "npm:20.10.0"
+    "@types/node": "npm:20.10.2"
     "@types/react": "npm:18.2.38"
     "@types/react-dom": "npm:18.2.17"
     autoprefixer: "npm:10.4.16"
@@ -5399,12 +5399,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.10.0":
+"@types/node@npm:*":
   version: 20.10.0
   resolution: "@types/node@npm:20.10.0"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: c7d5ddbdbf3491e2363135c9611eb6bfae90eda2957279237fa232bcb29cd0df1cc3ee149d6de9915b754262a531ee2d57d33c9ecd58d763e8ad4856113822f3
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.10.2":
+  version: 20.10.2
+  resolution: "@types/node@npm:20.10.2"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: e88d0e92870ec4880642cc39250903a098443d791e864a08d08f4e7fdca0c4c9c0233a6fd98bec356f0ebabc6551152a4590d1c9c34b73a95c2b33935f59185f
   languageName: node
   linkType: hard
 
