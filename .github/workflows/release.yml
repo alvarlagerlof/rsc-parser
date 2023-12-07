@@ -30,7 +30,7 @@ jobs:
         uses: changesets/action@v1
         id: changesets
         with:
-          version: yarn version
+          version: yarn run version
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
