@@ -3,7 +3,7 @@ export type RscChunkMessage = {
   tabId: number;
   data: {
     fetchUrl: string;
-    fetchHeaders: Record<string, string>;
+    fetchHeaders: Record<string, string | undefined>;
     fetchStartTime: number;
     chunkValue: string;
     chunkStartTime: number;
