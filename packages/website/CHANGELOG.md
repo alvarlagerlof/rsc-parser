@@ -1,5 +1,13 @@
 # @rsc-parser/website
 
+## 0.1.10
+
+### Patch Changes
+
+- 09b3e5e: Fixed parsing (react updated its format)
+- Updated dependencies [09b3e5e]
+  - @rsc-parser/core@0.1.10
+
 ## 0.1.9
 
 ### Patch Changes
