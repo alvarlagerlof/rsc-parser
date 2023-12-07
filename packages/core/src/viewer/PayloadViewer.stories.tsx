@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { PayloadViewer } from "./PayloadViewer";
-import { nextJsExampleData } from "../example-data/nextjs";
-import { ghNextExampleData } from "../example-data/gh-next";
-import { neurodiversityWikiExampleData } from "../example-data/neurodiversity-wiki";
+// import { nextJsExampleData } from "../example-data/nextjs";
+import { ghNextExampleData } from "../example-data/gh-fredkiss-dev";
+// import { neurodiversityWikiExampleData } from "../example-data/neurodiversity-wiki";
 import { RscChunkMessage } from "../main";
 
 const meta: Meta<typeof PayloadViewer> = {
@@ -24,36 +24,36 @@ function getPayloadByUrl(messages: RscChunkMessage[], url: string) {
     .join("");
 }
 
-export const NextJs: Story = {
-  name: "nextjs.org",
-  argTypes: {
-    defaultPayload: {
-      options: getUrls(nextJsExampleData),
-      mapping: getUrls(nextJsExampleData).reduce(
-        (acc, url) => {
-          acc[url] = getPayloadByUrl(nextJsExampleData, url);
-          return acc;
-        },
-        {} as Record<string, string>,
-      ),
-      control: {
-        type: "select",
-      },
-    },
-  },
-  args: {
-    defaultPayload: getPayloadByUrl(
-      nextJsExampleData,
-      getUrls(nextJsExampleData)[0],
-    ),
-  },
-  render: ({ defaultPayload }) => (
-    <PayloadViewer defaultPayload={defaultPayload} key={defaultPayload} />
-  ),
-};
+// export const NextJs: Story = {
+//   name: "nextjs.org",
+//   argTypes: {
+//     defaultPayload: {
+//       options: getUrls(nextJsExampleData),
+//       mapping: getUrls(nextJsExampleData).reduce(
+//         (acc, url) => {
+//           acc[url] = getPayloadByUrl(nextJsExampleData, url);
+//           return acc;
+//         },
+//         {} as Record<string, string>,
+//       ),
+//       control: {
+//         type: "select",
+//       },
+//     },
+//   },
+//   args: {
+//     defaultPayload: getPayloadByUrl(
+//       nextJsExampleData,
+//       getUrls(nextJsExampleData)[0],
+//     ),
+//   },
+//   render: ({ defaultPayload }) => (
+//     <PayloadViewer defaultPayload={defaultPayload} key={defaultPayload} />
+//   ),
+// };
 
 export const GhNext: Story = {
-  name: "gh-issues.vercel.app",
+  name: "gh.fredkiss.dev",
   argTypes: {
     defaultPayload: {
       options: getUrls(ghNextExampleData),
@@ -80,30 +80,30 @@ export const GhNext: Story = {
   ),
 };
 
-export const NeurodiversityWiki: Story = {
-  name: "neurodiversity.wiki",
-  argTypes: {
-    defaultPayload: {
-      options: getUrls(neurodiversityWikiExampleData),
-      mapping: getUrls(neurodiversityWikiExampleData).reduce(
-        (acc, url) => {
-          acc[url] = getPayloadByUrl(neurodiversityWikiExampleData, url);
-          return acc;
-        },
-        {} as Record<string, string>,
-      ),
-      control: {
-        type: "select",
-      },
-    },
-  },
-  args: {
-    defaultPayload: getPayloadByUrl(
-      neurodiversityWikiExampleData,
-      getUrls(neurodiversityWikiExampleData)[0],
-    ),
-  },
-  render: ({ defaultPayload }) => (
-    <PayloadViewer defaultPayload={defaultPayload} key={defaultPayload} />
-  ),
-};
+// export const NeurodiversityWiki: Story = {
+//   name: "neurodiversity.wiki",
+//   argTypes: {
+//     defaultPayload: {
+//       options: getUrls(neurodiversityWikiExampleData),
+//       mapping: getUrls(neurodiversityWikiExampleData).reduce(
+//         (acc, url) => {
+//           acc[url] = getPayloadByUrl(neurodiversityWikiExampleData, url);
+//           return acc;
+//         },
+//         {} as Record<string, string>,
+//       ),
+//       control: {
+//         type: "select",
+//       },
+//     },
+//   },
+//   args: {
+//     defaultPayload: getPayloadByUrl(
+//       neurodiversityWikiExampleData,
+//       getUrls(neurodiversityWikiExampleData)[0],
+//     ),
+//   },
+//   render: ({ defaultPayload }) => (
+//     <PayloadViewer defaultPayload={defaultPayload} key={defaultPayload} />
+//   ),
+// };

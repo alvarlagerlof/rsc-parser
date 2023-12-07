@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { PathTabs, usePathTabs } from "./PathTabs";
-import { nextJsExampleData } from "../../example-data/nextjs";
-import { neurodiversityWikiExampleData } from "../../example-data/neurodiversity-wiki";
-import { ghNextExampleData } from "../../example-data/gh-next";
+// import { nextJsExampleData } from "../../example-data/nextjs";
+// import { neurodiversityWikiExampleData } from "../../example-data/neurodiversity-wiki";
+import { ghNextExampleData } from "../../example-data/gh-fredkiss-dev";
 
 const meta: Meta<typeof PathTabs> = {
   component: PathTabs,
@@ -12,20 +12,20 @@ const meta: Meta<typeof PathTabs> = {
 export default meta;
 type Story = StoryObj<typeof PathTabs>;
 
-export const Nextjs: Story = {
-  name: "nextjs.org",
-  render: () => {
-    const pathTabs = usePathTabs(nextJsExampleData, {
-      follow: false,
-    });
+// export const Nextjs: Story = {
+//   name: "nextjs.org",
+//   render: () => {
+//     const pathTabs = usePathTabs(nextJsExampleData, {
+//       follow: false,
+//     });
 
-    return (
-      <PathTabs {...pathTabs}>
-        <p>Tab content goes</p>
-      </PathTabs>
-    );
-  },
-};
+//     return (
+//       <PathTabs {...pathTabs}>
+//         <p>Tab content goes</p>
+//       </PathTabs>
+//     );
+//   },
+// };
 
 export const GhNext: Story = {
   name: "gh-issues.vercel.app",
@@ -42,17 +42,17 @@ export const GhNext: Story = {
   },
 };
 
-export const NeurodiversityWiki: Story = {
-  name: "neurodiversity.wiki",
-  render: () => {
-    const pathTabs = usePathTabs(neurodiversityWikiExampleData, {
-      follow: false,
-    });
+// export const NeurodiversityWiki: Story = {
+//   name: "neurodiversity.wiki",
+//   render: () => {
+//     const pathTabs = usePathTabs(neurodiversityWikiExampleData, {
+//       follow: false,
+//     });
 
-    return (
-      <PathTabs {...pathTabs}>
-        <p>Tab content goes</p>
-      </PathTabs>
-    );
-  },
-};
+//     return (
+//       <PathTabs {...pathTabs}>
+//         <p>Tab content goes</p>
+//       </PathTabs>
+//     );
+//   },
+// };

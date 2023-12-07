@@ -13,7 +13,17 @@ export const StyleExample: Story = {
   args: {
     data: JSON.stringify([
       "/_next/static/css/41e8bd728ca8294e.css?dpl=dpl_DbJSoidkMic3ZCp3P3DJMZxkvi32",
-      { as: "style" },
+      "style",
+    ]),
+  },
+};
+
+export const FontExample: Story = {
+  args: {
+    data: JSON.stringify([
+      "/_next/static/41e8bd728ca8294e.css",
+      "font",
+      { crossOrigin: "anonymous", type: "font/woff2" },
     ]),
   },
 };
