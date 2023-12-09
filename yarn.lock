@@ -3540,7 +3540,7 @@ __metadata:
     react-dom: "npm:18.2.0"
     react-error-boundary: "npm:4.0.11"
     react-resizable-panels: "npm:0.0.63"
-    storybook: "npm:7.6.3"
+    storybook: "npm:7.6.4"
     storybook-dark-mode: "npm:3.0.3"
     tailwindcss: "npm:3.3.5"
     ts-jest: "npm:29.1.1"
@@ -3933,14 +3933,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/builder-manager@npm:7.6.3":
-  version: 7.6.3
-  resolution: "@storybook/builder-manager@npm:7.6.3"
+"@storybook/builder-manager@npm:7.6.4":
+  version: 7.6.4
+  resolution: "@storybook/builder-manager@npm:7.6.4"
   dependencies:
     "@fal-works/esbuild-plugin-global-externals": "npm:^2.1.2"
-    "@storybook/core-common": "npm:7.6.3"
-    "@storybook/manager": "npm:7.6.3"
-    "@storybook/node-logger": "npm:7.6.3"
+    "@storybook/core-common": "npm:7.6.4"
+    "@storybook/manager": "npm:7.6.4"
+    "@storybook/node-logger": "npm:7.6.4"
     "@types/ejs": "npm:^3.1.1"
     "@types/find-cache-dir": "npm:^3.2.1"
     "@yarnpkg/esbuild-plugin-pnp": "npm:^3.0.0-rc.10"
@@ -3953,7 +3953,7 @@ __metadata:
     fs-extra: "npm:^11.1.0"
     process: "npm:^0.11.10"
     util: "npm:^0.12.4"
-  checksum: a9433ad725dd06b14887e083811327151f9b75d8bd496ec94a9f1de98693ff05c70ddff351260807f73703a47390cdcc1c998d3bea3bb7fac859d378ac10bde1
+  checksum: d464059b75720b0eadfaf74e937d66c5a719094994c43d594cb653e667be2012de201c5eb4e3434ddf035ff30c3f826d0729e63ae1c127c0e39d582e334132c0
   languageName: node
   linkType: hard
 
@@ -4035,22 +4035,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/cli@npm:7.6.3":
-  version: 7.6.3
-  resolution: "@storybook/cli@npm:7.6.3"
+"@storybook/cli@npm:7.6.4":
+  version: 7.6.4
+  resolution: "@storybook/cli@npm:7.6.4"
   dependencies:
     "@babel/core": "npm:^7.23.2"
     "@babel/preset-env": "npm:^7.23.2"
     "@babel/types": "npm:^7.23.0"
     "@ndelangen/get-tarball": "npm:^3.0.7"
-    "@storybook/codemod": "npm:7.6.3"
-    "@storybook/core-common": "npm:7.6.3"
-    "@storybook/core-events": "npm:7.6.3"
-    "@storybook/core-server": "npm:7.6.3"
-    "@storybook/csf-tools": "npm:7.6.3"
-    "@storybook/node-logger": "npm:7.6.3"
-    "@storybook/telemetry": "npm:7.6.3"
-    "@storybook/types": "npm:7.6.3"
+    "@storybook/codemod": "npm:7.6.4"
+    "@storybook/core-common": "npm:7.6.4"
+    "@storybook/core-events": "npm:7.6.4"
+    "@storybook/core-server": "npm:7.6.4"
+    "@storybook/csf-tools": "npm:7.6.4"
+    "@storybook/node-logger": "npm:7.6.4"
+    "@storybook/telemetry": "npm:7.6.4"
+    "@storybook/types": "npm:7.6.4"
     "@types/semver": "npm:^7.3.4"
     "@yarnpkg/fslib": "npm:2.10.3"
     "@yarnpkg/libzip": "npm:2.3.0"
@@ -4083,7 +4083,7 @@ __metadata:
   bin:
     getstorybook: ./bin/index.js
     sb: ./bin/index.js
-  checksum: 59a8717106a19222831b8ca17912b6923dd86d80c9e425cb113bdbc02d49e51f7b6e055d6a2e7c8b47a65f97abaa112d79703f7913edf9448e5fbafaa53f9746
+  checksum: ae848f9b1da20dd87c4f86f68014477f42707e453d021d84c371d6975aa5b17beb0b8a46faf15b5daef8c6f938d3af096760a6c92129e5c9785ef5c5254eedc7
   languageName: node
   linkType: hard
 
@@ -4114,17 +4114,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/codemod@npm:7.6.3":
-  version: 7.6.3
-  resolution: "@storybook/codemod@npm:7.6.3"
+"@storybook/codemod@npm:7.6.4":
+  version: 7.6.4
+  resolution: "@storybook/codemod@npm:7.6.4"
   dependencies:
     "@babel/core": "npm:^7.23.2"
     "@babel/preset-env": "npm:^7.23.2"
     "@babel/types": "npm:^7.23.0"
     "@storybook/csf": "npm:^0.1.2"
-    "@storybook/csf-tools": "npm:7.6.3"
-    "@storybook/node-logger": "npm:7.6.3"
-    "@storybook/types": "npm:7.6.3"
+    "@storybook/csf-tools": "npm:7.6.4"
+    "@storybook/node-logger": "npm:7.6.4"
+    "@storybook/types": "npm:7.6.4"
     "@types/cross-spawn": "npm:^6.0.2"
     cross-spawn: "npm:^7.0.3"
     globby: "npm:^11.0.2"
@@ -4132,7 +4132,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     prettier: "npm:^2.8.0"
     recast: "npm:^0.23.1"
-  checksum: d09cca2bcf45148e05c7184aa6745fa04f11e32fddde2e9079060b09dffd2ce21abb32357d00c4e1f7eefcd62893f7395f8f9c16503cb5025e77f09830974b0b
+  checksum: 9a9832f68882fbaa8042ce4bedbd510c619a17a467790d92bb364ab4cb1547e20f0fa41c44fa6aafa703c42719e952af9ebb5e3f583f7eafd5b4e38665a9cea4
   languageName: node
   linkType: hard
 
@@ -4308,25 +4308,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/core-server@npm:7.6.3":
-  version: 7.6.3
-  resolution: "@storybook/core-server@npm:7.6.3"
+"@storybook/core-server@npm:7.6.4":
+  version: 7.6.4
+  resolution: "@storybook/core-server@npm:7.6.4"
   dependencies:
     "@aw-web-design/x-default-browser": "npm:1.4.126"
     "@discoveryjs/json-ext": "npm:^0.5.3"
-    "@storybook/builder-manager": "npm:7.6.3"
-    "@storybook/channels": "npm:7.6.3"
-    "@storybook/core-common": "npm:7.6.3"
-    "@storybook/core-events": "npm:7.6.3"
+    "@storybook/builder-manager": "npm:7.6.4"
+    "@storybook/channels": "npm:7.6.4"
+    "@storybook/core-common": "npm:7.6.4"
+    "@storybook/core-events": "npm:7.6.4"
     "@storybook/csf": "npm:^0.1.2"
-    "@storybook/csf-tools": "npm:7.6.3"
+    "@storybook/csf-tools": "npm:7.6.4"
     "@storybook/docs-mdx": "npm:^0.1.0"
     "@storybook/global": "npm:^5.0.0"
-    "@storybook/manager": "npm:7.6.3"
-    "@storybook/node-logger": "npm:7.6.3"
-    "@storybook/preview-api": "npm:7.6.3"
-    "@storybook/telemetry": "npm:7.6.3"
-    "@storybook/types": "npm:7.6.3"
+    "@storybook/manager": "npm:7.6.4"
+    "@storybook/node-logger": "npm:7.6.4"
+    "@storybook/preview-api": "npm:7.6.4"
+    "@storybook/telemetry": "npm:7.6.4"
+    "@storybook/types": "npm:7.6.4"
     "@types/detect-port": "npm:^1.3.0"
     "@types/node": "npm:^18.0.0"
     "@types/pretty-hrtime": "npm:^1.0.0"
@@ -4353,7 +4353,7 @@ __metadata:
     util-deprecate: "npm:^1.0.2"
     watchpack: "npm:^2.2.0"
     ws: "npm:^8.2.3"
-  checksum: 4b966a40bfa7bfbcde3679469e7ef795bdc6ed38a860db7724cc16aca42196bab1a87319f40f9bc167b5a9410e5d7b06751027c31a95c88dfa69d700c9fd18d1
+  checksum: b8e96a37d611a2e500689f5cf1af9c2ee7701c2888f1f64c22ca68f2458f7160fe165a2c2dcf3ba3cb80f28ea63085f8c8942e3cc1dcb27f4af551f46aa2647f
   languageName: node
   linkType: hard
 
@@ -4526,10 +4526,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/manager@npm:7.6.3":
-  version: 7.6.3
-  resolution: "@storybook/manager@npm:7.6.3"
-  checksum: 41afce59906eb0a8b6f4fc336e237c9e7d4bb05618126b7027fd60e9b06dd4d32e6d727d510fb2b0b8cfd7929fb6933d9fb585dd5311e30a7e830a0ee78e497c
+"@storybook/manager@npm:7.6.4":
+  version: 7.6.4
+  resolution: "@storybook/manager@npm:7.6.4"
+  checksum: 49897814ff786b026535e81b634e97b3dc9d5bcb09b1bea3228b6e8b00692076b992cc9e39f55beec83d26da20be7c7f86deb36b79cfca254222999c2cea0407
   languageName: node
   linkType: hard
 
@@ -4738,7 +4738,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/telemetry@npm:7.6.3, @storybook/telemetry@npm:^7.1.0":
+"@storybook/telemetry@npm:7.6.4":
+  version: 7.6.4
+  resolution: "@storybook/telemetry@npm:7.6.4"
+  dependencies:
+    "@storybook/client-logger": "npm:7.6.4"
+    "@storybook/core-common": "npm:7.6.4"
+    "@storybook/csf-tools": "npm:7.6.4"
+    chalk: "npm:^4.1.0"
+    detect-package-manager: "npm:^2.0.1"
+    fetch-retry: "npm:^5.0.2"
+    fs-extra: "npm:^11.1.0"
+    read-pkg-up: "npm:^7.0.1"
+  checksum: ece71e18fadba9ff581389420079dd4687dea5797ecaf6836495a82f2bf133b81b5e982173eaa10bcd16c158a015eab46fc496db10ee7ad4f705ae5884e0c914
+  languageName: node
+  linkType: hard
+
+"@storybook/telemetry@npm:^7.1.0":
   version: 7.6.3
   resolution: "@storybook/telemetry@npm:7.6.3"
   dependencies:
@@ -14062,15 +14078,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:7.6.3":
-  version: 7.6.3
-  resolution: "storybook@npm:7.6.3"
+"storybook@npm:7.6.4":
+  version: 7.6.4
+  resolution: "storybook@npm:7.6.4"
   dependencies:
-    "@storybook/cli": "npm:7.6.3"
+    "@storybook/cli": "npm:7.6.4"
   bin:
     sb: ./index.js
     storybook: ./index.js
-  checksum: b4b4641c6ce745379fa3a253182322692274d8e340be53c772e6e65b29566d6a72376422f5714c869f0e9239d83491539a7ff5a9a269440c4897d7cec6c0fb4e
+  checksum: 2f3c5fa89e632e2056a9a2641e1f9ba4eecb24bde7ec024e3017217f3f66f2e29df3b44641fcaf993c81f4b75b627a9bb404a3cf9eb83e2bd35857d5017a777d
   languageName: node
   linkType: hard
 
