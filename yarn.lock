@@ -3516,7 +3516,7 @@ __metadata:
     "@storybook/addon-links": "npm:7.6.3"
     "@storybook/addon-onboarding": "npm:1.0.9"
     "@storybook/addon-styling": "npm:1.3.7"
-    "@storybook/blocks": "npm:7.6.3"
+    "@storybook/blocks": "npm:7.6.4"
     "@storybook/react": "npm:7.5.3"
     "@storybook/react-vite": "npm:7.5.3"
     "@storybook/testing-library": "npm:0.2.2"
@@ -3899,40 +3899,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/blocks@npm:7.6.3":
-  version: 7.6.3
-  resolution: "@storybook/blocks@npm:7.6.3"
-  dependencies:
-    "@storybook/channels": "npm:7.6.3"
-    "@storybook/client-logger": "npm:7.6.3"
-    "@storybook/components": "npm:7.6.3"
-    "@storybook/core-events": "npm:7.6.3"
-    "@storybook/csf": "npm:^0.1.2"
-    "@storybook/docs-tools": "npm:7.6.3"
-    "@storybook/global": "npm:^5.0.0"
-    "@storybook/manager-api": "npm:7.6.3"
-    "@storybook/preview-api": "npm:7.6.3"
-    "@storybook/theming": "npm:7.6.3"
-    "@storybook/types": "npm:7.6.3"
-    "@types/lodash": "npm:^4.14.167"
-    color-convert: "npm:^2.0.1"
-    dequal: "npm:^2.0.2"
-    lodash: "npm:^4.17.21"
-    markdown-to-jsx: "npm:^7.1.8"
-    memoizerific: "npm:^1.11.3"
-    polished: "npm:^4.2.2"
-    react-colorful: "npm:^5.1.2"
-    telejson: "npm:^7.2.0"
-    tocbot: "npm:^4.20.1"
-    ts-dedent: "npm:^2.0.0"
-    util-deprecate: "npm:^1.0.2"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: d536b0d894f0a6e895b12141046638a48c0d3b5d34470a6723eec5866e2510144170e5378522cb73c2b1255272da60bce653051a2fed775c6a63560d7ba38d60
-  languageName: node
-  linkType: hard
-
 "@storybook/blocks@npm:7.6.4":
   version: 7.6.4
   resolution: "@storybook/blocks@npm:7.6.4"
@@ -4170,27 +4136,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/components@npm:7.6.3, @storybook/components@npm:^7.0.0, @storybook/components@npm:^7.0.12":
-  version: 7.6.3
-  resolution: "@storybook/components@npm:7.6.3"
-  dependencies:
-    "@radix-ui/react-select": "npm:^1.2.2"
-    "@radix-ui/react-toolbar": "npm:^1.0.4"
-    "@storybook/client-logger": "npm:7.6.3"
-    "@storybook/csf": "npm:^0.1.2"
-    "@storybook/global": "npm:^5.0.0"
-    "@storybook/theming": "npm:7.6.3"
-    "@storybook/types": "npm:7.6.3"
-    memoizerific: "npm:^1.11.3"
-    use-resize-observer: "npm:^9.1.0"
-    util-deprecate: "npm:^1.0.2"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 207de2dcc4854cd0a21bdd1b66710faf3495a63c626849543f51e3915fa6aefcc9e745b2f69d1a30b37f05f38f23b7cd5ee576e7f0e04c632ccef6601d28edbf
-  languageName: node
-  linkType: hard
-
 "@storybook/components@npm:7.6.4":
   version: 7.6.4
   resolution: "@storybook/components@npm:7.6.4"
@@ -4209,6 +4154,27 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: e7d3c1087bb68b740f43a3c92781766659375cb04326e8d4bde43eabc62ee05a400ee1cb781c30d739042ab5727a7a0fb0408c34fae5786f8142e84a3caa4d8a
+  languageName: node
+  linkType: hard
+
+"@storybook/components@npm:^7.0.0, @storybook/components@npm:^7.0.12":
+  version: 7.6.3
+  resolution: "@storybook/components@npm:7.6.3"
+  dependencies:
+    "@radix-ui/react-select": "npm:^1.2.2"
+    "@radix-ui/react-toolbar": "npm:^1.0.4"
+    "@storybook/client-logger": "npm:7.6.3"
+    "@storybook/csf": "npm:^0.1.2"
+    "@storybook/global": "npm:^5.0.0"
+    "@storybook/theming": "npm:7.6.3"
+    "@storybook/types": "npm:7.6.3"
+    memoizerific: "npm:^1.11.3"
+    use-resize-observer: "npm:^9.1.0"
+    util-deprecate: "npm:^1.0.2"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 207de2dcc4854cd0a21bdd1b66710faf3495a63c626849543f51e3915fa6aefcc9e745b2f69d1a30b37f05f38f23b7cd5ee576e7f0e04c632ccef6601d28edbf
   languageName: node
   linkType: hard
 
@@ -4489,21 +4455,6 @@ __metadata:
     doctrine: "npm:^3.0.0"
     lodash: "npm:^4.17.21"
   checksum: f388cf81c01a2d9728346a5955e4e4017665b667729d0d8cc05c9f4c42c249e76fa9c7918e660a2ffa041ed1b71b2a901f497d5f95f129b120abf9401b8162af
-  languageName: node
-  linkType: hard
-
-"@storybook/docs-tools@npm:7.6.3":
-  version: 7.6.3
-  resolution: "@storybook/docs-tools@npm:7.6.3"
-  dependencies:
-    "@storybook/core-common": "npm:7.6.3"
-    "@storybook/preview-api": "npm:7.6.3"
-    "@storybook/types": "npm:7.6.3"
-    "@types/doctrine": "npm:^0.0.3"
-    assert: "npm:^2.1.0"
-    doctrine: "npm:^3.0.0"
-    lodash: "npm:^4.17.21"
-  checksum: 76b0a722a4e50d7cf46696ccaff17b93431861e4056a235e106e3d5620cd650415054117faabae7f21a5bb583c6b9a43ea3e3903700677f3cddb07922b0a3a75
   languageName: node
   linkType: hard
 
