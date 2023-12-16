@@ -43,9 +43,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ariakit/react-core@npm:0.3.9":
-  version: 0.3.9
-  resolution: "@ariakit/react-core@npm:0.3.9"
+"@ariakit/react-core@npm:0.3.10":
+  version: 0.3.10
+  resolution: "@ariakit/react-core@npm:0.3.10"
   dependencies:
     "@ariakit/core": "npm:0.3.8"
     "@floating-ui/dom": "npm:^1.0.0"
@@ -53,19 +53,19 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 8f5e92c417e6781dc255d4f839642179110eee7bd7f7791fc31ef788aad2bb44949cd7c3bd16b02c9a32895b346a386017d96cd70f9a3131b99da93ddb52154a
+  checksum: 723b3fa184aa334007d2402f8d705ee64acd13913cb744fb32c2047b255eebf3399e9cec028e18422b22de812145f34bc9b863e1e2eff4496bd6f95c8499d8c4
   languageName: node
   linkType: hard
 
-"@ariakit/react@npm:0.3.9":
-  version: 0.3.9
-  resolution: "@ariakit/react@npm:0.3.9"
+"@ariakit/react@npm:0.3.10":
+  version: 0.3.10
+  resolution: "@ariakit/react@npm:0.3.10"
   dependencies:
-    "@ariakit/react-core": "npm:0.3.9"
+    "@ariakit/react-core": "npm:0.3.10"
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 5f0ceaa2fac5006cf65eeea06fc32f5d2f05c74c7b67e63632c3691a5df6fa3a267bc3d8d7dabcf098ecf6689abb8cddbd03b78767fa4995422ef8d950b5c88a
+  checksum: e85a0f6e855437aaebc6b999d28e8cc4c00481f4fac138f41b5cc880c367a088444e1ae06aed50af57e07d3ff9435c05bd4c63c6cd7f101818026bc35c356e3c
   languageName: node
   linkType: hard
 
@@ -3479,7 +3479,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
-    "@ariakit/react": "npm:0.3.9"
+    "@ariakit/react": "npm:0.3.10"
     "@rsc-parser/core": "workspace:*"
     "@types/react": "npm:18.2.43"
     "@types/react-dom": "npm:18.2.17"
@@ -3555,7 +3555,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
-    "@ariakit/react": "npm:0.3.9"
+    "@ariakit/react": "npm:0.3.10"
     "@rsc-parser/core": "workspace:*"
     "@types/node": "npm:20.10.4"
     "@types/react": "npm:18.2.43"
