@@ -62,8 +62,8 @@ export function PathTabs({
   children,
 }: ReturnType<typeof usePathTabs> & { children: ReactNode }) {
   return (
-    <PanelGroup direction="horizontal" units="pixels">
-      <Panel id="sidebar" minSize={150} order={1} defaultSize={220}>
+    <PanelGroup direction="horizontal">
+      <Panel id="sidebar" minSize={35} order={1} defaultSize={35}>
         <Ariakit.TabList store={tabStore} className="flex flex-col gap-1 pr-3">
           {tabs.map((tab) => (
             <Ariakit.Tab className="group w-full text-left" key={tab} id={tab}>
@@ -93,7 +93,7 @@ export function PathTabs({
 
       <PanelResizeHandle className="w-1 rounded bg-slate-200 dark:bg-slate-800" />
 
-      <Panel order={2} minSize={350} className="dark:text-white">
+      <Panel order={2} minSize={30} className="dark:text-white">
         <Ariakit.TabPanel
           store={tabStore}
           tabId={currentTab}
