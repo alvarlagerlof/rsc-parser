@@ -19,6 +19,11 @@
     },
     {
       "matchUpdateTypes": ["major"]
+    },
+    {
+      "extends": "monorepo:storybook",
+      "groupName": "storybook monorepo",
+      "matchUpdateTypes": ["digest", "patch", "minor", "major"]
     }
   ]
 }
