@@ -2712,7 +2712,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor@npm:^7.38.0":
+"@microsoft/api-extractor@npm:7.39.0":
   version: 7.39.0
   resolution: "@microsoft/api-extractor@npm:7.39.0"
   dependencies:
@@ -3467,7 +3467,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^5.0.2, @rollup/pluginutils@npm:^5.0.5":
+"@rollup/pluginutils@npm:^5.0.2, @rollup/pluginutils@npm:^5.1.0":
   version: 5.1.0
   resolution: "@rollup/pluginutils@npm:5.1.0"
   dependencies:
@@ -3555,7 +3555,7 @@ __metadata:
     type-fest: "npm:4.9.0"
     typescript: "npm:5.3.3"
     vite: "npm:4.5.1"
-    vite-plugin-dts: "npm:3.6.4"
+    vite-plugin-dts: "npm:3.7.0"
   languageName: unknown
   linkType: soft
 
@@ -5671,9 +5671,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/language-core@npm:1.8.26, @vue/language-core@npm:^1.8.20":
-  version: 1.8.26
-  resolution: "@vue/language-core@npm:1.8.26"
+"@vue/language-core@npm:1.8.27, @vue/language-core@npm:^1.8.26":
+  version: 1.8.27
+  resolution: "@vue/language-core@npm:1.8.27"
   dependencies:
     "@volar/language-core": "npm:~1.11.1"
     "@volar/source-map": "npm:~1.11.1"
@@ -5689,7 +5689,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 86c0e66f76af2343804893799c15138edc5f3d4d9797aaa2c032a6ca8fb844e15b37fe7301f36b7bd0ea1affd02529ea75139b10099c24e61e3f27850e1841d5
+  checksum: 8ad4e129a334dd78b3ffc161615e4c303105f3e5f2478458eaea8db71d3b2b8081120d913464532d5b6c4f2c0611b2c5cb2a0f9a5f46ba6d5e9422d5d63ae71b
   languageName: node
   linkType: hard
 
@@ -15208,23 +15208,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-dts@npm:3.6.4":
-  version: 3.6.4
-  resolution: "vite-plugin-dts@npm:3.6.4"
+"vite-plugin-dts@npm:3.7.0":
+  version: 3.7.0
+  resolution: "vite-plugin-dts@npm:3.7.0"
   dependencies:
-    "@microsoft/api-extractor": "npm:^7.38.0"
-    "@rollup/pluginutils": "npm:^5.0.5"
-    "@vue/language-core": "npm:^1.8.20"
+    "@microsoft/api-extractor": "npm:7.39.0"
+    "@rollup/pluginutils": "npm:^5.1.0"
+    "@vue/language-core": "npm:^1.8.26"
     debug: "npm:^4.3.4"
     kolorist: "npm:^1.8.0"
-    vue-tsc: "npm:^1.8.20"
+    vue-tsc: "npm:^1.8.26"
   peerDependencies:
     typescript: "*"
     vite: "*"
   peerDependenciesMeta:
     vite:
       optional: true
-  checksum: 33c46aa1bb7d9d9b8948b6c0b9302c39fd7745aebf4efeb85968cf33034a5a3147baae0a4e488124423dbc7121456168bc5e454ab695bee46afa8ff6bbaa230b
+  checksum: bb0cbe51b6aa96b7039d46242d4b4fb89522d0051e2712606e24bbb5cad72e28da675e7a02be9c07ad7dc7255c3091d315a8f234bf224812be22ef6416f78e15
   languageName: node
   linkType: hard
 
@@ -15287,18 +15287,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-tsc@npm:^1.8.20":
-  version: 1.8.26
-  resolution: "vue-tsc@npm:1.8.26"
+"vue-tsc@npm:^1.8.26":
+  version: 1.8.27
+  resolution: "vue-tsc@npm:1.8.27"
   dependencies:
     "@volar/typescript": "npm:~1.11.1"
-    "@vue/language-core": "npm:1.8.26"
+    "@vue/language-core": "npm:1.8.27"
     semver: "npm:^7.5.4"
   peerDependencies:
     typescript: "*"
   bin:
     vue-tsc: bin/vue-tsc.js
-  checksum: fe7e73b8831d8b926c64add39280feb79e1f38f8ef5cadfbb1cf31ca8db499b9000069b69366bb194e8e06f031ae50a7f5178499ead68f9a1463434fbc60dace
+  checksum: fb84ff195de75e3529cf01b917f111bee561d15e1e437aa97a47e797f99f913783f24ec2d595271240240a21df08ba43b36aa7fc82a48a4c396a0f6d0e409376
   languageName: node
   linkType: hard
 
