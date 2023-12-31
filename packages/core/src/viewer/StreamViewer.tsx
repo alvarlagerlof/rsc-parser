@@ -11,6 +11,11 @@ import { RowTabs } from "../tabs/row/RowTabs";
 import * as Ariakit from "@ariakit/react";
 import { RawStream } from "../stream/RawStream";
 import { RowStream } from "../stream/RowStream";
+import {
+  FlightResponse,
+  createStringDecoder,
+  processBinaryChunk,
+} from "../test";
 
 export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
   const defaultSelectedId = "parsed";
@@ -64,6 +69,12 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
                   id="parsed"
                   className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
                 >
+                  Debug
+                </Ariakit.Tab>
+                {/* <Ariakit.Tab
+                  id="parsed"
+                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
+                >
                   Parsed
                 </Ariakit.Tab>
                 <Ariakit.Tab
@@ -77,11 +88,14 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
                   className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
                 >
                   Raw
-                </Ariakit.Tab>
+                </Ariakit.Tab> */}
               </Ariakit.TabList>
             </div>
             <div>
               <Ariakit.TabPanel store={tab} tabId={defaultSelectedId}>
+                <DebugRaw messages={messagesForCurrentTab} />
+              </Ariakit.TabPanel>
+              {/* <Ariakit.TabPanel store={tab} tabId={defaultSelectedId}>
                 <RowTabs
                   payload={messagesForCurrentTab
                     .map((message) => message.data.chunkValue)
@@ -93,11 +107,87 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
               </Ariakit.TabPanel>
               <Ariakit.TabPanel store={tab}>
                 <RawStream messages={messagesForCurrentTab} />
-              </Ariakit.TabPanel>
+              </Ariakit.TabPanel> */}
             </div>
           </ErrorBoundary>
         )}
       </PathTabs>
     </div>
+  );
+}
+
+function DebugRaw({ messages }: { messages: RscChunkMessage[] }) {
+  console.log("DebugRaw");
+
+  if (messages.length === 0) {
+    console.log("no messages");
+    return null;
+  }
+
+  const responseBuffer: Array<Uint8Array> = [];
+
+  for (const [index, message] of messages.entries()) {
+    responseBuffer[index] = new Uint8Array(
+      Object.keys(message.data.chunkValue).length,
+    );
+    for (const [key, value] of Object.entries(message.data.chunkValue)) {
+      responseBuffer[index][Number(key)] = Number(value);
+    }
+  }
+
+  // for (let i = 0; i < messages.length; i++) {
+  //   responseBuffer[i] = new Uint8Array(
+  //     Object.keys(messages[i].data.chunkValue).length,
+  //   );
+  //   for (let n = 0; n < messages[i].data.chunkValue.length; n++) {
+  //     responseBuffer[i][n] = Number(messages[i].data.chunkValue[n]);
+  //   }
+  // }
+
+  const response = {
+    _buffer: [],
+    _rowID: 0,
+    _rowTag: 0,
+    _rowLength: 0,
+    _rowState: 0,
+    _stringDecoder: createStringDecoder(),
+    _chunks: [],
+  } satisfies FlightResponse;
+
+  // const flightResponses = messages.map((message) => {
+  //   return {
+  //     _buffer: message.data.chunkValue,
+  //     _rowID: message.data.chunkId,
+  //     _rowLength: 1
+  //   } satisfies FlightResponse
+  // })
+
+  for (const buffer of responseBuffer) {
+    console.log("buffer", buffer);
+    processBinaryChunk(response, buffer);
+  }
+
+  // for (let i = 0; i < responseBuffer.length; i++) {
+  //   processBinaryChunk(response, responseBuffer[i]);
+  // }
+
+  return (
+    <>
+      <RowTabs chunks={response._chunks} />
+
+      {/* <p>Test:</p>
+      {response._chunks.map((chunk) => (
+        <pre>{JSON.stringify(chunk.row, null, 2)}</pre>
+      ))} */}
+
+      <p>Response:</p>
+      <pre>{JSON.stringify(response, null, 2)}</pre>
+      {/*
+      <p>Response:</p>
+      <pre>{JSON.stringify(response, null, 2)}</pre>
+
+      <p>Raw:</p>
+      <pre>{JSON.stringify(messages, null, 2)}</pre> */}
+    </>
   );
 }

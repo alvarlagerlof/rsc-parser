@@ -5,7 +5,7 @@ export type RscChunkMessage = {
     fetchUrl: string;
     fetchHeaders: Record<string, string | undefined>;
     fetchStartTime: number;
-    chunkValue: string;
+    chunkValue: Record<string, number>;
     chunkStartTime: number;
     chunkEndTime: number;
   };

@@ -6,16 +6,18 @@ import { GenericErrorBoundaryFallback } from "../../GenericErrorBoundaryFallback
 import { stringToKiloBytes } from "./stringToKiloBytes";
 import { RowTabPanel } from "./RowTabPanel";
 import { RowTab, RowTabFallback } from "./RowTab";
+import { Chunk } from "../../test";
 
-export function RowTabs({ payload }: { payload: string }) {
+export function RowTabs({ chunks }: { chunks: Chunk[] }) {
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
     null,
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
-  const payloadSize = parseFloat(stringToKiloBytes(payload));
-  const rows = splitToCleanRows(payload);
+  // const payloadSize = parseFloat(stringToKiloBytes(payload));
+  const payloadSize = 0;
+  // const rows = splitToCleanRows(payload);
 
   const selectTab = (nextTab: string | null | undefined) => {
     if (nextTab !== selectedTab) {
@@ -26,15 +28,12 @@ export function RowTabs({ payload }: { payload: string }) {
     }
   };
 
-  const selectTabByIdentifier = (tabIdentifier: string) => {
-    for (const row of rows) {
-      const tokens = lexer(row);
-      const { identifier } = parse(tokens);
-
-      if (tabIdentifier === identifier) {
+  const selectTabByIdentifier = (tabIdentifier: number) => {
+    for (const row of chunks) {
+      if (tabIdentifier === row.id) {
         // TODO: Don't hard-code this
         window.scrollTo(0, 680);
-        tab.setSelectedId(row);
+        tab.setSelectedId(String(row.id));
       }
     }
   };
@@ -46,33 +45,38 @@ export function RowTabs({ payload }: { payload: string }) {
 
   return (
     <div className="divide-y-1 dark:divide-slate-600">
-      {rows.length === 0 ? null : (
+      {chunks.length === 0 ? null : (
         <>
           <div className="flex flex-col gap-2 pb-3">
-            <div className="text-black dark:text-white">
+            {/* <div className="text-black dark:text-white">
               Total size: {stringToKiloBytes(payload)} KB (uncompressed)
-            </div>
+            </div> */}
 
             <Ariakit.TabList
               store={tab}
               className="flex flex-row flex-wrap gap-2 md:pb-0"
             >
-              {rows.map((row) => (
+              {chunks.map((row) => (
                 <Ariakit.Tab
                   className="group rounded-md border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200"
-                  key={row}
-                  id={row}
+                  key={row.id}
+                  id={String(row.id)}
                 >
                   <ErrorBoundary
                     fallbackRender={({ error }) => (
                       <RowTabFallback
                         error={error}
                         row={row}
-                        payloadSize={payloadSize}
+                        // payloadSize={payloadSize}
+                        payloadSize={0}
                       />
                     )}
                   >
-                    <RowTab row={row} payloadSize={payloadSize} />
+                    <RowTab
+                      row={row}
+                      // payloadSize={payloadSize}
+                      payloadSize={0}
+                    />
                   </ErrorBoundary>
                 </Ariakit.Tab>
               ))}
@@ -90,16 +94,16 @@ export function RowTabs({ payload }: { payload: string }) {
               opacity: isPending ? "0.6" : "1",
             }}
           >
-            {payload === "" ? (
+            {/* {payload === "" ? (
               <p className="text-black dark:text-white">
                 Please enter a payload to see results
               </p>
             ) : selectedTab === null || selectTab === undefined ? (
               <p className="text-black dark:text-white">Please select a row</p>
-            ) : null}
+            ) : null} */}
 
-            {rows
-              .filter((row) => row == currentTab)
+            {chunks
+              .filter((row) => String(row.id) == currentTab)
               .map((row) => (
                 <ErrorBoundary
                   FallbackComponent={GenericErrorBoundaryFallback}

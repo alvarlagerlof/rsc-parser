@@ -10,13 +10,14 @@ import { ClientReferenceRow } from "../../rows/ClientReferenceRow";
 import { HintRow } from "../../rows/HintRow";
 import { TreeRow } from "../../rows/TreeRow";
 import { DownArrowIcon, RightArrowIcon } from "../../icons";
+import { Chunk } from "../../test";
 
 export function RowTabPanel({
   row,
   payloadSize,
   selectTabByIdentifier,
 }: {
-  row: string;
+  row: Chunk;
   payloadSize: number;
   selectTabByIdentifier: (tabIdentifier: string) => void;
 }) {
@@ -61,10 +62,14 @@ export function RowTabPanel({
   );
 }
 
-function RowTabPanelMeta({ row }: { row: string }) {
-  const tokens = lexer(row);
-  const { identifier, type } = parse(tokens);
-  const refinedType = refineRowType(type);
+function RowTabPanelMeta({ row }: { row: Chunk }) {
+  // const tokens = lexer(row);
+  // const { identifier, type } = parse(tokens);
+  // const refinedType = refineRowType(type);
+
+  const identifier = row.id;
+  const refinedType = row.type;
+  const type = row.type;
 
   return (
     <div className="flex flex-col gap-1">
@@ -76,9 +81,9 @@ function RowTabPanelMeta({ row }: { row: string }) {
       </h3>
       <h4 className="font-medium dark:text-white">
         {refinedType}{" "}
-        <span className="text-slate-400 dark:text-slate-200">
+        {/* <span className="text-slate-400 dark:text-slate-200">
           / &quot;{type}&quot;
-        </span>{" "}
+        </span>{" "} */}
       </h4>
     </div>
   );
@@ -88,10 +93,11 @@ function RowTabPanelSize({
   row,
   payloadSize,
 }: {
-  row: string;
+  row: Chunk;
   payloadSize: number;
 }) {
-  const rowSize = parseFloat(stringToKiloBytes(row));
+  //const rowSize = parseFloat(stringToKiloBytes(row));
+  const rowSize = 0;
 
   return (
     <div className="text-right dark:text-white">
@@ -106,16 +112,20 @@ export function RowTabPanelExplorer({
   row,
   selectTabByIdentifier,
 }: {
-  row: string;
+  row: Chunk;
   selectTabByIdentifier: (tabIdentifier: string) => void;
 }) {
-  const tokens = lexer(row);
-  const { type, data } = parse(tokens);
+  // const tokens = lexer(row);
+  // const { type, data } = parse(tokens);
 
-  const refinedType = refineRowType(type);
+  // const refinedType = refineRowType(type);
+
+  const refinedType = row.type;
+  const data = row.value;
+  // const type = row.type;
 
   switch (refinedType) {
-    case "client ref":
+    case "module":
       // This is a bit iffy. Should probably have separate names for these.
       return <ClientReferenceRow data={data} />;
     case "hint":
@@ -132,12 +142,14 @@ export function RowTabPanelExplorer({
           />
         </div>
       );
-    case "unknown":
-      throw new Error(`Unknown row type: ${type}`);
+    case "text":
+      return <p className="dark:text-white">{data}</p>;
+    // case "unknown":
+    //   throw new Error(`Unknown row type: ${type}`);
   }
 }
 
-function RowTabPanelGenericData({ row }: { row: string }) {
+function RowTabPanelGenericData({ row }: { row: Chunk }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const disclosure = Ariakit.useDisclosureStore({
@@ -166,10 +178,11 @@ function RowTabPanelGenericData({ row }: { row: string }) {
   );
 }
 
-function RowTabRawJson({ row }: { row: string }) {
-  const tokens = lexer(row);
-  const { data } = parse(tokens);
-  const json = JSON.parse(data);
+function RowTabRawJson({ row }: { row: Chunk }) {
+  // const tokens = lexer(row);
+  // const { data } = parse(tokens);
+  // const json = JSON.parse(data);
+  const json = JSON.parse(row.value);
 
   return (
     <pre className="overflow-hidden whitespace-break-spaces break-all text-sm dark:text-white">

@@ -43,10 +43,7 @@ window.fetch = async (...args) => {
   console.log("url", url);
 
   const clonedResponse = response.clone();
-  const reader = clonedResponse.body
-    // eslint-disable-next-line no-undef
-    .pipeThrough(new TextDecoderStream())
-    .getReader();
+  const reader = clonedResponse.body.getReader();
 
   // eslint-disable-next-line no-constant-condition
   while (true) {

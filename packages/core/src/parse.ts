@@ -3,7 +3,9 @@ export function splitToCleanRows(payload: string) {
     throw new Error("Payload is not a string.");
   }
 
-  const rows = payload.split("\n");
+  console.log(payload.split("--------n"));
+
+  const rows = payload.split("--------");
 
   if (rows.at(-1) !== "") {
     console.error(
@@ -68,6 +70,11 @@ export function lexer(row: string) {
           type: LETTER_N,
           value: char,
         };
+      case ",":
+        return {
+          type: "COMMA",
+          value: char,
+        };
       default:
         return {
           type: UNKNOWN,
@@ -105,10 +112,25 @@ export function parse(tokens: ReturnType<typeof lexer>) {
     );
     const type = tokensBetweenColonAndJson.map((token) => token.value).join("");
 
+    if (type.startsWith("T")) {
+      return "T";
+    }
+
     return type;
   };
 
   function getData() {
+    if (getType() === "T") {
+      const firstCommaIndex = tokens.findIndex(
+        (token) => token.type === "COMMA",
+      );
+
+      return tokens
+        .slice(firstCommaIndex + 1)
+        .map((token) => token.value)
+        .join("");
+    }
+
     const firstJsonStartIndex = tokens.findIndex(
       (token) =>
         token.type === "DOUBLE_QUOTE" ||
@@ -143,6 +165,9 @@ export function refineRowType(rawType: string | undefined) {
     }
     case "HL": {
       return "hint";
+    }
+    case "T": {
+      return "text";
     }
     default: {
       return "unknown";
