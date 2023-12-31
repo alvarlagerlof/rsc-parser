@@ -136,32 +136,32 @@ export function processBinaryChunk(
 
 type TextChunk = {
   type: "text";
-  id: number;
+  id: string;
   value: string;
 };
 
 type ModuleChunk = {
   type: "module";
-  id: number;
+  id: string;
   value: string;
 };
 
 type HintChunk = {
   type: "hint";
-  id: number;
+  id: string;
   code: string;
   value: string;
 };
 
 type TreeChunk = {
   type: "tree";
-  id: number;
+  id: string;
   value: string;
 };
 
 type ErrorChunk = {
   type: "error";
-  id: number;
+  id: string;
   digest: string;
   message?: string;
   stack?: string;
@@ -169,14 +169,14 @@ type ErrorChunk = {
 
 type PostponeChunk = {
   type: "postpone";
-  id: number;
+  id: string;
   reason?: string;
   stack?: string;
 };
 
 type BufferChunk = {
   type: "buffer";
-  id: number;
+  id: string;
   value: ArrayBuffer;
 };
 
@@ -207,7 +207,7 @@ export function processFullRow(
         // resolveBuffer(response, id, mergeBuffer(buffer, chunk).buffer);
         response._chunks.push({
           type: "buffer",
-          id: id,
+          id: new Number(id).toString(16),
           value: mergeBuffer(buffer, chunk).buffer,
         });
         return;
@@ -222,7 +222,7 @@ export function processFullRow(
         // );
         response._chunks.push({
           type: "buffer",
-          id: id,
+          id: new Number(id).toString(16),
           value:
             buffer.length === 0 ? chunk : mergeBuffer(buffer, chunk).buffer,
         });
@@ -272,7 +272,7 @@ export function processFullRow(
       //resolveModule(response, id, row);
       response._chunks.push({
         type: "module",
-        id: id,
+        id: new Number(id).toString(16),
         value: row,
       });
       return;
@@ -283,7 +283,7 @@ export function processFullRow(
       response._chunks.push({
         type: "hint",
         code: code,
-        id: id,
+        id: new Number(id).toString(16),
         value: row.slice(1),
       });
       return;
@@ -300,7 +300,7 @@ export function processFullRow(
         // );
         response._chunks.push({
           type: "error",
-          id: id,
+          id: new Number(id).toString(16),
           digest: errorInfo.digest,
           message: errorInfo.message,
           stack: errorInfo.stack,
@@ -309,7 +309,7 @@ export function processFullRow(
         //resolveErrorProd(response, id, errorInfo.digest);
         response._chunks.push({
           type: "error",
-          id: id,
+          id: new Number(id).toString(16),
           digest: errorInfo.digest,
         });
       }
@@ -319,7 +319,7 @@ export function processFullRow(
       //resolveText(response, id, row);
       response._chunks.push({
         type: "text",
-        id: id,
+        id: new Number(id).toString(16),
         value: row,
       });
       return;
@@ -336,7 +336,7 @@ export function processFullRow(
           // );
           response._chunks.push({
             type: "postpone",
-            id: id,
+            id: new Number(id).toString(16),
             reason: postponeInfo.reason,
             stack: postponeInfo.stack,
           });
@@ -344,7 +344,7 @@ export function processFullRow(
           //resolvePostponeProd(response, id);
           response._chunks.push({
             type: "postpone",
-            id: id,
+            id: new Number(id).toString(16),
           });
         }
         return;
@@ -356,7 +356,7 @@ export function processFullRow(
       //resolveModel(response, id, row);
       response._chunks.push({
         type: "tree",
-        id: id,
+        id: new Number(id).toString(16),
         value: row,
       });
       return;
@@ -393,7 +393,7 @@ function resolveTypedArray(
   // resolveBuffer(response, id, view);
   response._chunks.push({
     type: "buffer",
-    id: id,
+    id: new Number(id).toString(16),
     value: view.buffer,
   });
 }
