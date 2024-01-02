@@ -1,7 +1,6 @@
-import { lexer, parse, refineRowType } from "../../parse";
 import { stringToKiloBytes } from "./stringToKiloBytes";
 import { Meter } from "../../Meter";
-import { Chunk } from "../../test";
+import { Chunk } from "../../react/ReactFlightClient";
 
 export function RowTab({
   row,
@@ -10,23 +9,20 @@ export function RowTab({
   row: Chunk;
   payloadSize: number;
 }) {
-  // const rowSize = parseFloat(stringToKiloBytes(row));
-  const rowSize = 0;
-  // const tokens = lexer(row);
-  // const { identifier, type } = parse(tokens);
-  // const refinedType = refineRowType(type);
-
-  const identifier = row.id;
-  const refinedType = row.type;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _response, ...rowWithoutResponse } = row;
+  const rowSize = parseFloat(
+    stringToKiloBytes(JSON.stringify(rowWithoutResponse)),
+  );
 
   return (
     <div className="flex flex-row gap-1.5 rounded-md border-2 border-transparent bg-slate-200 px-2 py-0.5 transition-all duration-100 group-aria-selected:border-slate-400 dark:bg-slate-800 dark:group-aria-selected:border-slate-500">
       <div className="-mt-px text-xl font-semibold text-black dark:text-white">
-        {identifier}
+        {row.id}
       </div>
       <div className="flex flex-col items-start">
         <div className="whitespace-nowrap text-black dark:text-white">
-          {refinedType}
+          {row.type}
         </div>
         <Meter fraction={rowSize / payloadSize} />
       </div>
@@ -43,8 +39,11 @@ export function RowTabFallback({
   row: Chunk;
   payloadSize: number;
 }) {
-  //const rowSize = parseFloat(stringToKiloBytes(row));
-  const rowSize = 0;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _response, ...rowWithoutResponse } = row;
+  const rowSize = parseFloat(
+    stringToKiloBytes(JSON.stringify(rowWithoutResponse)),
+  );
 
   if (error instanceof Error) {
     return (

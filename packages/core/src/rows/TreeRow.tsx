@@ -18,56 +18,57 @@ import {
   refineRawTreeNode,
 } from "./refineRawTreeNode.js";
 import { DownArrowIcon, RightArrowIcon } from "../icons.jsx";
+import { isParsedObject } from "../react/ReactFlightClient.js";
 
-export const ClickClientReferenceContext = createContext<{
-  onClickClientReference: (name: string) => void;
+export const ClickIDContext = createContext<{
+  onClickID: (name: string) => void;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
 }>(null);
 
 export function TreeRow({
   data,
-  onClickClientReference,
+  onClickID,
 }: {
-  data: string;
-  onClickClientReference: (name: string) => void;
+  data: unknown;
+  onClickID: (name: string) => void;
 }) {
-  const json = JSON.parse(data);
-
   return (
     <div className="font-code ligatures-none">
-      <ClickClientReferenceContext.Provider
-        value={{ onClickClientReference: onClickClientReference }}
-      >
-        <Node value={json} />
-      </ClickClientReferenceContext.Provider>
+      <ClickIDContext.Provider value={{ onClickID: onClickID }}>
+        <Node value={data} />
+      </ClickIDContext.Provider>
     </div>
   );
 }
 
-function Node({ value }: { value: JsonValue }) {
+function Node({ value }: { value: unknown }) {
   const refinedNode = refineRawTreeNode(value);
 
   switch (refinedNode.type) {
     case TYPE_OTHER:
       return (
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={refinedNode.value?.toString()}
-        >
-          <NodeOther value={refinedNode.value} />
-        </ErrorBoundary>
+        <>
+          <ErrorBoundary
+            FallbackComponent={GenericErrorBoundaryFallback}
+            // key={refinedNode.value?.toString()}
+          >
+            <NodeOther value={refinedNode.value} />
+          </ErrorBoundary>
+        </>
       );
     case TYPE_ARRAY:
       return (
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={refinedNode.value?.toString()}
-        >
-          <Suspense>
-            <NodeArray values={refinedNode.value} />
-          </Suspense>
-        </ErrorBoundary>
+        <>
+          <ErrorBoundary
+            FallbackComponent={GenericErrorBoundaryFallback}
+            // key={refinedNode.value?.toString()}
+          >
+            <Suspense>
+              <NodeArray values={refinedNode.value} />
+            </Suspense>
+          </ErrorBoundary>
+        </>
       );
     case TYPE_ELEMENT: {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -75,12 +76,14 @@ function Node({ value }: { value: JsonValue }) {
         refinedNode.value;
 
       return (
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={refinedNode.value?.toString()}
-        >
-          <NodeElement tag={elementType} props={props} />
-        </ErrorBoundary>
+        <>
+          <ErrorBoundary
+            FallbackComponent={GenericErrorBoundaryFallback}
+            key={elementType.toString() + JSON.stringify(Object.keys(props))}
+          >
+            <NodeElement tag={elementType} props={props} />
+          </ErrorBoundary>
+        </>
       );
     }
   }
@@ -170,20 +173,88 @@ function NodeOther({ value }: { value: JsonValue }) {
     );
   }
 
-  if (value === "$undefined") {
+  if (isParsedObject(value)) {
+    return (
+      <span className="inline-flex flex-row gap-2">
+        <TabJumpButton destinationTab={value.id}>
+          {value.id} (
+          {value.identifier === "" ? null : `${value.identifier} - `}
+          {value.type})
+        </TabJumpButton>
+      </span>
+    );
+  }
+
+  if (value instanceof Set) {
+    if (isInsideObject) {
+      // @ts-expect-error .values() does not work?
+      return `Set([${[...value.values()].join(",")}])`;
+    }
+
+    // @ts-expect-error .values() does not work?
+    return <JSContainer>Set([{[...value.values()].join(",")}])</JSContainer>;
+  }
+
+  if (typeof value === "symbol") {
+    if (isInsideObject) {
+      // @ts-expect-error Checking if a symbol does not work?
+      return value.toString();
+    }
+    // @ts-expect-error Checking if a symbol does not work?
+    return <JSContainer>{value.toString()}</JSContainer>;
+  }
+
+  if (value instanceof Date) {
+    if (isInsideObject) {
+      return `JS Date: ${value.toString()}`;
+    }
+    return <JSContainer>JS Date: {value.toString()}</JSContainer>;
+  }
+
+  if (Number.isNaN(value)) {
+    if (isInsideObject) {
+      return "NaN";
+    }
+    return <JSContainer>NaN</JSContainer>;
+  }
+
+  if (typeof value === "bigint") {
+    if (isInsideObject) {
+      // @ts-expect-error Checking if a bigint does not work?
+      return `BigInt: ${value.toString()}`;
+    }
+    // @ts-expect-error Checking if a bigint does not work?
+    return <JSContainer>BigInt: {value.toString()}</JSContainer>;
+  }
+
+  if (typeof value === "number" && isFinite(value) === false && value > 0) {
+    if (isInsideObject) {
+      return "Infinity";
+    }
+    return <JSContainer>Infinity</JSContainer>;
+  }
+
+  if (typeof value === "number" && isFinite(value) === false && value < 0) {
+    if (isInsideObject) {
+      return "-Infinity";
+    }
+    return <JSContainer>-Infinity</JSContainer>;
+  }
+
+  if (typeof value === "number") {
+    if (isInsideObject) {
+      return value.toString();
+    }
+    return <JSContainer>{value.toString()}</JSContainer>;
+  }
+
+  if (value === undefined) {
     // TODO: These isInsideObject conditions are a bit messy,
     // I need to find another way to handle it.
     if (isInsideObject) {
       return <>undefined</>;
     }
     return <JSContainer>undefined</JSContainer>;
-  }
-
-  if (value === undefined) {
-    if (isInsideObject) {
-      return <>undefined</>;
-    }
-    return null;
   }
 
   if (value === null) {
@@ -264,10 +335,6 @@ function StringValue({ value }: { value: string }) {
             dangerouslySetInnerHTML={{ __html: formattedString }}
           />
         )}
-
-        {value.startsWith("$L") ? (
-          <TreeReferenceAnnotation reference={value} />
-        ) : null}
       </div>
     );
   }
@@ -279,9 +346,6 @@ function StringValue({ value }: { value: string }) {
         <span dangerouslySetInnerHTML={{ __html: formattedString }} />
         &quot;
       </Yellow>
-      {value.startsWith("$L") ? (
-        <TreeReferenceAnnotation reference={value} />
-      ) : null}
     </div>
   );
 }
@@ -314,13 +378,12 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
           isInsideProps ? "pl-[4ch]" : "gap-1"
         }`}
       >
-        {values.map((subValue, i) => {
-          const refinedSubNode = refineRawTreeNode(subValue);
-
+        {/* TODO: Why is this spread needed for arrays like `[undefined]` ? */}
+        {[...values].map((subValue, i) => {
           return (
-            <li key={JSON.stringify(refinedSubNode.value) + String(i)}>
+            <li key={JSON.stringify(subValue) + String(i)}>
               <Suspense>
-                <Node value={refinedSubNode.value} />
+                <Node value={subValue} />
                 {isInsideProps && i !== values.length - 1 ? (
                   <span className="dark:text-white">,</span>
                 ) : null}
@@ -367,6 +430,14 @@ function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
 }
 
 function Props({ props }: { props: JsonObject }) {
+  if (isParsedObject(props)) {
+    return (
+      <div className="pl-[3ch]">
+        <Node value={props} />
+      </div>
+    );
+  }
+
   const rootProps = Object.keys(props);
 
   if (
@@ -424,6 +495,8 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
     propsWithoutChildren !== undefined &&
     Object.keys(propsWithoutChildren).length > 0;
 
+  const newTag = typeof tag === "string" ? tag : <Node value={tag} />;
+
   if (Object.keys(props).length === 0) {
     return (
       <div>
@@ -431,12 +504,11 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
           <Purple>
             <LeftArrow />
           </Purple>
-          <Pink>{tag}</Pink>{" "}
+          <Pink>{newTag}</Pink>{" "}
           <Purple>
             /<RightArrow />
           </Purple>
         </span>
-        {tag.startsWith("$L") ? <ClientReferenceAnnotation tag={tag} /> : null}
       </div>
     );
   }
@@ -453,7 +525,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
         <Purple>
           <LeftArrow />
         </Purple>
-        <Pink>{tag}</Pink>
+        <Pink>{newTag}</Pink>
         {isOpen ? (
           <>
             {hasVisibleProps ? null : (
@@ -481,7 +553,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
             <Purple>
               <LeftArrow />/
             </Purple>
-            <Pink>{tag}</Pink>
+            <Pink>{newTag}</Pink>
             <Purple>
               <RightArrow />
             </Purple>
@@ -503,9 +575,6 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
                       <Purple>
                         /<RightArrow />
                       </Purple>
-                      {tag.startsWith("$L") ? (
-                        <ClientReferenceAnnotation tag={tag} />
-                      ) : null}
                     </>
                   ) : (
                     <Purple>
@@ -520,10 +589,9 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
               <>
                 <PropsContext.Provider value={false}>
                   <div className="flex flex-col items-start gap-2 pl-[calc(2ch+18px)]">
-                    {tag.startsWith("$L") ? (
-                      <ClientReferenceAnnotation tag={tag} />
-                    ) : null}
-                    <Node value={props.children} />
+                    <ErrorBoundary fallback={<p>fail here</p>}>
+                      <Node value={props.children} />
+                    </ErrorBoundary>
                   </div>
                 </PropsContext.Provider>
 
@@ -531,7 +599,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
                   <Purple>
                     <LeftArrow />/
                   </Purple>
-                  <Pink>{tag}</Pink>
+                  <Pink>{newTag}</Pink>
                   <Purple>
                     <RightArrow />
                   </Purple>
@@ -552,59 +620,41 @@ function TabJumpButton({
   destinationTab: string;
   children: ReactNode;
 }) {
-  const { onClickClientReference } = useContext(ClickClientReferenceContext);
+  const { onClickID } = useContext(ClickIDContext);
 
   return (
     <button
-      className="rounded bg-blue-800 px-2 py-1 text-left text-white"
+      className="inline-flex flex-row items-center gap-1 rounded bg-blue-200 px-1 py-0.5 text-left text-xs text-white dark:bg-slate-700"
       onClick={() => {
-        onClickClientReference(destinationTab);
+        onClickID(destinationTab);
       }}
     >
-      {children}
+      {children}{" "}
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        color="text-black dark:text-white"
+        width="16px"
+        height="16px"
+      >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></g>
+        <g id="SVGRepo_iconCarrier">
+          <path
+            d="M15.0001 13.5V9M15.0001 9H10.5001M15.0001 9L9.00024 14.9999M7.20024 20H16.8002C17.9203 20 18.4804 20 18.9082 19.782C19.2845 19.5903 19.5905 19.2843 19.7823 18.908C20.0002 18.4802 20.0002 17.9201 20.0002 16.8V7.2C20.0002 6.0799 20.0002 5.51984 19.7823 5.09202C19.5905 4.71569 19.2845 4.40973 18.9082 4.21799C18.4804 4 17.9203 4 16.8002 4H7.20024C6.08014 4 5.52009 4 5.09226 4.21799C4.71594 4.40973 4.40998 4.71569 4.21823 5.09202C4.00024 5.51984 4.00024 6.07989 4.00024 7.2V16.8C4.00024 17.9201 4.00024 18.4802 4.21823 18.908C4.40998 19.2843 4.71594 19.5903 5.09226 19.782C5.52009 20 6.08014 20 7.20024 20Z"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+        </g>
+      </svg>
     </button>
-  );
-}
-
-function InfoBox({ children }: { children: ReactNode }) {
-  return (
-    <div className="flex select-none flex-row items-center gap-2 rounded-md bg-blue-200 p-0.5 px-2 dark:bg-slate-600">
-      <span className="font-semibold text-blue-700 dark:text-blue-300">
-        INFO
-      </span>
-      {children}
-    </div>
-  );
-}
-
-function ClientReferenceAnnotation({ tag }: { tag: string }) {
-  return (
-    <InfoBox>
-      <span className="dark:text-white">
-        {tag} indicates a client reference
-      </span>
-
-      <TabJumpButton destinationTab={tag}>
-        Go to &quot;
-        {tag.replace("$L", "")}
-        &quot;
-      </TabJumpButton>
-    </InfoBox>
-  );
-}
-
-function TreeReferenceAnnotation({ reference }: { reference: string }) {
-  return (
-    <InfoBox>
-      <span className="dark:text-white">
-        {reference} indicates a tree reference
-      </span>
-      <TabJumpButton destinationTab={reference}>
-        Go to &quot;
-        {reference.replace("$L", "")}
-        &quot;
-      </TabJumpButton>
-    </InfoBox>
   );
 }
 

@@ -1,12 +1,15 @@
 import { useState, useTransition } from "react";
 import * as Ariakit from "@ariakit/react";
-import { lexer, parse, splitToCleanRows } from "../../parse";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "../../GenericErrorBoundaryFallback";
 import { stringToKiloBytes } from "./stringToKiloBytes";
 import { RowTabPanel } from "./RowTabPanel";
 import { RowTab, RowTabFallback } from "./RowTab";
-import { Chunk } from "../../test";
+import { Chunk } from "../../react/ReactFlightClient";
+
+BigInt.prototype.toJSON = function () {
+  return this.toString();
+};
 
 export function RowTabs({ chunks }: { chunks: Chunk[] }) {
   const [isPending, startTransition] = useTransition();
@@ -15,9 +18,17 @@ export function RowTabs({ chunks }: { chunks: Chunk[] }) {
   );
   const [currentTab, setCurrentTab] = useState<string | null | undefined>(null);
 
-  // const payloadSize = parseFloat(stringToKiloBytes(payload));
-  const payloadSize = 0;
-  // const rows = splitToCleanRows(payload);
+  const payloadSize = parseFloat(
+    stringToKiloBytes(
+      chunks
+        .map((chunk) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { _response, ...rowWithoutResponse } = chunk;
+          return JSON.stringify(rowWithoutResponse);
+        })
+        .join(""),
+    ),
+  );
 
   const selectTab = (nextTab: string | null | undefined) => {
     if (nextTab !== selectedTab) {
@@ -28,9 +39,9 @@ export function RowTabs({ chunks }: { chunks: Chunk[] }) {
     }
   };
 
-  const selectTabByIdentifier = (tabIdentifier: number) => {
+  const selectTabByID = (id: string) => {
     for (const row of chunks) {
-      if (tabIdentifier === row.id) {
+      if (id === row.id) {
         // TODO: Don't hard-code this
         window.scrollTo(0, 680);
         tab.setSelectedId(String(row.id));
@@ -48,9 +59,9 @@ export function RowTabs({ chunks }: { chunks: Chunk[] }) {
       {chunks.length === 0 ? null : (
         <>
           <div className="flex flex-col gap-2 pb-3">
-            {/* <div className="text-black dark:text-white">
-              Total size: {stringToKiloBytes(payload)} KB (uncompressed)
-            </div> */}
+            <div className="text-black dark:text-white">
+              Total size: {payloadSize} KB (uncompressed)
+            </div>
 
             <Ariakit.TabList
               store={tab}
@@ -67,16 +78,11 @@ export function RowTabs({ chunks }: { chunks: Chunk[] }) {
                       <RowTabFallback
                         error={error}
                         row={row}
-                        // payloadSize={payloadSize}
-                        payloadSize={0}
+                        payloadSize={payloadSize}
                       />
                     )}
                   >
-                    <RowTab
-                      row={row}
-                      // payloadSize={payloadSize}
-                      payloadSize={0}
-                    />
+                    <RowTab row={row} payloadSize={payloadSize} />
                   </ErrorBoundary>
                 </Ariakit.Tab>
               ))}
@@ -94,13 +100,13 @@ export function RowTabs({ chunks }: { chunks: Chunk[] }) {
               opacity: isPending ? "0.6" : "1",
             }}
           >
-            {/* {payload === "" ? (
+            {chunks.length === 0 ? (
               <p className="text-black dark:text-white">
                 Please enter a payload to see results
               </p>
             ) : selectedTab === null || selectTab === undefined ? (
               <p className="text-black dark:text-white">Please select a row</p>
-            ) : null} */}
+            ) : null}
 
             {chunks
               .filter((row) => String(row.id) == currentTab)
@@ -112,7 +118,7 @@ export function RowTabs({ chunks }: { chunks: Chunk[] }) {
                   <RowTabPanel
                     row={row}
                     payloadSize={payloadSize}
-                    selectTabByIdentifier={selectTabByIdentifier}
+                    selectTabByID={selectTabByID}
                   />
                 </ErrorBoundary>
               ))}

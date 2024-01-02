@@ -2,7 +2,6 @@ import { useState, useTransition } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import * as Ariakit from "@ariakit/react";
 
-import { lexer, parse, refineRowType } from "../../parse";
 import { GenericErrorBoundaryFallback } from "../../GenericErrorBoundaryFallback";
 import { Meter } from "../../Meter";
 import { stringToKiloBytes } from "./stringToKiloBytes";
@@ -10,50 +9,47 @@ import { ClientReferenceRow } from "../../rows/ClientReferenceRow";
 import { HintRow } from "../../rows/HintRow";
 import { TreeRow } from "../../rows/TreeRow";
 import { DownArrowIcon, RightArrowIcon } from "../../icons";
-import { Chunk } from "../../test";
+import { Chunk } from "../../react/ReactFlightClient";
 
 export function RowTabPanel({
   row,
   payloadSize,
-  selectTabByIdentifier,
+  selectTabByID,
 }: {
   row: Chunk;
   payloadSize: number;
-  selectTabByIdentifier: (tabIdentifier: string) => void;
+  selectTabByID: (id: string) => void;
 }) {
   return (
     <div className="flex flex-col divide-y-1 dark:divide-slate-600">
-      <div className="pb-3">
-        <div className="flex flex-row justify-between">
-          <ErrorBoundary
-            FallbackComponent={GenericErrorBoundaryFallback}
-            key={`meta-${row.toString()}`}
-          >
-            <RowTabPanelMeta row={row} />
-          </ErrorBoundary>
-          <ErrorBoundary
-            FallbackComponent={GenericErrorBoundaryFallback}
-            key={`size-${row.toString()}`}
-          >
-            <RowTabPanelSize row={row} payloadSize={payloadSize} />
-          </ErrorBoundary>
-        </div>
-
+      <div className="flex flex-row justify-between pb-3">
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`row-${row.toString()}`}
+          key={`meta-${row.id}`}
         >
-          <RowTabPanelExplorer
-            row={row}
-            selectTabByIdentifier={selectTabByIdentifier}
-          />
+          <RowTabPanelMeta row={row} />
+        </ErrorBoundary>
+        <ErrorBoundary
+          FallbackComponent={GenericErrorBoundaryFallback}
+          key={`size-${row.id}`}
+        >
+          <RowTabPanelSize row={row} payloadSize={payloadSize} />
+        </ErrorBoundary>
+      </div>
+
+      <div className="py-3">
+        <ErrorBoundary
+          FallbackComponent={GenericErrorBoundaryFallback}
+          key={`row-${row.id}`}
+        >
+          <RowTabPanelExplorer row={row} selectTabByID={selectTabByID} />
         </ErrorBoundary>
       </div>
 
       <div className="pt-3">
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`tree-${row.toString()}`}
+          key={`tree-${row.id}`}
         >
           <RowTabPanelGenericData row={row} />
         </ErrorBoundary>
@@ -63,28 +59,12 @@ export function RowTabPanel({
 }
 
 function RowTabPanelMeta({ row }: { row: Chunk }) {
-  // const tokens = lexer(row);
-  // const { identifier, type } = parse(tokens);
-  // const refinedType = refineRowType(type);
-
-  const identifier = row.id;
-  const refinedType = row.type;
-  const type = row.type;
-
   return (
     <div className="flex flex-col gap-1">
       <h3 className="inline-block rounded-md text-xl font-bold dark:text-white">
-        {identifier}{" "}
-        <span className="text-slate-400 dark:text-slate-200">
-          / $L{identifier}
-        </span>
+        {row.id}
       </h3>
-      <h4 className="font-medium dark:text-white">
-        {refinedType}{" "}
-        {/* <span className="text-slate-400 dark:text-slate-200">
-          / &quot;{type}&quot;
-        </span>{" "} */}
-      </h4>
+      <h4 className="font-medium dark:text-white">{row.type}</h4>
     </div>
   );
 }
@@ -96,8 +76,11 @@ function RowTabPanelSize({
   row: Chunk;
   payloadSize: number;
 }) {
-  //const rowSize = parseFloat(stringToKiloBytes(row));
-  const rowSize = 0;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _response, ...rowWithoutResponse } = row;
+  const rowSize = parseFloat(
+    stringToKiloBytes(JSON.stringify(rowWithoutResponse)),
+  );
 
   return (
     <div className="text-right dark:text-white">
@@ -110,42 +93,33 @@ function RowTabPanelSize({
 
 export function RowTabPanelExplorer({
   row,
-  selectTabByIdentifier,
+  selectTabByID,
 }: {
   row: Chunk;
-  selectTabByIdentifier: (tabIdentifier: string) => void;
+  selectTabByID: (id: string) => void;
 }) {
-  // const tokens = lexer(row);
-  // const { type, data } = parse(tokens);
-
-  // const refinedType = refineRowType(type);
-
-  const refinedType = row.type;
-  const data = row.value;
-  // const type = row.type;
-
-  switch (refinedType) {
-    case "module":
-      // This is a bit iffy. Should probably have separate names for these.
-      return <ClientReferenceRow data={data} />;
-    case "hint":
-      return <HintRow data={data} />;
-    case "tree":
+  switch (row.type) {
+    case "model": {
       return (
-        <div className="max-w-full overflow-x-auto">
-          <TreeRow
-            data={data}
-            onClickClientReference={(name) => {
-              const buttonIdentifier = name.replace("$L", "");
-              selectTabByIdentifier(buttonIdentifier);
-            }}
-          />
-        </div>
+        <TreeRow
+          data={row.value}
+          onClickID={(id) => {
+            selectTabByID(id);
+          }}
+        />
       );
+    }
+    case "module": {
+      return <ClientReferenceRow data={row.value} />;
+    }
+    case "hint": {
+      return <HintRow data={row.value} />;
+    }
     case "text":
-      return <p className="dark:text-white">{data}</p>;
-    // case "unknown":
-    //   throw new Error(`Unknown row type: ${type}`);
+      return <p className="dark:text-white">{row.value}</p>;
+    default: {
+      return null;
+    }
   }
 }
 
@@ -179,14 +153,12 @@ function RowTabPanelGenericData({ row }: { row: Chunk }) {
 }
 
 function RowTabRawJson({ row }: { row: Chunk }) {
-  // const tokens = lexer(row);
-  // const { data } = parse(tokens);
-  // const json = JSON.parse(data);
-  const json = JSON.parse(row.value);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _response, ...rowWithoutResponse } = row;
 
   return (
     <pre className="overflow-hidden whitespace-break-spaces break-all text-sm dark:text-white">
-      {JSON.stringify(json, null, 1)}
+      {JSON.stringify(rowWithoutResponse, null, 1)}
     </pre>
   );
 }

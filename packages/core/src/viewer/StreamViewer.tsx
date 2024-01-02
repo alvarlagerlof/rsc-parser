@@ -13,9 +13,10 @@ import { RawStream } from "../stream/RawStream";
 import { RowStream } from "../stream/RowStream";
 import {
   FlightResponse,
-  createStringDecoder,
+  createFromJSONCallback,
   processBinaryChunk,
-} from "../test";
+} from "../react/ReactFlightClient";
+import { createStringDecoder } from "../react/ReactFlightClientConfigBrowser";
 
 export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
   const defaultSelectedId = "parsed";
@@ -117,10 +118,7 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
 }
 
 function DebugRaw({ messages }: { messages: RscChunkMessage[] }) {
-  console.log("DebugRaw");
-
   if (messages.length === 0) {
-    console.log("no messages");
     return null;
   }
 
@@ -154,6 +152,8 @@ function DebugRaw({ messages }: { messages: RscChunkMessage[] }) {
     _chunks: [],
   } satisfies FlightResponse;
 
+  response._fromJSON = createFromJSONCallback(response);
+
   // const flightResponses = messages.map((message) => {
   //   return {
   //     _buffer: message.data.chunkValue,
@@ -163,7 +163,6 @@ function DebugRaw({ messages }: { messages: RscChunkMessage[] }) {
   // })
 
   for (const buffer of responseBuffer) {
-    console.log("buffer", buffer);
     processBinaryChunk(response, buffer);
   }
 
@@ -179,9 +178,9 @@ function DebugRaw({ messages }: { messages: RscChunkMessage[] }) {
       {response._chunks.map((chunk) => (
         <pre>{JSON.stringify(chunk.row, null, 2)}</pre>
       ))} */}
-
+      {/*
       <p>Response:</p>
-      <pre>{JSON.stringify(response, null, 2)}</pre>
+      <pre>{JSON.stringify(response, null, 2)}</pre> */}
       {/*
       <p>Response:</p>
       <pre>{JSON.stringify(response, null, 2)}</pre>
