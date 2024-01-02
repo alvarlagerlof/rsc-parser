@@ -222,7 +222,7 @@ export type Data = {
   links: Link[];
 };
 
-export const RADIUS = 10;
+export const RADIUS = 12;
 
 export const drawNetwork = (
   context: CanvasRenderingContext2D,
@@ -251,8 +251,10 @@ export const drawNetwork = (
     context.beginPath();
     context.moveTo(node.x + RADIUS, node.y);
     context.arc(node.x, node.y, RADIUS, 0, 2 * Math.PI);
-    context.fillStyle = "#cb1dd1";
+    context.fillStyle = node.id === "0" ? "#002fca" : "#001a6e";
     context.fill();
+    context.fillStyle = "#ffffff";
+    context.fillText(node.id, node.x - 5, node.y + 4);
   });
 };
 
@@ -397,9 +399,9 @@ function DebugTree({ messages }: { messages: RscChunkMessage[] }) {
 
   return (
     <>
-      <pre>{JSON.stringify(nodes, null, 2)}</pre>
-      <pre>{JSON.stringify(links, null, 2)}</pre>
-      <NetworkDiagram width={500} height={500} data={data} />
+      {/* <pre>{JSON.stringify(nodes, null, 2)}</pre>
+      <pre>{JSON.stringify(links, null, 2)}</pre> */}
+      <NetworkDiagram width={700} height={700} data={data} />
     </>
   );
 }
