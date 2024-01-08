@@ -16,10 +16,6 @@ export function App() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sendResponse: unknown,
     ) {
-      console.log("message received", request);
-
-      console.log(isContentScriptUnloadedMessage(request));
-
       if (
         !isRscChunkMessage(request) &&
         !isContentScriptUnloadedMessage(request)
@@ -27,22 +23,16 @@ export function App() {
         return true;
       }
 
-      console.log("here 1");
-
       // // If the message is from a different tab, ignore it
       // if (request.tabId !== tabId) {
       //   return true;
       // }
-
-      console.log("here 2");
 
       if (isContentScriptUnloadedMessage(request)) {
         setIsRecording(false);
         setMessages([]);
         return true;
       }
-
-      console.log("here 3");
 
       // It's possible that this lookup will miss a duplicated message if another
       // one is being added at the same time. I haven't seen this happen in practice.
@@ -54,8 +44,6 @@ export function App() {
         return true;
       }
 
-      console.log("here 4");
-
       // // TODO: This is a hack to prevent messages with HTML from being added
       // // These messages should not be sent at all
       // if (request.data.chunkValue.includes("DOCTYPE")) {
@@ -65,8 +53,6 @@ export function App() {
       startTransition(() => {
         setMessages((previous) => [...previous, request]);
       });
-
-      console.log("here 5");
 
       return true;
     }

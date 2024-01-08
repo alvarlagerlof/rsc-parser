@@ -7,7 +7,6 @@ export const TYPE_ARRAY = "TYPE_ARRAY";
 
 export function refineRawTreeNode(value: unknown) {
   if (isElement(value)) {
-    console.log("isElement", value);
     return {
       type: TYPE_ELEMENT,
       value: [

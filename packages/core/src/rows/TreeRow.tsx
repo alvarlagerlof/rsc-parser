@@ -187,11 +187,9 @@ function NodeOther({ value }: { value: JsonValue }) {
 
   if (value instanceof Set) {
     if (isInsideObject) {
-      // @ts-expect-error .values() does not work?
       return `Set([${[...value.values()].join(",")}])`;
     }
 
-    // @ts-expect-error .values() does not work?
     return <JSContainer>Set([{[...value.values()].join(",")}])</JSContainer>;
   }
 
@@ -624,7 +622,7 @@ function TabJumpButton({
 
   return (
     <button
-      className="inline-flex flex-row items-center gap-1 rounded bg-blue-200 px-1 py-0.5 text-left text-xs text-white dark:bg-slate-700"
+      className="inline-flex flex-row items-center gap-1 rounded bg-blue-200 px-1 py-0.5 text-left text-sm text-white dark:bg-slate-700"
       onClick={() => {
         onClickID(destinationTab);
       }}
