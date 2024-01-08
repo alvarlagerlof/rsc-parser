@@ -15,7 +15,7 @@ import { messagesToResponse } from "../rows/messagesToResponse";
 import { NetworkDiagram } from "../stream/NetworkDiagram";
 
 export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
-  const defaultSelectedId = "tree";
+  const defaultSelectedId = "parsed";
   const tab = Ariakit.useTabStore({ defaultSelectedId });
 
   const timeScrubber = useTimeScrubber(messages, {
@@ -69,16 +69,16 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
                 className="flex flex-row gap-2"
               >
                 <Ariakit.Tab
-                  id="tree"
-                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
-                >
-                  Tree
-                </Ariakit.Tab>
-                <Ariakit.Tab
                   id="parsed"
                   className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
                 >
                   Parsed
+                </Ariakit.Tab>
+                <Ariakit.Tab
+                  id="tree"
+                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
+                >
+                  Tree
                 </Ariakit.Tab>
                 <Ariakit.Tab
                   id="rows"
@@ -95,12 +95,12 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
               </Ariakit.TabList>
             </div>
             <div>
-              <Ariakit.TabPanel store={tab}>
-                <NetworkDiagram chunks={response._chunks} />
-              </Ariakit.TabPanel>
-
               <Ariakit.TabPanel store={tab} tabId={defaultSelectedId}>
                 <RowTabs chunks={response._chunks} />
+              </Ariakit.TabPanel>
+
+              <Ariakit.TabPanel store={tab}>
+                <NetworkDiagram chunks={response._chunks} />
               </Ariakit.TabPanel>
 
               <Ariakit.TabPanel store={tab}>
