@@ -1,16 +1,13 @@
-import { RscChunkMessage } from "./message";
+import { Chunk } from "../react/ReactFlightClient";
 
-export function RowStream({ messages }: { messages: RscChunkMessage[] }) {
-  const splitByRows = messages
-    .map((message) => message.data.chunkValue)
-    .join()
-    .split("\n");
-
+export function RowStream({ chunks }: { chunks: Chunk[] }) {
   return (
     <ul className="flex flex-col gap-4 font-code dark:text-white">
-      {splitByRows.map((row) => (
+      {chunks.map((chunk) => (
         <li>
-          <pre className="w-full whitespace-break-spaces break-all">{row}</pre>
+          <pre className="w-full whitespace-break-spaces break-all">
+            {chunk.originalValue}
+          </pre>
         </li>
       ))}
     </ul>

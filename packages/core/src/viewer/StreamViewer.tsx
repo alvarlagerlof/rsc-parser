@@ -37,10 +37,7 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
     : [];
 
   const response = messagesToResponse(messagesForCurrentTab);
-
-  if (!response) {
-    return null;
-  }
+  const chunks = response?._chunks ?? [];
 
   return (
     <div className="flex h-full min-h-full flex-col gap-4">
@@ -96,19 +93,15 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
             </div>
             <div>
               <Ariakit.TabPanel store={tab} tabId={defaultSelectedId}>
-                <RowTabs chunks={response._chunks} />
+                <RowTabs chunks={chunks} />
               </Ariakit.TabPanel>
 
               <Ariakit.TabPanel store={tab}>
-                <NetworkDiagram chunks={response._chunks} />
+                <NetworkDiagram chunks={chunks} />
               </Ariakit.TabPanel>
 
               <Ariakit.TabPanel store={tab}>
-                <RowStream messages={messagesForCurrentTab} />
-              </Ariakit.TabPanel>
-
-              <Ariakit.TabPanel store={tab}>
-                <RowStream messages={messagesForCurrentTab} />
+                <RowStream chunks={chunks} />
               </Ariakit.TabPanel>
 
               <Ariakit.TabPanel store={tab}>

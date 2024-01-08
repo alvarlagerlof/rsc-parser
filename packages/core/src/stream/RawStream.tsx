@@ -38,9 +38,10 @@ export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
           <div>
             <Pill>Chunk value</Pill>{" "}
             <pre className="w-full whitespace-break-spaces break-all">
-              {data.chunkValue}
+              {Object.entries(data.chunkValue)
+                .map(([key, value]) => `${key} - ${value}`)
+                .join("\n")}
             </pre>
-            {/* <Pill>Chunk value</Pill> {data.chunkValue.substring(0, 100)} */}
           </div>
         </li>
       ))}

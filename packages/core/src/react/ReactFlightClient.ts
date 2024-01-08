@@ -15,6 +15,7 @@ export type TextChunk = {
   type: "text";
   id: string;
   value: string;
+  originalValue: string;
   _response: FlightResponse;
 };
 
@@ -22,6 +23,7 @@ export type ModuleChunk = {
   type: "module";
   id: string;
   value: ImportMetadata;
+  originalValue: string;
   _response: FlightResponse;
 };
 
@@ -29,6 +31,7 @@ export type ModelChunk = {
   type: "model";
   id: string;
   value: unknown;
+  originalValue: string;
   _response: FlightResponse;
 };
 
@@ -37,6 +40,7 @@ export type HintChunk = {
   id: string;
   code: string;
   value: HintModel<HintCode>;
+  originalValue: string;
   _response: FlightResponse;
 };
 
@@ -44,6 +48,7 @@ export type ErrorChunk = {
   type: "error";
   id: string;
   error: ErrorWithDigest;
+  originalValue: string;
   _response: FlightResponse;
 };
 
@@ -51,6 +56,7 @@ export type PostponeChunk = {
   type: "postpone";
   id: string;
   error: Postpone;
+  originalValue: string;
   _response: FlightResponse;
 };
 
@@ -58,6 +64,7 @@ export type BufferChunk = {
   type: "buffer";
   id: string;
   value: ArrayBufferView | ArrayBuffer;
+  originalValue: string;
   _response: FlightResponse;
 };
 
@@ -366,6 +373,7 @@ function resolveModel(
     type: "model",
     id: new Number(id).toString(16),
     value: value,
+    originalValue: model,
     _response: response,
   });
 }
@@ -379,6 +387,7 @@ function resolveText(response: FlightResponse, id: number, text: string): void {
     type: "text",
     id: new Number(id).toString(16),
     value: text,
+    originalValue: text,
     _response: response,
   });
 }
@@ -395,6 +404,7 @@ function resolveBuffer(
     type: "buffer",
     id: new Number(id).toString(16),
     value: buffer,
+    originalValue: buffer.toString(),
     _response: response,
   });
 }
@@ -415,6 +425,7 @@ function resolveModule(
     type: "module",
     id: new Number(id).toString(16),
     value: clientReferenceMetadata,
+    originalValue: model,
     _response: response,
   });
 }
@@ -447,6 +458,7 @@ function resolveErrorProd(
     type: "error",
     id: new Number(id).toString(16),
     error: errorWithDigest,
+    originalValue: digest,
     _response: response,
   });
 }
@@ -480,6 +492,7 @@ function resolveErrorDev(
     type: "error",
     id: new Number(id).toString(16),
     error: errorWithDigest,
+    originalValue: digest,
     _response: response,
   });
 }
@@ -511,6 +524,7 @@ function resolvePostponeProd(response: FlightResponse, id: number): void {
     type: "postpone",
     id: new Number(id).toString(16),
     error: postponeInstance,
+    originalValue: error.message,
     _response: response,
   });
 }
@@ -539,6 +553,7 @@ function resolvePostponeDev(
     type: "postpone",
     id: new Number(id).toString(16),
     error: postponeInstance,
+    originalValue: reason,
     _response: response,
   });
 }
@@ -558,6 +573,7 @@ function resolveHint<Code extends HintCode>(
     id: new Number(id).toString(16),
     code: code,
     value: hintModel,
+    originalValue: model,
     _response: response,
   });
 }
