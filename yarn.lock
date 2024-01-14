@@ -43,9 +43,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ariakit/react-core@npm:0.3.13":
-  version: 0.3.13
-  resolution: "@ariakit/react-core@npm:0.3.13"
+"@ariakit/react-core@npm:0.3.14":
+  version: 0.3.14
+  resolution: "@ariakit/react-core@npm:0.3.14"
   dependencies:
     "@ariakit/core": "npm:0.3.11"
     "@floating-ui/dom": "npm:^1.0.0"
@@ -53,19 +53,19 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 8a98beb8f0b01a191541c3bf49216a2998ddaf3cbb1dbede7eae9320be4ec0dd62078734c8f36ba14409f37120ee5e5604569c5edd17c30d6fa12b4b9da63f9a
+  checksum: a54b53bc59a7b9122b67daad99937005ee1b76aa075bd06e7210e22d77f2e551cfc3ca19e30b4a93d87bff9b99d140e08ef947f472346933fc21fd45afb43a4d
   languageName: node
   linkType: hard
 
-"@ariakit/react@npm:0.3.13":
-  version: 0.3.13
-  resolution: "@ariakit/react@npm:0.3.13"
+"@ariakit/react@npm:0.3.14":
+  version: 0.3.14
+  resolution: "@ariakit/react@npm:0.3.14"
   dependencies:
-    "@ariakit/react-core": "npm:0.3.13"
+    "@ariakit/react-core": "npm:0.3.14"
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 0f2a3ac306a0f5ee45efe64a70e5eb2d8167200481ed59373d2f240b4cb79216013d817731e6cd1701a9751c38fca09f14d203d3f17f5a19211dee8ad8f2a5db
+  checksum: cb89abc1b22b75e078ac5523ef3f8fb0d444c28263c7d1a4a306296329617dbc30ea30a1de6c49d83a174d36852eb89b2bf562a91ae2446a581629756a2cbfeb
   languageName: node
   linkType: hard
 
@@ -3578,7 +3578,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
-    "@ariakit/react": "npm:0.3.13"
+    "@ariakit/react": "npm:0.3.14"
     "@rsc-parser/core": "workspace:*"
     "@types/react": "npm:18.2.47"
     "@types/react-dom": "npm:18.2.18"
@@ -3654,7 +3654,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
-    "@ariakit/react": "npm:0.3.13"
+    "@ariakit/react": "npm:0.3.14"
     "@rsc-parser/core": "workspace:*"
     "@types/node": "npm:20.11.0"
     "@types/react": "npm:18.2.47"
