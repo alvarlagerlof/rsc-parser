@@ -3579,7 +3579,7 @@ __metadata:
   dependencies:
     "@ariakit/react": "npm:0.3.14"
     "@rsc-parser/core": "workspace:*"
-    "@types/react": "npm:18.2.47"
+    "@types/react": "npm:18.2.48"
     "@types/react-dom": "npm:18.2.18"
     "@typescript-eslint/eslint-plugin": "npm:6.18.1"
     "@typescript-eslint/parser": "npm:6.18.1"
@@ -3656,7 +3656,7 @@ __metadata:
     "@ariakit/react": "npm:0.3.14"
     "@rsc-parser/core": "workspace:*"
     "@types/node": "npm:20.11.5"
-    "@types/react": "npm:18.2.47"
+    "@types/react": "npm:18.2.48"
     "@types/react-dom": "npm:18.2.18"
     autoprefixer: "npm:10.4.16"
     eslint: "npm:8.56.0"
@@ -5204,7 +5204,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.2.47, @types/react@npm:>=16":
+"@types/react@npm:*, @types/react@npm:>=16":
   version: 18.2.47
   resolution: "@types/react@npm:18.2.47"
   dependencies:
@@ -5212,6 +5212,17 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 0a98c2ef8303909f78c973ac9731cb671f3a0b96bc5213b538d1a50cbaae6e51b6befd64845a9cb95af8528767315d5bd99a85608eb716c020393c7d33a9b477
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.2.48":
+  version: 18.2.48
+  resolution: "@types/react@npm:18.2.48"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 2e56ea6bd821ae96bd943f727a59d85384eaf5f8a3e6fce4fa1d34453e32d8eedda742432b3857fa0de7a4214bf84ce4239757eb52918e76452c00384731e585
   languageName: node
   linkType: hard
 
