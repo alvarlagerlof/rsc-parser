@@ -102,7 +102,26 @@ export function App() {
         <div className="flex min-h-full flex-col gap-8">
           <div className="flex flex-row items-center justify-between">
             <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
-
+            {process.env.NODE_ENV === "development" ? (
+              <button
+                onClick={() => {
+                  const stingifiedMessages = JSON.stringify(messages);
+                  console.log(stingifiedMessages);
+                  const input = document.createElement("input");
+                  // @ts-expect-error This is a hack
+                  input.style =
+                    "position: absolute; left: -1000px; top: -1000px";
+                  input.value = stingifiedMessages;
+                  document.body.appendChild(input);
+                  input.select();
+                  document.execCommand("copy");
+                  document.body.removeChild(input);
+                  alert("Copied messages to clipboard");
+                }}
+              >
+                Copy messages array
+              </button>
+            ) : null}
             <button
               className="rounded-md bg-slate-600 px-2 py-0.5 dark:bg-slate-300"
               onClick={() => setMessages([])}
