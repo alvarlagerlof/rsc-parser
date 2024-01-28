@@ -12,7 +12,7 @@ chrome.devtools.panels.create(
   "",
   "./index.html",
   function (panel) {
-    console.log("Hello! from panel create");
+    // console.log("Hello! from panel create");
     panel.onShown.addListener(handleShown);
     panel.onHidden.addListener(handleHidden);
   },

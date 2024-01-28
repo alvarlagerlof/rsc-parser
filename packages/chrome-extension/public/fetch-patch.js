@@ -40,8 +40,6 @@ window.fetch = async (...args) => {
     return response;
   }
 
-  console.log("url", url);
-
   const clonedResponse = response.clone();
   const reader = clonedResponse.body
     // eslint-disable-next-line no-undef
