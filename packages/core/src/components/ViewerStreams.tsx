@@ -34,8 +34,6 @@ export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
     <div className="flex h-full min-h-full flex-col gap-4">
       <TimeScrubber {...timeScrubber} />
 
-      <p>{timeScrubber.endTime}</p>
-
       <EndTimeContext.Provider value={timeScrubber.endTime}>
         <FlightResponseSelector {...pathTabs}>
           {!pathTabs.currentTab ? (
