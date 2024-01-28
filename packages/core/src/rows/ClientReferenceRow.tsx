@@ -17,7 +17,7 @@ export function ClientReferenceRow({ data }: { data: string }) {
   const parsed = schema.parse(json);
 
   return (
-    <div className="flex flex-col gap-4 ">
+    <div className="flex flex-col gap-4">
       <h3 className="text-xl font-semibold">
         Import {parsed[2] == "" ? "unknown" : parsed[2]}
       </h3>

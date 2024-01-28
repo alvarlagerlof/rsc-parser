@@ -7,7 +7,7 @@ export function RowStream({ messages }: { messages: RscChunkMessage[] }) {
     .split("\n");
 
   return (
-    <ul className="flex flex-col gap-4 font-code ">
+    <ul className="flex flex-col gap-4 font-code">
       {splitByRows.map((row) => (
         <li>
           <pre className="w-full whitespace-break-spaces break-all">{row}</pre>

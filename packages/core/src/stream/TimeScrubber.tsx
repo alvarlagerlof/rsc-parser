@@ -103,7 +103,7 @@ export function TimeScrubber({
   const trackPadding = 8;
 
   return (
-    <div className="flex w-full flex-col gap-1.5 rounded-md bg-slate-200 p-1.5 dark:bg-slate-800 ">
+    <div className="flex w-full flex-col gap-1.5 rounded-md bg-slate-200 p-1.5 dark:bg-slate-800">
       <div className="relative flex flex-row items-center transition-opacity delay-75 duration-100">
         <input
           type="range"

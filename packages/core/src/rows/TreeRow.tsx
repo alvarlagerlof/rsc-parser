@@ -101,7 +101,7 @@ function JSContainer({ children }: { children: ReactNode }) {
         </Blue>
       )}
 
-      <code className="whitespace-break-spaces break-all ">{children}</code>
+      <code className="whitespace-break-spaces break-all">{children}</code>
 
       {isInsideProps ? null : (
         <Blue>
@@ -293,7 +293,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
 
   if (values.length == 0) {
     return (
-      <div className="">
+      <div>
         <LeftSquareBracket />
         <RightSquareBracket />
       </div>
@@ -303,7 +303,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   return (
     <div>
       {isInsideProps ? (
-        <div className="pl-[2ch] ">
+        <div className="pl-[2ch]">
           <LeftSquareBracket />
         </div>
       ) : null}
@@ -328,7 +328,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
         })}
       </ul>
       {isInsideProps ? (
-        <div className="pl-[2ch] ">
+        <div className="pl-[2ch]">
           <RightSquareBracket />
         </div>
       ) : null}
@@ -473,7 +473,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
               <RightArrow />
             </Purple>
 
-            <span className="mx-1 rounded-lg border-1 border-solid border-slate-400 px-1.5 ">
+            <span className="mx-1 rounded-lg border-1 border-solid border-slate-400 px-1.5">
               ⋯
             </span>
             <Purple>
