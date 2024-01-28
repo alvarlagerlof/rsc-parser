@@ -614,7 +614,7 @@ function TabJumpButton({
 
   return (
     <button
-      className="inline-flex flex-row items-center gap-1 rounded bg-blue-200 px-1 py-0.5 text-left text-sm text-white dark:bg-slate-700"
+      className="inline-flex flex-row items-center gap-1 rounded bg-blue-200 px-1 py-0.5 text-left text-white dark:bg-slate-700"
       onClick={() => {
         onClickID(destinationTab);
       }}

@@ -329,7 +329,7 @@ function RowTabRawJson({ row }: { row: Chunk }) {
   const { _response, ...rowWithoutResponse } = row;
 
   return (
-    <pre className="overflow-hidden whitespace-break-spaces break-all text-sm">
+    <pre className="overflow-hidden whitespace-break-spaces break-all">
       {JSON.stringify(rowWithoutResponse, null, 1)}
     </pre>
   );
