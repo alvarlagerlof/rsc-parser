@@ -88,7 +88,7 @@ export function RowTabs({ payload }: { payload: string }) {
             }}
           >
             {payload === "" ? (
-              <p className="text-black ">
+              <p className="text-black">
                 Please enter a payload to see results
               </p>
             ) : selectedTab === null || selectTab === undefined ? (

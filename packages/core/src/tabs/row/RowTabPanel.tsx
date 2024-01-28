@@ -68,13 +68,13 @@ function RowTabPanelMeta({ row }: { row: string }) {
 
   return (
     <div className="flex flex-col gap-1">
-      <h3 className="inline-block rounded-md text-xl font-bold ">
+      <h3 className="inline-block rounded-md text-xl font-bold">
         {identifier}{" "}
         <span className="text-slate-400 dark:text-slate-200">
           / $L{identifier}
         </span>
       </h3>
-      <h4 className="font-medium ">
+      <h4 className="font-medium">
         {refinedType}{" "}
         <span className="text-slate-400 dark:text-slate-200">
           / &quot;{type}&quot;
@@ -94,7 +94,7 @@ function RowTabPanelSize({
   const rowSize = parseFloat(stringToKiloBytes(row));
 
   return (
-    <div className="text-right ">
+    <div className="text-right">
       <div className="whitespace-nowrap">{rowSize} KB row (uncompressed)</div>
       <div>{((rowSize / payloadSize) * 100).toFixed(2)}% of total</div>
       <Meter fraction={rowSize / payloadSize} />
@@ -154,7 +154,7 @@ function RowTabPanelGenericData({ row }: { row: string }) {
       <Ariakit.Disclosure
         store={disclosure}
         style={{ opacity: isPending ? 0.7 : 1 }}
-        className="flex cursor-pointer items-center gap-1 "
+        className="flex cursor-pointer items-center gap-1"
       >
         {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
         Raw data
@@ -172,7 +172,7 @@ function RowTabRawJson({ row }: { row: string }) {
   const json = JSON.parse(data);
 
   return (
-    <pre className="overflow-hidden whitespace-break-spaces break-all text-sm ">
+    <pre className="overflow-hidden whitespace-break-spaces break-all text-sm">
       {JSON.stringify(json, null, 1)}
     </pre>
   );

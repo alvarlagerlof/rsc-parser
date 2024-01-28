@@ -11,7 +11,7 @@ function Pill({ children }: { children: ReactNode }) {
 
 export function RawStream({ messages }: { messages: RscChunkMessage[] }) {
   return (
-    <ul className="flex flex-col divide-y divide-slate-500 font-code transition-opacity delay-75 duration-100 dark:divide-slate-400 ">
+    <ul className="flex flex-col divide-y divide-slate-500 font-code transition-opacity delay-75 duration-100 dark:divide-slate-400">
       {messages.map(({ data }) => (
         <li className="py-8 first:pt-0 last:pb-0">
           <div>
