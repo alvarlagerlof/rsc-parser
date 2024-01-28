@@ -1,5 +1,15 @@
 # @rsc-parser/chrome-extension
 
+## 0.1.11
+
+### Patch Changes
+
+- 611207b: Integrate parser from the ReactFlightClient source
+- c3240e7: Remove unuzed zod dependency
+- Updated dependencies [611207b]
+- Updated dependencies [c3240e7]
+  - @rsc-parser/core@0.1.11
+
 ## 0.1.10
 
 ### Patch Changes
