@@ -125,19 +125,19 @@ export type FlightResponse = {
   _fromJSON: (key: string, value: JSONValue) => any;
 };
 
-export type ParsedObject = {
-  $$type: "parsedObject";
+export type Reference = {
+  $$type: "reference";
   id: string;
   identifier: string;
   type: string;
 };
 
-export function isParsedObject(x: unknown): x is ParsedObject {
+export function isReference(x: unknown): x is Reference {
   return (
     typeof x === "object" &&
     x !== null &&
     "$$type" in x &&
-    x.$$type === "parsedObject"
+    x.$$type === "reference"
   );
 }
 
@@ -166,11 +166,11 @@ function parseModelString(
         // return createLazyChunkWrapper(chunk);
 
         return {
-          $$type: "parsedObject",
+          $$type: "reference",
           id: new Number(id).toString(16),
           identifier: "L",
           type: "Lazy node",
-        } satisfies ParsedObject;
+        } satisfies Reference;
       }
       case "@": {
         // Promise
@@ -179,11 +179,11 @@ function parseModelString(
         // return chunk;
 
         return {
-          $$type: "parsedObject",
+          $$type: "reference",
           id: new Number(id).toString(16),
           identifier: "@",
           type: "Promise",
-        } satisfies ParsedObject;
+        } satisfies Reference;
       }
       case "S": {
         // Symbol
@@ -203,11 +203,11 @@ function parseModelString(
         // return createServerReferenceProxy(response, metadata);
 
         return {
-          $$type: "parsedObject",
+          $$type: "reference",
           id: new Number(id).toString(16),
           identifier: "F",
           type: "Server Reference",
-        } satisfies ParsedObject;
+        } satisfies Reference;
       }
       case "Q": {
         // Map
@@ -216,11 +216,11 @@ function parseModelString(
         // return new Map(data);
 
         return {
-          $$type: "parsedObject",
+          $$type: "reference",
           id: new Number(id).toString(16),
           identifier: "Q",
           type: "Map",
-        } satisfies ParsedObject;
+        } satisfies Reference;
       }
       case "W": {
         // Set
@@ -229,11 +229,11 @@ function parseModelString(
         // return new Set(data);
 
         return {
-          $$type: "parsedObject",
+          $$type: "reference",
           id: new Number(id).toString(16),
           identifier: "W",
           type: "Set",
-        } satisfies ParsedObject;
+        } satisfies Reference;
       }
       case "I": {
         // $Infinity
@@ -300,11 +300,11 @@ function parseModelString(
         // }
 
         return {
-          $$type: "parsedObject",
+          $$type: "reference",
           id: new Number(id).toString(16),
           identifier: "",
           type: "Reference",
-        } satisfies ParsedObject;
+        } satisfies Reference;
       }
     }
   }
