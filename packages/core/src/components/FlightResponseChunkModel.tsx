@@ -1,6 +1,5 @@
 import React, {
   ReactNode,
-  Suspense,
   createContext,
   useContext,
   useState,
@@ -11,7 +10,11 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback.jsx";
 import { DownArrowIcon, RightArrowIcon } from "./FlightResponseIcons.jsx";
-import { isElement, isParsedObject } from "../react/ReactFlightClient.js";
+import {
+  ParsedObject,
+  isElement,
+  isParsedObject,
+} from "../react/ReactFlightClient.js";
 
 export const ClickIDContext = createContext<{
   onClickID: (name: string) => void;
@@ -36,215 +39,71 @@ export function FlightResponseChunkModel({
 }
 
 function Node({ value }: { value: unknown }) {
+  return (
+    <ErrorBoundary
+      FallbackComponent={GenericErrorBoundaryFallback}
+      key={JSON.stringify(value)}
+    >
+      <NodeSwitch value={value} />
+    </ErrorBoundary>
+  );
+}
+
+function NodeSwitch({ value }: { value: unknown }) {
   if (isElement(value)) {
-    return (
-      <>
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          key={value.type + JSON.stringify(Object.keys(value.props))}
-        >
-          <NodeElement tag={value.type} props={value.props} />
-        </ErrorBoundary>
-      </>
-    );
+    return <NodeElement tag={value.type} props={value.props} />;
   }
 
   if (Array.isArray(value)) {
-    return (
-      <>
-        <ErrorBoundary
-          FallbackComponent={GenericErrorBoundaryFallback}
-          // key={refinedNode.value?.toString()}
-        >
-          <Suspense>
-            <NodeArray values={value} />
-          </Suspense>
-        </ErrorBoundary>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <ErrorBoundary
-        FallbackComponent={GenericErrorBoundaryFallback}
-        // key={refinedNode.value?.toString()}
-      >
-        <NodeOther value={value} />
-      </ErrorBoundary>
-    </>
-  );
-}
-
-function JSContainer({ children }: { children: ReactNode }) {
-  const isInsideProps = useContext(PropsContext);
-
-  if (isInsideProps === undefined) {
-    throw new Error("PropsContext must be used within a PropsContext.Provider");
-  }
-
-  return (
-    <span>
-      {isInsideProps ? null : (
-        <Blue>
-          <LeftCurlyBrace />
-        </Blue>
-      )}
-
-      <code className="whitespace-break-spaces break-all">{children}</code>
-
-      {isInsideProps ? null : (
-        <Blue>
-          <RightCurlyBrace />
-        </Blue>
-      )}
-    </span>
-  );
-}
-
-const ObjectContext = createContext(false);
-
-function isLetter(letter: string) {
-  return RegExp(/^\p{L}/, "u").test(letter);
-}
-
-function JSObjectValue({ value }: { value: object }) {
-  const isInsideProps = useContext(PropsContext);
-
-  if (isInsideProps === undefined) {
-    throw new Error("PropsContext must be used within a PropsContext.Provider");
-  }
-
-  return (
-    <JSContainer>
-      {isInsideProps ? (
-        <Blue>
-          <LeftCurlyBrace />
-        </Blue>
-      ) : null}
-
-      <div className="flex flex-col pl-[2ch]">
-        {Object.entries(value).map(([entryKey, entryValue], i) => {
-          const needsDoubleQuotes = !isLetter(entryKey[0]);
-          return (
-            <span key={entryKey}>
-              <span>
-                {needsDoubleQuotes ? `"` : null}
-                {entryKey}
-                {needsDoubleQuotes ? `"` : null}:{" "}
-              </span>
-              <Node value={entryValue} />
-              {i !== Object.keys(value).length - 1 ? <>,</> : null}
-            </span>
-          );
-        })}
-      </div>
-
-      {isInsideProps ? (
-        <Blue>
-          <RightCurlyBrace />
-        </Blue>
-      ) : null}
-    </JSContainer>
-  );
-}
-
-function NodeOther({ value }: { value: unknown }) {
-  const isInsideObject = useContext(ObjectContext);
-
-  if (isInsideObject === undefined) {
-    throw new Error(
-      "ObjectContext must be used within a ObjectContext.Provider",
-    );
+    return <NodeArray values={value} />;
   }
 
   if (isParsedObject(value)) {
-    return (
-      <span className="inline-flex flex-row gap-2">
-        <TabJumpButton destinationTab={value.id}>
-          {value.id} (
-          {value.identifier === "" ? null : `${value.identifier} - `}
-          {value.type})
-        </TabJumpButton>
-      </span>
-    );
+    return <NodeParsedObject value={value} />;
   }
 
   if (value instanceof Set) {
-    if (isInsideObject) {
-      return `Set([${[...value.values()].join(",")}])`;
-    }
-
-    return <JSContainer>Set([{[...value.values()].join(",")}])</JSContainer>;
+    return <NodeSet value={value} />;
   }
 
   if (typeof value === "symbol") {
-    if (isInsideObject) {
-      return value.toString();
-    }
-    return <JSContainer>{value.toString()}</JSContainer>;
+    return <NodeSymbol value={value} />;
   }
 
   if (value instanceof Date) {
-    if (isInsideObject) {
-      return `JS Date: ${value.toString()}`;
-    }
-    return <JSContainer>JS Date: {value.toString()}</JSContainer>;
+    return <NodeDate value={value} />;
   }
 
   if (Number.isNaN(value)) {
-    if (isInsideObject) {
-      return "NaN";
-    }
-    return <JSContainer>NaN</JSContainer>;
+    return <NodeNaN />;
   }
 
   if (typeof value === "bigint") {
-    if (isInsideObject) {
-      return `BigInt: ${value.toString()}`;
-    }
-    return <JSContainer>BigInt: {value.toString()}</JSContainer>;
+    return <NodeBigInt value={value} />;
   }
 
   if (typeof value === "number" && isFinite(value) === false && value > 0) {
-    if (isInsideObject) {
-      return "Infinity";
-    }
-    return <JSContainer>Infinity</JSContainer>;
+    return <NodePositiveInfinity />;
   }
 
   if (typeof value === "number" && isFinite(value) === false && value < 0) {
-    if (isInsideObject) {
-      return "-Infinity";
-    }
-    return <JSContainer>-Infinity</JSContainer>;
+    return <NodeNegativeInfinity />;
   }
 
   if (typeof value === "number") {
-    if (isInsideObject) {
-      return value.toString();
-    }
-    return <JSContainer>{value.toString()}</JSContainer>;
+    return <NodeNumber value={value} />;
   }
 
   if (value === undefined) {
-    // TODO: These isInsideObject conditions are a bit messy,
-    // I need to find another way to handle it.
-    if (isInsideObject) {
-      return <>undefined</>;
-    }
-    return <JSContainer>undefined</JSContainer>;
+    return <NodeUndefined />;
   }
 
   if (value === null) {
-    if (isInsideObject) {
-      return <>null</>;
-    }
-    return <JSContainer>null</JSContainer>;
+    return <NodeNull />;
   }
 
   if (typeof value === "string") {
-    return <StringValue value={value} />;
+    return <NodeString value={value} />;
   }
 
   if (
@@ -253,193 +112,10 @@ function NodeOther({ value }: { value: unknown }) {
     Array.isArray(value) === false &&
     !(value instanceof Array)
   ) {
-    return (
-      <ObjectContext.Provider value={true}>
-        <JSObjectValue value={value} />
-      </ObjectContext.Provider>
-    );
+    return <NodeObject value={value} />;
   }
 
-  if (isInsideObject) {
-    return <>{JSON.stringify(value, null, 2)}</>;
-  }
-
-  return <JSContainer>{JSON.stringify(value, null, 2)}</JSContainer>;
-}
-
-function StringValue({ value }: { value: string }) {
-  const isInsideProps = useContext(PropsContext);
-
-  if (isInsideProps === undefined) {
-    throw new Error("PropsContext must be used within a PropsContext.Provider");
-  }
-
-  const needsSpecialHandling =
-    value.includes("\\") ||
-    value.includes("{") ||
-    value.includes("}") ||
-    value.includes("<") ||
-    value.includes(">") ||
-    value.includes("(") ||
-    value.includes(")") ||
-    value.includes("`");
-
-  const formattedString = value
-    .replaceAll(`"`, `&#92;"`)
-    .replaceAll(`\``, "\\`");
-
-  if (!isInsideProps) {
-    return (
-      <div className="inline flex-col gap-2">
-        {needsSpecialHandling ? (
-          <>
-            <Blue>
-              <LeftCurlyBrace />
-            </Blue>
-            <Yellow>
-              `
-              <span
-                className=""
-                dangerouslySetInnerHTML={{ __html: formattedString }}
-              />
-              `
-            </Yellow>
-            <Blue>
-              <RightCurlyBrace />
-            </Blue>
-          </>
-        ) : (
-          <span
-            className=""
-            dangerouslySetInnerHTML={{ __html: formattedString }}
-          />
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div className="inline flex-col gap-2">
-      <Yellow>
-        &quot;
-        <span dangerouslySetInnerHTML={{ __html: formattedString }} />
-        &quot;
-      </Yellow>
-    </div>
-  );
-}
-
-function NodeArray({ values }: { values: unknown[] }) {
-  const isInsideProps = useContext(PropsContext);
-
-  if (isInsideProps === undefined) {
-    throw new Error("PropsContext must be used within a PropsContext.Provider");
-  }
-
-  if (values.length == 0) {
-    return (
-      <div>
-        <LeftSquareBracket />
-        <RightSquareBracket />
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      {isInsideProps ? (
-        <div className="pl-[2ch]">
-          <LeftSquareBracket />
-        </div>
-      ) : null}
-      <ul
-        className={`flex w-full flex-col ${
-          isInsideProps ? "pl-[4ch]" : "gap-1"
-        }`}
-      >
-        {/* TODO: Why is this spread needed for arrays like `[undefined]` ? */}
-        {[...values].map((subValue, i) => {
-          return (
-            <li key={JSON.stringify(subValue) + String(i)}>
-              <Suspense>
-                <Node value={subValue} />
-                {isInsideProps && i !== values.length - 1 ? (
-                  <span className="">,</span>
-                ) : null}
-              </Suspense>
-            </li>
-          );
-        })}
-      </ul>
-      {isInsideProps ? (
-        <div className="pl-[2ch]">
-          <RightSquareBracket />
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
-const PropsContext = createContext(false);
-
-function Prop({ propKey, value }: { propKey: string; value: unknown }) {
-  return (
-    <>
-      <Green>{propKey}</Green>
-      <Pink>{`=`}</Pink>
-      {(typeof value === "string" && value === "$undefined") ||
-      typeof value !== "string" ? (
-        <Blue>
-          <LeftCurlyBrace />
-        </Blue>
-      ) : null}
-
-      <PropsContext.Provider value={true}>
-        <Node value={value} />
-      </PropsContext.Provider>
-
-      {(typeof value === "string" && value === "$undefined") ||
-      typeof value !== "string" ? (
-        <Blue>
-          <RightCurlyBrace />
-        </Blue>
-      ) : null}
-    </>
-  );
-}
-
-function Props({ props }: { props: { [key: string]: unknown } }) {
-  if (isParsedObject(props)) {
-    return (
-      <div className="pl-[3ch]">
-        <Node value={props} />
-      </div>
-    );
-  }
-
-  const rootProps = Object.keys(props);
-
-  if (
-    rootProps.length === 0 ||
-    (rootProps.length === 1 && rootProps[0] === "children")
-  ) {
-    return null;
-  }
-
-  return (
-    <div className="pl-[3ch]">
-      {rootProps
-        .filter((rootProp) => rootProp !== "children")
-        .map((rootProp, i) => {
-          return (
-            <div key={rootProp}>
-              <Prop propKey={rootProp} value={props[rootProp]} />
-              {i < rootProps.length - 1 ? " " : null}
-            </div>
-          );
-        })}
-    </div>
-  );
+  return <NodeUnknown value={value} />;
 }
 
 function removeChildren(props: Record<string, unknown>) {
@@ -598,6 +274,128 @@ function NodeElement({
   );
 }
 
+const PropsContext = createContext(false);
+
+function Prop({ propKey, value }: { propKey: string; value: unknown }) {
+  return (
+    <>
+      <Green>{propKey}</Green>
+      <Pink>{`=`}</Pink>
+      {(typeof value === "string" && value === "$undefined") ||
+      typeof value !== "string" ? (
+        <Blue>
+          <LeftCurlyBrace />
+        </Blue>
+      ) : null}
+
+      <PropsContext.Provider value={true}>
+        <Node value={value} />
+      </PropsContext.Provider>
+
+      {(typeof value === "string" && value === "$undefined") ||
+      typeof value !== "string" ? (
+        <Blue>
+          <RightCurlyBrace />
+        </Blue>
+      ) : null}
+    </>
+  );
+}
+
+function Props({ props }: { props: { [key: string]: unknown } }) {
+  if (isParsedObject(props)) {
+    return (
+      <div className="pl-[3ch]">
+        <Node value={props} />
+      </div>
+    );
+  }
+
+  const rootProps = Object.keys(props);
+
+  if (
+    rootProps.length === 0 ||
+    (rootProps.length === 1 && rootProps[0] === "children")
+  ) {
+    return null;
+  }
+
+  return (
+    <div className="pl-[3ch]">
+      {rootProps
+        .filter((rootProp) => rootProp !== "children")
+        .map((rootProp, i) => {
+          return (
+            <div key={rootProp}>
+              <Prop propKey={rootProp} value={props[rootProp]} />
+              {i < rootProps.length - 1 ? " " : null}
+            </div>
+          );
+        })}
+    </div>
+  );
+}
+
+function NodeArray({ values }: { values: unknown[] }) {
+  const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
+
+  if (values.length == 0) {
+    return (
+      <div>
+        <LeftSquareBracket />
+        <RightSquareBracket />
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {isInsideProps ? (
+        <div className="pl-[2ch]">
+          <LeftSquareBracket />
+        </div>
+      ) : null}
+      <ul
+        className={`flex w-full flex-col ${
+          isInsideProps ? "pl-[4ch]" : "gap-1"
+        }`}
+      >
+        {/* TODO: Why is this spread needed for arrays like `[undefined]` ? */}
+        {[...values].map((subValue, i) => {
+          return (
+            <li key={JSON.stringify(subValue) + String(i)}>
+              <Node value={subValue} />
+              {isInsideProps && i !== values.length - 1 ? (
+                <span className="">,</span>
+              ) : null}
+            </li>
+          );
+        })}
+      </ul>
+      {isInsideProps ? (
+        <div className="pl-[2ch]">
+          <RightSquareBracket />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function NodeParsedObject({ value }: { value: ParsedObject }) {
+  return (
+    <span className="inline-flex flex-row gap-2">
+      <TabJumpButton destinationTab={value.id}>
+        {value.id} ({value.identifier === "" ? null : `${value.identifier} - `}
+        {value.type})
+      </TabJumpButton>
+    </span>
+  );
+}
+
 function TabJumpButton({
   destinationTab,
   children,
@@ -640,6 +438,233 @@ function TabJumpButton({
       </svg>
     </button>
   );
+}
+
+function NodeSet({ value }: { value: Set<unknown> }) {
+  return (
+    <JSContainerWrapperForObjects>
+      Set([{[...value.values()].join(",")}])
+    </JSContainerWrapperForObjects>
+  );
+}
+
+function NodeSymbol({ value }: { value: symbol }) {
+  return (
+    <JSContainerWrapperForObjects>
+      {value.toString()}
+    </JSContainerWrapperForObjects>
+  );
+}
+
+function NodeDate({ value }: { value: Date }) {
+  return (
+    <JSContainerWrapperForObjects>
+      JS Date: {value.toString()}
+    </JSContainerWrapperForObjects>
+  );
+}
+
+function NodeNaN() {
+  return <JSContainerWrapperForObjects>NaN</JSContainerWrapperForObjects>;
+}
+
+function NodeBigInt({ value }: { value: bigint }) {
+  return (
+    <JSContainerWrapperForObjects>
+      BigInt: {value.toString()}
+    </JSContainerWrapperForObjects>
+  );
+}
+
+function NodePositiveInfinity() {
+  return <JSContainerWrapperForObjects>Infinity</JSContainerWrapperForObjects>;
+}
+
+function NodeNegativeInfinity() {
+  return <JSContainerWrapperForObjects>-Infinity</JSContainerWrapperForObjects>;
+}
+
+function NodeNumber({ value }: { value: number }) {
+  return (
+    <JSContainerWrapperForObjects>
+      {value.toString()}
+    </JSContainerWrapperForObjects>
+  );
+}
+
+function NodeNull() {
+  return <JSContainerWrapperForObjects>null</JSContainerWrapperForObjects>;
+}
+
+function NodeUndefined() {
+  return <JSContainerWrapperForObjects>undefined</JSContainerWrapperForObjects>;
+}
+
+function NodeString({ value }: { value: string }) {
+  const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
+
+  const needsSpecialHandling =
+    value.includes("\\") ||
+    value.includes("{") ||
+    value.includes("}") ||
+    value.includes("<") ||
+    value.includes(">") ||
+    value.includes("(") ||
+    value.includes(")") ||
+    value.includes("`");
+
+  const formattedString = value
+    .replaceAll(`"`, `&#92;"`)
+    .replaceAll(`\``, "\\`");
+
+  if (!isInsideProps) {
+    return (
+      <div className="inline flex-col gap-2">
+        {needsSpecialHandling ? (
+          <>
+            <Blue>
+              <LeftCurlyBrace />
+            </Blue>
+            <Yellow>
+              `
+              <span
+                className=""
+                dangerouslySetInnerHTML={{ __html: formattedString }}
+              />
+              `
+            </Yellow>
+            <Blue>
+              <RightCurlyBrace />
+            </Blue>
+          </>
+        ) : (
+          <span
+            className=""
+            dangerouslySetInnerHTML={{ __html: formattedString }}
+          />
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="inline flex-col gap-2">
+      <Yellow>
+        &quot;
+        <span dangerouslySetInnerHTML={{ __html: formattedString }} />
+        &quot;
+      </Yellow>
+    </div>
+  );
+}
+
+function NodeObject({ value }: { value: object }) {
+  return (
+    <ObjectContext.Provider value={true}>
+      <JSObjectValue value={value} />
+    </ObjectContext.Provider>
+  );
+}
+
+function NodeUnknown({ value }: { value: unknown }) {
+  return (
+    <JSContainerWrapperForObjects>
+      {JSON.stringify(value, null, 2)}
+    </JSContainerWrapperForObjects>
+  );
+}
+
+function JSContainer({ children }: { children: ReactNode }) {
+  const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
+
+  return (
+    <span>
+      {isInsideProps ? null : (
+        <Blue>
+          <LeftCurlyBrace />
+        </Blue>
+      )}
+
+      <code className="whitespace-break-spaces break-all">{children}</code>
+
+      {isInsideProps ? null : (
+        <Blue>
+          <RightCurlyBrace />
+        </Blue>
+      )}
+    </span>
+  );
+}
+
+const ObjectContext = createContext(false);
+
+function isLetter(letter: string) {
+  return RegExp(/^\p{L}/, "u").test(letter);
+}
+
+function JSObjectValue({ value }: { value: object }) {
+  const isInsideProps = useContext(PropsContext);
+
+  if (isInsideProps === undefined) {
+    throw new Error("PropsContext must be used within a PropsContext.Provider");
+  }
+
+  return (
+    <JSContainer>
+      {isInsideProps ? (
+        <Blue>
+          <LeftCurlyBrace />
+        </Blue>
+      ) : null}
+
+      <div className="flex flex-col pl-[2ch]">
+        {Object.entries(value).map(([entryKey, entryValue], i) => {
+          const needsDoubleQuotes = !isLetter(entryKey[0]);
+          return (
+            <span key={entryKey}>
+              <span>
+                {needsDoubleQuotes ? `"` : null}
+                {entryKey}
+                {needsDoubleQuotes ? `"` : null}:{" "}
+              </span>
+              <Node value={entryValue} />
+              {i !== Object.keys(value).length - 1 ? <>,</> : null}
+            </span>
+          );
+        })}
+      </div>
+
+      {isInsideProps ? (
+        <Blue>
+          <RightCurlyBrace />
+        </Blue>
+      ) : null}
+    </JSContainer>
+  );
+}
+
+function JSContainerWrapperForObjects({ children }: { children: ReactNode }) {
+  const isInsideObject = useContext(ObjectContext);
+
+  if (isInsideObject === undefined) {
+    throw new Error(
+      "ObjectContext must be used within a ObjectContext.Provider",
+    );
+  }
+
+  if (isInsideObject) {
+    return <JSContainer>{children}</JSContainer>;
+  }
+
+  return children;
 }
 
 function Purple({ children }: { children: ReactNode }) {
