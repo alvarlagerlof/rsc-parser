@@ -65,7 +65,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="space-y-2 dark:text-red-400">
+    <div className="space-y-2 dark:text-white">
       {messages.length === 0 || !isRecording ? (
         <div className="flex flex-col gap-8">
           <div className="flex flex-row items-center justify-between">
