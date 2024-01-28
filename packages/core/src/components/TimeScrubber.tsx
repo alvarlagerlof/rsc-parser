@@ -180,7 +180,7 @@ export function TimeScrubber({
         </svg>
       </div>
 
-      <div className="flex flex-row justify-between px-1 text-sm">
+      <div className="flex flex-row justify-between px-1">
         <div className="tabular-nums text-slate-700 dark:text-slate-300">
           {new Date(visibleEndTime).toLocaleTimeString()} /{" "}
           {new Date(maxEndTime).toLocaleTimeString()}
