@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { FlightResponseChunkModel } from "./FlightResponseChunkModel";
+import { REACT_ELEMENT_TYPE } from "../react/ReactSymbols";
 
 const meta: Meta<typeof FlightResponseChunkModel> = {
   argTypes: { onClickID: { action: "clicked client reference" } },
@@ -12,197 +13,309 @@ type Story = StoryObj<typeof FlightResponseChunkModel>;
 
 export const String: Story = {
   args: {
-    data: JSON.stringify("L7SkxK6dEGIxPChCswhi8"),
+    data: "L7SkxK6dEGIxPChCswhi8",
   },
 };
 
 export const StringArray: Story = {
   args: {
-    data: JSON.stringify(["L7SkxK6dEGIxPChCswhi8", "children", "main"]),
+    data: ["L7SkxK6dEGIxPChCswhi8", "children", "main"],
   },
 };
 
 export const Boolean: Story = {
   args: {
-    data: JSON.stringify(true),
+    data: true,
   },
 };
 
 export const Number: Story = {
   args: {
-    data: JSON.stringify(0),
+    data: 0,
   },
 };
 
 export const Undefined: Story = {
   args: {
-    data: JSON.stringify("$undefined"),
+    data: undefined,
   },
 };
 
 export const Null: Story = {
   args: {
-    data: JSON.stringify(null),
+    data: null,
   },
 };
 
 export const EmptyElement: Story = {
   args: {
-    data: JSON.stringify(["$", "br", "0", {}]),
+    data: { $$typeof: REACT_ELEMENT_TYPE, type: "br", key: "0", props: {} },
   },
 };
 
 export const ElementWithChildren: Story = {
   args: {
-    data: JSON.stringify(["$", "p", "0", { children: "Hello world" }]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "p",
+      key: "0",
+      props: { children: "Hello world" },
+    },
   },
 };
 
 export const ElementsWithCodeChildren: Story = {
   args: {
-    data: JSON.stringify([
-      ["$", "p", "0", { children: "{}" }],
-      ["$", "p", "0", { children: "()" }],
-      ["$", "p", "0", { children: "<>" }],
-      ["$", "p", "0", { children: "`" }],
-      ["$", "p", "0", { children: "``" }],
-    ]),
+    data: [
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "p",
+        key: "0",
+        props: { children: "{}" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "p",
+        key: "0",
+        props: { children: "()" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "p",
+        key: "0",
+        props: { children: "<>" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "p",
+        key: "0",
+        props: { children: "`" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "p",
+        key: "0",
+        props: { children: "``" },
+      },
+    ],
   },
 };
 
 export const StringProp: Story = {
   args: {
-    data: JSON.stringify(["$", "div", "0", { className: "test" }]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "div",
+      key: "0",
+      props: { className: "test" },
+    },
   },
 };
 
 export const EscapedStringProp: Story = {
   args: {
-    data: JSON.stringify(["$", "div", "0", { className: 'this a "quote"' }]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "div",
+      key: "0",
+      props: { className: 'this a "quote"' },
+    },
   },
 };
 
 export const NumberProp: Story = {
   args: {
-    data: JSON.stringify(["$", "Component", "0", { something: 0 }]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "Component",
+      key: "0",
+      props: { something: 0 },
+    },
   },
 };
 
 export const BooleanProp: Story = {
   args: {
-    data: JSON.stringify(["$", "Component", "0", { something: true }]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "Component",
+      key: "0",
+      props: { something: true },
+    },
   },
 };
 
 export const ElementProp: Story = {
   args: {
-    data: JSON.stringify([
-      "$",
-      "Component",
-      "0",
-      { element: ["$", "div", "0", {}] },
-    ]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "Component",
+      key: "0",
+      props: {
+        element: {
+          $$typeof: REACT_ELEMENT_TYPE,
+          type: "div",
+          key: "0",
+          props: {},
+        },
+      },
+    },
   },
 };
 
 export const ObjectProps: Story = {
   args: {
-    data: JSON.stringify([
-      "$",
-      "div",
-      "0",
-      { data: { some: "thing", foo: "bar" } },
-    ]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "div",
+      key: "0",
+      props: { data: { some: "thing", foo: "bar" } },
+    },
   },
 };
 
 export const NestedObjectProps: Story = {
   args: {
-    data: JSON.stringify([
-      "$",
-      "div",
-      "0",
-      { data: { some: "thing", foo: { baz: "bar" } } },
-    ]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "div",
+      key: "0",
+      props: { data: { some: "thing", foo: { baz: "bar" } } },
+    },
   },
 };
 
 export const ArrayProp: Story = {
   args: {
-    data: JSON.stringify(["$", "div", "0", { data: ["test", "hello"] }]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "div",
+      key: "0",
+      props: { data: ["test", "hello"] },
+    },
   },
 };
 
 export const ArrayObjectProp: Story = {
   args: {
-    data: JSON.stringify([
-      "$",
-      "div",
-      "0",
-      { x: { y: [{ foo: "bar" }, { foo: "bar" }] } },
-    ]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "div",
+      key: "0",
+      props: { x: { y: [{ foo: "bar" }, { foo: "bar" }] } },
+    },
   },
 };
 
 export const ElementArray: Story = {
   args: {
-    data: JSON.stringify([
-      ["$", "br", "0", {}],
-      ["$", "br", "0", {}],
-      ["$", "br", "0", {}],
-    ]),
+    data: [
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "br",
+        key: "0",
+        props: {},
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "br",
+        key: "0",
+        props: {},
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "br",
+        key: "0",
+        props: {},
+      },
+    ],
   },
 };
 
 export const NestedElementArray: Story = {
   args: {
-    data: JSON.stringify([
-      [
-        "$",
-        "div",
-        "0",
-        {
+    data: [
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "div",
+        key: "0",
+        props: {
           children: [
-            ["$", "br", "0", {}],
-            ["$", "br", "0", {}],
+            {
+              $$typeof: REACT_ELEMENT_TYPE,
+              type: "br",
+              key: "0",
+              props: {},
+            },
+            {
+              $$typeof: REACT_ELEMENT_TYPE,
+              type: "br",
+              key: "0",
+              props: {},
+            },
           ],
         },
-      ],
-      [
-        "$",
-        "div",
-        "0",
-        {
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "div",
+        key: "0",
+        props: {
           children: [
-            ["$", "br", "0", {}],
-            ["$", "br", "0", {}],
+            {
+              $$typeof: REACT_ELEMENT_TYPE,
+              type: "br",
+              key: "0",
+              props: {},
+            },
+            {
+              $$typeof: REACT_ELEMENT_TYPE,
+              type: "br",
+              key: "0",
+              props: {},
+            },
           ],
         },
-      ],
-      [
-        "$",
-        "div",
-        "0",
-        {
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "div",
+        key: "0",
+        props: {
           children: [
-            ["$", "br", "0", {}],
-            ["$", "br", "0", {}],
+            {
+              $$typeof: REACT_ELEMENT_TYPE,
+              type: "br",
+              key: "0",
+              props: {},
+            },
+            {
+              $$typeof: REACT_ELEMENT_TYPE,
+              type: "br",
+              key: "0",
+              props: {},
+            },
           ],
         },
-      ],
-    ]),
+      },
+    ],
   },
 };
 
 export const ClientRef: Story = {
   args: {
-    data: JSON.stringify(["$", "$L9", "0", {}]),
+    data: {
+      $$typeof: REACT_ELEMENT_TYPE,
+      type: "$L9",
+      key: "0",
+      props: {},
+    },
   },
 };
 
 export const FirstRowExample: Story = {
   args: {
-    data: JSON.stringify([
+    data: [
       "L7SkxK6dEGIxPChCswhi8",
       [
         [
@@ -212,148 +325,249 @@ export const FirstRowExample: Story = {
           "projects",
           ["projects", { children: ["__PAGE__", {}] }],
           "$L1",
-          [[], ["$L2", ["$", "meta", null, { name: "next-size-adjust" }]]],
+          [
+            [],
+            [
+              "$L2",
+              {
+                $$typeof: REACT_ELEMENT_TYPE,
+                type: "meta",
+                key: null,
+                props: { name: "next-size-adjust" },
+              },
+            ],
+          ],
         ],
       ],
-    ]),
+    ],
   },
 };
-
 export const MetaTagsExample: Story = {
   args: {
-    data: JSON.stringify([
-      ["$", "meta", "0", { charSet: "utf-8" }],
-      ["$", "title", "1", { children: "Projects" }],
-      [
-        "$",
-        "meta",
-        "2",
-        {
+    data: [
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "0",
+        props: { charSet: "utf-8" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "title",
+        key: "1",
+        props: { children: "Projects" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "2",
+        props: {
           name: "description",
           content: "These are some of the projects I've worked on",
         },
-      ],
-      ["$", "meta", "3", { name: "theme-color", content: "#16a34a" }],
-      [
-        "$",
-        "meta",
-        "4",
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
-      ],
-      [
-        "$",
-        "link",
-        "5",
-        {
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "3",
+        props: { name: "theme-color", content: "#16a34a" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "4",
+        props: {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1",
+        },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "link",
+        key: "5",
+        props: {
           rel: "alternate",
           type: "application/rss+xml",
           href: "https://alvar.dev/feed.xml",
         },
-      ],
-      ["$", "meta", "6", { property: "og:site_name", content: "alvar.dev" }],
-      ["$", "meta", "7", { property: "og:image:type", content: "image/png" }],
-      [
-        "$",
-        "meta",
-        "8",
-        {
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "6",
+        props: { property: "og:site_name", content: "alvar.dev" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "7",
+        props: { property: "og:image:type", content: "image/png" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "8",
+        props: {
           property: "og:image",
           content:
             "https://alvar.dev/projects/opengraph-image-7gbxx9?92712a71ecaaf7f6",
         },
-      ],
-      ["$", "meta", "9", { property: "og:image:width", content: "1200" }],
-      ["$", "meta", "10", { property: "og:image:height", content: "630" }],
-      [
-        "$",
-        "meta",
-        "11",
-        { name: "twitter:card", content: "summary_large_image" },
-      ],
-      ["$", "meta", "12", { name: "twitter:site", content: "@alvarlagerlof" }],
-      [
-        "$",
-        "meta",
-        "13",
-        { name: "twitter:creator", content: "@alvarlagerlof" },
-      ],
-      ["$", "meta", "14", { name: "twitter:image:type", content: "image/png" }],
-      [
-        "$",
-        "meta",
-        "15",
-        {
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "9",
+        props: { property: "og:image:width", content: "1200" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "10",
+        props: { property: "og:image:height", content: "630" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "11",
+        props: { name: "twitter:card", content: "summary_large_image" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "12",
+        props: { name: "twitter:site", content: "@alvarlagerlof" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "13",
+        props: { name: "twitter:creator", content: "@alvarlagerlof" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "14",
+        props: { name: "twitter:image:type", content: "image/png" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "15",
+        props: {
           name: "twitter:image",
           content:
             "https://alvar.dev/projects/opengraph-image-7gbxx9?92712a71ecaaf7f6",
         },
-      ],
-      ["$", "meta", "16", { name: "twitter:image:width", content: "1200" }],
-      ["$", "meta", "17", { name: "twitter:image:height", content: "630" }],
-      ["$", "link", "18", { rel: "icon", href: "/favicons/favicon.ico" }],
-      [
-        "$",
-        "link",
-        "19",
-        { rel: "icon", href: "/favicons/favicon-16x16.png", sizes: "16x16" },
-      ],
-      [
-        "$",
-        "link",
-        "20",
-        { rel: "icon", href: "/favicons/favicon-32x32.png", sizes: "32x32" },
-      ],
-      [
-        "$",
-        "link",
-        "21",
-        {
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "16",
+        props: { name: "twitter:image:width", content: "1200" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "meta",
+        key: "17",
+        props: { name: "twitter:image:height", content: "630" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "link",
+        key: "18",
+        props: { rel: "icon", href: "/favicons/favicon.ico" },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "link",
+        key: "19",
+        props: {
+          rel: "icon",
+          href: "/favicons/favicon-16x16.png",
+          sizes: "16x16",
+        },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "link",
+        key: "20",
+        props: {
+          rel: "icon",
+          href: "/favicons/favicon-32x32.png",
+          sizes: "32x32",
+        },
+      },
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "link",
+        key: "21",
+        props: {
           rel: "icon",
           href: "/favicons/favicon-192x192.png",
           sizes: "192x192",
         },
-      ],
-    ]),
+      },
+    ],
   },
 };
 
 export const NextJsExample: Story = {
   args: {
-    data: JSON.stringify([
-      [
-        "$",
-        "html",
-        null,
-        {
+    data: [
+      {
+        $$typeof: REACT_ELEMENT_TYPE,
+        type: "html",
+        key: null,
+        props: {
           lang: "en",
           suppressHydrationWarning: true,
           children: [
-            ["$", "head", null, {}],
-            [
-              "$",
-              "body",
-              null,
-              {
+            {
+              $$typeof: REACT_ELEMENT_TYPE,
+              type: "head",
+              key: null,
+              props: {},
+            },
+            {
+              $$typeof: REACT_ELEMENT_TYPE,
+              type: "body",
+              key: null,
+              props: {
                 children: [
-                  ["$", "$L6", null, {}],
-                  ["$", "$L7", null, {}],
-                  [
-                    "$",
-                    "$L8",
-                    null,
-                    {
+                  {
+                    $$typeof: REACT_ELEMENT_TYPE,
+                    type: "$L6",
+                    key: null,
+                    props: {},
+                  },
+                  {
+                    $$typeof: REACT_ELEMENT_TYPE,
+                    type: "$L7",
+                    key: null,
+                    props: {},
+                  },
+                  {
+                    $$typeof: REACT_ELEMENT_TYPE,
+                    type: "$L8",
+                    key: null,
+                    props: {
                       children: [
-                        ["$", "$L9", null, {}],
-                        [
-                          "$",
-                          "main",
-                          null,
-                          {
-                            children: [
-                              "$",
-                              "$La",
-                              null,
-                              {
+                        {
+                          $$typeof: REACT_ELEMENT_TYPE,
+                          type: "$L9",
+                          key: null,
+                          props: {},
+                        },
+                        {
+                          $$typeof: REACT_ELEMENT_TYPE,
+                          type: "main",
+                          key: null,
+                          props: {
+                            children: {
+                              $$typeof: REACT_ELEMENT_TYPE,
+                              type: "$La",
+                              key: null,
+                              props: {
                                 parallelRouterKey: "children",
                                 segmentPath: ["children"],
                                 error: "$undefined",
@@ -361,101 +575,143 @@ export const NextJsExample: Story = {
                                 loading: "$undefined",
                                 loadingStyles: "$undefined",
                                 hasLoading: false,
-                                template: ["$", "$Lb", null, {}],
+                                template: {
+                                  $$typeof: REACT_ELEMENT_TYPE,
+                                  type: "$Lb",
+                                  key: null,
+                                  props: {},
+                                },
                                 templateStyles: "$undefined",
                                 notFound: "$undefined",
                                 notFoundStyles: "$undefined",
                                 childProp: {
                                   current: [
-                                    [
-                                      "$",
-                                      "div",
-                                      null,
-                                      {
+                                    {
+                                      $$typeof: REACT_ELEMENT_TYPE,
+                                      type: "div",
+                                      key: null,
+                                      props: {
                                         className: "home_root__yKyeQ",
                                         children: [
-                                          [
-                                            "$",
-                                            "div",
-                                            null,
-                                            {
+                                          {
+                                            $$typeof: REACT_ELEMENT_TYPE,
+                                            type: "div",
+                                            key: null,
+                                            props: {
                                               id: "geist-skip-nav",
                                               tabIndex: -1,
                                             },
-                                          ],
-                                          ["$", "$Lc", null, {}],
-                                          [
-                                            "$",
-                                            "$Ld",
-                                            null,
-                                            {
-                                              children: ["$", "$Le", null, {}],
+                                          },
+                                          {
+                                            $$typeof: REACT_ELEMENT_TYPE,
+                                            type: "$Lc",
+                                            key: null,
+                                            props: {},
+                                          },
+                                          {
+                                            $$typeof: REACT_ELEMENT_TYPE,
+                                            type: "$Ld",
+                                            key: null,
+                                            props: {
+                                              children: {
+                                                $$typeof: REACT_ELEMENT_TYPE,
+                                                type: "$Le",
+                                                key: null,
+                                                props: {},
+                                              },
                                             },
-                                          ],
-                                          [
-                                            "$",
-                                            "$Ld",
-                                            null,
-                                            {
-                                              children: ["$", "$Lf", null, {}],
+                                          },
+                                          {
+                                            $$typeof: REACT_ELEMENT_TYPE,
+                                            type: "$Ld",
+                                            key: null,
+                                            props: {
+                                              children: {
+                                                $$typeof: REACT_ELEMENT_TYPE,
+                                                type: "$Lf",
+                                                key: null,
+                                                props: {},
+                                              },
                                             },
-                                          ],
-                                          [
-                                            "$",
-                                            "$Ld",
-                                            null,
-                                            {
-                                              children: ["$", "$L10", null, {}],
+                                          },
+                                          {
+                                            $$typeof: REACT_ELEMENT_TYPE,
+                                            type: "$Ld",
+                                            key: null,
+                                            props: {
+                                              children: {
+                                                $$typeof: REACT_ELEMENT_TYPE,
+                                                type: "$L10",
+                                                key: null,
+                                                props: {},
+                                              },
                                             },
-                                          ],
-                                          [
-                                            "$",
-                                            "$Ld",
-                                            null,
-                                            {
-                                              children: ["$", "$L11", null, {}],
+                                          },
+                                          {
+                                            $$typeof: REACT_ELEMENT_TYPE,
+                                            type: "$Ld",
+                                            key: null,
+                                            props: {
+                                              children: {
+                                                $$typeof: REACT_ELEMENT_TYPE,
+                                                type: "$L11",
+                                                key: null,
+                                                props: {},
+                                              },
                                             },
-                                          ],
+                                          },
                                         ],
                                       },
-                                    ],
+                                    },
                                     null,
                                   ],
                                   segment: "__PAGE__",
                                 },
                                 styles: [
-                                  [
-                                    "$",
-                                    "link",
-                                    "0",
-                                    {
+                                  {
+                                    $$typeof: REACT_ELEMENT_TYPE,
+                                    type: "link",
+                                    key: "0",
+                                    props: {
                                       rel: "stylesheet",
                                       href: "/_next/static/css/9a9aedd1f702c897.css?dpl=dpl_DWRqk7ufoR23bkEq1XgenPvDAjTK",
                                       precedence: "next",
                                     },
-                                  ],
+                                  },
                                 ],
                               },
-                            ],
+                            },
                           },
-                        ],
-                        [
-                          "$",
-                          "$Ld",
-                          null,
-                          { children: ["$", "$L12", null, {}] },
-                        ],
+                        },
+                        {
+                          $$typeof: REACT_ELEMENT_TYPE,
+                          type: "$Ld",
+                          key: null,
+                          props: {
+                            children: {
+                              $$typeof: REACT_ELEMENT_TYPE,
+                              type: "$L12",
+                              key: null,
+                              props: {},
+                            },
+                          },
+                        },
                       ],
                     },
-                  ],
-                  ["$", "$L13", null, {}],
+                  },
+                  {
+                    $$typeof: REACT_ELEMENT_TYPE,
+                    type: "$L13",
+                    key: null,
+                    props: {},
+                  },
                 ],
               },
-            ],
+            },
           ],
         },
-      ],
+      },
       null,
-    ]),
+    ],
   },
 };
