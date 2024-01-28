@@ -16,13 +16,9 @@ export function RowTab({
 
   return (
     <div className="flex flex-row gap-1.5 rounded-md border-2 border-transparent bg-slate-200 px-2 py-0.5 transition-all duration-100 group-aria-selected:border-slate-400 dark:bg-slate-800 dark:group-aria-selected:border-slate-500">
-      <div className="-mt-px text-xl font-semibold text-black dark:text-white">
-        {identifier}
-      </div>
+      <div className="-mt-px text-xl font-semibold">{identifier}</div>
       <div className="flex flex-col items-start">
-        <div className="whitespace-nowrap text-black dark:text-white">
-          {refinedType}
-        </div>
+        <div className="whitespace-nowrap">{refinedType}</div>
         <Meter fraction={rowSize / payloadSize} />
       </div>
     </div>

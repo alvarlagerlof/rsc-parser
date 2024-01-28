@@ -40,16 +40,16 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
 
       <PathTabs {...pathTabs}>
         {!pathTabs.currentTab ? (
-          <span className="dark:text-white">Please select a url</span>
+          <span>Please select a url</span>
         ) : (
           <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
             <div className="flex flex-row items-center justify-between">
               {messagesForCurrentTab.length === 0 ? (
-                <span className="dark:text-white">
+                <span className="">
                   No data for current time frame, please select a url
                 </span>
               ) : (
-                <span className="dark:text-white">
+                <span className="">
                   Data from {messagesForCurrentTab.length} fetch chunk
                   {messagesForCurrentTab.length === 1 ? "" : "s"}
                 </span>
@@ -62,19 +62,19 @@ export function StreamViewer({ messages }: { messages: RscChunkMessage[] }) {
               >
                 <Ariakit.Tab
                   id="parsed"
-                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
+                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300  dark:aria-selected:text-black"
                 >
                   Parsed
                 </Ariakit.Tab>
                 <Ariakit.Tab
                   id="rows"
-                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
+                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300  dark:aria-selected:text-black"
                 >
                   Rows
                 </Ariakit.Tab>
                 <Ariakit.Tab
                   id="raw"
-                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:text-white dark:aria-selected:text-black"
+                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300  dark:aria-selected:text-black"
                 >
                   Raw
                 </Ariakit.Tab>

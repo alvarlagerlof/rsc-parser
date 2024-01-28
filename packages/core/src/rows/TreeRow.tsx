@@ -101,9 +101,7 @@ function JSContainer({ children }: { children: ReactNode }) {
         </Blue>
       )}
 
-      <code className="whitespace-break-spaces break-all dark:text-white">
-        {children}
-      </code>
+      <code className="whitespace-break-spaces break-all ">{children}</code>
 
       {isInsideProps ? null : (
         <Blue>
@@ -249,7 +247,7 @@ function StringValue({ value }: { value: string }) {
             <Yellow>
               `
               <span
-                className="dark:text-white"
+                className=""
                 dangerouslySetInnerHTML={{ __html: formattedString }}
               />
               `
@@ -260,7 +258,7 @@ function StringValue({ value }: { value: string }) {
           </>
         ) : (
           <span
-            className="dark:text-white"
+            className=""
             dangerouslySetInnerHTML={{ __html: formattedString }}
           />
         )}
@@ -295,7 +293,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
 
   if (values.length == 0) {
     return (
-      <div className="dark:text-white">
+      <div className="">
         <LeftSquareBracket />
         <RightSquareBracket />
       </div>
@@ -305,7 +303,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
   return (
     <div>
       {isInsideProps ? (
-        <div className="pl-[2ch] dark:text-white">
+        <div className="pl-[2ch] ">
           <LeftSquareBracket />
         </div>
       ) : null}
@@ -322,7 +320,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
               <Suspense>
                 <Node value={refinedSubNode.value} />
                 {isInsideProps && i !== values.length - 1 ? (
-                  <span className="dark:text-white">,</span>
+                  <span className="">,</span>
                 ) : null}
               </Suspense>
             </li>
@@ -330,7 +328,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
         })}
       </ul>
       {isInsideProps ? (
-        <div className="pl-[2ch] dark:text-white">
+        <div className="pl-[2ch] ">
           <RightSquareBracket />
         </div>
       ) : null}
@@ -475,7 +473,7 @@ function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
               <RightArrow />
             </Purple>
 
-            <span className="mx-1 rounded-lg border-1 border-solid border-slate-400 px-1.5 dark:text-white">
+            <span className="mx-1 rounded-lg border-1 border-solid border-slate-400 px-1.5 ">
               ⋯
             </span>
             <Purple>
@@ -580,9 +578,7 @@ function InfoBox({ children }: { children: ReactNode }) {
 function ClientReferenceAnnotation({ tag }: { tag: string }) {
   return (
     <InfoBox>
-      <span className="dark:text-white">
-        {tag} indicates a client reference
-      </span>
+      <span className="">{tag} indicates a client reference</span>
 
       <TabJumpButton destinationTab={tag}>
         Go to &quot;
@@ -596,9 +592,7 @@ function ClientReferenceAnnotation({ tag }: { tag: string }) {
 function TreeReferenceAnnotation({ reference }: { reference: string }) {
   return (
     <InfoBox>
-      <span className="dark:text-white">
-        {reference} indicates a tree reference
-      </span>
+      <span className="">{reference} indicates a tree reference</span>
       <TabJumpButton destinationTab={reference}>
         Go to &quot;
         {reference.replace("$L", "")}
