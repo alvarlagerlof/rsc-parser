@@ -129,6 +129,7 @@ type StartRecordingMessage = {
 
 type ContentScriptUnloadedMessage = {
   type: "CONTENT_SCRIPT_UNLOADED";
+  tabId: number;
 };
 
 function isContentScriptUnloadedMessage(
