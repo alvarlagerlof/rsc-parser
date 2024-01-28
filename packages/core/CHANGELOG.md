@@ -1,5 +1,12 @@
 # @rsc-parser/core
 
+## 0.1.11
+
+### Patch Changes
+
+- 611207b: Integrate parser from the ReactFlightClient source
+- c3240e7: Remove unuzed zod dependency
+
 ## 0.1.10
 
 ### Patch Changes
