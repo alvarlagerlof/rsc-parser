@@ -69,7 +69,7 @@ export function FlightResponseSelector({
             <Ariakit.Tab className="group w-full text-left" key={tab} id={tab}>
               <div className="flex w-full flex-row items-center gap-3 rounded-md border-none px-1.5 py-0.5 group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
                 <div
-                  className="h-[14px] min-h-[14px] w-[14px] min-w-[14px] rounded-full"
+                  className="size-[14px] min-h-[14px] min-w-[14px] rounded-full"
                   style={{
                     background: getColorForFetch(
                       messages.find((m) => m.data.fetchUrl === tab)?.data
