@@ -1,5 +1,11 @@
 # @rsc-parser/core
 
+## 0.1.12
+
+### Patch Changes
+
+- 8dede95: Made font sizes more consistent
+
 ## 0.1.11
 
 ### Patch Changes
