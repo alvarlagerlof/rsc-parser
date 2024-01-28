@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-import { PayloadViewerClientWrapper } from "./PayloadViewerClientWrapper";
+import { PayloadViewerClientWrapper } from "./ViewerPayloadClientWrapper";
 
 export const metadata: Metadata = {
   title: "RSC Parser",

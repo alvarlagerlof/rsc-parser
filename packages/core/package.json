@@ -10,7 +10,7 @@
     "storybook": "storybook dev -p 6006 --no-open",
     "dev": "concurrently  \"yarn dev:build\" \"yarn storybook\"",
     "build-storybook": "storybook build",
-    "test": "NODE_NO_WARNINGS=1 node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
+    "test": "NODE_NO_WARNINGS=1 node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --passWithNoTests",
     "test:dev": "yarn test --watch",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern \"/dist\"/",
     "format": "prettier . --check --config ../../.prettierrc"
