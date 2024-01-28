@@ -12,6 +12,7 @@ import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback.jsx
 import { DownArrowIcon, RightArrowIcon } from "./FlightResponseIcons.jsx";
 import {
   ParsedObject,
+  createElement,
   isElement,
   isParsedObject,
 } from "../react/ReactFlightClient.js";
@@ -51,11 +52,11 @@ function Node({ value }: { value: unknown }) {
 
 function NodeSwitch({ value }: { value: unknown }) {
   if (isElement(value)) {
-    return <NodeElement tag={value.type} props={value.props} />;
+    return <NodeElement value={value} />;
   }
 
   if (Array.isArray(value)) {
-    return <NodeArray values={value} />;
+    return <NodeArray value={value} />;
   }
 
   if (isParsedObject(value)) {
@@ -128,11 +129,9 @@ function removeChildren(props: Record<string, unknown>) {
 }
 
 function NodeElement({
-  tag,
-  props,
+  value: { type, props },
 }: {
-  tag: string;
-  props: { [key: string]: unknown };
+  value: ReturnType<typeof createElement>;
 }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isPending, startTransition] = useTransition();
@@ -156,7 +155,7 @@ function NodeElement({
     propsWithoutChildren !== undefined &&
     Object.keys(propsWithoutChildren).length > 0;
 
-  const newTag = typeof tag === "string" ? tag : <Node value={tag} />;
+  const newTag = typeof type === "string" ? type : <Node value={type} />;
 
   if (Object.keys(props).length === 0) {
     return (
@@ -336,14 +335,14 @@ function Props({ props }: { props: { [key: string]: unknown } }) {
   );
 }
 
-function NodeArray({ values }: { values: unknown[] }) {
+function NodeArray({ value }: { value: unknown[] }) {
   const isInsideProps = useContext(PropsContext);
 
   if (isInsideProps === undefined) {
     throw new Error("PropsContext must be used within a PropsContext.Provider");
   }
 
-  if (values.length == 0) {
+  if (value.length == 0) {
     return (
       <div>
         <LeftSquareBracket />
@@ -365,11 +364,11 @@ function NodeArray({ values }: { values: unknown[] }) {
         }`}
       >
         {/* TODO: Why is this spread needed for arrays like `[undefined]` ? */}
-        {[...values].map((subValue, i) => {
+        {[...value].map((subValue, i) => {
           return (
             <li key={JSON.stringify(subValue) + String(i)}>
               <Node value={subValue} />
-              {isInsideProps && i !== values.length - 1 ? (
+              {isInsideProps && i !== value.length - 1 ? (
                 <span className="">,</span>
               ) : null}
             </li>

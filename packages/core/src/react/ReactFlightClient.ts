@@ -332,7 +332,7 @@ function parseModelTuple(
   return value;
 }
 
-function createElement(type: unknown, key: unknown, props: unknown) {
+export function createElement(type: unknown, key: unknown, props: unknown) {
   const element = {
     // This tag allows us to uniquely identify this as a React Element
     $$typeof: REACT_ELEMENT_TYPE,
