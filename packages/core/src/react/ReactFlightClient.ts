@@ -125,7 +125,7 @@ export type FlightResponse = {
   _fromJSON: (key: string, value: JSONValue) => any;
 };
 
-type ParsedObject = {
+export type ParsedObject = {
   $$type: "parsedObject";
   id: string;
   identifier: string;
