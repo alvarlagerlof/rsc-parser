@@ -338,10 +338,10 @@ function createElement(type: unknown, key: unknown, props: unknown) {
     $$typeof: REACT_ELEMENT_TYPE,
 
     // Built-in properties that belong on the element
-    type: type,
-    key: key,
+    type: type as string,
+    key: key as string | number | bigint,
     // ref: null,
-    props: props,
+    props: props as { [key: string]: unknown },
 
     // // Record the component responsible for creating this element.
     // _owner: null,

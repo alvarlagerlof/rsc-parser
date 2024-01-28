@@ -6,7 +6,6 @@ import React, {
   useState,
   useTransition,
 } from "react";
-import { JsonObject, JsonValue } from "type-fest";
 import * as Ariakit from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -37,50 +36,44 @@ export function FlightResponseChunkModel({
 }
 
 function Node({ value }: { value: unknown }) {
-  const refinedNode = refineRawTreeNode(value);
-
-  switch (refinedNode.type) {
-    case TYPE_OTHER:
-      return (
-        <>
-          <ErrorBoundary
-            FallbackComponent={GenericErrorBoundaryFallback}
-            // key={refinedNode.value?.toString()}
-          >
-            <NodeOther value={refinedNode.value} />
-          </ErrorBoundary>
-        </>
-      );
-    case TYPE_ARRAY:
-      return (
-        <>
-          <ErrorBoundary
-            FallbackComponent={GenericErrorBoundaryFallback}
-            // key={refinedNode.value?.toString()}
-          >
-            <Suspense>
-              <NodeArray values={refinedNode.value} />
-            </Suspense>
-          </ErrorBoundary>
-        </>
-      );
-    case TYPE_ELEMENT: {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [reactElementMarker, elementType, unknown, props] =
-        refinedNode.value;
-
-      return (
-        <>
-          <ErrorBoundary
-            FallbackComponent={GenericErrorBoundaryFallback}
-            key={elementType.toString() + JSON.stringify(Object.keys(props))}
-          >
-            <NodeElement tag={elementType} props={props} />
-          </ErrorBoundary>
-        </>
-      );
-    }
+  if (isElement(value)) {
+    return (
+      <>
+        <ErrorBoundary
+          FallbackComponent={GenericErrorBoundaryFallback}
+          key={value.type + JSON.stringify(Object.keys(value.props))}
+        >
+          <NodeElement tag={value.type} props={value.props} />
+        </ErrorBoundary>
+      </>
+    );
   }
+
+  if (Array.isArray(value)) {
+    return (
+      <>
+        <ErrorBoundary
+          FallbackComponent={GenericErrorBoundaryFallback}
+          // key={refinedNode.value?.toString()}
+        >
+          <Suspense>
+            <NodeArray values={value} />
+          </Suspense>
+        </ErrorBoundary>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <ErrorBoundary
+        FallbackComponent={GenericErrorBoundaryFallback}
+        // key={refinedNode.value?.toString()}
+      >
+        <NodeOther value={value} />
+      </ErrorBoundary>
+    </>
+  );
 }
 
 function JSContainer({ children }: { children: ReactNode }) {
@@ -115,7 +108,7 @@ function isLetter(letter: string) {
   return RegExp(/^\p{L}/, "u").test(letter);
 }
 
-function JSObjectValue({ value }: { value: JsonObject }) {
+function JSObjectValue({ value }: { value: object }) {
   const isInsideProps = useContext(PropsContext);
 
   if (isInsideProps === undefined) {
@@ -156,7 +149,7 @@ function JSObjectValue({ value }: { value: JsonObject }) {
   );
 }
 
-function NodeOther({ value }: { value: JsonValue }) {
+function NodeOther({ value }: { value: unknown }) {
   const isInsideObject = useContext(ObjectContext);
 
   if (isInsideObject === undefined) {
@@ -187,10 +180,8 @@ function NodeOther({ value }: { value: JsonValue }) {
 
   if (typeof value === "symbol") {
     if (isInsideObject) {
-      // @ts-expect-error Checking if a symbol does not work?
       return value.toString();
     }
-    // @ts-expect-error Checking if a symbol does not work?
     return <JSContainer>{value.toString()}</JSContainer>;
   }
 
@@ -210,10 +201,8 @@ function NodeOther({ value }: { value: JsonValue }) {
 
   if (typeof value === "bigint") {
     if (isInsideObject) {
-      // @ts-expect-error Checking if a bigint does not work?
       return `BigInt: ${value.toString()}`;
     }
-    // @ts-expect-error Checking if a bigint does not work?
     return <JSContainer>BigInt: {value.toString()}</JSContainer>;
   }
 
@@ -340,7 +329,7 @@ function StringValue({ value }: { value: string }) {
   );
 }
 
-function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
+function NodeArray({ values }: { values: unknown[] }) {
   const isInsideProps = useContext(PropsContext);
 
   if (isInsideProps === undefined) {
@@ -393,7 +382,7 @@ function NodeArray({ values }: { values: JsonValue[] | readonly JsonValue[] }) {
 
 const PropsContext = createContext(false);
 
-function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
+function Prop({ propKey, value }: { propKey: string; value: unknown }) {
   return (
     <>
       <Green>{propKey}</Green>
@@ -419,7 +408,7 @@ function Prop({ propKey, value }: { propKey: string; value: JsonValue }) {
   );
 }
 
-function Props({ props }: { props: JsonObject }) {
+function Props({ props }: { props: { [key: string]: unknown } }) {
   if (isParsedObject(props)) {
     return (
       <div className="pl-[3ch]">
@@ -462,7 +451,13 @@ function removeChildren(props: Record<string, unknown>) {
     }, {});
 }
 
-function NodeElement({ tag, props }: { tag: string; props: JsonObject }) {
+function NodeElement({
+  tag,
+  props,
+}: {
+  tag: string;
+  props: { [key: string]: unknown };
+}) {
   const [isOpen, setIsOpen] = useState(true);
   const [isPending, startTransition] = useTransition();
   const disclosure = Ariakit.useDisclosureStore({
@@ -691,34 +686,4 @@ function LeftArrow() {
 
 function RightArrow() {
   return <>&gt;</>;
-}
-
-const TYPE_OTHER = "TYPE_OTHER";
-const TYPE_ELEMENT = "TYPE_ELEMENT";
-const TYPE_ARRAY = "TYPE_ARRAY";
-
-export function refineRawTreeNode(value: unknown) {
-  if (isElement(value)) {
-    return {
-      type: TYPE_ELEMENT,
-      value: [
-        value.$$typeof,
-        value.type as string,
-        value.key,
-        value.props as JsonObject,
-      ] as const,
-    } as const;
-  }
-
-  if (Array.isArray(value)) {
-    return {
-      type: TYPE_ARRAY,
-      value: value,
-    } as const;
-  }
-
-  return {
-    type: TYPE_OTHER,
-    value: value as JsonValue,
-  } as const;
 }
