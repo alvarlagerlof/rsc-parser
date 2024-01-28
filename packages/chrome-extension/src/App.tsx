@@ -65,19 +65,17 @@ export function App() {
   }, []);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 dark:text-red-400">
       {messages.length === 0 || !isRecording ? (
         <div className="flex flex-col gap-8">
           <div className="flex flex-row items-center justify-between">
-            <h1 className="whitespace-nowrap text-sm dark:text-white">
-              RSC Devtools
-            </h1>
+            <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
 
             {isRecording ? (
-              <p className="py-0.5 dark:text-white">Recording...</p>
+              <p className="py-0.5">Recording...</p>
             ) : (
               <button
-                className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
+                className="rounded-md bg-slate-600 px-2 py-0.5 dark:bg-slate-300"
                 onClick={async () => {
                   setIsRecording(true);
                   chrome.tabs.sendMessage(
@@ -94,7 +92,7 @@ export function App() {
             )}
           </div>
 
-          <p className="dark:text-white">
+          <p>
             {isRecording
               ? "Please navigate the page"
               : "Please start recording"}
@@ -103,12 +101,10 @@ export function App() {
       ) : (
         <div className="flex min-h-full flex-col gap-8">
           <div className="flex flex-row items-center justify-between">
-            <h1 className="whitespace-nowrap text-sm dark:text-white">
-              RSC Devtools
-            </h1>
+            <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
 
             <button
-              className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
+              className="rounded-md bg-slate-600 px-2 py-0.5 dark:bg-slate-300"
               onClick={() => setMessages([])}
             >
               Clear

@@ -49,10 +49,7 @@ export function RowTabs({ payload }: { payload: string }) {
       {rows.length === 0 ? null : (
         <>
           <div className="flex flex-col gap-2 pb-3">
-            <div className="text-black dark:text-white">
-              Total size: {stringToKiloBytes(payload)} KB (uncompressed)
-            </div>
-
+            <p>Total size: {stringToKiloBytes(payload)} KB (uncompressed)</p>
             <Ariakit.TabList
               store={tab}
               className="flex flex-row flex-wrap gap-2 md:pb-0"
@@ -91,11 +88,11 @@ export function RowTabs({ payload }: { payload: string }) {
             }}
           >
             {payload === "" ? (
-              <p className="text-black dark:text-white">
+              <p className="text-black ">
                 Please enter a payload to see results
               </p>
             ) : selectedTab === null || selectTab === undefined ? (
-              <p className="text-black dark:text-white">Please select a row</p>
+              <p>Please select a row</p>
             ) : null}
 
             {rows

@@ -18,7 +18,7 @@ export function HintRow({ data }: { data: string }) {
   const parsed = schema.parse(json);
 
   return (
-    <div className="flex flex-col gap-3 text-black dark:text-white">
+    <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-4">
         <h3 className="text-xl font-semibold">
           Load asset of type &quot;{parsed[1]}&quot;
