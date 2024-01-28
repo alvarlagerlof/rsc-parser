@@ -11,10 +11,10 @@ import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback.jsx";
 import { DownArrowIcon, RightArrowIcon } from "./FlightResponseIcons.jsx";
 import {
-  ParsedObject,
   createElement,
+  Reference,
   isElement,
-  isParsedObject,
+  isReference,
 } from "../react/ReactFlightClient.js";
 
 export const ClickIDContext = createContext<{
@@ -59,8 +59,8 @@ function NodeSwitch({ value }: { value: unknown }) {
     return <NodeArray value={value} />;
   }
 
-  if (isParsedObject(value)) {
-    return <NodeParsedObject value={value} />;
+  if (isReference(value)) {
+    return <NodeReference value={value} />;
   }
 
   if (value instanceof Set) {
@@ -302,7 +302,7 @@ function Prop({ propKey, value }: { propKey: string; value: unknown }) {
 }
 
 function Props({ props }: { props: { [key: string]: unknown } }) {
-  if (isParsedObject(props)) {
+  if (isReference(props)) {
     return (
       <div className="pl-[3ch]">
         <Node value={props} />
@@ -384,7 +384,7 @@ function NodeArray({ value }: { value: unknown[] }) {
   );
 }
 
-function NodeParsedObject({ value }: { value: ParsedObject }) {
+function NodeReference({ value }: { value: Reference }) {
   return (
     <span className="inline-flex flex-row gap-2">
       <TabJumpButton destinationTab={value.id}>
