@@ -13,8 +13,6 @@ I made this tool to more easily let you understand the data and explore it visua
 <img width="49%" alt="image" src="https://github.com/alvarlagerlof/rsc-parser/assets/14835120/f8f96e38-fc29-4348-8d83-1a04cd6322aa">
 </div>
 
-
-
 ## How do I use this?
 
 ### Extension
@@ -32,7 +30,6 @@ There is also a website that you can use by manually copy pasing RSC payloads.
 5. Copy the text and paste it into the form on https://rsc-parser.vercel.app/
 6. Explore!
 
-
 ## It crashed!
-Please make an issue on https://github.com/alvarlagerlof/rsc-parser/issues/new and include the text content that the parser was unable to handle.
 
+Please make an issue on https://github.com/alvarlagerlof/rsc-parser/issues/new and include the text content that the parser was unable to handle.

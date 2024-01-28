@@ -14,8 +14,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["chrome-types"]
+    "types": ["chrome-types"],
   },
   "include": ["**/*.ts", "**/*.tsx", "jest.config.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
