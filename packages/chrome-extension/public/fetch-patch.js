@@ -41,10 +41,7 @@ window.fetch = async (...args) => {
   }
 
   const clonedResponse = response.clone();
-  const reader = clonedResponse.body
-    // eslint-disable-next-line no-undef
-    .pipeThrough(new TextDecoderStream())
-    .getReader();
+  const reader = clonedResponse.body.getReader();
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
@@ -65,7 +62,7 @@ window.fetch = async (...args) => {
               ? Object.fromEntries(headers.entries())
               : headers,
           fetchStartTime,
-          chunkValue: value,
+          chunkValue: Array.from(value),
           chunkStartTime,
           chunkEndTime,
         },

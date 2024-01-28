@@ -1,6 +1,6 @@
 import React, { startTransition, useEffect, useMemo, useState } from "react";
 
-import { StreamViewer, RscChunkMessage } from "@rsc-parser/core";
+import { ViewerStreams, RscChunkMessage } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
 export function App() {
@@ -37,16 +37,10 @@ export function App() {
       // It's possible that this lookup will miss a duplicated message if another
       // one is being added at the same time. I haven't seen this happen in practice.
       if (
-        messages.some(
-          (item) => item.data.chunkValue === request.data.chunkValue,
+        messages.some((item) =>
+          arraysEqual(item.data.chunkValue, request.data.chunkValue),
         )
       ) {
-        return true;
-      }
-
-      // TODO: This is a hack to prevent messages with HTML from being added
-      // These messages should not be sent at all
-      if (request.data.chunkValue.includes("DOCTYPE")) {
         return true;
       }
 
@@ -130,7 +124,7 @@ export function App() {
             </button>
           </div>
 
-          <StreamViewer messages={messages} />
+          <ViewerStreams messages={messages} />
         </div>
       )}
     </div>
@@ -157,4 +151,28 @@ function isContentScriptUnloadedMessage(
   return (
     (message as ContentScriptUnloadedMessage).type === "CONTENT_SCRIPT_UNLOADED"
   );
+}
+
+function arraysEqual(a: unknown[], b: unknown[]) {
+  if (a === b) {
+    return true;
+  }
+  if (a == null || b == null) {
+    return false;
+  }
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  // If you don't care about the order of the elements inside
+  // the array, you should sort both arrays here.
+  // Please note that calling sort on an array will modify that array.
+  // you might want to clone your array first.
+
+  for (let i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
 }
