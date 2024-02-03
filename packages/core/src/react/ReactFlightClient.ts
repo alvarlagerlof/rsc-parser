@@ -683,7 +683,7 @@ function resolveTypedArray(
   resolveBuffer(response, id, view);
 }
 
-export function processFullRow(
+function processFullRow(
   response: FlightResponse,
   id: number,
   tag: number,

@@ -216,7 +216,7 @@ export function useGroupedMessages(messages: RscChunkMessage[]) {
   }, [messages]);
 }
 
-export function useTimeRange(messages: RscChunkMessage[]) {
+function useTimeRange(messages: RscChunkMessage[]) {
   return useMemo(() => {
     let minStartTime = Number.MAX_SAFE_INTEGER;
     let maxEndTime = 0;

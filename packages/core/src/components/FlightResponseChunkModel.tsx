@@ -17,7 +17,7 @@ import {
   isReference,
 } from "../react/ReactFlightClient.js";
 
-export const ClickIDContext = createContext<{
+const ClickIDContext = createContext<{
   onClickID: (name: string) => void;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
