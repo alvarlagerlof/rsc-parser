@@ -134,13 +134,7 @@ export function FlightResponseTabSplit({
   );
 }
 
-export function RowTab({
-  row,
-  payloadSize,
-}: {
-  row: Chunk;
-  payloadSize: number;
-}) {
+function RowTab({ row, payloadSize }: { row: Chunk; payloadSize: number }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _response, ...rowWithoutResponse } = row;
   const rowSize = parseFloat(
@@ -158,7 +152,7 @@ export function RowTab({
   );
 }
 
-export function RowTabFallback({
+function RowTabFallback({
   error,
   row,
   payloadSize,
@@ -263,7 +257,7 @@ function RowTabPanelSize({
   );
 }
 
-export function RowTabPanelExplorer({
+function RowTabPanelExplorer({
   row,
   selectTabByID,
 }: {
@@ -335,11 +329,11 @@ function RowTabRawJson({ row }: { row: Chunk }) {
   );
 }
 
-export function stringToKiloBytes(data: string) {
+function stringToKiloBytes(data: string) {
   return ((encodeURI(data).split(/%..|./).length - 1) / 1024).toFixed(2);
 }
 
-export function Meter({ fraction }: { fraction: number }) {
+function Meter({ fraction }: { fraction: number }) {
   return (
     <meter
       value={fraction}
