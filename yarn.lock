@@ -11601,9 +11601,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:4.3.0":
-  version: 4.3.0
-  resolution: "knip@npm:4.3.0"
+"knip@npm:4.3.1":
+  version: 4.3.1
+  resolution: "knip@npm:4.3.1"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@nodelib/fs.walk": "npm:2.0.0"
@@ -11632,7 +11632,7 @@ __metadata:
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 10/2b3195195c3461d4e892d447622f45685704b1ec18520b5fdeedad233be406f82119f5f24efda29453607c30dd9c199421cf1cbeca4be53fd647a11e95aee9be
+  checksum: 10/dcd054a172c4836394f90287f8622e18d46e9c7d59c49fd8beede30c907b2f2c6e6cec6ffbc88acf74d35cc6729d9b2cd56ba2dafc94d67887a5f779668dcb8c
   languageName: node
   linkType: hard
 
@@ -14476,7 +14476,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.1"
-    knip: "npm:4.3.0"
+    knip: "npm:4.3.1"
     prettier: "npm:3.2.4"
     turbo: "npm:1.12.2"
   languageName: unknown
