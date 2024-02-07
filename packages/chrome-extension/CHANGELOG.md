@@ -1,5 +1,13 @@
 # @rsc-parser/chrome-extension
 
+## 0.1.14
+
+### Patch Changes
+
+- ecb36c4: Fix extension button color in light mode
+- Updated dependencies [ecb36c4]
+  - @rsc-parser/core@0.1.14
+
 ## 0.1.13
 
 ### Patch Changes

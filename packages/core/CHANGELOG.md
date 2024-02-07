@@ -1,5 +1,11 @@
 # @rsc-parser/core
 
+## 0.1.14
+
+### Patch Changes
+
+- ecb36c4: Fix extension button color in light mode
+
 ## 0.1.13
 
 ### Patch Changes
