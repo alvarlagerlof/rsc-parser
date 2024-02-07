@@ -69,7 +69,7 @@ export function App() {
               <p className="py-0.5">Recording...</p>
             ) : (
               <button
-                className="rounded-md bg-slate-600 px-2 py-0.5 dark:bg-slate-300 dark:text-black"
+                className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
                 onClick={async () => {
                   setIsRecording(true);
                   chrome.tabs.sendMessage(
@@ -117,7 +117,7 @@ export function App() {
               </button>
             ) : null}
             <button
-              className="rounded-md bg-slate-600 px-2 py-0.5 dark:bg-slate-300 dark:text-black"
+              className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
               onClick={() => setMessages([])}
             >
               Clear
