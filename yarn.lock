@@ -3930,7 +3930,7 @@ __metadata:
     esbuild: "npm:0.20.0"
     eslint: "npm:8.56.0"
     eslint-plugin-tailwindcss: "npm:3.14.2"
-    postcss: "npm:8.4.33"
+    postcss: "npm:8.4.35"
     prettier: "npm:3.2.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -3970,7 +3970,7 @@ __metadata:
     eslint-plugin-tailwindcss: "npm:3.14.2"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
-    postcss: "npm:8.4.33"
+    postcss: "npm:8.4.35"
     prettier: "npm:3.2.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -4000,7 +4000,7 @@ __metadata:
     eslint-config-next: "npm:14.1.0"
     eslint-plugin-tailwindcss: "npm:3.14.2"
     next: "npm:14.1.0"
-    postcss: "npm:8.4.33"
+    postcss: "npm:8.4.35"
     prettier: "npm:3.2.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -13361,7 +13361,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.33, postcss@npm:^8.2.14, postcss@npm:^8.4.23, postcss@npm:^8.4.32, postcss@npm:^8.4.33, postcss@npm:^8.4.4":
+"postcss@npm:8.4.35":
+  version: 8.4.35
+  resolution: "postcss@npm:8.4.35"
+  dependencies:
+    nanoid: "npm:^3.3.7"
+    picocolors: "npm:^1.0.0"
+    source-map-js: "npm:^1.0.2"
+  checksum: 10/93a7ce50cd6188f5f486a9ca98950ad27c19dfed996c45c414fa242944497e4d084a8760d3537f078630226f2bd3c6ab84b813b488740f4432e7c7039cd73a20
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.2.14, postcss@npm:^8.4.23, postcss@npm:^8.4.32, postcss@npm:^8.4.33, postcss@npm:^8.4.4":
   version: 8.4.33
   resolution: "postcss@npm:8.4.33"
   dependencies:
