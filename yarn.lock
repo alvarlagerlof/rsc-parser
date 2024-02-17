@@ -11282,9 +11282,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.0.0":
-  version: 5.0.0
-  resolution: "knip@npm:5.0.0"
+"knip@npm:5.0.1":
+  version: 5.0.1
+  resolution: "knip@npm:5.0.1"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@nodelib/fs.walk": "npm:2.0.0"
@@ -11314,7 +11314,7 @@ __metadata:
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 10/5a25f175e6185aa40e4ffda65c2eb74757000e14207dd332d0301a53cac06b6b9623df8299b307500a58b8330cd24d751d2d2b31a8fd6f0f434a246dadec1614
+  checksum: 10/b28888972075616321f4031a81b9b43fa36fdc74ac4f1321e1d13fad1b7b7e0499a9dc7ce666ace3344d44f4ac5b1e22361a14868a55d21ae181509bb9127b53
   languageName: node
   linkType: hard
 
@@ -14127,7 +14127,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.1"
-    knip: "npm:5.0.0"
+    knip: "npm:5.0.1"
     prettier: "npm:3.2.5"
     turbo: "npm:1.12.3"
   languageName: unknown
