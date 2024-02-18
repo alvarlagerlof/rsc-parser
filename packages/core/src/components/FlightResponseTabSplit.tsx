@@ -29,8 +29,8 @@ export function FlightResponseTabSplit({
       flightResponse._chunks
         .map((chunk) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { _response, ...rowWithoutResponse } = chunk;
-          return JSON.stringify(rowWithoutResponse);
+          const { _response, ...chunkWithoutResponse } = chunk;
+          return JSON.stringify(chunkWithoutResponse);
         })
         .join(""),
     ),
@@ -46,11 +46,11 @@ export function FlightResponseTabSplit({
   };
 
   const selectTabByID = (id: string) => {
-    for (const row of flightResponse._chunks) {
-      if (id === row.id) {
+    for (const chunk of flightResponse._chunks) {
+      if (id === chunk.id) {
         // TODO: Don't hard-code this
         window.scrollTo(0, 680);
-        tab.setSelectedId(String(row.id));
+        tab.setSelectedId(String(chunk.id));
       }
     }
   };
@@ -77,22 +77,22 @@ export function FlightResponseTabSplit({
               store={tab}
               className="flex flex-row flex-wrap gap-2 md:pb-0"
             >
-              {timeFilteredChunks.map((row) => (
+              {timeFilteredChunks.map((chunk) => (
                 <Ariakit.Tab
                   className="group rounded-md border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200"
-                  key={row.id}
-                  id={String(row.id)}
+                  key={chunk.id}
+                  id={String(chunk.id)}
                 >
                   <ErrorBoundary
                     fallbackRender={({ error }) => (
-                      <RowTabFallback
+                      <ChunkTabFallback
                         error={error}
-                        row={row}
+                        chunk={chunk}
                         payloadSize={payloadSize}
                       />
                     )}
                   >
-                    <RowTab row={row} payloadSize={payloadSize} />
+                    <ChunkTab chunk={chunk} payloadSize={payloadSize} />
                   </ErrorBoundary>
                 </Ariakit.Tab>
               ))}
@@ -104,7 +104,7 @@ export function FlightResponseTabSplit({
             tabId={currentTab}
             alwaysVisible={true}
             className="pt-3 delay-100 duration-200"
-            aria-label="Rows"
+            aria-label="Chunks"
             aria-busy={isPending}
             style={{
               opacity: isPending ? "0.6" : "1",
@@ -113,18 +113,18 @@ export function FlightResponseTabSplit({
             {timeFilteredChunks.length === 0 ? (
               <p>Please enter a payload to see results</p>
             ) : selectedTab === null || selectTab === undefined ? (
-              <p>Please select a row</p>
+              <p>Please select a chunk</p>
             ) : null}
 
             {timeFilteredChunks
-              .filter((row) => String(row.id) == currentTab)
-              .map((row) => (
+              .filter((chunk) => String(chunk.id) == currentTab)
+              .map((chunk) => (
                 <ErrorBoundary
                   FallbackComponent={GenericErrorBoundaryFallback}
-                  key={`tab-panel-${row}`}
+                  key={`tab-panel-${chunk}`}
                 >
-                  <RowTabPanel
-                    row={row}
+                  <ChunkTabPanel
+                    chunk={chunk}
                     payloadSize={payloadSize}
                     selectTabByID={selectTabByID}
                   />
@@ -137,44 +137,50 @@ export function FlightResponseTabSplit({
   );
 }
 
-function RowTab({ row, payloadSize }: { row: Chunk; payloadSize: number }) {
+function ChunkTab({
+  chunk,
+  payloadSize,
+}: {
+  chunk: Chunk;
+  payloadSize: number;
+}) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { _response, ...rowWithoutResponse } = row;
-  const rowSize = parseFloat(
-    stringToKiloBytes(JSON.stringify(rowWithoutResponse)),
+  const { _response, ...chunkWithoutResponse } = chunk;
+  const chunkSize = parseFloat(
+    stringToKiloBytes(JSON.stringify(chunkWithoutResponse)),
   );
 
   return (
     <div className="flex flex-row gap-1.5 rounded-md border-2 border-transparent bg-slate-200 px-2 py-0.5 transition-all duration-100 group-aria-selected:border-slate-400 dark:bg-slate-800 dark:group-aria-selected:border-slate-500">
-      <div className="-mt-px text-xl font-semibold">{row.id}</div>
+      <div className="-mt-px text-xl font-semibold">{chunk.id}</div>
       <div className="flex flex-col items-start">
-        <div className="whitespace-nowrap">{row.type}</div>
-        <Meter fraction={rowSize / payloadSize} />
+        <div className="whitespace-nowrap">{chunk.type}</div>
+        <Meter fraction={chunkSize / payloadSize} />
       </div>
     </div>
   );
 }
 
-function RowTabFallback({
+function ChunkTabFallback({
   error,
-  row,
+  chunk,
   payloadSize,
 }: {
   error: Error;
-  row: Chunk;
+  chunk: Chunk;
   payloadSize: number;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { _response, ...rowWithoutResponse } = row;
-  const rowSize = parseFloat(
-    stringToKiloBytes(JSON.stringify(rowWithoutResponse)),
+  const { _response, ...chunkWithoutResponse } = chunk;
+  const chunkSize = parseFloat(
+    stringToKiloBytes(JSON.stringify(chunkWithoutResponse)),
   );
 
   if (error instanceof Error) {
     return (
       <div className="flex h-full flex-col rounded-md border-2 border-transparent bg-red-200 px-2 py-0.5 transition-all duration-200 group-aria-selected:border-red-600 group-aria-selected:text-white">
         <div>Error</div>
-        <Meter fraction={rowSize / payloadSize} />
+        <Meter fraction={chunkSize / payloadSize} />
       </div>
     );
   }
@@ -182,12 +188,12 @@ function RowTabFallback({
   return <span>Error</span>;
 }
 
-export function RowTabPanel({
-  row,
+export function ChunkTabPanel({
+  chunk,
   payloadSize,
   selectTabByID,
 }: {
-  row: Chunk;
+  chunk: Chunk;
   payloadSize: number;
   selectTabByID: (id: string) => void;
 }) {
@@ -196,82 +202,84 @@ export function RowTabPanel({
       <div className="flex flex-row justify-between pb-3">
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`meta-${row.id}`}
+          key={`meta-${chunk.id}`}
         >
-          <RowTabPanelMeta row={row} />
+          <ChunkTabPanelMeta chunk={chunk} />
         </ErrorBoundary>
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`size-${row.id}`}
+          key={`size-${chunk.id}`}
         >
-          <RowTabPanelSize row={row} payloadSize={payloadSize} />
+          <ChunkTabPanelSize chunk={chunk} payloadSize={payloadSize} />
         </ErrorBoundary>
       </div>
 
       <div className="py-3">
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`row-${row.id}`}
+          key={`chunk-${chunk.id}`}
         >
-          <RowTabPanelExplorer row={row} selectTabByID={selectTabByID} />
+          <ChunkTabPanelExplorer chunk={chunk} selectTabByID={selectTabByID} />
         </ErrorBoundary>
       </div>
 
       <div className="pt-3">
         <ErrorBoundary
           FallbackComponent={GenericErrorBoundaryFallback}
-          key={`tree-${row.id}`}
+          key={`tree-${chunk.id}`}
         >
-          <RowTabPanelGenericData row={row} />
+          <ChunkTabPanelGenericData chunk={chunk} />
         </ErrorBoundary>
       </div>
     </div>
   );
 }
 
-function RowTabPanelMeta({ row }: { row: Chunk }) {
+function ChunkTabPanelMeta({ chunk }: { chunk: Chunk }) {
   return (
     <div className="flex flex-col gap-1">
-      <h3 className="inline-block rounded-md text-xl font-bold">{row.id}</h3>
-      <h4 className="font-medium">{row.type}</h4>
+      <h3 className="inline-block rounded-md text-xl font-bold">{chunk.id}</h3>
+      <h4 className="font-medium">{chunk.type}</h4>
     </div>
   );
 }
 
-function RowTabPanelSize({
-  row,
+function ChunkTabPanelSize({
+  chunk,
   payloadSize,
 }: {
-  row: Chunk;
+  chunk: Chunk;
   payloadSize: number;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { _response, ...rowWithoutResponse } = row;
-  const rowSize = parseFloat(
-    stringToKiloBytes(JSON.stringify(rowWithoutResponse)),
+  const { _response, ...chunkWithoutResponse } = chunk;
+  const chunkSize = parseFloat(
+    stringToKiloBytes(JSON.stringify(chunkWithoutResponse)),
   );
 
   return (
     <div className="text-right ">
-      <div className="whitespace-nowrap">{rowSize} KB row (uncompressed)</div>
-      <div>{((rowSize / payloadSize) * 100).toFixed(2)}% of total</div>
-      <Meter fraction={rowSize / payloadSize} />
+      <div className="whitespace-nowrap">
+        {chunkSize} KB chunk (uncompressed)
+      </div>
+      <div>{((chunkSize / payloadSize) * 100).toFixed(2)}% of total</div>
+      <Meter fraction={chunkSize / payloadSize} />
     </div>
   );
 }
 
-function RowTabPanelExplorer({
-  row,
+function ChunkTabPanelExplorer({
+  chunk,
   selectTabByID,
 }: {
-  row: Chunk;
+  chunk: Chunk;
   selectTabByID: (id: string) => void;
 }) {
-  switch (row.type) {
+  switch (chunk.type) {
     case "model": {
       return (
         <FlightResponseChunkModel
-          data={row.value}
+          data={chunk.value}
           onClickID={(id) => {
             selectTabByID(id);
           }}
@@ -279,22 +287,22 @@ function RowTabPanelExplorer({
       );
     }
     case "module": {
-      return <FlightResponseChunkModule data={row.value} />;
+      return <FlightResponseChunkModule data={chunk.value} />;
     }
     case "hint": {
-      return <FlightResponseChunkHint data={row.value} />;
+      return <FlightResponseChunkHint data={chunk.value} />;
     }
     case "text":
-      return <FlightResponseChunkText data={row.value} />;
+      return <FlightResponseChunkText data={chunk.value} />;
     case "debugInfo":
-      return <FlightResponseChunkDebugInfo data={row.value} />;
+      return <FlightResponseChunkDebugInfo data={chunk.value} />;
     default: {
-      return <FlightResponseChunkUnknown chunk={row} />;
+      return <FlightResponseChunkUnknown chunk={chunk} />;
     }
   }
 }
 
-function RowTabPanelGenericData({ row }: { row: Chunk }) {
+function ChunkTabPanelGenericData({ chunk }: { chunk: Chunk }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const disclosure = Ariakit.useDisclosureStore({
@@ -317,19 +325,19 @@ function RowTabPanelGenericData({ row }: { row: Chunk }) {
         Raw data
       </Ariakit.Disclosure>
       <Ariakit.DisclosureContent store={disclosure}>
-        {isOpen ? <RowTabRawJson row={row} /> : null}
+        {isOpen ? <ChunkTabRawJson chunk={chunk} /> : null}
       </Ariakit.DisclosureContent>
     </div>
   );
 }
 
-function RowTabRawJson({ row }: { row: Chunk }) {
+function ChunkTabRawJson({ chunk }: { chunk: Chunk }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { _response, ...rowWithoutResponse } = row;
+  const { _response, ...chunkWithoutResponse } = chunk;
 
   return (
     <pre className="overflow-hidden whitespace-break-spaces break-all">
-      {JSON.stringify(rowWithoutResponse, null, 1)}
+      {JSON.stringify(chunkWithoutResponse, null, 1)}
     </pre>
   );
 }
