@@ -835,16 +835,16 @@ function processFullRow(
       return;
     }
     case 68 /* "D" */: {
-      if (__DEV__) {
-        const debugInfo = JSON.parse(row);
-        resolveDebugInfo(response, id, debugInfo);
-        return;
-      }
-      throw new Error(
-        "Failed to read a RSC payload created by a development version of React " +
-          "on the server while using a production version on the client. Always use " +
-          "matching versions on the server and the client.",
-      );
+      //if (__DEV__) {
+      const debugInfo = JSON.parse(row);
+      resolveDebugInfo(response, id, debugInfo);
+      return;
+      //}
+      // throw new Error(
+      //   "Failed to read a RSC payload created by a development version of React " +
+      //     "on the server while using a production version on the client. Always use " +
+      //     "matching versions on the server and the client.",
+      // );
     }
     case 80 /* "P" */: {
       if (enablePostpone) {
