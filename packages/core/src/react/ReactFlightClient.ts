@@ -90,6 +90,16 @@ export type BufferChunk = {
   _response: FlightResponse;
 };
 
+export type DebugInfoChunk = {
+  type: "debugInfo";
+  id: string;
+  value: { name: string };
+  originalValue: { name: string };
+  startTime: number;
+  endTime: number;
+  _response: FlightResponse;
+};
+
 export type Chunk =
   | TextChunk
   | ModuleChunk
@@ -97,7 +107,8 @@ export type Chunk =
   | ModelChunk
   | ErrorChunk
   | PostponeChunk
-  | BufferChunk;
+  | BufferChunk
+  | DebugInfoChunk;
 
 type RowParserState = 0 | 1 | 2 | 3 | 4;
 
@@ -620,6 +631,32 @@ function resolveHint<Code extends HintCode>(
   });
 }
 
+function resolveDebugInfo(
+  response: FlightResponse,
+  id: number,
+  debugInfo: { name: string },
+): void {
+  // if (!__DEV__) {
+  //   // These errors should never make it into a build so we don't need to encode them in codes.json
+  //   // eslint-disable-next-line react-internal/prod-error-codes
+  //   throw new Error(
+  //     'resolveDebugInfo should never be called in production mode. This is a bug in React.',
+  //   );
+  // }
+
+  const chunks = response._chunks;
+
+  chunks.push({
+    type: "debugInfo",
+    id: new Number(id).toString(16),
+    value: debugInfo,
+    originalValue: debugInfo,
+    startTime: response._currentStartTime,
+    endTime: response._currentEndTime,
+    _response: response,
+  });
+}
+
 function mergeBuffer(
   buffer: Array<Uint8Array>,
   lastChunk: Uint8Array,
@@ -724,7 +761,7 @@ function processFullRow(
       case 70 /* "F" */:
         resolveTypedArray(response, id, buffer, chunk, Float32Array, 4);
         return;
-      case 68 /* "D" */:
+      case 100 /* "d" */:
         resolveTypedArray(response, id, buffer, chunk, Float64Array, 8);
         return;
       case 78 /* "N" */:
@@ -774,6 +811,18 @@ function processFullRow(
     case 84 /* "T" */: {
       resolveText(response, id, row);
       return;
+    }
+    case 68 /* "D" */: {
+      if (__DEV__) {
+        const debugInfo = JSON.parse(row);
+        resolveDebugInfo(response, id, debugInfo);
+        return;
+      }
+      throw new Error(
+        "Failed to read a RSC payload created by a development version of React " +
+          "on the server while using a production version on the client. Always use " +
+          "matching versions on the server and the client.",
+      );
     }
     case 80 /* "P" */: {
       if (enablePostpone) {
@@ -846,7 +895,7 @@ export function processBinaryChunk(
               resolvedRowTag === 76 /* "L" */ ||
               resolvedRowTag === 108 /* "l" */ ||
               resolvedRowTag === 70 /* "F" */ ||
-              resolvedRowTag === 68 /* "D" */ ||
+              resolvedRowTag === 100 /* "d" */ ||
               resolvedRowTag === 78 /* "N" */ ||
               resolvedRowTag === 109 /* "m" */ ||
               resolvedRowTag === 86)) /* "V" */
