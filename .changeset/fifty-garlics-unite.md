@@ -4,4 +4,4 @@
 "@rsc-parser/website": patch
 ---
 
-Improved better rendering for unknown chunks #771
+Improved rendering for unknown chunks #771
