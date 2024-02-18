@@ -11,7 +11,7 @@ import { DownArrowIcon, RightArrowIcon } from "./FlightResponseIcons";
 import { EndTimeContext } from "./ViewerStreams";
 import { FlightResponseChunkDebugInfo } from "./FlightResponseChunkDebugInfo";
 import { FlightResponseChunkText } from "./FlightResponseChunkText";
-import { FlightResponseChunkUnknown } from "./FlightResponseChunkUnkown";
+import { FlightResponseChunkUnknown } from "./FlightResponseChunkUnknown";
 
 export function FlightResponseTabSplit({
   flightResponse,
