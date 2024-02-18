@@ -54,14 +54,24 @@ export type HintChunk = {
   id: string;
   code: string;
   value: HintModel<HintCode>;
-  originalValue: string;
+  originalValue: { code: string; model: string };
   startTime: number;
   endTime: number;
   _response: FlightResponse;
 };
 
-export type ErrorChunk = {
-  type: "error";
+export type ErrorDevChunk = {
+  type: "errorDev";
+  id: string;
+  error: ErrorWithDigest;
+  originalValue: { digest: string; message: string; stack: string };
+  startTime: number;
+  endTime: number;
+  _response: FlightResponse;
+};
+
+export type ErrorProdChunk = {
+  type: "errorProd";
   id: string;
   error: ErrorWithDigest;
   originalValue: string;
@@ -70,11 +80,21 @@ export type ErrorChunk = {
   _response: FlightResponse;
 };
 
-export type PostponeChunk = {
-  type: "postpone";
+export type PostponeDevChunk = {
+  type: "postponeDev";
   id: string;
   error: Postpone;
-  originalValue: string;
+  originalValue: { reason: string; stack: string };
+  startTime: number;
+  endTime: number;
+  _response: FlightResponse;
+};
+
+export type PostponeProdChunk = {
+  type: "postponeProd";
+  id: string;
+  error: Postpone;
+  originalValue: undefined;
   startTime: number;
   endTime: number;
   _response: FlightResponse;
@@ -105,8 +125,10 @@ export type Chunk =
   | ModuleChunk
   | HintChunk
   | ModelChunk
-  | ErrorChunk
-  | PostponeChunk
+  | ErrorDevChunk
+  | ErrorProdChunk
+  | PostponeDevChunk
+  | PostponeProdChunk
   | BufferChunk
   | DebugInfoChunk;
 
@@ -498,7 +520,7 @@ function resolveErrorProd(
   const chunks = response._chunks;
 
   chunks.push({
-    type: "error",
+    type: "errorProd",
     id: new Number(id).toString(16),
     error: errorWithDigest,
     originalValue: digest,
@@ -534,10 +556,10 @@ function resolveErrorDev(
   const chunks = response._chunks;
 
   chunks.push({
-    type: "error",
+    type: "errorDev",
     id: new Number(id).toString(16),
     error: errorWithDigest,
-    originalValue: digest,
+    originalValue: { digest, message, stack },
     startTime: response._currentStartTime,
     endTime: response._currentEndTime,
     _response: response,
@@ -568,10 +590,10 @@ function resolvePostponeProd(response: FlightResponse, id: number): void {
   const chunks = response._chunks;
 
   chunks.push({
-    type: "postpone",
+    type: "postponeProd",
     id: new Number(id).toString(16),
     error: postponeInstance,
-    originalValue: error.message,
+    originalValue: undefined,
     startTime: response._currentStartTime,
     endTime: response._currentEndTime,
     _response: response,
@@ -599,10 +621,10 @@ function resolvePostponeDev(
   const chunks = response._chunks;
 
   chunks.push({
-    type: "postpone",
+    type: "postponeDev",
     id: new Number(id).toString(16),
     error: postponeInstance,
-    originalValue: reason,
+    originalValue: { reason, stack },
     startTime: response._currentStartTime,
     endTime: response._currentEndTime,
     _response: response,
@@ -624,7 +646,7 @@ function resolveHint<Code extends HintCode>(
     id: new Number(id).toString(16),
     code: code,
     value: hintModel,
-    originalValue: model,
+    originalValue: { code, model },
     startTime: response._currentStartTime,
     endTime: response._currentEndTime,
     _response: response,
