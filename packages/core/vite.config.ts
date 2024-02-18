@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react(), dts()],
   build: {
     outDir: "./dist/js",
+    emptyOutDir: false,
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, "src/main.ts"),
