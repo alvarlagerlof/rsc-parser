@@ -283,6 +283,8 @@ function RowTabPanelExplorer({
     }
     case "text":
       return <p>{row.value}</p>;
+    case "debugInfo":
+      return <pre>{JSON.stringify(row.value, null, 2)}</pre>;
     default: {
       return null;
     }
