@@ -11,6 +11,7 @@ import { DownArrowIcon, RightArrowIcon } from "./FlightResponseIcons";
 import { EndTimeContext } from "./ViewerStreams";
 import { FlightResponseChunkDebugInfo } from "./FlightResponseChunkDebugInfo";
 import { FlightResponseChunkText } from "./FlightResponseChunkText";
+import { FlightResponseChunkUnknown } from "./FlightResponseChunkUnkown";
 
 export function FlightResponseTabSplit({
   flightResponse,
@@ -288,7 +289,7 @@ function RowTabPanelExplorer({
     case "debugInfo":
       return <FlightResponseChunkDebugInfo data={row.value} />;
     default: {
-      return null;
+      return <FlightResponseChunkUnknown chunk={row} />;
     }
   }
 }
