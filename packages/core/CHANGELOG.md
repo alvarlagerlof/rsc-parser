@@ -1,5 +1,15 @@
 # @rsc-parser/core
 
+## 0.1.15
+
+### Patch Changes
+
+- 38bff39: Use `chunk` name instead of `row`
+- d621e61: Improved rendering for unknown chunks #771
+- d621e61: Added more data to `originalValue` #772
+- 1207d60: Add network graph tab to FlightResponse
+- d621e61: Added support for debug info chunks #769
+
 ## 0.1.14
 
 ### Patch Changes
