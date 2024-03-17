@@ -3958,6 +3958,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@rsc-parser/embedded@workspace:packages/embedded":
+  version: 0.0.0-use.local
+  resolution: "@rsc-parser/embedded@workspace:packages/embedded"
+  dependencies:
+    "@rsc-parser/core": "workspace:*"
+    "@vitejs/plugin-react": "npm:^4.2.1"
+    react: "npm:18.2.0"
+    react-dom: "npm:18.2.0"
+    rollup-plugin-preserve-directives: "npm:^0.4.0"
+    vite: "npm:^5.1.6"
+    vite-plugin-dts: "npm:^3.7.3"
+  peerDependencies:
+    react: ^18.2.0
+    react-dom: ^18.2.0
+  languageName: unknown
+  linkType: soft
+
 "@rsc-parser/website@workspace:packages/website":
   version: 0.0.0-use.local
   resolution: "@rsc-parser/website@workspace:packages/website"
@@ -6106,7 +6123,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react@npm:4.2.1":
+"@vitejs/plugin-react@npm:4.2.1, @vitejs/plugin-react@npm:^4.2.1":
   version: 4.2.1
   resolution: "@vitejs/plugin-react@npm:4.2.1"
   dependencies:
@@ -12326,6 +12343,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@npm:^0.30.5":
+  version: 0.30.8
+  resolution: "magic-string@npm:0.30.8"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:^1.4.15"
+  checksum: 10/72ab63817af600e92c19dc8489c1aa4a9599da00cfd59b2319709bd48fb0cf533fdf354bf140ac86e598dbd63e6b2cc83647fe8448f864a3eb6061c62c94e784
+  languageName: node
+  linkType: hard
+
 "make-dir@npm:^2.0.0, make-dir@npm:^2.1.0":
   version: 2.1.0
   resolution: "make-dir@npm:2.1.0"
@@ -14774,6 +14800,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-preserve-directives@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "rollup-plugin-preserve-directives@npm:0.4.0"
+  dependencies:
+    "@rollup/pluginutils": "npm:^5.1.0"
+    magic-string: "npm:^0.30.5"
+  peerDependencies:
+    rollup: 2.x || 3.x || 4.x
+  checksum: 10/2ed0eeeb342ad87b9ec6c0521279c21b8680709e43da66b956cf111783852c01e167d463860b8e5a5b7385cf4d807d71d448eb9bf8179e1b336d777d6f7fe5b8
+  languageName: node
+  linkType: hard
+
 "rollup@npm:^2.25.0 || ^3.3.0":
   version: 3.29.4
   resolution: "rollup@npm:3.29.4"
@@ -16742,6 +16780,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vite-plugin-dts@npm:^3.7.3":
+  version: 3.7.3
+  resolution: "vite-plugin-dts@npm:3.7.3"
+  dependencies:
+    "@microsoft/api-extractor": "npm:7.39.0"
+    "@rollup/pluginutils": "npm:^5.1.0"
+    "@vue/language-core": "npm:^1.8.26"
+    debug: "npm:^4.3.4"
+    kolorist: "npm:^1.8.0"
+    vue-tsc: "npm:^1.8.26"
+  peerDependencies:
+    typescript: "*"
+    vite: "*"
+  peerDependenciesMeta:
+    vite:
+      optional: true
+  checksum: 10/b6adf0934a219b5b6a56f6ddf13b388533856eb55d167c245fed7de30352c285eeadc3387df6f5c6617c0c94640bd7b32bf65640a53484d50c6f0d2218918b51
+  languageName: node
+  linkType: hard
+
 "vite-plugin-html-config@npm:1.0.11":
   version: 1.0.11
   resolution: "vite-plugin-html-config@npm:1.0.11"
@@ -16788,6 +16846,46 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 10/6ba2223157e2cc2fa62dff9004ccba20fc409c6baf7354c64ed0f8e4bcd853092d08d06ec4dec37143e794a96e061879a870d85bad4f1eb9ee5c6d0a13cef30f
+  languageName: node
+  linkType: hard
+
+"vite@npm:^5.1.6":
+  version: 5.1.6
+  resolution: "vite@npm:5.1.6"
+  dependencies:
+    esbuild: "npm:^0.19.3"
+    fsevents: "npm:~2.3.3"
+    postcss: "npm:^8.4.35"
+    rollup: "npm:^4.2.0"
+  peerDependencies:
+    "@types/node": ^18.0.0 || >=20.0.0
+    less: "*"
+    lightningcss: ^1.21.0
+    sass: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.4.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10/f48073e93ead62fa58034398442de4517c824b3e50184f8b4059fb24077a26f2c04e910e29d7fb7ec51ea53eb61b9c7d94d56b14a38851de80c67480094cc79d
   languageName: node
   linkType: hard
 
