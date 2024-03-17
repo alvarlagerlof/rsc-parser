@@ -233,7 +233,7 @@ function Panel({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div className="rsc">
       <div
         style={{
           position: "fixed",
@@ -260,7 +260,7 @@ function Panel({ children }: { children: ReactNode }) {
             width: "100vw",
             height: "30vh",
             zIndex: 1000,
-            background: "rgb(227, 227, 227)",
+            background: "rgb(15, 23, 42)",
             padding: "16px",
             overflowY: "scroll",
           }}
@@ -268,6 +268,6 @@ function Panel({ children }: { children: ReactNode }) {
           {children}
         </div>
       ) : null}
-    </>
+    </div>
   );
 }

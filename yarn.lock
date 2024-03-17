@@ -3951,6 +3951,7 @@ __metadata:
     storybook: "npm:7.6.16"
     storybook-dark-mode: "npm:3.0.3"
     tailwindcss: "npm:3.4.1"
+    tailwindcss-scoped-preflight: "npm:^2.1.0"
     ts-jest: "npm:29.1.2"
     typescript: "npm:5.3.3"
     vite: "npm:5.1.3"
@@ -15762,6 +15763,16 @@ __metadata:
   version: 2.0.17
   resolution: "synchronous-promise@npm:2.0.17"
   checksum: 10/dd74b1c05caab8ea34e26c8b52a0966efd70b0229ad39447ce066501dd6931d4d97a3f88b0f306880a699660cd334180a24d9738b385aed0bd0104a5be207ec1
+  languageName: node
+  linkType: hard
+
+"tailwindcss-scoped-preflight@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "tailwindcss-scoped-preflight@npm:2.1.0"
+  peerDependencies:
+    postcss: ^8
+    tailwindcss: ^3
+  checksum: 10/29da772f7e001043dc2564bbbd15f451ea1b7ccc2685c9b5d8d136e0c03c5f47ee70ca4b261ca04b50990a8643617838f8b9f9a3a5082b24860510858020efd7
   languageName: node
   linkType: hard
 
