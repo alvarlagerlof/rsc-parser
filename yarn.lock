@@ -3889,7 +3889,7 @@ __metadata:
     "@ariakit/react": "npm:0.4.3"
     "@rsc-parser/core": "workspace:*"
     "@types/react": "npm:18.2.66"
-    "@types/react-dom": "npm:18.2.19"
+    "@types/react-dom": "npm:18.2.22"
     "@typescript-eslint/eslint-plugin": "npm:7.0.1"
     "@typescript-eslint/parser": "npm:7.0.1"
     "@vitejs/plugin-react": "npm:4.2.1"
@@ -3966,7 +3966,7 @@ __metadata:
     "@rsc-parser/core": "workspace:*"
     "@types/node": "npm:20.11.28"
     "@types/react": "npm:18.2.66"
-    "@types/react-dom": "npm:18.2.19"
+    "@types/react-dom": "npm:18.2.22"
     autoprefixer: "npm:10.4.18"
     eslint: "npm:8.56.0"
     eslint-config-next: "npm:14.1.0"
@@ -5786,7 +5786,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.19, @types/react-dom@npm:^18.0.0":
+"@types/react-dom@npm:18.2.22":
+  version: 18.2.22
+  resolution: "@types/react-dom@npm:18.2.22"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10/310da22244c1bb65a7f213f8727bda821dd211cfb2dd62d1f9b28dd50ef1c196d59e908494bd5f25c13a3844343f3a6135f39fb830aca6f79646fa56c1b56c08
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:^18.0.0":
   version: 18.2.19
   resolution: "@types/react-dom@npm:18.2.19"
   dependencies:
