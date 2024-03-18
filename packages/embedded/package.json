@@ -1,0 +1,35 @@
+{
+  "name": "@rsc-parser/embedded",
+  "packageManager": "yarn@4.1.0",
+  "version": "0.1.15",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "types": "./dist/js/Component.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/js/embedded.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@rsc-parser/core": "workspace:*",
+    "@vitejs/plugin-react": "^4.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "rollup-plugin-preserve-directives": "^0.4.0",
+    "vite": "^5.1.6",
+    "vite-plugin-dts": "^3.7.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

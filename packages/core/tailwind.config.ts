@@ -1,5 +1,6 @@
 import { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
+import { scopedPreflightStyles } from "tailwindcss-scoped-preflight";
 
 const config: Config = {
   content: ["./src/**/*.tsx"],
@@ -25,6 +26,10 @@ const config: Config = {
           fontVariantLigatures: "none",
         },
       });
+    }),
+    scopedPreflightStyles({
+      cssSelector: ".rsc", // or .tailwind-preflight or even [data-twp=true] - any valid CSS selector of your choice
+      mode: "matched only", // it's the default
     }),
   ],
 };
