@@ -3210,7 +3210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pnpm/workspace.pkgs-graph@npm:^2.0.14":
+"@pnpm/workspace.pkgs-graph@npm:^2.0.15":
   version: 2.0.15
   resolution: "@pnpm/workspace.pkgs-graph@npm:2.0.15"
   dependencies:
@@ -12107,16 +12107,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.0.1":
-  version: 5.0.1
-  resolution: "knip@npm:5.0.1"
+"knip@npm:5.2.2":
+  version: 5.2.2
+  resolution: "knip@npm:5.2.2"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@nodelib/fs.walk": "npm:2.0.0"
     "@npmcli/map-workspaces": "npm:3.0.4"
     "@npmcli/package-json": "npm:5.0.0"
     "@pnpm/logger": "npm:5.0.0"
-    "@pnpm/workspace.pkgs-graph": "npm:^2.0.14"
+    "@pnpm/workspace.pkgs-graph": "npm:^2.0.15"
     "@snyk/github-codeowners": "npm:1.1.0"
     "@types/picomatch": "npm:2.3.3"
     easy-table: "npm:1.2.0"
@@ -12128,18 +12128,17 @@ __metadata:
     picocolors: "npm:1.0.0"
     picomatch: "npm:4.0.1"
     pretty-ms: "npm:9.0.0"
-    semver: "npm:7.6.0"
     smol-toml: "npm:1.1.4"
     strip-json-comments: "npm:5.0.1"
     summary: "npm:2.1.0"
     zod: "npm:3.22.4"
-    zod-validation-error: "npm:3.0.0"
+    zod-validation-error: "npm:3.0.3"
   peerDependencies:
     "@types/node": ">=18"
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 10/b28888972075616321f4031a81b9b43fa36fdc74ac4f1321e1d13fad1b7b7e0499a9dc7ce666ace3344d44f4ac5b1e22361a14868a55d21ae181509bb9127b53
+  checksum: 10/59deb617b71a11a7cc3ee23341d812c15d3e1f629ce172fdef091f378308491103fad19455f55be5e6cd0ee7f76e8070974a732aecfdcd86dab0f0a55365b66f
   languageName: node
   linkType: hard
 
@@ -14976,7 +14975,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.1"
-    knip: "npm:5.0.1"
+    knip: "npm:5.2.2"
     prettier: "npm:3.2.5"
     turbo: "npm:1.12.4"
   languageName: unknown
@@ -15102,7 +15101,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.6.0, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.2, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.4.0, semver@npm:^7.5.3, semver@npm:^7.5.4":
+"semver@npm:^6.0.0, semver@npm:^6.1.0, semver@npm:^6.3.0, semver@npm:^6.3.1":
+  version: 6.3.1
+  resolution: "semver@npm:6.3.1"
+  bin:
+    semver: bin/semver.js
+  checksum: 10/1ef3a85bd02a760c6ef76a45b8c1ce18226de40831e02a00bad78485390b98b6ccaa31046245fc63bba4a47a6a592b6c7eedc65cc47126e60489f9cc1ce3ed7e
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.2, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.4.0, semver@npm:^7.5.3, semver@npm:^7.5.4":
   version: 7.6.0
   resolution: "semver@npm:7.6.0"
   dependencies:
@@ -15110,15 +15118,6 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10/1b41018df2d8aca5a1db4729985e8e20428c650daea60fcd16e926e9383217d00f574fab92d79612771884a98d2ee2a1973f49d630829a8d54d6570defe62535
-  languageName: node
-  linkType: hard
-
-"semver@npm:^6.0.0, semver@npm:^6.1.0, semver@npm:^6.3.0, semver@npm:^6.3.1":
-  version: 6.3.1
-  resolution: "semver@npm:6.3.1"
-  bin:
-    semver: bin/semver.js
-  checksum: 10/1ef3a85bd02a760c6ef76a45b8c1ce18226de40831e02a00bad78485390b98b6ccaa31046245fc63bba4a47a6a592b6c7eedc65cc47126e60489f9cc1ce3ed7e
   languageName: node
   linkType: hard
 
@@ -17423,12 +17422,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod-validation-error@npm:3.0.0":
-  version: 3.0.0
-  resolution: "zod-validation-error@npm:3.0.0"
+"zod-validation-error@npm:3.0.3":
+  version: 3.0.3
+  resolution: "zod-validation-error@npm:3.0.3"
   peerDependencies:
     zod: ^3.18.0
-  checksum: 10/ab836df3ba95db92c603bb09b856a77d1ec6815c17ffaf5802966727763e117cd87048656d2285f780cabbd491687cf388f1f1d0b875aa3d9dfdb4e93e68e2d4
+  checksum: 10/25b409884e16de45a95a047bd571e84bd1fb3f3bbec08f947b99e161ae3030ae24f88720d7d0c2bfcf18433df7b808e2310d38620fb2994c3c685122dc5aea6c
   languageName: node
   linkType: hard
 
