@@ -2199,7 +2199,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^3.0.2":
+"@eslint/eslintrc@npm:3.0.2, @eslint/eslintrc@npm:^3.0.2":
   version: 3.0.2
   resolution: "@eslint/eslintrc@npm:3.0.2"
   dependencies:
@@ -2216,7 +2216,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.0.0, @eslint/js@npm:^9.0.0":
+"@eslint/js@npm:9.0.0":
   version: 9.0.0
   resolution: "@eslint/js@npm:9.0.0"
   checksum: 10/b14b20af72410ef53e3e77e7d83cc1d6e6554b0092ceb9f969d25d765f4d775b4be32b0cd99bbfd6ce72eb2e4fb6b39b42a159b31909fbe1b3a5e88d75211687
@@ -3776,11 +3776,11 @@ __metadata:
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
     "@ariakit/react": "npm:0.4.5"
-    "@eslint/eslintrc": "npm:^3.0.2"
-    "@eslint/js": "npm:^9.0.0"
+    "@eslint/eslintrc": "npm:3.0.2"
+    "@eslint/js": "npm:9.0.0"
     "@rsc-parser/core": "workspace:*"
-    "@types/eslint__eslintrc": "npm:^2.1.1"
-    "@types/eslint__js": "npm:^8.42.3"
+    "@types/eslint__eslintrc": "npm:2.1.1"
+    "@types/eslint__js": "npm:8.42.3"
     "@types/react": "npm:18.2.74"
     "@types/react-dom": "npm:18.2.24"
     "@typescript-eslint/eslint-plugin": "npm:7.5.0"
@@ -3810,8 +3810,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/core@workspace:packages/core"
   dependencies:
-    "@eslint/eslintrc": "npm:^3.0.2"
-    "@eslint/js": "npm:^9.0.0"
+    "@eslint/eslintrc": "npm:3.0.2"
+    "@eslint/js": "npm:9.0.0"
     "@storybook/addon-essentials": "npm:8.0.6"
     "@storybook/addon-interactions": "npm:8.0.6"
     "@storybook/addon-links": "npm:8.0.6"
@@ -3825,8 +3825,8 @@ __metadata:
     "@testing-library/react": "npm:14.2.2"
     "@types/d3": "npm:7.4.3"
     "@types/d3-drag": "npm:3.0.7"
-    "@types/eslint__eslintrc": "npm:^2.1.1"
-    "@types/eslint__js": "npm:^8.42.3"
+    "@types/eslint__eslintrc": "npm:2.1.1"
+    "@types/eslint__js": "npm:8.42.3"
     "@types/jest": "npm:29.5.12"
     "@typescript-eslint/eslint-plugin": "npm:7.5.0"
     "@typescript-eslint/parser": "npm:7.5.0"
@@ -3850,7 +3850,7 @@ __metadata:
     tailwindcss: "npm:3.4.3"
     ts-jest: "npm:29.1.2"
     typescript: "npm:5.4.4"
-    typescript-eslint: "npm:^7.5.0"
+    typescript-eslint: "npm:7.5.0"
     vite: "npm:5.2.8"
     vite-plugin-dts: "npm:3.8.1"
   languageName: unknown
@@ -3861,11 +3861,11 @@ __metadata:
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
     "@ariakit/react": "npm:0.4.5"
-    "@eslint/eslintrc": "npm:^3.0.2"
-    "@eslint/js": "npm:^9.0.0"
+    "@eslint/eslintrc": "npm:3.0.2"
+    "@eslint/js": "npm:9.0.0"
     "@rsc-parser/core": "workspace:*"
-    "@types/eslint__eslintrc": "npm:^2.1.1"
-    "@types/eslint__js": "npm:^8.42.3"
+    "@types/eslint__eslintrc": "npm:2.1.1"
+    "@types/eslint__js": "npm:8.42.3"
     "@types/node": "npm:20.12.5"
     "@types/react": "npm:18.2.74"
     "@types/react-dom": "npm:18.2.24"
@@ -5628,7 +5628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint__eslintrc@npm:^2.1.1":
+"@types/eslint__eslintrc@npm:2.1.1":
   version: 2.1.1
   resolution: "@types/eslint__eslintrc@npm:2.1.1"
   dependencies:
@@ -5637,7 +5637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint__js@npm:^8.42.3":
+"@types/eslint__js@npm:8.42.3":
   version: 8.42.3
   resolution: "@types/eslint__js@npm:8.42.3"
   dependencies:
@@ -16464,7 +16464,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:^7.5.0":
+"typescript-eslint@npm:7.5.0":
   version: 7.5.0
   resolution: "typescript-eslint@npm:7.5.0"
   dependencies:
