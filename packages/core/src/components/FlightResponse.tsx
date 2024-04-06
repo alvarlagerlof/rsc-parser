@@ -13,6 +13,7 @@ export function FlightResponse({
   flightResponse: FlightResponse;
 }) {
   const defaultSelectedId = "split";
+
   const tab = Ariakit.useTabStore({ defaultSelectedId });
 
   return (

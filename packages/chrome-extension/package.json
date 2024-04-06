@@ -13,6 +13,10 @@
   },
   "devDependencies": {
     "@ariakit/react": "0.4.5",
+    "@eslint/eslintrc": "^3.0.2",
+    "@eslint/js": "^9.0.0",
+    "@types/eslint__eslintrc": "^2.1.1",
+    "@types/eslint__js": "^8.42.3",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.24",
     "@typescript-eslint/eslint-plugin": "7.5.0",
@@ -22,7 +26,7 @@
     "chrome-types": "0.1.277",
     "concurrently": "8.2.2",
     "esbuild": "0.20.2",
-    "eslint": "8.57.0",
+    "eslint": "9.0.0",
     "eslint-plugin-tailwindcss": "3.15.1",
     "postcss": "8.4.38",
     "prettier": "3.2.5",
@@ -33,7 +37,7 @@
     "vite-plugin-html-config": "1.0.11"
   },
   "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern \"/dist\"/",
+    "lint": "eslint",
     "format": "prettier . --check --config ../../.prettierrc",
     "dev": "vite build --mode development && vite dev",
     "build": "vite build && sed -i'.backup' 's| http://localhost:6020||g' dist/manifest.json && rm dist/manifest.json.backup"
