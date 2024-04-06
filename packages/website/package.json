@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint",
     "format": "prettier . --check --config ../../.prettierrc"
   },
   "dependencies": {
@@ -30,6 +30,10 @@
     "typescript": "5.4.4"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
+    "@eslint/js": "^9.0.0",
+    "@types/eslint__eslintrc": "^2.1.1",
+    "@types/eslint__js": "^8.42.3",
     "eslint-plugin-tailwindcss": "3.15.1",
     "prettier": "3.2.5",
     "turbo": "1.13.2"

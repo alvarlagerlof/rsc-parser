@@ -33,7 +33,7 @@
     "vite-plugin-html-config": "1.0.11"
   },
   "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern \"/dist\"/",
+    "lint": "eslint",
     "format": "prettier . --check --config ../../.prettierrc",
     "dev": "vite build --mode development && vite dev",
     "build": "vite build && sed -i'.backup' 's| http://localhost:6020||g' dist/manifest.json && rm dist/manifest.json.backup"
