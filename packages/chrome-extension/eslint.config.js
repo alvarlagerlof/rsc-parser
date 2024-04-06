@@ -9,7 +9,7 @@ const compat = new FlatCompat();
 
 export default [
   {
-    ignores: ["dist/**", ".turbo/**"],
+    ignores: ["dist/**", ".turbo/**", "vite.config.ts.timestamp*"],
   },
   ...[eslint.configs.recommended, ...tseslint.configs.recommended].map(
     (conf) => ({
