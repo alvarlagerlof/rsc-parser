@@ -5,7 +5,11 @@ import React, {
   useState,
   useTransition,
 } from "react";
-import * as Ariakit from "@ariakit/react";
+import {
+  Disclosure,
+  DisclosureContent,
+  useDisclosureStore,
+} from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback.jsx";
@@ -135,7 +139,7 @@ function NodeElement({
 }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isPending, startTransition] = useTransition();
-  const disclosure = Ariakit.useDisclosureStore({
+  const disclosure = useDisclosureStore({
     open: isOpen,
     setOpen: (open) => {
       startTransition(() => {
@@ -175,7 +179,7 @@ function NodeElement({
 
   return (
     <ObjectContext.Provider value={false}>
-      <Ariakit.Disclosure
+      <Disclosure
         store={disclosure}
         className="-my-0.5 cursor-pointer rounded-lg py-0.5 outline outline-2 outline-transparent transition-all duration-200 ligatures-none hover:bg-slate-700/10 focus:bg-slate-700/10 dark:hover:bg-white/10 dark:focus:bg-white/10"
         style={{ opacity: isPending ? 0.7 : 1 }}
@@ -219,9 +223,9 @@ function NodeElement({
             </Purple>
           </>
         )}
-      </Ariakit.Disclosure>
+      </Disclosure>
 
-      <Ariakit.DisclosureContent store={disclosure}>
+      <DisclosureContent store={disclosure}>
         {isOpen ? (
           // This is kind of misusing <details><summary>, but it lets us
           // avoid rendering the children if it is not open
@@ -268,7 +272,7 @@ function NodeElement({
             )}
           </>
         ) : null}
-      </Ariakit.DisclosureContent>
+      </DisclosureContent>
     </ObjectContext.Provider>
   );
 }

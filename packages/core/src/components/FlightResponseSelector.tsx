@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState, useTransition } from "react";
-import * as Ariakit from "@ariakit/react";
+import { TabList, Tab, TabPanel, useTabStore } from "@ariakit/react";
 import { RscChunkMessage } from "../main";
 import { getColorForFetch } from "../color";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
@@ -39,7 +39,7 @@ export function useFlightResponseSelector(
     }
   }, [tabs]);
 
-  const tabStore = Ariakit.useTabStore({
+  const tabStore = useTabStore({
     selectedId: selectedTab,
     setSelectedId: selectTab,
   });
@@ -64,9 +64,9 @@ export function FlightResponseSelector({
   return (
     <PanelGroup direction="horizontal">
       <Panel id="sidebar" minSize={35} order={1} defaultSize={35}>
-        <Ariakit.TabList store={tabStore} className="flex flex-col gap-1 pr-3">
+        <TabList store={tabStore} className="flex flex-col gap-1 pr-3">
           {tabs.map((tab) => (
-            <Ariakit.Tab className="group w-full text-left" key={tab} id={tab}>
+            <Tab className="group w-full text-left" key={tab} id={tab}>
               <div className="flex w-full flex-row items-center gap-3 rounded-md border-none px-1.5 py-0.5 group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
                 <div
                   className="size-[14px] min-h-[14px] min-w-[14px] rounded-full"
@@ -86,15 +86,15 @@ export function FlightResponseSelector({
                   </span>
                 </div>
               </div>
-            </Ariakit.Tab>
+            </Tab>
           ))}
-        </Ariakit.TabList>
+        </TabList>
       </Panel>
 
       <PanelResizeHandle className="w-1 rounded bg-slate-200 dark:bg-slate-800" />
 
       <Panel order={2} minSize={30} className="">
-        <Ariakit.TabPanel
+        <TabPanel
           store={tabStore}
           tabId={currentTab}
           alwaysVisible={true}
@@ -105,7 +105,7 @@ export function FlightResponseSelector({
           aria-busy={isPending}
         >
           {children}
-        </Ariakit.TabPanel>
+        </TabPanel>
       </Panel>
     </PanelGroup>
   );

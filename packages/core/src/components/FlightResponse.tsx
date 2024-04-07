@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import * as Ariakit from "@ariakit/react";
+import { TabList, Tab, TabPanel, useTabStore } from "@ariakit/react";
 
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 import type { FlightResponse } from "../react/ReactFlightClient";
@@ -15,7 +15,7 @@ export function FlightResponse({
 }) {
   const defaultSelectedId = "split";
 
-  const tab = Ariakit.useTabStore({ defaultSelectedId });
+  const tab = useTabStore({ defaultSelectedId });
 
   return (
     <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
@@ -30,45 +30,45 @@ export function FlightResponse({
             </span>
           )}
 
-          <Ariakit.TabList
+          <TabList
             store={tab}
             aria-label="Render modes"
             className="flex flex-row gap-2"
           >
-            <Ariakit.Tab
+            <Tab
               id="split"
               className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:aria-selected:text-black"
             >
               Split
-            </Ariakit.Tab>
-            <Ariakit.Tab
+            </Tab>
+            <Tab
               id="rows"
               className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:aria-selected:text-black"
             >
               Raw
-            </Ariakit.Tab>
-            <Ariakit.Tab
+            </Tab>
+            <Tab
               id="network"
               className="text-nowrap rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:aria-selected:text-black"
             >
               Network (Beta)
-            </Ariakit.Tab>
-          </Ariakit.TabList>
+            </Tab>
+          </TabList>
         </div>
         <div>
-          <Ariakit.TabPanel store={tab} tabId={defaultSelectedId}>
+          <TabPanel store={tab} tabId={defaultSelectedId}>
             <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
               <FlightResponseTabSplit flightResponse={flightResponse} />
             </ErrorBoundary>
-          </Ariakit.TabPanel>
+          </TabPanel>
 
-          <Ariakit.TabPanel store={tab}>
+          <TabPanel store={tab}>
             <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
               <FlightResponseTabRaw flightResponse={flightResponse} />
             </ErrorBoundary>
-          </Ariakit.TabPanel>
+          </TabPanel>
 
-          <Ariakit.TabPanel store={tab}>
+          <TabPanel store={tab}>
             <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
               <FlightResponseTabNetwork
                 flightResponse={flightResponse}
@@ -76,7 +76,7 @@ export function FlightResponse({
                 key={flightResponse._chunks.length}
               />
             </ErrorBoundary>
-          </Ariakit.TabPanel>
+          </TabPanel>
         </div>
       </div>
     </ErrorBoundary>

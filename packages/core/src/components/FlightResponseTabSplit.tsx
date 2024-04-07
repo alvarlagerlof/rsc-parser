@@ -1,5 +1,13 @@
 import React, { useContext, useState, useTransition } from "react";
-import * as Ariakit from "@ariakit/react";
+import {
+  Disclosure,
+  DisclosureContent,
+  useDisclosureStore,
+  TabList,
+  Tab,
+  TabPanel,
+  useTabStore,
+} from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 import { FlightResponse } from "../react/ReactFlightClient";
@@ -55,7 +63,7 @@ export function FlightResponseTabSplit({
     }
   };
 
-  const tab = Ariakit.useTabStore({
+  const tab = useTabStore({
     selectedId: selectedTab,
     setSelectedId: selectTab,
   });
@@ -73,12 +81,12 @@ export function FlightResponseTabSplit({
           <div className="flex flex-col gap-2 pb-3">
             <div>Total size: {payloadSize} KB (uncompressed)</div>
 
-            <Ariakit.TabList
+            <TabList
               store={tab}
               className="flex flex-row flex-wrap gap-2 md:pb-0"
             >
               {timeFilteredChunks.map((chunk) => (
-                <Ariakit.Tab
+                <Tab
                   className="group rounded-md border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200"
                   key={chunk.id}
                   id={String(chunk.id)}
@@ -94,12 +102,12 @@ export function FlightResponseTabSplit({
                   >
                     <ChunkTab chunk={chunk} payloadSize={payloadSize} />
                   </ErrorBoundary>
-                </Ariakit.Tab>
+                </Tab>
               ))}
-            </Ariakit.TabList>
+            </TabList>
           </div>
 
-          <Ariakit.TabPanel
+          <TabPanel
             store={tab}
             tabId={currentTab}
             alwaysVisible={true}
@@ -130,7 +138,7 @@ export function FlightResponseTabSplit({
                   />
                 </ErrorBoundary>
               ))}
-          </Ariakit.TabPanel>
+          </TabPanel>
         </>
       )}
     </div>
@@ -305,7 +313,7 @@ function ChunkTabPanelExplorer({
 function ChunkTabPanelGenericData({ chunk }: { chunk: Chunk }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const disclosure = Ariakit.useDisclosureStore({
+  const disclosure = useDisclosureStore({
     open: isOpen,
     setOpen: (open) => {
       startTransition(() => {
@@ -316,17 +324,17 @@ function ChunkTabPanelGenericData({ chunk }: { chunk: Chunk }) {
 
   return (
     <div className="flex flex-col gap-2">
-      <Ariakit.Disclosure
+      <Disclosure
         store={disclosure}
         style={{ opacity: isPending ? 0.7 : 1 }}
         className="flex cursor-pointer items-center gap-1"
       >
         {isOpen ? <DownArrowIcon /> : <RightArrowIcon />}
         Raw data
-      </Ariakit.Disclosure>
-      <Ariakit.DisclosureContent store={disclosure}>
+      </Disclosure>
+      <DisclosureContent store={disclosure}>
         {isOpen ? <ChunkTabRawJson chunk={chunk} /> : null}
-      </Ariakit.DisclosureContent>
+      </DisclosureContent>
     </div>
   );
 }
