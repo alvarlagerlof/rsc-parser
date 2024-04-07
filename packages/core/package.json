@@ -6,8 +6,10 @@
   "author": "Alvar Lagerlöf",
   "license": "MIT",
   "scripts": {
-    "build": "bunchee ./src/index.ts -f esm -o dist/index.mjs && yarn tailwindcss -o dist/style.css --minify",
-    "dev": "concurrently  \"bunchee ./src/index.ts -f esm -o dist/index.mjs -w\" \"yarn tailwindcss -o dist/style.css --minify --watch\"",
+    "build:tailwind": "yarn tailwindcss -o dist/style.css --minify",
+    "build:bundle": "bunchee ./src/index.ts -f esm -o dist/index.mjs",
+    "build": "yarn build:tailwind && yarn build:bundle",
+    "dev": "concurrently  \"yarn build:bundle -w\" \"yarn build:tailwind --watch\"",
     "test": "NODE_NO_WARNINGS=1 node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --passWithNoTests",
     "test:dev": "yarn test --watch",
     "lint": "eslint",
