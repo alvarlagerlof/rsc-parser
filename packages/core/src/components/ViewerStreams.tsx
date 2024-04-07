@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
 import { createFlightResponse } from "../createFlightResponse";
 import { RscChunkMessage } from "../types";
 import { FlightResponse } from "./FlightResponse";

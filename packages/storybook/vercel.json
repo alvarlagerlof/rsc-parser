@@ -2,6 +2,6 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "yarn build-storybook",
+  "buildCommand": "turbo run build",
   "outputDirectory": "storybook-static"
 }

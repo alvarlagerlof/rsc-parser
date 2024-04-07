@@ -1,3 +1,4 @@
+import React from "react";
 import { DebugInfoChunk } from "../react/ReactFlightClient";
 
 export function FlightResponseChunkDebugInfo({

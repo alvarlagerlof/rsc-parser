@@ -1,3 +1,4 @@
+import React from "react";
 import { HintChunk } from "../react/ReactFlightClient";
 
 export function FlightResponseChunkHint({
