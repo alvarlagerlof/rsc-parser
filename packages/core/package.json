@@ -6,13 +6,27 @@
   "author": "Alvar Lagerlöf",
   "license": "MIT",
   "scripts": {
-    "build": "vite build && yarn tailwindcss -o dist/style.css --minify",
-    "dev": "concurrently  \"vite build --watch\" \"yarn tailwindcss -o dist/style.css --minify --watch\"",
+    "build": "bunchee ./src/index.ts -f esm -o dist/index.mjs --no-external && yarn tailwindcss -o dist/style.css --minify",
+    "dev": "concurrently  \"bunchee ./src/index.ts -f esm -o dist/index.mjs -w\" \"yarn tailwindcss -o dist/style.css --minify --watch\"",
     "test": "NODE_NO_WARNINGS=1 node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --passWithNoTests",
     "test:dev": "yarn test --watch",
     "lint": "eslint",
     "format": "prettier . --check --config ../../.prettierrc"
   },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs"
+    },
+    "./style.css": {
+      "import": "./dist/style.css"
+    }
+  },
+  "types": "./dist/index.d.mts",
+  "style": "./dist/style.css",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@eslint/eslintrc": "3.0.2",
     "@eslint/js": "9.0.0",
@@ -29,6 +43,7 @@
     "@vitejs/plugin-react": "4.2.1",
     "@vitejs/plugin-react-swc": "3.6.0",
     "autoprefixer": "10.4.19",
+    "bunchee": "^5.1.2",
     "concurrently": "8.2.2",
     "eslint": "9.0.0",
     "eslint-plugin-tailwindcss": "3.15.1",
@@ -45,20 +60,12 @@
     "vite": "5.2.8",
     "vite-plugin-dts": "3.8.1"
   },
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/js/core.js"
-    },
-    "./style.css": {
-      "import": "./dist/style.css"
-    }
-  },
-  "types": "./dist/js/src/main.d.ts",
-  "style": "./dist/style.css",
   "dependencies": {
     "d3": "7.9.0",
     "react-error-boundary": "4.0.13",
     "react-resizable-panels": "2.0.16"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0 || "
   }
 }
