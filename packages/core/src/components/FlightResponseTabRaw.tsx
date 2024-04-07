@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FlightResponse } from "../react/ReactFlightClient";
 import { FlightResponseChunkRaw } from "./FlightResponseChunkRaw";
-import { EndTimeContext } from "./ViewerStreams";
+import { EndTimeContext } from "./EndTimeContext";
 
 export function FlightResponseTabRaw({
   flightResponse,
