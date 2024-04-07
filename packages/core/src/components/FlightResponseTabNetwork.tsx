@@ -1,5 +1,5 @@
 import { Chunk, FlightResponse, isReference } from "../react/ReactFlightClient";
-import { memo, useContext, useEffect, useRef, useState } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { EndTimeContext } from "./ViewerStreams";
 

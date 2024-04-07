@@ -1,3 +1,4 @@
+import React from "react";
 import { TextChunk } from "../react/ReactFlightClient";
 
 export function FlightResponseChunkText({

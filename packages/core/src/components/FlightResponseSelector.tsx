@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState, useTransition } from "react";
+import React, { ReactNode, useEffect, useState, useTransition } from "react";
 import * as Ariakit from "@ariakit/react";
 import { RscChunkMessage } from "../main";
 import { getColorForFetch } from "../color";

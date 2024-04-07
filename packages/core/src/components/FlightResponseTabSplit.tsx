@@ -1,4 +1,4 @@
-import { useContext, useState, useTransition } from "react";
+import React, { useContext, useState, useTransition } from "react";
 import * as Ariakit from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";

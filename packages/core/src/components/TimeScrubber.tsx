@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useTransition } from "react";
+import React, { useEffect, useMemo, useState, useTransition } from "react";
 import { RscChunkMessage } from "../types";
 import { getColorForFetch } from "../color";
 

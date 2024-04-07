@@ -1,3 +1,4 @@
+import React from "react";
 import { Chunk } from "../react/ReactFlightClient";
 
 export function FlightResponseChunkRaw({ data }: { data: Chunk }) {

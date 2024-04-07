@@ -1,3 +1,4 @@
+import React from "react";
 import { ModuleChunk } from "../react/ReactFlightClient";
 
 function groupChunks(array: (string | number)[]) {
