@@ -8,7 +8,7 @@ import { FlightResponseChunkModule } from "./FlightResponseChunkModule";
 import { FlightResponseChunkHint } from "./FlightResponseChunkHint";
 import { FlightResponseChunkModel } from "./FlightResponseChunkModel";
 import { DownArrowIcon, RightArrowIcon } from "./FlightResponseIcons";
-import { EndTimeContext } from "./ViewerStreams";
+import { EndTimeContext } from "./EndTimeContext";
 import { FlightResponseChunkDebugInfo } from "./FlightResponseChunkDebugInfo";
 import { FlightResponseChunkText } from "./FlightResponseChunkText";
 import { FlightResponseChunkUnknown } from "./FlightResponseChunkUnknown";

@@ -5,7 +5,7 @@ import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 import { createFlightResponse } from "../createFlightResponse";
 import { RscChunkMessage } from "../types";
 import { FlightResponse } from "./FlightResponse";
-import { EndTimeContext } from "./ViewerStreams";
+import { EndTimeContext } from "./EndTimeContext";
 
 export function ViewerPayload({ defaultPayload }: { defaultPayload: string }) {
   const [payload, setPayload] = useState(defaultPayload);

@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React from "react";
 import { createFlightResponse } from "../createFlightResponse";
 import { RscChunkMessage } from "../types";
 import { FlightResponse } from "./FlightResponse";
@@ -8,6 +8,7 @@ import {
 } from "./FlightResponseSelector";
 import { TimeScrubber, useTimeScrubber } from "./TimeScrubber";
 import { useFilterMessagesByEndTime, useGroupedMessages } from "./TimeScrubber";
+import { EndTimeContext } from "./EndTimeContext";
 
 export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
   const timeScrubber = useTimeScrubber(messages, {
@@ -46,5 +47,3 @@ export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
     </div>
   );
 }
-
-export const EndTimeContext = createContext<number>(Infinity);
