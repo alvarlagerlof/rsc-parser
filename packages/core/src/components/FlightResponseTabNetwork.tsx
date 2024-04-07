@@ -87,8 +87,6 @@ export function FlightResponseTabNetwork({
 }: {
   flightResponse: FlightResponse;
 }) {
-  console.log(flightResponse._chunks);
-
   const endTime = useContext(EndTimeContext);
 
   const nodes: Node[] = flightResponse._chunks.map((chunk) => {
