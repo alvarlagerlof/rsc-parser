@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState, useTransition } from "react";
 import { TabList, Tab, TabPanel, useTabStore } from "@ariakit/react";
-import { RscChunkMessage } from "../main";
+import { RscChunkMessage } from "../types";
 import { getColorForFetch } from "../color";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { useSortedFetchPaths } from "./TimeScrubber";

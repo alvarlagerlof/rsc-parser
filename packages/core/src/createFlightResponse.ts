@@ -1,4 +1,4 @@
-import { RscChunkMessage } from "./main";
+import { RscChunkMessage } from "./types";
 import {
   FlightResponse,
   createFromJSONCallback,
