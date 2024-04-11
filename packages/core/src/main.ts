@@ -7,6 +7,11 @@ import { RecordButton } from "./components/RecordButton";
 import { DebugCopyMessagesButton } from "./components/DebugCopyMessagesButton";
 import { ClearMessagesButton } from "./components/ClearMessagesButton";
 import { PanelLayout } from "./components/PanelLayout";
+import {
+  BottomPanel,
+  BottomPanelOpenButton,
+  BottomPanelCloseButton,
+} from "./components/BottomPanel";
 
 export {
   type RscChunkMessage,
@@ -18,4 +23,7 @@ export {
   DebugCopyMessagesButton,
   ClearMessagesButton,
   PanelLayout,
+  BottomPanel,
+  BottomPanelOpenButton,
+  BottomPanelCloseButton,
 };

@@ -26,6 +26,13 @@ const config: Config = {
         },
       });
     }),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".scrollbar-gutter-stable": {
+          scrollbarGutter: "stable",
+        },
+      });
+    }),
   ],
 };
 
