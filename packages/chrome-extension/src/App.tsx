@@ -6,7 +6,16 @@ import React, {
   useState,
 } from "react";
 
-import { ViewerStreams, RscChunkMessage } from "@rsc-parser/core";
+import {
+  ViewerStreams,
+  ViewerStreamsEmptyState,
+  RscChunkMessage,
+  PanelLayout,
+  Logo,
+  RecordButton,
+  DebugCopyMessagesButton,
+  ClearMessagesButton,
+} from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
 export function App() {
@@ -14,66 +23,29 @@ export function App() {
     useRscMessages();
 
   return (
-    <div className="space-y-2 dark:text-white">
+    <PanelLayout
+      header={
+        <>
+          <Logo variant="wide" />
+          <RecordButton
+            isRecording={isRecording}
+            onClickRecord={startRecording}
+          />
+          {process.env.NODE_ENV === "development" ? (
+            <DebugCopyMessagesButton messages={messages} />
+          ) : null}
+          {messages.length > 0 ? (
+            <ClearMessagesButton onClickClearMessages={clearMessages} />
+          ) : null}
+        </>
+      }
+    >
       {messages.length === 0 || !isRecording ? (
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-row items-center justify-between">
-            <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
-
-            {isRecording ? (
-              <p className="py-0.5">Recording...</p>
-            ) : (
-              <button
-                className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
-                onClick={startRecording}
-              >
-                Start recording
-              </button>
-            )}
-          </div>
-
-          <p>
-            {isRecording
-              ? "Please navigate the page"
-              : "Please start recording"}
-          </p>
-        </div>
+        <ViewerStreamsEmptyState />
       ) : (
-        <div className="flex min-h-full flex-col gap-8">
-          <div className="flex flex-row items-center justify-between">
-            <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
-            {process.env.NODE_ENV === "development" ? (
-              <button
-                onClick={() => {
-                  const stingifiedMessages = JSON.stringify(messages);
-                  console.log(stingifiedMessages);
-                  const input = document.createElement("input");
-                  // @ts-expect-error This is a hack
-                  input.style =
-                    "position: absolute; left: -1000px; top: -1000px";
-                  input.value = stingifiedMessages;
-                  document.body.appendChild(input);
-                  input.select();
-                  document.execCommand("copy");
-                  document.body.removeChild(input);
-                  alert("Copied messages to clipboard");
-                }}
-              >
-                Copy messages array
-              </button>
-            ) : null}
-            <button
-              className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
-              onClick={clearMessages}
-            >
-              Clear
-            </button>
-          </div>
-
-          <ViewerStreams messages={messages} />
-        </div>
+        <ViewerStreams messages={messages} />
       )}
-    </div>
+    </PanelLayout>
   );
 }
 

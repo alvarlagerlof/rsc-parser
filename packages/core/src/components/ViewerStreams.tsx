@@ -32,7 +32,7 @@ export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
   const flightResponse = createFlightResponse(messagesForCurrentTab);
 
   return (
-    <div className="flex h-full min-h-full flex-col gap-4">
+    <div className="flex flex-col gap-4 dark:text-white">
       <TimeScrubber {...timeScrubber} />
 
       <EndTimeContext.Provider value={timeScrubber.endTime}>
