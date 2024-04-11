@@ -1,5 +1,11 @@
 # @rsc-parser/embedded
 
+## 0.2.2
+
+### Patch Changes
+
+- 268463a: Make @rsc-parser/core dependency in @rsc-parser/embedded a dev dependency
+
 ## 0.2.1
 
 ### Patch Changes

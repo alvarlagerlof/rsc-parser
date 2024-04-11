@@ -1,5 +1,13 @@
 # @rsc-parser/chrome-extension
 
+## 0.2.2
+
+### Patch Changes
+
+- 268463a: Make @rsc-parser/core dependency in @rsc-parser/embedded a dev dependency
+- Updated dependencies [268463a]
+  - @rsc-parser/core@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes
