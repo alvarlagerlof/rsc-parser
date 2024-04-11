@@ -78,15 +78,33 @@ function ApplyStylingOnClient({ children }: { children: ReactNode }) {
     () => false,
   );
 
-  if (!isClient) {
+  const [polyfillIsLoaded, setPolyfillIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!isClient) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://unpkg.com/style-scoped@0/scoped.min.js";
+
+    script.addEventListener("load", () => {
+      setPolyfillIsLoaded(true);
+    });
+
+    document.head.appendChild(script);
+  }, [isClient]);
+
+  if (!isClient || !polyfillIsLoaded) {
     return null;
   }
 
   return (
-    <>
-      <style>{styles}</style>
+    <div>
+      <style scoped>{styles}</style>
       {children}
-    </>
+    </div>
   );
 }
 
