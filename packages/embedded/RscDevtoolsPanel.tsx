@@ -84,9 +84,7 @@ function ApplyStylingOnClient({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <head>
-        <style>{styles}</style>
-      </head>
+      <style>{styles}</style>
       {children}
     </>
   );
