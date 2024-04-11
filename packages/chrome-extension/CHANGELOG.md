@@ -1,5 +1,13 @@
 # @rsc-parser/chrome-extension
 
+## 0.2.1
+
+### Patch Changes
+
+- f7390f2: Make @rsc-parser/embedded non-private
+- Updated dependencies [f7390f2]
+  - @rsc-parser/core@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
