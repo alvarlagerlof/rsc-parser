@@ -1,5 +1,12 @@
 # @rsc-parser/storybook
 
+## 0.2.3
+
+### Patch Changes
+
+- f181ce8: Scope styles for RscDevtoolsPanel
+- 39e168a: Stop wrapping <style> in <head> in RscDevtoolsPanel
+
 ## 0.2.2
 
 ### Patch Changes
