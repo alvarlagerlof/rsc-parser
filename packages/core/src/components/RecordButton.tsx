@@ -9,7 +9,7 @@ export function RecordButton({
 }) {
   if (isRecording) {
     return (
-      <div className="flex flex-row w-fit items-center gap-2 rounded-md bg-red-200 dark:bg-red-700 px-2 py-0.5 font-medium">
+      <div className="flex w-fit flex-row items-center gap-2 rounded-md bg-red-200 px-2 py-0.5 font-medium dark:bg-red-700">
         <div className="size-3 animate-pulse rounded-full bg-red-500 dark:bg-red-400" />
         <span className="text-red-600 dark:text-red-100">Recording...</span>
       </div>
