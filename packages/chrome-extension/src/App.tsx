@@ -1,9 +1,83 @@
-import React, { startTransition, useEffect, useMemo, useState } from "react";
+import React, {
+  startTransition,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { ViewerStreams, RscChunkMessage } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
 export function App() {
+  const { isRecording, startRecording, messages, clearMessages } =
+    useRscMessages();
+
+  return (
+    <div className="space-y-2 dark:text-white">
+      {messages.length === 0 || !isRecording ? (
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-row items-center justify-between">
+            <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
+
+            {isRecording ? (
+              <p className="py-0.5">Recording...</p>
+            ) : (
+              <button
+                className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
+                onClick={startRecording}
+              >
+                Start recording
+              </button>
+            )}
+          </div>
+
+          <p>
+            {isRecording
+              ? "Please navigate the page"
+              : "Please start recording"}
+          </p>
+        </div>
+      ) : (
+        <div className="flex min-h-full flex-col gap-8">
+          <div className="flex flex-row items-center justify-between">
+            <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
+            {process.env.NODE_ENV === "development" ? (
+              <button
+                onClick={() => {
+                  const stingifiedMessages = JSON.stringify(messages);
+                  console.log(stingifiedMessages);
+                  const input = document.createElement("input");
+                  // @ts-expect-error This is a hack
+                  input.style =
+                    "position: absolute; left: -1000px; top: -1000px";
+                  input.value = stingifiedMessages;
+                  document.body.appendChild(input);
+                  input.select();
+                  document.execCommand("copy");
+                  document.body.removeChild(input);
+                  alert("Copied messages to clipboard");
+                }}
+              >
+                Copy messages array
+              </button>
+            ) : null}
+            <button
+              className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
+              onClick={clearMessages}
+            >
+              Clear
+            </button>
+          </div>
+
+          <ViewerStreams messages={messages} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function useRscMessages() {
   const [messages, setMessages] = useState<RscChunkMessage[]>([]);
   const [isRecording, setIsRecording] = useState(false);
   const tabId = useMemo(() => Date.now(), []);
@@ -58,77 +132,24 @@ export function App() {
     };
   }, []);
 
-  return (
-    <div className="space-y-2 dark:text-white">
-      {messages.length === 0 || !isRecording ? (
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-row items-center justify-between">
-            <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
+  const startRecording = useCallback(() => {
+    setIsRecording(true);
+    chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
+      type: "START_RECORDING",
+      tabId: tabId,
+    } satisfies StartRecordingMessage);
+  }, [tabId]);
 
-            {isRecording ? (
-              <p className="py-0.5">Recording...</p>
-            ) : (
-              <button
-                className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
-                onClick={async () => {
-                  setIsRecording(true);
-                  chrome.tabs.sendMessage(
-                    chrome.devtools.inspectedWindow.tabId,
-                    {
-                      type: "START_RECORDING",
-                      tabId: tabId,
-                    } satisfies StartRecordingMessage,
-                  );
-                }}
-              >
-                Start recording
-              </button>
-            )}
-          </div>
+  const clearMessages = useCallback(() => {
+    setMessages([]);
+  }, []);
 
-          <p>
-            {isRecording
-              ? "Please navigate the page"
-              : "Please start recording"}
-          </p>
-        </div>
-      ) : (
-        <div className="flex min-h-full flex-col gap-8">
-          <div className="flex flex-row items-center justify-between">
-            <h1 className="whitespace-nowrap text-sm">RSC Devtools</h1>
-            {process.env.NODE_ENV === "development" ? (
-              <button
-                onClick={() => {
-                  const stingifiedMessages = JSON.stringify(messages);
-                  console.log(stingifiedMessages);
-                  const input = document.createElement("input");
-                  // @ts-expect-error This is a hack
-                  input.style =
-                    "position: absolute; left: -1000px; top: -1000px";
-                  input.value = stingifiedMessages;
-                  document.body.appendChild(input);
-                  input.select();
-                  document.execCommand("copy");
-                  document.body.removeChild(input);
-                  alert("Copied messages to clipboard");
-                }}
-              >
-                Copy messages array
-              </button>
-            ) : null}
-            <button
-              className="rounded-md bg-slate-600 px-2 py-0.5 text-white dark:bg-slate-300 dark:text-black"
-              onClick={() => setMessages([])}
-            >
-              Clear
-            </button>
-          </div>
-
-          <ViewerStreams messages={messages} />
-        </div>
-      )}
-    </div>
-  );
+  return {
+    isRecording,
+    startRecording,
+    messages,
+    clearMessages,
+  };
 }
 
 function isRscChunkMessage(message: unknown): message is RscChunkMessage {
