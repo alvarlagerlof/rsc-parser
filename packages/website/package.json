@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier . --check --config ../../.prettierrc"
+    "format": "prettier . --check --config ../../.prettierrc",
+    "clean": "rm -rf .next"
   },
   "dependencies": {
     "@ariakit/react": "0.4.5",

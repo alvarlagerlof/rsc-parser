@@ -8,7 +8,8 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "rm -rf dist"
   },
   "types": "./dist/js/RscDevtoolsPanel.d.ts",
   "exports": {
