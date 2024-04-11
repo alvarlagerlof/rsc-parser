@@ -1,5 +1,11 @@
 # @rsc-parser/storybook
 
+## 0.2.1
+
+### Patch Changes
+
+- f7390f2: Make @rsc-parser/embedded non-private
+
 ## 0.2.0
 
 ### Minor Changes
