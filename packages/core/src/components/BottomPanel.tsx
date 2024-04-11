@@ -29,7 +29,7 @@ export function BottomPanel({
   }
 
   return (
-    <div className="fixed bottom-[20px] right-[20px] z-[1000] flex size-[40px]">
+    <div className="fixed bottom-[20px] right-[80px] z-[1000] flex size-[40px]">
       {openButton}
     </div>
   );
