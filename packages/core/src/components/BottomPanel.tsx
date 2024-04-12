@@ -15,7 +15,8 @@ export function BottomPanel({
     return (
       <PanelGroup
         direction="vertical"
-        className="pointer-events-none fixed left-0 top-0 size-full"
+        // eslint-disable-next-line tailwindcss/classnames-order
+        className="pointer-events-none fixed left-0 top-0 size-full z-[1000]"
       >
         <Panel order={1} defaultSize={70} />
         <PanelResizeHandle className="pointer-events-auto h-3 w-full bg-slate-300 dark:bg-slate-700" />
