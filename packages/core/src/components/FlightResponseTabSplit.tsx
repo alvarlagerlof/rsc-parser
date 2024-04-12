@@ -361,15 +361,24 @@ function Meter({ fraction }: { fraction: number }) {
       min="0"
       max="1"
       className={[
-        "h-3 w-14",
+        "h-5 w-14",
         "[&::-webkit-meter-bar]:rounded-lg",
-        "[&::-webkit-meter-optimum-value]:rounded-lg",
+        "[&::-moz-meter-bar]:rounded-lg",
+        "[&::-webkit-meter-optimum]:rounded-lg",
+        "rounded-lg",
         "[&::-webkit-meter-bar]:border-0",
         "[&::-webkit-meter-optimum-value]:border-0",
+        "border-0",
         "[&::-webkit-meter-bar]:bg-slate-300",
+        "[&::-moz-meter-bar]:bg-none",
+        "[&::-moz-meter-bar]:bg-slate-300",
         "dark:[&::-webkit-meter-bar]:bg-slate-500",
         "[&::-webkit-meter-optimum-value]:bg-black",
-        "dark:[&::-webkit-meter-optimum-value]:bg-white",
+        "[&::-moz-meter-optimum]:bg-none",
+        "[&::-moz-meter-optimum]:bg-black",
+        "dark:[&::-webkit-meter-optimum]:bg-white",
+        "dark:[&::-moz-meter-optimum]:bg-none",
+        "dark:[&::-moz-meter-optimum]:bg-white",
       ].join(" ")}
     >
       {(fraction * 100).toFixed(2)}%
