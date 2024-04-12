@@ -1,5 +1,11 @@
 # @rsc-parser/embedded
 
+## 0.2.4
+
+### Patch Changes
+
+- 71e069c: Set a higher z-index for the BottomPanel when when open
+
 ## 0.2.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @rsc-parser/website
 
+## 0.2.4
+
+### Patch Changes
+
+- 71e069c: Set a higher z-index for the BottomPanel when when open
+- Updated dependencies [71e069c]
+  - @rsc-parser/core@0.2.4
+
 ## 0.2.3
 
 ### Patch Changes
