@@ -2990,15 +2990,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@npmcli/map-workspaces@npm:3.0.4":
-  version: 3.0.4
-  resolution: "@npmcli/map-workspaces@npm:3.0.4"
+"@npmcli/map-workspaces@npm:^3.0.4":
+  version: 3.0.6
+  resolution: "@npmcli/map-workspaces@npm:3.0.6"
   dependencies:
     "@npmcli/name-from-folder": "npm:^2.0.0"
     glob: "npm:^10.2.2"
     minimatch: "npm:^9.0.0"
     read-package-json-fast: "npm:^3.0.0"
-  checksum: 10/3fe80df9ac436355f23b35438a4341a75f597d0bb5dcadc46bb0b5591aabf6cc0036dba0a2a4987d02416f20b829293a9ac19d4cb218fe8de87191c229f83f59
+  checksum: 10/b364b155991a4ff85db5ea5b9f809ab65936350fc36fe1e51d5ab8cd479bba57e69f02e17215c0e2126e383074c2987c268d8e589aacd26c9962e028f4da98f2
   languageName: node
   linkType: hard
 
@@ -3009,18 +3009,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@npmcli/package-json@npm:5.0.0":
-  version: 5.0.0
-  resolution: "@npmcli/package-json@npm:5.0.0"
+"@npmcli/package-json@npm:^5.0.0":
+  version: 5.0.3
+  resolution: "@npmcli/package-json@npm:5.0.3"
   dependencies:
     "@npmcli/git": "npm:^5.0.0"
     glob: "npm:^10.2.2"
     hosted-git-info: "npm:^7.0.0"
     json-parse-even-better-errors: "npm:^3.0.0"
     normalize-package-data: "npm:^6.0.0"
-    proc-log: "npm:^3.0.0"
+    proc-log: "npm:^4.0.0"
     semver: "npm:^7.5.3"
-  checksum: 10/bb907e934e96dae3d3aa26aa45cbaa87b318cb64c4aaaacfa3596b1ca5147ad1b51c3281eb529df12116a163d33ca99f48c4593b0c168e38412dfbf2c5cced72
+  checksum: 10/b6b3a40114b5181cc215b809c80f85b9b3ec11e28a83f08bb3f997e87c83f4dba4e422eb9ab26bca0fc6b25ee32567bb46e74524bb487f064788d488985302ab
   languageName: node
   linkType: hard
 
@@ -3058,12 +3058,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pnpm/error@npm:5.0.3":
-  version: 5.0.3
-  resolution: "@pnpm/error@npm:5.0.3"
+"@pnpm/error@npm:5.0.2":
+  version: 5.0.2
+  resolution: "@pnpm/error@npm:5.0.2"
   dependencies:
     "@pnpm/constants": "npm:7.1.1"
-  checksum: 10/b0c5b8b18c4302aeef59554b07107046679189d24eac6b34df59a28f6567f999bd589d7f64c75fcfee2e25f4175f5c0b1089fb2c5b633257836ced185e531726
+  checksum: 10/490e90b3a6fa6527a5a2b07dfd46982e005d8834036871a30cf03fcb389497b9828ed01c0d39e88b6352a340556de316eae9dbefcb3246f368815a03241576e6
   languageName: node
   linkType: hard
 
@@ -3107,12 +3107,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pnpm/npm-resolver@npm:18.1.1":
-  version: 18.1.1
-  resolution: "@pnpm/npm-resolver@npm:18.1.1"
+"@pnpm/npm-resolver@npm:18.1.0":
+  version: 18.1.0
+  resolution: "@pnpm/npm-resolver@npm:18.1.0"
   dependencies:
     "@pnpm/core-loggers": "npm:9.0.6"
-    "@pnpm/error": "npm:5.0.3"
+    "@pnpm/error": "npm:5.0.2"
     "@pnpm/fetching-types": "npm:5.0.0"
     "@pnpm/graceful-fs": "npm:3.2.0"
     "@pnpm/resolve-workspace-range": "npm:5.0.1"
@@ -3134,7 +3134,7 @@ __metadata:
     version-selector-type: "npm:^3.0.0"
   peerDependencies:
     "@pnpm/logger": ^5.0.0
-  checksum: 10/fa497bf4f24bb73d8fc1efac9f873d64ffd18afa15aec83d8f8ac8c3fb80343f40c081e3766689f96bd3e04576339271425e506ae9483fe2238aa199896cd7da
+  checksum: 10/8172729771da7bce023613e01d45e19b697abb3c0d663e69c3d01c49da710f8d531478fd9c05d140efdbd6398662b2617977349a802818dd88bbb85fe378cd31
   languageName: node
   linkType: hard
 
@@ -3163,16 +3163,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pnpm/workspace.pkgs-graph@npm:^2.0.15":
-  version: 2.0.16
-  resolution: "@pnpm/workspace.pkgs-graph@npm:2.0.16"
+"@pnpm/workspace.pkgs-graph@npm:2.0.14":
+  version: 2.0.14
+  resolution: "@pnpm/workspace.pkgs-graph@npm:2.0.14"
   dependencies:
     "@pnpm/npm-package-arg": "npm:^1.0.0"
-    "@pnpm/npm-resolver": "npm:18.1.1"
+    "@pnpm/npm-resolver": "npm:18.1.0"
     "@pnpm/resolve-workspace-range": "npm:5.0.1"
-    "@pnpm/types": "npm:9.4.2"
     ramda: "npm:@pnpm/ramda@0.28.1"
-  checksum: 10/6238b323a78d49d840bc0fbb824a529e73f75f389ca2cbcc985c6af688ec228c0f21e8bb31018bf620309ca4d8c95723bda4dfe01c620a17816bea9a97c0e27d
+  checksum: 10/7dcf73b447023ccacc86b39697f0b8bff1a63c341ef603d5f1a61244155b13daeaa1147aa616c122578088b775043c6aff60a3b192ea4359f8f1bded7ce60bec
   languageName: node
   linkType: hard
 
@@ -12456,16 +12455,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.9.0":
-  version: 5.9.0
-  resolution: "knip@npm:5.9.0"
+"knip@npm:5.9.4":
+  version: 5.9.4
+  resolution: "knip@npm:5.9.4"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@nodelib/fs.walk": "npm:2.0.0"
-    "@npmcli/map-workspaces": "npm:3.0.4"
-    "@npmcli/package-json": "npm:5.0.0"
+    "@npmcli/map-workspaces": "npm:^3.0.4"
+    "@npmcli/package-json": "npm:^5.0.0"
     "@pnpm/logger": "npm:5.0.0"
-    "@pnpm/workspace.pkgs-graph": "npm:^2.0.15"
+    "@pnpm/workspace.pkgs-graph": "npm:2.0.14"
     "@snyk/github-codeowners": "npm:1.1.0"
     "@types/picomatch": "npm:2.3.3"
     easy-table: "npm:1.2.0"
@@ -12488,7 +12487,7 @@ __metadata:
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 10/702d2367731a939f36e1fc4246b05f2b8b4da60b3cafeb39d2ba5d8654c9919a7f81a8d282be62fd7d0ff3f69a8302083d48d17d6e2734e68a48d35ee17105c9
+  checksum: 10/1069e6ff35bd88fee00a97fca4fee87fb402681cd4383474fd47ad65f5d4826ba10f7d89076bc88161256097dcd94090b3723e581914fc6921438f7bb5421ed8
   languageName: node
   linkType: hard
 
@@ -14374,6 +14373,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proc-log@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "proc-log@npm:4.0.0"
+  checksum: 10/8a1cf614c1d81c312fd34ebc83da3223c78fe5a8202f5f88761128e4d061a88502b7ee286d69a123ff2c2fcdf01e0dacc006d660745fc7267400853e1fdf8ccf
+  languageName: node
+  linkType: hard
+
 "process-nextick-args@npm:~2.0.0":
   version: 2.0.1
   resolution: "process-nextick-args@npm:2.0.1"
@@ -15267,7 +15273,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.1"
-    knip: "npm:5.9.0"
+    knip: "npm:5.9.4"
     prettier: "npm:3.2.5"
     turbo: "npm:1.13.2"
   languageName: unknown
