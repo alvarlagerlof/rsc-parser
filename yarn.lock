@@ -3600,7 +3600,7 @@ __metadata:
     "@rsc-parser/core": "workspace:*"
     "@types/eslint__js": "npm:8.42.3"
     "@types/react": "npm:18.3.1"
-    "@types/react-dom": "npm:18.2.25"
+    "@types/react-dom": "npm:18.3.0"
     "@typescript-eslint/eslint-plugin": "npm:7.7.1"
     "@typescript-eslint/parser": "npm:7.7.1"
     "@vitejs/plugin-react": "npm:4.2.1"
@@ -3612,7 +3612,7 @@ __metadata:
     postcss: "npm:8.4.38"
     prettier: "npm:3.2.5"
     react: "npm:18.3.1"
-    react-dom: "npm:18.2.0"
+    react-dom: "npm:18.3.1"
     react-error-boundary: "npm:4.0.13"
     type-fest: "npm:4.15.0"
     typescript: "npm:5.4.5"
@@ -3650,7 +3650,7 @@ __metadata:
     postcss: "npm:8.4.38"
     prettier: "npm:3.2.5"
     react: "npm:18.3.1"
-    react-dom: "npm:18.2.0"
+    react-dom: "npm:18.3.1"
     react-error-boundary: "npm:4.0.13"
     react-resizable-panels: "npm:2.0.18"
     tailwindcss: "npm:3.4.3"
@@ -3669,14 +3669,14 @@ __metadata:
     "@rsc-parser/embedded": "workspace:^"
     "@types/node": "npm:20.12.7"
     "@types/react": "npm:18.3.1"
-    "@types/react-dom": "npm:18.2.25"
+    "@types/react-dom": "npm:18.3.0"
     autoprefixer: "npm:10.4.19"
     eslint: "npm:8.57.0"
     eslint-config-next: "npm:14.2.3"
     next: "npm:14.2.3"
     postcss: "npm:8.4.38"
     react: "npm:18.3.1"
-    react-dom: "npm:18.2.0"
+    react-dom: "npm:18.3.1"
     tailwindcss: "npm:3.4.3"
     turbo: "npm:1.13.3"
     typescript: "npm:5.4.5"
@@ -3692,13 +3692,13 @@ __metadata:
     "@vitejs/plugin-react": "npm:4.2.1"
     eslint: "npm:9.0.0"
     react: "npm:18.3.1"
-    react-dom: "npm:18.2.0"
+    react-dom: "npm:18.3.1"
     rollup-plugin-preserve-directives: "npm:0.4.0"
     vite: "npm:5.2.10"
     vite-plugin-dts: "npm:3.8.3"
   peerDependencies:
     react: 18.3.1
-    react-dom: 18.2.0
+    react-dom: 18.3.1
   languageName: unknown
   linkType: soft
 
@@ -3717,7 +3717,7 @@ __metadata:
     "@storybook/react-vite": "npm:8.0.9"
     "@storybook/testing-library": "npm:0.2.2"
     react: "npm:18.3.1"
-    react-dom: "npm:18.2.0"
+    react-dom: "npm:18.3.1"
     storybook: "npm:8.0.9"
     storybook-dark-mode: "npm:4.0.1"
     turbo: "npm:1.13.3"
@@ -3736,7 +3736,7 @@ __metadata:
     "@types/eslint__js": "npm:8.42.3"
     "@types/node": "npm:20.12.7"
     "@types/react": "npm:18.3.1"
-    "@types/react-dom": "npm:18.2.25"
+    "@types/react-dom": "npm:18.3.0"
     autoprefixer: "npm:10.4.19"
     eslint: "npm:9.0.0"
     eslint-config-next: "npm:14.2.3"
@@ -3745,7 +3745,7 @@ __metadata:
     postcss: "npm:8.4.38"
     prettier: "npm:3.2.5"
     react: "npm:18.3.1"
-    react-dom: "npm:18.2.0"
+    react-dom: "npm:18.3.1"
     tailwindcss: "npm:3.4.3"
     turbo: "npm:1.13.3"
     type-fest: "npm:4.15.0"
@@ -5908,7 +5908,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.25, @types/react-dom@npm:^18.0.0":
+"@types/react-dom@npm:18.3.0":
+  version: 18.3.0
+  resolution: "@types/react-dom@npm:18.3.0"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10/6ff53f5a7b7fba952a68e114d3b542ebdc1e87a794234785ebab0bcd9bde7fb4885f21ebaf93d26dc0a1b5b93287f42cad68b78ae04dddf6b20da7aceff0beaf
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:^18.0.0":
   version: 18.2.25
   resolution: "@types/react-dom@npm:18.2.25"
   dependencies:
@@ -14073,7 +14082,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.2.0, react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
+"react-dom@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    scheduler: "npm:^0.23.2"
+  peerDependencies:
+    react: ^18.3.1
+  checksum: 10/3f4b73a3aa083091173b29812b10394dd06f4ac06aff410b74702cfb3aa29d7b0ced208aab92d5272919b612e5cda21aeb1d54191848cf6e46e9e354f3541f81
+  languageName: node
+  linkType: hard
+
+"react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -14842,6 +14863,15 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10/0c4557aa37bafca44ff21dc0ea7c92e2dbcb298bc62eae92b29a39b029134f02fb23917d6ebc8b1fa536b4184934314c20d8864d156a9f6357f3398aaf7bfda8
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10/e8d68b89d18d5b028223edf090092846868a765a591944760942b77ea1f69b17235f7e956696efbb62c8130ab90af7e0949bfb8eba7896335507317236966bc9
   languageName: node
   linkType: hard
 
