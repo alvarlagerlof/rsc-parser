@@ -3793,7 +3793,7 @@ __metadata:
     "@eslint/js": "npm:9.1.1"
     "@rsc-parser/core": "workspace:*"
     "@types/eslint__js": "npm:8.42.3"
-    "@types/react": "npm:18.2.79"
+    "@types/react": "npm:18.3.1"
     "@types/react-dom": "npm:18.2.25"
     "@typescript-eslint/eslint-plugin": "npm:7.7.1"
     "@typescript-eslint/parser": "npm:7.7.1"
@@ -3805,7 +3805,7 @@ __metadata:
     eslint: "npm:9.0.0"
     postcss: "npm:8.4.38"
     prettier: "npm:3.2.5"
-    react: "npm:18.2.0"
+    react: "npm:18.3.1"
     react-dom: "npm:18.2.0"
     react-error-boundary: "npm:4.0.13"
     type-fest: "npm:4.15.0"
@@ -3843,7 +3843,7 @@ __metadata:
     jest-environment-jsdom: "npm:29.7.0"
     postcss: "npm:8.4.38"
     prettier: "npm:3.2.5"
-    react: "npm:18.2.0"
+    react: "npm:18.3.1"
     react-dom: "npm:18.2.0"
     react-error-boundary: "npm:4.0.13"
     react-resizable-panels: "npm:2.0.18"
@@ -3862,14 +3862,14 @@ __metadata:
   dependencies:
     "@rsc-parser/embedded": "workspace:^"
     "@types/node": "npm:20.12.7"
-    "@types/react": "npm:18.2.79"
+    "@types/react": "npm:18.3.1"
     "@types/react-dom": "npm:18.2.25"
     autoprefixer: "npm:10.4.19"
     eslint: "npm:8.57.0"
     eslint-config-next: "npm:14.2.3"
     next: "npm:14.2.3"
     postcss: "npm:8.4.38"
-    react: "npm:18.2.0"
+    react: "npm:18.3.1"
     react-dom: "npm:18.2.0"
     tailwindcss: "npm:3.4.3"
     turbo: "npm:1.13.3"
@@ -3885,13 +3885,13 @@ __metadata:
     "@rsc-parser/core": "workspace:^"
     "@vitejs/plugin-react": "npm:4.2.1"
     eslint: "npm:9.0.0"
-    react: "npm:18.2.0"
+    react: "npm:18.3.1"
     react-dom: "npm:18.2.0"
     rollup-plugin-preserve-directives: "npm:0.4.0"
     vite: "npm:5.2.10"
     vite-plugin-dts: "npm:3.8.3"
   peerDependencies:
-    react: 18.2.0
+    react: 18.3.1
     react-dom: 18.2.0
   languageName: unknown
   linkType: soft
@@ -3910,7 +3910,7 @@ __metadata:
     "@storybook/react": "npm:8.0.9"
     "@storybook/react-vite": "npm:8.0.9"
     "@storybook/testing-library": "npm:0.2.2"
-    react: "npm:18.2.0"
+    react: "npm:18.3.1"
     react-dom: "npm:18.2.0"
     storybook: "npm:8.0.9"
     storybook-dark-mode: "npm:4.0.1"
@@ -3929,7 +3929,7 @@ __metadata:
     "@types/eslint__eslintrc": "npm:2.1.1"
     "@types/eslint__js": "npm:8.42.3"
     "@types/node": "npm:20.12.7"
-    "@types/react": "npm:18.2.79"
+    "@types/react": "npm:18.3.1"
     "@types/react-dom": "npm:18.2.25"
     autoprefixer: "npm:10.4.19"
     eslint: "npm:9.0.0"
@@ -3938,7 +3938,7 @@ __metadata:
     next: "npm:14.2.3"
     postcss: "npm:8.4.38"
     prettier: "npm:3.2.5"
-    react: "npm:18.2.0"
+    react: "npm:18.3.1"
     react-dom: "npm:18.2.0"
     tailwindcss: "npm:3.4.3"
     turbo: "npm:1.13.3"
@@ -6118,13 +6118,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.2.79, @types/react@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
+"@types/react@npm:*, @types/react@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
   version: 18.2.79
   resolution: "@types/react@npm:18.2.79"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10/2ef833e7d0a5c226beddbbe090811582371f6ae5e2f092a3d9f47cc6087c8bce0b96ee33e351de6d1d470f0a0ec5892d971933f841ef31538c1821681fc6569e
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "@types/react@npm:18.3.1"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 10/baa6b8a75c471c89ebf3477b4feab57102ced25f0c1e553dd04ef6a1f0def28d5e0172fa626a631f22e223f840b5aaa2403b2d4bb671c83c5a9d6c7ae39c7a05
   languageName: node
   linkType: hard
 
@@ -14701,7 +14711,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0, react@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
+"react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
+  languageName: node
+  linkType: hard
+
+"react@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
