@@ -15,6 +15,7 @@ import {
   ClearMessagesButton,
   PanelLayout,
   fetchPatcher,
+  ReadNextScriptTagsButton,
 } from "@rsc-parser/core";
 import React, {
   ReactNode,
@@ -28,8 +29,13 @@ import React, {
 export function RscDevtoolsPanel() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { isRecording, startRecording, messages, clearMessages } =
-    useRscMessages();
+  const {
+    isRecording,
+    startRecording,
+    messages,
+    clearMessages,
+    readNextScriptTags,
+  } = useRscMessages();
 
   return (
     <ApplyStylingOnClient>
@@ -53,6 +59,11 @@ export function RscDevtoolsPanel() {
               {messages.length > 0 ? (
                 <ClearMessagesButton onClickClearMessages={clearMessages} />
               ) : null}
+              <ReadNextScriptTagsButton
+                onClickRead={() => {
+                  readNextScriptTags();
+                }}
+              />
             </>
           }
           closeButton={
@@ -146,7 +157,48 @@ function useRscMessages() {
     setMessages([]);
   }, []);
 
-  return { isRecording, startRecording, messages, clearMessages };
+  const readNextScriptTags = useCallback(() => {
+    try {
+      // @ts-expect-error This is a hack
+      const payload = self.__next_f.map((f) => f?.[1]).join("");
+
+      console.log("TEST", payload);
+
+      const messages = [
+        {
+          type: "RSC_CHUNK",
+          tabId: 0,
+          data: {
+            fetchUrl: window.location.href,
+            fetchMethod: "GET",
+            fetchStartTime: 0,
+            chunkStartTime: 0,
+            chunkEndTime: 0,
+            chunkValue: Array.from(new TextEncoder().encode(payload)),
+          },
+        } satisfies RscChunkMessage,
+      ];
+
+      setIsRecording(true);
+      startTransition(() => {
+        setMessages(() => messages);
+      });
+    } catch (error) {
+      console.error(
+        new Error("Error parsing Next.js payload", {
+          cause: error,
+        }),
+      );
+    }
+  }, []);
+
+  return {
+    isRecording,
+    startRecording,
+    messages,
+    clearMessages,
+    readNextScriptTags,
+  };
 }
 
 function arraysEqual(a: unknown[], b: unknown[]) {
