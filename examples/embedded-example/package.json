@@ -3,11 +3,12 @@
   "packageManager": "yarn@4.2.1",
   "version": "0.16.4",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint",
     "clean": "rm -rf .next"
   },
   "dependencies": {
@@ -17,15 +18,18 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
+    "@eslint/js": "^9.2.0",
     "@types/node": "20.12.8",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
     "autoprefixer": "10.4.19",
-    "eslint": "8.57.0",
+    "eslint": "9.2.0",
     "eslint-config-next": "14.2.3",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.3",
     "turbo": "1.13.3",
-    "typescript": "5.4.5"
+    "typescript": "5.4.5",
+    "typescript-eslint": "^7.8.0"
   }
 }
