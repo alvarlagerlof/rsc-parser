@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { createFlightResponse } from "../createFlightResponse";
 import { RscChunkMessage } from "../types";
 import { FlightResponse } from "./FlightResponse";
@@ -7,7 +7,7 @@ import {
   useFlightResponseSelector,
 } from "./FlightResponseSelector";
 import { TimeScrubber, useTimeScrubber } from "./TimeScrubber";
-import { useFilterMessagesByEndTime, useGroupedMessages } from "./TimeScrubber";
+import { useFilterMessagesByEndTime } from "./TimeScrubber";
 import { EndTimeContext } from "./EndTimeContext";
 
 export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
@@ -26,7 +26,7 @@ export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
   });
 
   const messagesForCurrentTab = pathTabs.currentTab
-    ? groupedMessages.get(pathTabs.currentTab) ?? []
+    ? groupedMessages.get(Number.parseInt(pathTabs.currentTab)) ?? []
     : [];
 
   const flightResponse = createFlightResponse(messagesForCurrentTab);
@@ -46,4 +46,22 @@ export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
       </EndTimeContext.Provider>
     </div>
   );
+}
+
+export function useGroupedMessages(messages: RscChunkMessage[]) {
+  return useMemo(() => {
+    const groupedMessages = new Map<number, RscChunkMessage[]>();
+
+    for (const message of messages) {
+      if (groupedMessages.has(message.data.fetchStartTime)) {
+        groupedMessages.set(message.data.fetchStartTime, [
+          ...(groupedMessages.get(message.data.fetchStartTime) ?? []),
+          message,
+        ]);
+      } else {
+        groupedMessages.set(message.data.fetchStartTime, [message]);
+      }
+    }
+    return groupedMessages;
+  }, [messages]);
 }

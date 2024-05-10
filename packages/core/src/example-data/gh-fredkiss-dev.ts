@@ -5,6 +5,7 @@ export const ghFredkissDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://gh.fredkiss.dev/Fredkiss3/gh-next/actions?_rsc=kvatu",
+      fetchMethod: "GET",
       fetchStartTime: 1706451203109,
       chunkValue: [
         55, 58, 73, 91, 50, 48, 55, 48, 44, 91, 93, 44, 34, 34, 93, 10, 97, 58,
@@ -33,6 +34,7 @@ export const ghFredkissDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://gh.fredkiss.dev/Fredkiss3/gh-next/actions?_rsc=kvatu",
+      fetchMethod: "GET",
       fetchStartTime: 1706451203109,
       chunkValue: [
         48, 58, 91, 34, 103, 90, 86, 119, 81, 120, 87, 56, 117, 51, 50, 115, 71,
@@ -450,6 +452,7 @@ export const ghFredkissDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://gh.fredkiss.dev/Fredkiss3/gh-next/actions?_rsc=kvatu",
+      fetchMethod: "GET",
       fetchStartTime: 1706451203109,
       chunkValue: [
         50, 58, 91, 34, 36, 34, 44, 34, 110, 97, 118, 34, 44, 110, 117, 108,
@@ -637,6 +640,7 @@ export const ghFredkissDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://gh.fredkiss.dev/Fredkiss3/gh-next/actions?_rsc=1326h",
+      fetchMethod: "GET",
       fetchStartTime: 1706451203252,
       chunkValue: [
         51, 58, 73, 91, 50, 48, 55, 48, 44, 91, 93, 44, 34, 34, 93, 10, 54, 58,
@@ -1032,6 +1036,7 @@ export const ghFredkissDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://gh.fredkiss.dev/Fredkiss3/gh-next/actions?_rsc=1326h",
+      fetchMethod: "GET",
       fetchStartTime: 1706451203252,
       chunkValue: [
         55, 58, 91, 91, 34, 36, 34, 44, 34, 109, 101, 116, 97, 34, 44, 34, 48,
@@ -1257,6 +1262,7 @@ export const ghFredkissDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://gh.fredkiss.dev/Fredkiss3/gh-next/actions?_rsc=1ho2t",
+      fetchMethod: "GET",
       fetchStartTime: 1706451203373,
       chunkValue: [
         57, 58, 73, 91, 57, 57, 49, 52, 44, 91, 34, 57, 57, 49, 52, 34, 44, 34,

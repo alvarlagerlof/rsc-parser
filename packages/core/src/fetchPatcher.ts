@@ -14,6 +14,33 @@ function getFetchUrl(args: Parameters<typeof fetch>): string {
   throw new Error("Unknown fetch argument");
 }
 
+function getFetchMethod(args: Parameters<typeof fetch>): "GET" | "POST" {
+  function isGetOrPost(method: string): method is "GET" | "POST" {
+    return method === "GET" || method === "POST";
+  }
+
+  console.log(JSON.stringify(args[1]));
+
+  if (args[0] instanceof Request && isGetOrPost(args[0].method)) {
+    return args[0].method;
+  } else if (typeof args[1]?.method === "undefined") {
+    // Default to GET
+    return "GET";
+  } else if (args[1].method && isGetOrPost(args[1].method)) {
+    return args[1].method;
+  }
+
+  throw new Error("Unknown fetch argument");
+}
+
+// For when the url is ""
+function convertLocalUrlToAbsolute(url: string): string {
+  if (url === "") {
+    return window.location.href;
+  }
+  return url;
+}
+
 export function fetchPatcher({
   onRscChunkMessage,
 }: {
@@ -36,6 +63,7 @@ export function fetchPatcher({
     }
 
     const url = getFetchUrl(args);
+    const method = getFetchMethod(args);
 
     const clonedResponse = response.clone();
     const reader = clonedResponse.body.getReader();
@@ -53,7 +81,9 @@ export function fetchPatcher({
         type: "RSC_CHUNK",
         tabId: 0, // This may be overwritten extension code
         data: {
-          fetchUrl: url,
+          // Server actions make POST requests to "", which is not a valid URL for new URL()
+          fetchUrl: convertLocalUrlToAbsolute(url),
+          fetchMethod: method,
           fetchStartTime,
           chunkValue: Array.from(value),
           chunkStartTime,

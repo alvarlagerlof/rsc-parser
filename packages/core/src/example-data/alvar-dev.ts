@@ -5,6 +5,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://www.alvar.dev/blog?_rsc=1sxgj",
+      fetchMethod: "GET",
       fetchStartTime: 1706448526298,
       chunkValue: [
         50, 58, 73, 91, 50, 53, 50, 53, 48, 44, 91, 34, 53, 50, 53, 48, 34, 44,
@@ -28,6 +29,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://www.alvar.dev/blog?_rsc=1sxgj",
+      fetchMethod: "GET",
       fetchStartTime: 1706448526298,
       chunkValue: [
         48, 58, 91, 34, 87, 89, 106, 69, 45, 79, 83, 72, 85, 105, 48, 45, 87,
@@ -445,6 +447,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     type: "RSC_CHUNK",
     data: {
       fetchUrl: "https://www.alvar.dev/blog?_rsc=1sxgj",
+      fetchMethod: "GET",
       fetchStartTime: 1706448526298,
       chunkValue: [
         52, 58, 91, 34, 36, 34, 44, 34, 100, 105, 118, 34, 44, 110, 117, 108,
@@ -736,6 +739,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/thoughts-on-photography-tools?_rsc=18e5w",
+      fetchMethod: "GET",
       fetchStartTime: 1706448526548,
       chunkValue: [
         48, 58, 91, 34, 87, 89, 106, 69, 45, 79, 83, 72, 85, 105, 48, 45, 87,
@@ -763,6 +767,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/always-add-name-to-type-radio?_rsc=18e5w",
+      fetchMethod: "GET",
       fetchStartTime: 1706448526581,
       chunkValue: [
         48, 58, 91, 34, 87, 89, 106, 69, 45, 79, 83, 72, 85, 105, 48, 45, 87,
@@ -790,6 +795,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/tailwindcss-with-next-font?_rsc=18e5w",
+      fetchMethod: "GET",
       fetchStartTime: 1706448526547,
       chunkValue: [
         48, 58, 91, 34, 87, 89, 106, 69, 45, 79, 83, 72, 85, 105, 48, 45, 87,
@@ -817,6 +823,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/creating-devtools-for-react-server-components?_rsc=18e5w",
+      fetchMethod: "GET",
       fetchStartTime: 1706448526547,
       chunkValue: [
         48, 58, 91, 34, 87, 89, 106, 69, 45, 79, 83, 72, 85, 105, 48, 45, 87,
@@ -845,6 +852,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/skeleton-loading-with-suspense-in-next-js-13?_rsc=18e5w",
+      fetchMethod: "GET",
       fetchStartTime: 1706448526547,
       chunkValue: [
         48, 58, 91, 34, 87, 89, 106, 69, 45, 79, 83, 72, 85, 105, 48, 45, 87,
@@ -873,6 +881,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/creating-devtools-for-react-server-components?_rsc=1yujw",
+      fetchMethod: "GET",
       fetchStartTime: 1706448528308,
       chunkValue: [
         51, 58, 73, 91, 53, 54, 49, 51, 44, 91, 93, 44, 34, 34, 93, 10, 53, 58,
@@ -1196,6 +1205,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/creating-devtools-for-react-server-components?_rsc=1yujw",
+      fetchMethod: "GET",
       fetchStartTime: 1706448528308,
       chunkValue: [
         56, 58, 73, 91, 56, 49, 57, 55, 50, 44, 91, 34, 53, 50, 53, 48, 34, 44,
@@ -3663,6 +3673,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/creating-devtools-for-react-server-components?_rsc=1yujw",
+      fetchMethod: "GET",
       fetchStartTime: 1706448528308,
       chunkValue: [
         49, 50, 58, 34, 36, 76, 49, 55, 34, 10, 49, 51, 58, 34, 36, 76, 49, 56,
@@ -3679,6 +3690,7 @@ export const alvarDevExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://www.alvar.dev/blog/creating-devtools-for-react-server-components?_rsc=1yujw",
+      fetchMethod: "GET",
       fetchStartTime: 1706448528308,
       chunkValue: [
         49, 55, 58, 91, 34, 36, 34, 44, 34, 100, 105, 118, 34, 44, 110, 117,

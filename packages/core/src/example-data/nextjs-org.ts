@@ -6,6 +6,7 @@ export const nextjsOrgExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://nextjs.org/docs/app/building-your-application/routing?_rsc=2xhb5",
+      fetchMethod: "GET",
       fetchStartTime: 1706452689281,
       chunkValue: [
         50, 58, 73, 91, 49, 49, 49, 50, 57, 44, 91, 34, 53, 49, 53, 51, 34, 44,

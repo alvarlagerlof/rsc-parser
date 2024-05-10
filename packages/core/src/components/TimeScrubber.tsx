@@ -56,7 +56,7 @@ function useTracks(messages: RscChunkMessage[]) {
           return true;
         }
 
-        const lastMessageWithSameFetchUrl = messages
+        const lastMessageWithSameFetchStartTime = messages
           .filter(
             (m) => m.data.fetchStartTime === lastMessage.data.fetchStartTime,
           )
@@ -64,8 +64,8 @@ function useTracks(messages: RscChunkMessage[]) {
 
         if (
           lastMessage.data.fetchStartTime !== message.data.fetchStartTime &&
-          typeof lastMessageWithSameFetchUrl !== "undefined" &&
-          lastMessageWithSameFetchUrl.data.chunkEndTime <
+          typeof lastMessageWithSameFetchStartTime !== "undefined" &&
+          lastMessageWithSameFetchStartTime.data.chunkEndTime <
             message.data.fetchStartTime
         ) {
           return true;
@@ -80,6 +80,8 @@ function useTracks(messages: RscChunkMessage[]) {
         messageTracks.push([message]);
       }
     }
+
+    console.log(messageTracks);
 
     return messageTracks;
   }, [messages]);
@@ -198,24 +200,6 @@ export function TimeScrubber({
   );
 }
 
-export function useGroupedMessages(messages: RscChunkMessage[]) {
-  return useMemo(() => {
-    const groupedMessages = new Map<string, RscChunkMessage[]>();
-
-    for (const message of messages) {
-      if (groupedMessages.has(message.data.fetchUrl)) {
-        groupedMessages.set(message.data.fetchUrl, [
-          ...(groupedMessages.get(message.data.fetchUrl) ?? []),
-          message,
-        ]);
-      } else {
-        groupedMessages.set(message.data.fetchUrl, [message]);
-      }
-    }
-    return groupedMessages;
-  }, [messages]);
-}
-
 function useTimeRange(messages: RscChunkMessage[]) {
   return useMemo(() => {
     let minStartTime = Number.MAX_SAFE_INTEGER;
@@ -243,23 +227,4 @@ export function useFilterMessagesByEndTime(
   return useMemo(() => {
     return messages.filter((message) => message.data.chunkStartTime <= endTime);
   }, [messages, endTime]);
-}
-
-export function useSortedFetchPaths(messages: RscChunkMessage[]) {
-  return useMemo(() => {
-    const tabs: string[] = [];
-
-    const sorted = messages.sort(
-      (a, b) => a.data.chunkStartTime - b.data.chunkStartTime,
-    );
-
-    for (const message of sorted) {
-      const tab = message.data.fetchUrl;
-      if (!tabs.includes(tab)) {
-        tabs.push(tab);
-      }
-    }
-
-    return tabs;
-  }, [messages]);
 }

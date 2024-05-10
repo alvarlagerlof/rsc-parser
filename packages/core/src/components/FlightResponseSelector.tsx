@@ -1,9 +1,14 @@
-import React, { ReactNode, useEffect, useState, useTransition } from "react";
+import React, {
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import { TabList, Tab, TabPanel, useTabStore } from "@ariakit/react";
 import { RscChunkMessage } from "../types";
 import { getColorForFetch } from "../color";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import { useSortedFetchPaths } from "./TimeScrubber";
 
 export function useFlightResponseSelector(
   messages: RscChunkMessage[],
@@ -13,7 +18,22 @@ export function useFlightResponseSelector(
     follow: boolean;
   },
 ) {
-  const tabs = useSortedFetchPaths(messages);
+  const tabs = useMemo(() => {
+    const tabs: string[] = [];
+
+    const sorted = messages.sort(
+      (a, b) => a.data.chunkStartTime - b.data.chunkStartTime,
+    );
+
+    for (const message of sorted) {
+      if (tabs.find((tab) => tab === String(message.data.fetchStartTime))) {
+        continue;
+      }
+      tabs.push(String(message.data.fetchStartTime));
+    }
+
+    return tabs;
+  }, [messages]);
 
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
@@ -34,7 +54,7 @@ export function useFlightResponseSelector(
     if (follow) {
       const lastTab = tabs.at(-1);
       if (lastTab !== selectedTab) {
-        selectTab(lastTab);
+        selectTab(String(lastTab));
       }
     }
   }, [tabs]);
@@ -65,29 +85,42 @@ export function FlightResponseSelector({
     <PanelGroup direction="horizontal">
       <Panel id="sidebar" minSize={35} order={1} defaultSize={35}>
         <TabList store={tabStore} className="flex flex-col gap-1 pr-3">
-          {tabs.map((tab) => (
-            <Tab className="group w-full text-left" key={tab} id={tab}>
-              <div className="flex w-full flex-row items-center gap-3 rounded-md border-none px-1.5 py-0.5 group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
-                <div
-                  className="size-[14px] min-h-[14px] min-w-[14px] rounded-full"
-                  style={{
-                    background: getColorForFetch(
-                      messages.find((m) => m.data.fetchUrl === tab)?.data
-                        .fetchStartTime ?? 0,
-                    ),
-                  }}
-                ></div>
-                <div>
-                  <span className="text-slate-900 dark:text-white">
-                    {new URL(tab).pathname}
-                  </span>
-                  <span className="text-slate-500 dark:text-slate-400">
-                    {new URL(tab).search}
-                  </span>
+          {tabs.map((tab) => {
+            const fetchMethod = messages.find(
+              (m) => String(m.data.fetchStartTime) === tab,
+            )?.data.fetchMethod;
+            const fetchUrl = messages.find(
+              (m) => String(m.data.fetchStartTime) === tab,
+            )?.data.fetchUrl as string;
+
+            return (
+              <Tab className="group w-full text-left" key={tab} id={tab}>
+                <div className="flex w-full flex-row items-center gap-3 rounded-md border-none px-1.5 py-0.5 group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
+                  <div
+                    className="size-[14px] min-h-[14px] min-w-[14px] rounded-full"
+                    style={{
+                      background: getColorForFetch(
+                        messages.find(
+                          (m) => String(m.data.fetchStartTime) === tab,
+                        )?.data.fetchStartTime ?? 0,
+                      ),
+                    }}
+                  ></div>
+                  <div>
+                    <span className="inline-block w-[5ch] text-slate-500 dark:text-slate-400">
+                      {fetchMethod}{" "}
+                    </span>
+                    <span className="text-slate-900 dark:text-white">
+                      {new URL(fetchUrl).pathname}
+                    </span>
+                    <span className="text-slate-500 dark:text-slate-400">
+                      {new URL(fetchUrl).search}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </Tab>
-          ))}
+              </Tab>
+            );
+          })}
         </TabList>
       </Panel>
 
