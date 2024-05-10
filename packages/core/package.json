@@ -2,7 +2,6 @@
   "name": "@rsc-parser/core",
   "version": "0.3.0",
   "packageManager": "yarn@4.2.1",
-  "main": "index.js",
   "author": "Alvar Lagerlöf",
   "license": "MIT",
   "scripts": {
@@ -49,13 +48,17 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/js/core.js"
+      "import": "./dist/js/main.js",
+      "types": "./dist/js/src/main.d.ts"
     },
     "./style.css": {
       "import": "./dist/style.css"
+    },
+    "./fetchPatcher": {
+      "import": "./dist/js/fetchPatcher.js",
+      "types": "./dist/js/src/fetchPatcher.d.ts"
     }
   },
-  "types": "./dist/js/src/main.d.ts",
   "style": "./dist/style.css",
   "dependencies": {
     "d3": "7.9.0",

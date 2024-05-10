@@ -1,4 +1,4 @@
-import { fetchPatcher } from "@rsc-parser/core";
+import { fetchPatcher } from "@rsc-parser/core/fetchPatcher";
 
 fetchPatcher({
   onRscChunkMessage: (message) => {

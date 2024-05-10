@@ -46,6 +46,7 @@ export default defineConfig(({ mode }) => {
             devtools: resolve(__dirname, "src/devtools.ts"),
           },
           output: {
+            main: resolve(__dirname, "index.html"),
             entryFileNames: `assets/[name].js`,
             chunkFileNames: `assets/[name].js`,
             assetFileNames: `assets/[name].[ext]`,
