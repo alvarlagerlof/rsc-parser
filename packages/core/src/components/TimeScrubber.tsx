@@ -81,8 +81,6 @@ function useTracks(messages: RscChunkMessage[]) {
       }
     }
 
-    console.log(messageTracks);
-
     return messageTracks;
   }, [messages]);
 }
