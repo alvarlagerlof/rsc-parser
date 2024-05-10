@@ -3,6 +3,8 @@
   "extends": ["//"],
   "pipeline": {
     "build": {
+      "cache": false,
+      "inputs": ["storybook-static/**"],
       "outputs": ["storybook-static/**"]
     }
   }

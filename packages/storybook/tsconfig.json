@@ -1,21 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "strict": true,
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
-    "types": ["chrome-types"]
+    "incremental": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "jest.config.js"],
-  "exclude": ["node_modules", "vite.config.ts.timestamp*"]
+  "include": [".storybook/*.ts"],
+  "exclude": ["node_modules"]
 }

@@ -35,6 +35,7 @@
   "scripts": {
     "lint": "eslint",
     "format": "prettier . --check --config ../../.prettierrc",
+    "typecheck": "tsc --noEmit",
     "dev": "vite build --mode development && vite dev",
     "build": "vite build && sed -i'.backup' 's| http://localhost:6020||g' dist/manifest.json && rm dist/manifest.json.backup",
     "clean": "rm -rf dist"
