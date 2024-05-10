@@ -17,7 +17,39 @@ I made this tool to more easily let you understand the data and explore it visua
 
 ### Extension
 
-I am currently developing a Chrome extension (Firefox hopefully soon) extension. Build artifacts are available [here](https://github.com/alvarlagerlof/rsc-parser/actions?query=branch%3Amain).
+There is a Chrome Extension than you can add [here](https://chromewebstore.google.com/detail/rsc-devtools/jcejahepddjnppkhomnidalpnnnemomn).
+
+### npm package
+
+You can also add the parser as a package to your project. You'll get an embedded panel component that you can render in a layout.tsx for example.
+
+First, install [@rsc-parser/embedded](https://www.npmjs.com/package/@rsc-parser/embedded) from npm like: `yarn add @rsc-parser/embedded`
+
+Then you can load it in a `layout.tsx` for example.
+```tsx
+import { Suspense, lazy } from "react";
+
+const RscDevtoolsPanel = lazy(() =>
+  import("@rsc-parser/embedded").then(module => ({
+    default: module.RscDevtoolsPanel,
+  })),
+);
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        {/* Use any condition or flag you want here */ }
+        {process.env.NODE_ENV === "development" ? (
+          <Suspense>
+            <RscDevtoolsPanel />
+          </Suspense>
+        ) : null}
+      </body>
+    </html>
+  );
+```
 
 ### Website
 
