@@ -1,5 +1,19 @@
 # @rsc-parser/embedded-example
 
+## 0.17.1
+
+### Patch Changes
+
+- 4542777: Fix Chrome Extension bundling
+- e09465a: Add typecheck command
+- 4f48e76: Add format command everywher
+- ed20b59: Remove console logs
+- Updated dependencies [4542777]
+- Updated dependencies [e09465a]
+- Updated dependencies [4f48e76]
+- Updated dependencies [ed20b59]
+  - @rsc-parser/embedded@0.3.1
+
 ## 0.17.0
 
 ### Minor Changes
