@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import htmlPlugin, { Options, ScriptTag } from "vite-plugin-html-config";
+import { resolve } from "path";
 
 const dev = {
   headScripts: [
@@ -37,6 +38,19 @@ export default defineConfig(({ mode }) => {
       build: {
         outDir: "./dist",
         minify: false,
+        rollupOptions: {
+          input: {
+            main: resolve(__dirname, "index.html"),
+            "fetch-patch": resolve(__dirname, "src/fetch-patch.ts"),
+            "content-script": resolve(__dirname, "src/content-script.ts"),
+            devtools: resolve(__dirname, "src/devtools.ts"),
+          },
+          output: {
+            entryFileNames: `assets/[name].js`,
+            chunkFileNames: `assets/[name].js`,
+            assetFileNames: `assets/[name].[ext]`,
+          },
+        },
       },
       server: {
         port: 6020,
@@ -50,6 +64,19 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "./dist",
       minify: false,
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, "index.html"),
+          "fetch-patch": resolve(__dirname, "src/fetch-patch.ts"),
+          "content-script": resolve(__dirname, "src/content-script.ts"),
+          devtools: resolve(__dirname, "src/devtools.ts"),
+        },
+        output: {
+          entryFileNames: `assets/[name].js`,
+          chunkFileNames: `assets/[name].js`,
+          assetFileNames: `assets/[name].[ext]`,
+        },
+      },
     },
     server: {
       port: 6020,
