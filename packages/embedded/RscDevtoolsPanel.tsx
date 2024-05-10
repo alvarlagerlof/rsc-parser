@@ -162,8 +162,6 @@ function useRscMessages() {
       // @ts-expect-error This is a hack
       const payload = self.__next_f.map((f) => f?.[1]).join("");
 
-      console.log("TEST", payload);
-
       const messages = [
         {
           type: "RSC_CHUNK",
