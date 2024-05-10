@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "format": "prettier . --check --config ../../.prettierrc",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf .next"
   },
