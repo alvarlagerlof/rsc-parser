@@ -5,6 +5,8 @@ export default function Home() {
     <>
       <p>Home page</p>
       <Link href="/other">Go to other page</Link>
+      <br />
+      <Link href="/action">Go to action page</Link>
     </>
   );
 }
