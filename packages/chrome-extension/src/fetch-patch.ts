@@ -1,10 +1,13 @@
+// @ts-expect-error TODO: Fix type
 if (typeof window.originalFetch === "undefined") {
+  // @ts-expect-error TODO: Fix type
   window.originalFetch = window.fetch;
 }
 
 window.fetch = async (...args) => {
   const fetchStartTime = Date.now();
 
+  // @ts-expect-error TODO: Fix type
   const response = await window.originalFetch(...args);
 
   if (typeof response.headers === "undefined") {
