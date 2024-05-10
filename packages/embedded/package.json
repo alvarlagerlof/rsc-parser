@@ -8,6 +8,7 @@
     "build": "vite build",
     "dev": "vite build --watch",
     "lint": "eslint",
+    "format": "prettier . --check --config ../../.prettierrc",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
