@@ -6,13 +6,6 @@ export const nextjsOrgExampleData: RscChunkMessage[] = [
     data: {
       fetchUrl:
         "https://nextjs.org/docs/app/building-your-application/routing?_rsc=2xhb5",
-      fetchHeaders: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(next-site)%22%2C%7B%22children%22%3A%5B%22docs%22%2C%7B%22children%22%3A%5B%5B%22slug%22%2C%22%22%2C%22oc%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D%7D%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/docs",
-      },
       fetchStartTime: 1706452689281,
       chunkValue: [
         50, 58, 73, 91, 49, 49, 49, 50, 57, 44, 91, 34, 53, 49, 53, 51, 34, 44,

@@ -12,6 +12,7 @@ import {
   BottomPanelOpenButton,
   BottomPanelCloseButton,
 } from "./components/BottomPanel";
+import { fetchPatcher } from "./fetchPatcher";
 
 export {
   type RscChunkMessage,
@@ -26,4 +27,5 @@ export {
   BottomPanel,
   BottomPanelOpenButton,
   BottomPanelCloseButton,
+  fetchPatcher,
 };
