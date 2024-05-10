@@ -1,5 +1,19 @@
 # @rsc-parser/core
 
+## 0.3.0
+
+### Minor Changes
+
+- f313d13: Compile Chrome extension scripts using Vite
+- ee03219: Move fetch patching code to @rsc-parser/core
+- 4d0f42e: Added support for server actions
+
+### Patch Changes
+
+- 2cd0dd4: Export `unstable_createFlightResponse`
+- 2836e57: Add a button to read Next.js payload script tags
+- faa158f: Export `unstable_createFlightResponse`
+
 ## 0.2.4
 
 ### Patch Changes
