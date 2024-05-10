@@ -13,6 +13,7 @@ import {
   BottomPanelCloseButton,
 } from "./components/BottomPanel";
 import { fetchPatcher } from "./fetchPatcher";
+import { createFlightResponse as unstable_createFlightResponse } from "./createFlightResponse";
 
 export {
   type RscChunkMessage,
@@ -28,4 +29,5 @@ export {
   BottomPanelOpenButton,
   BottomPanelCloseButton,
   fetchPatcher,
+  unstable_createFlightResponse,
 };
