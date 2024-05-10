@@ -13,8 +13,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
-    "include": ["./storybook/**"]
+    "incremental": true
   },
+  "include": ["./storybook/**"],
   "exclude": ["node_modules"]
 }
