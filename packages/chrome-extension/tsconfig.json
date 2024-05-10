@@ -17,5 +17,5 @@
     "types": ["chrome-types"]
   },
   "include": ["**/*.ts", "**/*.tsx", "jest.config.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "vite.config.ts.timestamp*"]
 }
