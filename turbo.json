@@ -8,8 +8,9 @@
     "lint": {},
     "test": {},
     "format": {},
+    "typecheck": {},
     "ci": {
-      "dependsOn": ["build", "lint", "test", "format"]
+      "dependsOn": ["build", "typecheck", "lint", "test", "format"]
     },
     "dev": {}
   }
