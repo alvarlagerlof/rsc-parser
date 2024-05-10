@@ -54,6 +54,7 @@ function Viewer({ payload }: { payload: string }) {
       tabId: 0,
       data: {
         fetchUrl: "https://example.com",
+        fetchMethod: "GET",
         fetchStartTime: 0,
         chunkStartTime: 0,
         chunkEndTime: 0,
