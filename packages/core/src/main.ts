@@ -6,6 +6,7 @@ import { Logo } from "./components/Logo";
 import { RecordButton } from "./components/RecordButton";
 import { DebugCopyMessagesButton } from "./components/DebugCopyMessagesButton";
 import { ClearMessagesButton } from "./components/ClearMessagesButton";
+import { ReadNextScriptTagsButton } from "./components/ReadNextScriptTagsButton";
 import { PanelLayout } from "./components/PanelLayout";
 import {
   BottomPanel,
@@ -24,6 +25,7 @@ export {
   RecordButton,
   DebugCopyMessagesButton,
   ClearMessagesButton,
+  ReadNextScriptTagsButton,
   PanelLayout,
   BottomPanel,
   BottomPanelOpenButton,
