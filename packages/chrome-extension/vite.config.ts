@@ -33,6 +33,7 @@ const build = {
 export default defineConfig(({ mode }) => {
   if (mode === "development") {
     return {
+      // @ts-expect-error TODO: Fix type
       plugins: [react(), htmlPlugin(dev)],
       base: "",
       build: {
@@ -60,6 +61,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
+    // @ts-expect-error TODO: Fix type
     plugins: [react(), htmlPlugin(build)],
     base: "",
     build: {
