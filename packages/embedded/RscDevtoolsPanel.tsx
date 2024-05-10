@@ -14,9 +14,9 @@ import {
   DebugCopyMessagesButton,
   ClearMessagesButton,
   PanelLayout,
-  fetchPatcher,
   ReadNextScriptTagsButton,
 } from "@rsc-parser/core";
+import { fetchPatcher } from "@rsc-parser/core/fetchPatcher";
 import React, {
   ReactNode,
   startTransition,

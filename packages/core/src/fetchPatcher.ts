@@ -19,8 +19,6 @@ function getFetchMethod(args: Parameters<typeof fetch>): "GET" | "POST" {
     return method === "GET" || method === "POST";
   }
 
-  console.log(JSON.stringify(args[1]));
-
   if (args[0] instanceof Request && isGetOrPost(args[0].method)) {
     return args[0].method;
   } else if (typeof args[1]?.method === "undefined") {
@@ -68,7 +66,6 @@ export function fetchPatcher({
     const clonedResponse = response.clone();
     const reader = clonedResponse.body.getReader();
 
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       const chunkStartTime = Date.now();
       const { value, done } = await reader.read();

@@ -13,7 +13,6 @@ import {
   BottomPanelOpenButton,
   BottomPanelCloseButton,
 } from "./components/BottomPanel";
-import { fetchPatcher } from "./fetchPatcher";
 import { createFlightResponse as unstable_createFlightResponse } from "./createFlightResponse";
 
 export {
@@ -30,6 +29,5 @@ export {
   BottomPanel,
   BottomPanelOpenButton,
   BottomPanelCloseButton,
-  fetchPatcher,
   unstable_createFlightResponse,
 };

@@ -18,10 +18,17 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, "src/main.ts"),
+        fetchPatcher: resolve(__dirname, "src/fetchPatcher.ts"),
+      },
       // make sure to externalize deps that shouldn't be bundled
       // into your library
       external: ["react"],
       output: {
+        entryFileNames: `[name].js`,
+        chunkFileNames: `[name].js`,
+        assetFileNames: `[name].[ext]`,
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
