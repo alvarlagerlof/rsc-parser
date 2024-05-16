@@ -3,7 +3,7 @@ export type RscChunkMessage = {
   tabId: number;
   data: {
     fetchUrl: string;
-    fetchMethod: "GET" | "POST";
+    fetchMethod: "GET" | "POST" | "WS";
     fetchStartTime: number;
     chunkValue: number[];
     chunkStartTime: number;

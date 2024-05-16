@@ -58,6 +58,10 @@
     "./fetchPatcher": {
       "import": "./dist/js/fetchPatcher.js",
       "types": "./dist/js/src/fetchPatcher.d.ts"
+    },
+    "./websocketPatcher": {
+      "import": "./dist/js/websocketPatcher.js",
+      "types": "./dist/js/src/websocketPatcher.d.ts"
     }
   },
   "style": "./dist/style.css",

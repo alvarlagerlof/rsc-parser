@@ -17,6 +17,7 @@ import {
   ReadNextScriptTagsButton,
 } from "@rsc-parser/core";
 import { fetchPatcher } from "@rsc-parser/core/fetchPatcher";
+import { websocketPatcher } from "@rsc-parser/core/websocketPatcher";
 import React, {
   ReactNode,
   startTransition,
@@ -70,6 +71,7 @@ export function RscDevtoolsPanel() {
             <BottomPanelCloseButton onClickClose={() => setIsOpen(false)} />
           }
         >
+          {/* {messages.length} */}
           {messages.length === 0 || !isRecording ? (
             <ViewerStreamsEmptyState />
           ) : (
@@ -122,7 +124,7 @@ function ApplyStylingOnClient({ children }: { children: ReactNode }) {
 
 function useRscMessages() {
   const [messages, setMessages] = useState<RscChunkMessage[]>([]);
-  const [isRecording, setIsRecording] = useState(false);
+  const [isRecording, setIsRecording] = useState(true);
 
   useEffect(() => {
     if (!isRecording) {
@@ -142,12 +144,24 @@ function useRscMessages() {
           return true;
         }
 
+        // startTransition(() => {
+        //   setMessages((previous) => [...previous, message]);
+        // });
+      },
+    });
+  }, [isRecording]);
+
+  useEffect(() => {
+    websocketPatcher({
+      onRscChunkMessage: (message) => {
+        console.log("RSC message from websocket", message);
+
         startTransition(() => {
           setMessages((previous) => [...previous, message]);
         });
       },
     });
-  }, [isRecording]);
+  }, []);
 
   const startRecording = useCallback(() => {
     setIsRecording(true);

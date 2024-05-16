@@ -21,6 +21,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "src/main.ts"),
         fetchPatcher: resolve(__dirname, "src/fetchPatcher.ts"),
+        websocketPatcher: resolve(__dirname, "src/websocketPatcher.ts"),
       },
       // make sure to externalize deps that shouldn't be bundled
       // into your library

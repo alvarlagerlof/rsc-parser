@@ -14,6 +14,7 @@ export default function ActionPage() {
 
 const action = async (formData: FormData) => {
   "use server";
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   return formData;
 };
