@@ -1,5 +1,8 @@
 import { RscChunkMessage } from "./types";
-import { ViewerPayload } from "./components/ViewerPayload";
+import {
+  ViewerPayload,
+  Viewer as unstable_Viewer,
+} from "./components/ViewerPayload";
 import { ViewerStreams } from "./components/ViewerStreams";
 import { ViewerStreamsEmptyState } from "./components/ViewerStreamsEmptyState";
 import { Logo } from "./components/Logo";
@@ -18,6 +21,7 @@ import { createFlightResponse as unstable_createFlightResponse } from "./createF
 export {
   type RscChunkMessage,
   ViewerPayload,
+  unstable_Viewer,
   ViewerStreams,
   ViewerStreamsEmptyState,
   Logo,
