@@ -1,5 +1,16 @@
 # @rsc-parser/embedded-example
 
+## 0.18.0
+
+### Minor Changes
+
+- 61a3d5a: Expose `unstable_Viewer`
+
+### Patch Changes
+
+- Updated dependencies [61a3d5a]
+  - @rsc-parser/embedded@0.4.0
+
 ## 0.17.1
 
 ### Patch Changes

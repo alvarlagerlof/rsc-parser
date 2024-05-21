@@ -1,5 +1,11 @@
 # @rsc-parser/core
 
+## 0.4.0
+
+### Minor Changes
+
+- 61a3d5a: Expose `unstable_Viewer`
+
 ## 0.3.1
 
 ### Patch Changes

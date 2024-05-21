@@ -1,5 +1,16 @@
 # @rsc-parser/chrome-extension
 
+## 0.4.0
+
+### Minor Changes
+
+- 61a3d5a: Expose `unstable_Viewer`
+
+### Patch Changes
+
+- Updated dependencies [61a3d5a]
+  - @rsc-parser/core@0.4.0
+
 ## 0.3.1
 
 ### Patch Changes
