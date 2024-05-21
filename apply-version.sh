@@ -2,7 +2,7 @@
 set -e
 
 # Step 1: Get the changeset status
-yarn changeset status --output version.json
+yarn changeset status --since origin/main --output version.json
 
 # Step 2: Extract newVersion from version.json
 new_version=$(jq -r '.releases[0].newVersion' version.json)
