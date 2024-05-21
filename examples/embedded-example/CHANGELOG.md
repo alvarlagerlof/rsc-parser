@@ -1,5 +1,13 @@
 # @rsc-parser/embedded-example
 
+## 0.18.1
+
+### Patch Changes
+
+- e129d14: Specify files in @rsc-parser/core
+- Updated dependencies [e129d14]
+  - @rsc-parser/embedded@0.4.1
+
 ## 0.18.0
 
 ### Minor Changes
