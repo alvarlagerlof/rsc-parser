@@ -1,5 +1,11 @@
 # @rsc-parser/storybook
 
+## 0.4.1
+
+### Patch Changes
+
+- e129d14: Specify files in @rsc-parser/core
+
 ## 0.4.0
 
 ### Minor Changes
