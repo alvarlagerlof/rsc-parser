@@ -47,7 +47,7 @@ export function ViewerPayload({ defaultPayload }: { defaultPayload: string }) {
   );
 }
 
-export function Viewer({ payload }: { payload: string }) {
+function Viewer({ payload }: { payload: string }) {
   const messages = [
     {
       type: "RSC_CHUNK",
