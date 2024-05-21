@@ -79,7 +79,10 @@ function getLinks(chunks: Chunk[], id: string) {
 
   walk(id);
 
-  return links;
+  // Only return links for which there are nodes
+  return links.filter((link) =>
+    chunks.find((chunk) => chunk.id === link.target),
+  );
 }
 
 export function FlightResponseTabNetwork({
