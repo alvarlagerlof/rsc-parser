@@ -1,5 +1,13 @@
 # @rsc-parser/embedded-example
 
+## 0.18.2
+
+### Patch Changes
+
+- 5356856: Only show links for which there are nodes in FlightResponseTabNetwork
+- Updated dependencies [5356856]
+  - @rsc-parser/embedded@0.4.2
+
 ## 0.18.1
 
 ### Patch Changes

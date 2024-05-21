@@ -1,5 +1,13 @@
 # @rsc-parser/chrome-extension
 
+## 0.4.2
+
+### Patch Changes
+
+- 5356856: Only show links for which there are nodes in FlightResponseTabNetwork
+- Updated dependencies [5356856]
+  - @rsc-parser/core@0.4.2
+
 ## 0.4.1
 
 ### Patch Changes
