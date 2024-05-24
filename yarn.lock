@@ -1583,9 +1583,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/cli@npm:2.27.2":
-  version: 2.27.2
-  resolution: "@changesets/cli@npm:2.27.2"
+"@changesets/cli@npm:2.27.3":
+  version: 2.27.3
+  resolution: "@changesets/cli@npm:2.27.3"
   dependencies:
     "@babel/runtime": "npm:^7.20.1"
     "@changesets/apply-release-plan": "npm:^7.0.1"
@@ -1621,7 +1621,7 @@ __metadata:
     tty-table: "npm:^4.1.5"
   bin:
     changeset: bin.js
-  checksum: 10/12513cff7e4e95c9845793d3f5ee7c94e28f224dd78fb53776a556dd02a183bed3b5c826535a94ec436e6a1ad132f1f9d436383c8bced1b19400c2e9f4fcfbbb
+  checksum: 10/eada8044f2ef517137decb26f9094b74370cccea3d8710837218475b149ee376fc3fd72ae25613841059c6f0d8df6946ac6d83938f71350627f14904c365b5b2
   languageName: node
   linkType: hard
 
@@ -14829,7 +14829,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rsc-parser@workspace:."
   dependencies:
-    "@changesets/cli": "npm:2.27.2"
+    "@changesets/cli": "npm:2.27.3"
     knip: "npm:5.15.1"
     prettier: "npm:3.2.5"
     turbo: "npm:1.13.3"
