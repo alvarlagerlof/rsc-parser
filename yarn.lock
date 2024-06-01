@@ -29,36 +29,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ariakit/core@npm:0.4.6":
-  version: 0.4.6
-  resolution: "@ariakit/core@npm:0.4.6"
-  checksum: 10/488e96f42d8a2ba1a1c9b46acedb11d3018492775aa65d9a738a941fe36bdaf09b3671d52e1c584e0e4dd8d5a7aeb29bc7a640bbed2b4d09dbc04eea025dc92c
+"@ariakit/core@npm:0.4.7":
+  version: 0.4.7
+  resolution: "@ariakit/core@npm:0.4.7"
+  checksum: 10/85494f329171c8f3da70a740d2a15b1ec5491358d90b2e4a6d2e6d923c742e8fc157287f9171ba71f81d8c7b3526eee7983158737bd71a1e411d95ec0372155f
   languageName: node
   linkType: hard
 
-"@ariakit/react-core@npm:0.4.6":
-  version: 0.4.6
-  resolution: "@ariakit/react-core@npm:0.4.6"
+"@ariakit/react-core@npm:0.4.7":
+  version: 0.4.7
+  resolution: "@ariakit/react-core@npm:0.4.7"
   dependencies:
-    "@ariakit/core": "npm:0.4.6"
+    "@ariakit/core": "npm:0.4.7"
     "@floating-ui/dom": "npm:^1.0.0"
     use-sync-external-store: "npm:^1.2.0"
   peerDependencies:
-    react: ^17.0.0 || ^18.0.0
-    react-dom: ^17.0.0 || ^18.0.0
-  checksum: 10/56e7c16d73ee0ab571cefcf66e03943300bf92d47fa51f679a3e10e988c67f878023a4c3085d5a9558c78721c38208386688e7b6b8852f154a9267952453be78
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10/8aa28d2ee7733d538597c0ee4306d1c653007beb9a88dc50d41b9cd2b2f0f127729fdbdab3eb40ac61107b514901bbebceb84eca232496c769c7f0e25b69994c
   languageName: node
   linkType: hard
 
-"@ariakit/react@npm:0.4.6":
-  version: 0.4.6
-  resolution: "@ariakit/react@npm:0.4.6"
+"@ariakit/react@npm:0.4.7":
+  version: 0.4.7
+  resolution: "@ariakit/react@npm:0.4.7"
   dependencies:
-    "@ariakit/react-core": "npm:0.4.6"
+    "@ariakit/react-core": "npm:0.4.7"
   peerDependencies:
-    react: ^17.0.0 || ^18.0.0
-    react-dom: ^17.0.0 || ^18.0.0
-  checksum: 10/d159c1fe87a2ee49590bb35e7b3850e87f8218617e7214013027823f7d8f632f39632d3d8cfdc03e6ee74b7515703f3f35b8600ba9a7affd97cdf101f3a74141
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10/0866f5a456f59c6a45b31a70db7558e0f8a1c12fd3b63e70d74bb88f7841ef44301a1ead822b0d9bee27fccb706ca47d5a363912229cccfec3576718116c0d37
   languageName: node
   linkType: hard
 
@@ -3833,7 +3833,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
-    "@ariakit/react": "npm:0.4.6"
+    "@ariakit/react": "npm:0.4.7"
     "@eslint/js": "npm:9.3.0"
     "@rsc-parser/core": "workspace:*"
     "@types/eslint__js": "npm:8.42.3"
@@ -3971,7 +3971,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
-    "@ariakit/react": "npm:0.4.6"
+    "@ariakit/react": "npm:0.4.7"
     "@eslint/eslintrc": "npm:3.1.0"
     "@eslint/js": "npm:9.3.0"
     "@rsc-parser/core": "workspace:*"
