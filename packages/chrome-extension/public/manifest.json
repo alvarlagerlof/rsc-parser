@@ -6,18 +6,5 @@
     "extension_pages": "script-src 'self' http://localhost:6020; object-src 'self'"
   },
   "manifest_version": 3,
-  "devtools_page": "devtools-page.html",
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["assets/content-script.js"],
-      "all_frames": true
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": ["assets/fetch-patch.js"],
-      "matches": ["http://*/*", "https://*/*"]
-    }
-  ]
+  "devtools_page": "devtools-page.html"
 }

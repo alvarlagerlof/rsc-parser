@@ -18,6 +18,22 @@ import {
 } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
+interface NetworkPanelRequest extends chrome.devtools.network.Request {
+  response: {
+    content: { mimeType: string };
+  };
+  request: {
+    url: string;
+    method: string;
+  };
+  startedDateTime: string;
+  time: number;
+}
+
+function isRscResponse(request: NetworkPanelRequest): boolean {
+  return request.response.content.mimeType === "text/x-component";
+}
+
 export function App() {
   const { isRecording, startRecording, messages, clearMessages } =
     useRscMessages();
@@ -54,58 +70,54 @@ function useRscMessages() {
   const [isRecording, setIsRecording] = useState(false);
   const tabId = useMemo(() => Date.now(), []);
 
-  useEffect(() => {
-    function handleMessage(
-      request: unknown,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      _sender: unknown,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      _sendResponse: unknown,
-    ) {
-      if (
-        !isRscChunkMessage(request) &&
-        !isContentScriptUnloadedMessage(request)
-      ) {
-        return true;
-      }
+  const handleNetworkRequest = useCallback(function (
+    req: chrome.devtools.network.Request,
+  ) {
+    const request = req as NetworkPanelRequest;
+    if (isRscResponse(request)) {
+      request.getContent((content) => {
+        const startTime = new Date(request.startedDateTime).getTime();
 
-      // If the message is from a different tab, ignore it
-      if (request.tabId !== tabId) {
-        return true;
-      }
+        const requestMessage = {
+          fetchUrl: request.request.url,
+          fetchMethod: request.request.method,
+          fetchStartTime: startTime,
+          chunkStartTime: startTime,
+          chunkEndTime: startTime + request.time,
+          chunkValue: [],
+        } satisfies RscChunkMessage;
 
-      if (isContentScriptUnloadedMessage(request)) {
-        setIsRecording(false);
-        setMessages([]);
-        return true;
-      }
+        // there is an issue in chrome devtools, that during dev mode of nextjs
+        // the content is not available (it is also not shown within the network response tab)
+        if (content) {
+          requestMessage.chunkValue = Array.from(
+            new TextEncoder().encode(content),
+          );
 
-      // It's possible that this lookup will miss a duplicated message if another
-      // one is being added at the same time. I haven't seen this happen in practice.
-      if (
-        messages.some((item) =>
-          arraysEqual(item.data.chunkValue, request.data.chunkValue),
-        )
-      ) {
-        return true;
-      }
-
-      startTransition(() => {
-        setMessages((previous) => [...previous, request]);
+          startTransition(() => {
+            setMessages((previous) => [
+              ...previous,
+              { type: "RSC_CHUNK", tabId: 0, data: requestMessage },
+            ]);
+          });
+        }
       });
-
-      return true;
     }
+  }, []);
 
-    chrome.runtime.onMessage.addListener(handleMessage);
-
+  useEffect(() => {
     return () => {
-      chrome.runtime.onMessage.removeListener(handleMessage);
+      chrome.devtools.network.onRequestFinished.removeListener(
+        handleNetworkRequest,
+      );
     };
   }, []);
 
   const startRecording = useCallback(() => {
     setIsRecording(true);
+
+    chrome.devtools.network.onRequestFinished.addListener(handleNetworkRequest);
+
     chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
       type: "START_RECORDING",
       tabId: tabId,
@@ -124,48 +136,7 @@ function useRscMessages() {
   };
 }
 
-function isRscChunkMessage(message: unknown): message is RscChunkMessage {
-  return (message as RscChunkMessage).type === "RSC_CHUNK";
-}
-
 type StartRecordingMessage = {
   type: "START_RECORDING";
   tabId: number;
 };
-
-type ContentScriptUnloadedMessage = {
-  type: "CONTENT_SCRIPT_UNLOADED";
-  tabId: number;
-};
-
-function isContentScriptUnloadedMessage(
-  message: unknown,
-): message is ContentScriptUnloadedMessage {
-  return (
-    (message as ContentScriptUnloadedMessage).type === "CONTENT_SCRIPT_UNLOADED"
-  );
-}
-
-function arraysEqual(a: unknown[], b: unknown[]) {
-  if (a === b) {
-    return true;
-  }
-  if (a == null || b == null) {
-    return false;
-  }
-  if (a.length !== b.length) {
-    return false;
-  }
-
-  // If you don't care about the order of the elements inside
-  // the array, you should sort both arrays here.
-  // Please note that calling sort on an array will modify that array.
-  // you might want to clone your array first.
-
-  for (let i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) {
-      return false;
-    }
-  }
-  return true;
-}
