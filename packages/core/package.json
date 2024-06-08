@@ -18,6 +18,26 @@
     "package.json",
     "dist"
   ],
+  "type": "module",
+  "style": "./dist/style.css",
+  "exports": {
+    ".": {
+      "import": "./dist/js/main.js",
+      "types": "./dist/js/src/main.d.ts"
+    },
+    "./style.css": {
+      "import": "./dist/style.css"
+    },
+    "./fetchPatcher": {
+      "import": "./dist/js/fetchPatcher.js",
+      "types": "./dist/js/src/fetchPatcher.d.ts"
+    }
+  },
+  "dependencies": {
+    "d3": "7.9.0",
+    "react-error-boundary": "4.0.13",
+    "react-resizable-panels": "2.0.19"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.4.0",
@@ -41,8 +61,6 @@
     "jest-environment-jsdom": "29.7.0",
     "postcss": "8.4.38",
     "prettier": "3.3.1",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
     "tailwindcss": "3.4.4",
     "ts-jest": "29.1.4",
     "typescript": "5.4.5",
@@ -50,24 +68,8 @@
     "vite": "5.2.13",
     "vite-plugin-dts": "3.9.1"
   },
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/js/main.js",
-      "types": "./dist/js/src/main.d.ts"
-    },
-    "./style.css": {
-      "import": "./dist/style.css"
-    },
-    "./fetchPatcher": {
-      "import": "./dist/js/fetchPatcher.js",
-      "types": "./dist/js/src/fetchPatcher.d.ts"
-    }
-  },
-  "style": "./dist/style.css",
-  "dependencies": {
-    "d3": "7.9.0",
-    "react-error-boundary": "4.0.13",
-    "react-resizable-panels": "2.0.19"
+  "peerDependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
 }
