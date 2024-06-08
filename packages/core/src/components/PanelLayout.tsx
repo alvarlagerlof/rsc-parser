@@ -2,18 +2,23 @@ import React, { ReactNode } from "react";
 
 export function PanelLayout({
   header,
+  positionSwitchButton,
   closeButton,
   children,
 }: {
   header: ReactNode;
+  positionSwitchButton?: ReactNode;
   closeButton?: ReactNode;
   children: ReactNode;
 }) {
   return (
     <div className="flex min-h-full flex-col text-sm">
-      <div className="sticky top-0 z-30 flex flex-row justify-between bg-slate-100 p-3 dark:bg-slate-900">
+      <div className="sticky top-0 z-30 flex flex-row justify-between gap-4 bg-slate-100 p-3 dark:bg-slate-900">
         <div className="flex flex-row items-center gap-4">{header}</div>
-        {closeButton}
+        <div className="flex flex-row items-center gap-2">
+          {positionSwitchButton}
+          {closeButton}
+        </div>
       </div>
       <div className="grow px-3">
         <div className="pb-3">{children}</div>

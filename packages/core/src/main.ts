@@ -15,6 +15,7 @@ import {
   BottomPanel,
   BottomPanelOpenButton,
   BottomPanelCloseButton,
+  BottomPanelPositionSwitchButton,
 } from "./components/BottomPanel";
 import { createFlightResponse as unstable_createFlightResponse } from "./createFlightResponse";
 
@@ -33,5 +34,6 @@ export {
   BottomPanel,
   BottomPanelOpenButton,
   BottomPanelCloseButton,
+  BottomPanelPositionSwitchButton,
   unstable_createFlightResponse,
 };
