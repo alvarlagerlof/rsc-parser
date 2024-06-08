@@ -31,6 +31,42 @@ function getFetchMethod(args: Parameters<typeof fetch>): "GET" | "POST" {
   throw new Error("Unknown fetch argument");
 }
 
+function headersInitToSerializableObject(
+  headersInit: HeadersInit,
+): Record<string, string> {
+  const headers: Record<string, string> = {};
+
+  if (headersInit instanceof Headers) {
+    for (const entry of headersInit.entries()) {
+      headers[entry[0]] = entry[1];
+    }
+    return headers;
+  }
+
+  for (const [key, value] of Object.entries(headersInit)) {
+    headers[key] = value;
+  }
+
+  return headers;
+}
+
+function getFetchHeaders(
+  args: Parameters<typeof fetch>,
+): Record<string, string> {
+  if (args[0] instanceof Request) {
+    return headersInitToSerializableObject(args[0].headers);
+  } else if (
+    (typeof args[0] === "string" || args[0] instanceof URL) &&
+    args[1] &&
+    "headers" in args[1] &&
+    args[1].headers
+  ) {
+    return headersInitToSerializableObject(args[1].headers);
+  }
+
+  throw new Error("Unknown fetch argument");
+}
+
 // For when the url is ""
 function convertLocalUrlToAbsolute(url: string): string {
   if (url === "") {
@@ -54,16 +90,25 @@ export function fetchPatcher({
     const fetchStartTime = Date.now();
 
     // @ts-expect-error TODO: Fix type
-    const response = await window.originalFetch(...args);
+    const response: Response = await window.originalFetch(...args);
 
     if (!isRscResponse(response)) {
       return response;
     }
 
     const url = getFetchUrl(args);
-    const method = getFetchMethod(args);
+    const requestMethod = getFetchMethod(args);
+    const requestHeaders = getFetchHeaders(args);
+    const responseHeaders = headersInitToSerializableObject(response.headers);
+
+    console.log({ requestHeaders });
+    console.log({ responseHeaders });
 
     const clonedResponse = response.clone();
+    if (!clonedResponse.body) {
+      return response;
+    }
+
     const reader = clonedResponse.body.getReader();
 
     while (true) {
@@ -80,7 +125,10 @@ export function fetchPatcher({
         data: {
           // Server actions make POST requests to "", which is not a valid URL for new URL()
           fetchUrl: convertLocalUrlToAbsolute(url),
-          fetchMethod: method,
+          fetchMethod: requestMethod,
+          fetchRequestHeaders: requestHeaders,
+          fetchResponseStatus: response.status,
+          fetchResponseHeaders: responseHeaders,
           fetchStartTime,
           chunkValue: Array.from(value),
           chunkStartTime,
