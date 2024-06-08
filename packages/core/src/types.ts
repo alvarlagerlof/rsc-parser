@@ -6,7 +6,6 @@ export type RscChunkMessage = {
     // TODO: Rename to fetchRequestMethod
     fetchMethod: "GET" | "POST";
     fetchRequestHeaders: Record<string, string> | null;
-    fetchResponseStatus: number | null;
     fetchResponseHeaders: Record<string, string> | null;
     fetchStartTime: number;
     chunkValue: number[];

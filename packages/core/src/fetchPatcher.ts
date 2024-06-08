@@ -127,7 +127,6 @@ export function fetchPatcher({
           fetchUrl: convertLocalUrlToAbsolute(url),
           fetchMethod: requestMethod,
           fetchRequestHeaders: requestHeaders,
-          fetchResponseStatus: response.status,
           fetchResponseHeaders: responseHeaders,
           fetchStartTime,
           chunkValue: Array.from(value),
