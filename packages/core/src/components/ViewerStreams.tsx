@@ -41,7 +41,7 @@ export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
           {!pathTabs.currentTab ? (
             <span>Please select a url</span>
           ) : (
-            <TabProvider>
+            <TabProvider key={pathTabs.currentTab}>
               <TabList
                 aria-label="Render modes"
                 className="flex flex-row gap-2"
