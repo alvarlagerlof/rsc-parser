@@ -55,6 +55,8 @@ export function Viewer({ payload }: { payload: string }) {
       data: {
         fetchUrl: "https://example.com",
         fetchMethod: "GET",
+        fetchRequestHeaders: null,
+        fetchResponseHeaders: null,
         fetchStartTime: 0,
         chunkStartTime: 0,
         chunkEndTime: 0,
