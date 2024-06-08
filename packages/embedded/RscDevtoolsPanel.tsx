@@ -7,8 +7,9 @@ import {
   ViewerStreamsEmptyState,
   RscChunkMessage,
   BottomPanel,
-  BottomPanelCloseButton,
   BottomPanelOpenButton,
+  BottomPanelCloseButton,
+  BottomPanelPositionSwitchButton,
   Logo,
   RecordButton,
   DebugCopyMessagesButton,
@@ -26,8 +27,26 @@ import React, {
   useSyncExternalStore,
 } from "react";
 
-export function RscDevtoolsPanel() {
+export function RscDevtoolsPanel({
+  position = "right",
+}: {
+  position?: "bottom" | "right" | undefined;
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState(position);
+
+  useEffect(() => {
+    const localStoragePosition = localStorage.getItem(
+      "rscDevtoolsPanelPosition",
+    );
+
+    if (
+      typeof localStoragePosition === "string" &&
+      (localStoragePosition === "bottom" || localStoragePosition === "right")
+    ) {
+      setCurrentPosition(localStoragePosition);
+    }
+  }, []);
 
   const {
     isRecording,
@@ -44,6 +63,7 @@ export function RscDevtoolsPanel() {
         openButton={
           <BottomPanelOpenButton onClickOpen={() => setIsOpen(true)} />
         }
+        position={currentPosition}
       >
         <PanelLayout
           header={
@@ -65,6 +85,12 @@ export function RscDevtoolsPanel() {
                 }}
               />
             </>
+          }
+          positionSwitchButton={
+            <BottomPanelPositionSwitchButton
+              currentPosition={currentPosition}
+              setCurrentPosition={setCurrentPosition}
+            />
           }
           closeButton={
             <BottomPanelCloseButton onClickClose={() => setIsOpen(false)} />

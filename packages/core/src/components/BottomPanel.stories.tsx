@@ -14,5 +14,6 @@ export const example: Story = {
     openButton: "RSC",
     isOpen: true,
     children: "Panel content",
+    position: "bottom",
   },
 };
