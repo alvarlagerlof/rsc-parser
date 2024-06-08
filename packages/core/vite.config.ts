@@ -24,7 +24,7 @@ export default defineConfig({
       },
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ["react"],
+      external: ["react", "react-dom"],
       output: {
         entryFileNames: `[name].js`,
         chunkFileNames: `[name].js`,
