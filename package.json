@@ -19,7 +19,7 @@
     "format": "turbo run format",
     "ci": "turbo run ci",
     "dev": "turbo run dev",
-    "version": "changeset version bash ./apply-version.sh",
+    "version": "changeset version && bash ./apply-version.sh",
     "release": "changeset publish",
     "knip": "knip"
   },
