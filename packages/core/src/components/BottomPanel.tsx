@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { Logo } from "./Logo";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
@@ -11,15 +11,24 @@ export function BottomPanel({
   children: ReactNode;
   isOpen: boolean;
 }) {
+  const [isDragging, setIsDragging] = useState(false);
+
   if (isOpen) {
     return (
       <PanelGroup
         direction="vertical"
+        // The `pointer-events-none` class is need to be able to click on the content underneath,
+        // but if it's applied while dragging, the drag handler looses track very easily.
         // eslint-disable-next-line tailwindcss/classnames-order
-        className="pointer-events-none fixed left-0 top-0 size-full z-[1000]"
+        className={`fixed left-0 top-0 size-full z-[1000] ${isDragging ? "" : "pointer-events-none"}`}
       >
         <Panel order={1} defaultSize={70} />
-        <PanelResizeHandle className="pointer-events-auto h-3 w-full bg-slate-300 dark:bg-slate-700" />
+        <PanelResizeHandle
+          className="pointer-events-auto h-3 w-full bg-slate-300 dark:bg-slate-700"
+          onDragging={(isDragging) => {
+            setIsDragging(isDragging);
+          }}
+        />
         <Panel order={2} maxSize={75} minSize={20} defaultSize={30}>
           <div className="pointer-events-auto size-full overflow-y-auto bg-slate-100 scrollbar-gutter-stable dark:bg-slate-900">
             {children}
