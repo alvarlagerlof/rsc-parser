@@ -14,6 +14,7 @@ import {
   Logo,
   RecordButton,
   copyMessagesToClipBoard,
+  OverflowButton,
 } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
@@ -34,16 +35,22 @@ export function App() {
       }
       buttons={
         <>
-          <button onClick={() => clearMessages()}>Clear messages</button>
-          {process.env.NODE_ENV === "development" ? (
-            <button
-              onClick={() => {
-                copyMessagesToClipBoard({ messages });
-              }}
-            >
-              Copy messages to clipboard
-            </button>
-          ) : null}
+          <OverflowButton
+            menuItems={
+              <>
+                <button onClick={() => clearMessages()}>Clear messages</button>
+                {process.env.NODE_ENV === "development" ? (
+                  <button
+                    onClick={() => {
+                      copyMessagesToClipBoard({ messages });
+                    }}
+                  >
+                    Copy messages to clipboard
+                  </button>
+                ) : null}
+              </>
+            }
+          />
         </>
       }
     >
