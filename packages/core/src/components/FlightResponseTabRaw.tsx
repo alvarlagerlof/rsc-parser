@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlightResponse } from "../react/ReactFlightClient";
+import { FlightResponse } from "@rsc-parser/react-client";
 import { FlightResponseChunkRaw } from "./FlightResponseChunkRaw";
 import { EndTimeContext } from "./EndTimeContext";
 

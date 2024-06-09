@@ -1,6 +1,9 @@
 import React from "react";
 import { TabList, Tab, TabPanel, TabProvider } from "@ariakit/react";
-import { createFlightResponse } from "../createFlightResponse";
+import {
+  createFlightResponse,
+  processBinaryChunk,
+} from "@rsc-parser/react-client";
 import {
   RscEvent,
   isRscChunkEvent,
@@ -34,9 +37,11 @@ export function ViewerStreams({ events }: { events: RscEvent[] }) {
     (event) => event.data.requestId == pathTabs.currentTab,
   );
 
-  const flightResponse = createFlightResponse(
-    eventsForCurrentTab.filter(isRscChunkEvent),
-  );
+  const flightResponse = createFlightResponse();
+  for (const event of eventsForCurrentTab.filter(isRscChunkEvent)) {
+    flightResponse._currentTimestamp = event.data.timestamp;
+    processBinaryChunk(flightResponse, Uint8Array.from(event.data.chunkValue));
+  }
 
   const requestEvent = eventsForCurrentTab.filter(isRscRequestEvent)[0];
   const responseEvent = eventsForCurrentTab.filter(isRscResponseEvent)[0];

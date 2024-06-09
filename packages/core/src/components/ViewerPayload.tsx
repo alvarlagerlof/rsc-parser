@@ -2,7 +2,10 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
-import { createFlightResponse } from "../createFlightResponse";
+import {
+  createFlightResponse,
+  processBinaryChunk,
+} from "@rsc-parser/react-client";
 import { RscChunkEvent } from "../events";
 import { FlightResponse } from "./FlightResponse";
 import { EndTimeContext } from "./EndTimeContext";
@@ -60,7 +63,10 @@ export function Viewer({ payload }: { payload: string }) {
     } satisfies RscChunkEvent,
   ];
 
-  const flightResponse = createFlightResponse(events);
+  const flightResponse = createFlightResponse();
+  for (const event of events) {
+    processBinaryChunk(flightResponse, Uint8Array.from(event.data.chunkValue));
+  }
 
   return (
     <EndTimeContext.Provider value={Infinity}>

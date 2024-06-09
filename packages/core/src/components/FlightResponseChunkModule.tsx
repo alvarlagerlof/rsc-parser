@@ -1,5 +1,5 @@
 import React from "react";
-import { ModuleChunk } from "../react/ReactFlightClient";
+import { ModuleChunk } from "@rsc-parser/react-client";
 
 function groupChunks(array: (string | number)[]) {
   const newArray = [];

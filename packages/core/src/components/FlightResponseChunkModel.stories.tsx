@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { FlightResponseChunkModel } from "./FlightResponseChunkModel";
-import { REACT_ELEMENT_TYPE } from "../react/ReactSymbols";
+import { REACT_ELEMENT_TYPE } from "@rsc-parser/react-client";
 
 const meta: Meta<typeof FlightResponseChunkModel> = {
   argTypes: { onClickID: { action: "clicked client reference" } },
