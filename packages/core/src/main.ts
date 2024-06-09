@@ -16,7 +16,7 @@ import { ViewerStreams } from "./components/ViewerStreams";
 import { ViewerStreamsEmptyState } from "./components/ViewerStreamsEmptyState";
 import { Logo } from "./components/Logo";
 import { RecordButton } from "./components/RecordButton";
-import { copyMessagesToClipBoard } from "./copyMessagesToClipBoard";
+import { copyEventsToClipboard } from "./copyEventsToClipboard";
 import { OverflowButton } from "./components/OverflowButton";
 import { PanelLayout } from "./components/PanelLayout";
 import {
@@ -42,7 +42,7 @@ export {
   ViewerStreamsEmptyState,
   Logo,
   RecordButton,
-  copyMessagesToClipBoard,
+  copyEventsToClipboard,
   OverflowButton,
   PanelLayout,
   BottomPanel,

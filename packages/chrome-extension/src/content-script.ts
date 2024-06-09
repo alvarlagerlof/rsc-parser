@@ -1,3 +1,5 @@
+import { isRscEvent } from "@rsc-parser/core";
+
 /**
  * injectScript - Inject internal script to available access to the `window`
  *
@@ -14,8 +16,7 @@ function injectScript(file_path: string, tag: string) {
 }
 
 // This is used in the devtools panel to only accept messages from the current tab
-// @ts-expect-error TODO: Fix type
-let tabId = undefined;
+let tabId: number | undefined = undefined;
 
 // Only inject the fetch patch script when the START_RECORDING message
 // is received from the devtools panel
@@ -41,9 +42,18 @@ window.addEventListener(
       return;
     }
 
-    if (event.data.type && event.data.type == "RSC_CHUNK") {
-      // @ts-expect-error TODO: Fix type
-      chrome.runtime.sendMessage({ ...event.data, tabId });
+    if (!tabId) {
+      return;
+    }
+
+    if (isRscEvent(event.data)) {
+      chrome.runtime.sendMessage({
+        ...event.data,
+        data: {
+          ...event.data.data,
+          tabId,
+        },
+      });
     }
   },
   false,
@@ -51,6 +61,8 @@ window.addEventListener(
 
 // When the content script is unloaded (like for a refresh), send a message to the devtools panel to reset it
 window.addEventListener("beforeunload", () => {
-  // @ts-expect-error TODO: Fix type
-  chrome.runtime.sendMessage({ type: "CONTENT_SCRIPT_UNLOADED", tabId });
+  chrome.runtime.sendMessage({
+    type: "CONTENT_SCRIPT_UNLOADED",
+    data: { tabId },
+  });
 });

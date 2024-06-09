@@ -14,7 +14,7 @@ import {
   RecordButton,
   PanelLayout,
   OverflowButton,
-  copyMessagesToClipBoard,
+  copyEventsToClipboard,
 } from "@rsc-parser/core";
 import { fetchPatcher } from "@rsc-parser/core/fetchPatcher";
 import React, {
@@ -53,7 +53,7 @@ export function RscDevtoolsPanel({
     events,
     clearEvents,
     readNextScriptTags,
-  } = useRscMessages();
+  } = useRscEvents();
 
   return (
     <ApplyStylingOnClient>
@@ -85,10 +85,10 @@ export function RscDevtoolsPanel({
                     {process.env.NODE_ENV === "development" ? (
                       <button
                         onClick={() => {
-                          copyMessagesToClipBoard({ events });
+                          copyEventsToClipboard({ events });
                         }}
                       >
-                        Copy messages to clipboard
+                        Copy events to clipboard
                       </button>
                     ) : null}
                     <button
@@ -159,7 +159,7 @@ function ApplyStylingOnClient({ children }: { children: ReactNode }) {
   );
 }
 
-function useRscMessages() {
+function useRscEvents() {
   const [events, setEvents] = useState<RscEvent[]>([]);
   const [isRecording, setIsRecording] = useState(false);
 

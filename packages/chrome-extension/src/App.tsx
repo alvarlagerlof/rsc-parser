@@ -9,18 +9,18 @@ import React, {
 import {
   ViewerStreams,
   ViewerStreamsEmptyState,
-  RscChunkMessage,
+  RscEvent,
   PanelLayout,
   Logo,
   RecordButton,
-  copyMessagesToClipBoard,
   OverflowButton,
+  copyEventsToClipboard,
+  isRscEvent,
 } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
 export function App() {
-  const { isRecording, startRecording, messages, clearMessages } =
-    useRscMessages();
+  const { isRecording, startRecording, events, clearEvents } = useRscEvents();
 
   return (
     <PanelLayout
@@ -38,14 +38,14 @@ export function App() {
           <OverflowButton
             menuItems={
               <>
-                <button onClick={() => clearMessages()}>Clear messages</button>
+                <button onClick={() => clearEvents()}>Clear events</button>
                 {process.env.NODE_ENV === "development" ? (
                   <button
                     onClick={() => {
-                      copyMessagesToClipBoard({ messages });
+                      copyEventsToClipboard({ events });
                     }}
                   >
-                    Copy messages to clipboard
+                    Copy events to clipboard
                   </button>
                 ) : null}
               </>
@@ -54,17 +54,17 @@ export function App() {
         </>
       }
     >
-      {messages.length === 0 || !isRecording ? (
+      {events.length === 0 || !isRecording ? (
         <ViewerStreamsEmptyState />
       ) : (
-        <ViewerStreams messages={messages} />
+        <ViewerStreams events={events} />
       )}
     </PanelLayout>
   );
 }
 
-function useRscMessages() {
-  const [messages, setMessages] = useState<RscChunkMessage[]>([]);
+function useRscEvents() {
+  const [events, setEvents] = useState<RscEvent[]>([]);
   const [isRecording, setIsRecording] = useState(false);
   const tabId = useMemo(() => Date.now(), []);
 
@@ -76,10 +76,7 @@ function useRscMessages() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sendResponse: unknown,
     ) {
-      if (
-        !isRscChunkMessage(request) &&
-        !isContentScriptUnloadedMessage(request)
-      ) {
+      if (!isRscEvent(request) && !isContentScriptUnloadedEvent(request)) {
         return true;
       }
 
@@ -88,16 +85,16 @@ function useRscMessages() {
         return true;
       }
 
-      if (isContentScriptUnloadedMessage(request)) {
+      if (isContentScriptUnloadedEvent(request)) {
         setIsRecording(false);
-        setMessages([]);
+        setEvents([]);
         return true;
       }
 
       // It's possible that this lookup will miss a duplicated message if another
       // one is being added at the same time. I haven't seen this happen in practice.
       if (
-        messages.some((item) =>
+        events.some((item) =>
           arraysEqual(item.data.chunkValue, request.data.chunkValue),
         )
       ) {
@@ -105,7 +102,7 @@ function useRscMessages() {
       }
 
       startTransition(() => {
-        setMessages((previous) => [...previous, request]);
+        setEvents((previous) => [...previous, request]);
       });
 
       return true;
@@ -122,41 +119,43 @@ function useRscMessages() {
     setIsRecording(true);
     chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
       type: "START_RECORDING",
-      tabId: tabId,
-    } satisfies StartRecordingMessage);
+      data: {
+        tabId: tabId,
+      },
+    } satisfies StartRecordingEvent);
   }, [tabId]);
 
-  const clearMessages = useCallback(() => {
-    setMessages([]);
+  const clearEvents = useCallback(() => {
+    setEvents([]);
   }, []);
 
   return {
     isRecording,
     startRecording,
-    messages,
-    clearMessages,
+    events,
+    clearEvents,
   };
 }
 
-function isRscChunkMessage(message: unknown): message is RscChunkMessage {
-  return (message as RscChunkMessage).type === "RSC_CHUNK";
-}
-
-type StartRecordingMessage = {
+type StartRecordingEvent = {
   type: "START_RECORDING";
-  tabId: number;
+  data: {
+    tabId: number;
+  };
 };
 
-type ContentScriptUnloadedMessage = {
+type ContentScriptUnloadedEvent = {
   type: "CONTENT_SCRIPT_UNLOADED";
-  tabId: number;
+  data: {
+    tabId: number;
+  };
 };
 
-function isContentScriptUnloadedMessage(
-  message: unknown,
-): message is ContentScriptUnloadedMessage {
+function isContentScriptUnloadedEvent(
+  event: unknown,
+): event is ContentScriptUnloadedEvent {
   return (
-    (message as ContentScriptUnloadedMessage).type === "CONTENT_SCRIPT_UNLOADED"
+    (event as ContentScriptUnloadedEvent).type === "CONTENT_SCRIPT_UNLOADED"
   );
 }
 
