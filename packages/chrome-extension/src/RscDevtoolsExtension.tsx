@@ -25,7 +25,7 @@ import {
   isStopRecordingEvent,
 } from "@rsc-parser/core/events";
 
-export function App() {
+export function RscDevtoolsExtension() {
   const { isRecording, startRecording, events, clearEvents } = useRscEvents();
 
   return (
