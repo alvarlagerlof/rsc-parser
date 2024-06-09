@@ -1,3 +1,4 @@
+import React from "react";
 import { TabList, Tab, TabPanel, TabProvider } from "@ariakit/react";
 import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../events";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
