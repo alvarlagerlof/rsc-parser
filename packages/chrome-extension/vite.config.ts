@@ -50,7 +50,6 @@ export default defineConfig(({ mode }) => {
             devtoolsPage: resolve(__dirname, "src/assets/devtoolsPage.ts"),
           },
           output: {
-            main: resolve(__dirname, "index.html"),
             entryFileNames: `assets/[name].js`,
             chunkFileNames: `assets/[name].js`,
             assetFileNames: `assets/[name].[ext]`,
