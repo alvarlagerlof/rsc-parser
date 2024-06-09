@@ -102,7 +102,7 @@ export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
 
 function HeadersTable({ headers }: { headers: Record<string, string> }) {
   return (
-    <table className="w-full max-w-4xl table-fixed border-collapse border border-slate-500">
+    <table className="w-full max-w-4xl table-fixed border-collapse border border-slate-500 dark:text-white">
       <tbody>
         {Object.entries(headers).map(([key, value]) => (
           <tr key={key}>
