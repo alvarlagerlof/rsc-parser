@@ -22,7 +22,7 @@ function injectScript(file_path: string, tag: string) {
 // This is used in the devtools panel to only accept messages from the current tab
 let tabId: number | undefined = undefined;
 
-// Only inject the fetch patch script when the START_RECORDING message
+// Only inject the fetch patch script when the START_RECORDING evebt
 // is received from the devtools panel
 
 chrome.runtime.onMessage.addListener(function (request) {
@@ -41,12 +41,10 @@ chrome.runtime.onMessage.addListener(function (request) {
 window.addEventListener(
   "message",
   function (event) {
-    // We only accept messages from this window to itself [i.e. not from any iframes]
+    // We only accept events from this window to itself [i.e. not from any iframes]
     if (event.source != window) {
       return;
     }
-
-    console.log("message", tabId, event.data);
 
     if (!tabId) {
       return;
@@ -63,7 +61,7 @@ window.addEventListener(
   false,
 );
 
-// When the content script is unloaded (like for a refresh), send a message to the devtools panel to reset it
+// When the content script is unloaded (like for a refresh), send a message to the devtools panel to stop recording
 window.addEventListener("beforeunload", () => {
   if (!tabId) {
     return;

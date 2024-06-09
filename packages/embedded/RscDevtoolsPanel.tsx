@@ -79,9 +79,7 @@ export function RscDevtoolsPanel({
               <OverflowButton
                 menuItems={
                   <>
-                    <button onClick={() => clearEvents()}>
-                      Clear messages
-                    </button>
+                    <button onClick={() => clearEvents()}>Clear events</button>
                     {process.env.NODE_ENV === "development" ? (
                       <button
                         onClick={() => {

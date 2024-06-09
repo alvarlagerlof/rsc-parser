@@ -75,20 +75,18 @@ function useRscEvents() {
   const tabId = useMemo(() => Date.now(), []);
 
   useEffect(() => {
-    function handleMessage(
+    function handleEvent(
       request: unknown,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sender: unknown,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sendResponse: unknown,
     ) {
-      console.log("handleMessage", request);
-
       if (!isEvent(request)) {
         return true;
       }
 
-      // If the message is from a different tab, ignore it
+      // If the event is from a different tab, ignore it
       if (request.data.tabId !== tabId) {
         return true;
       }
@@ -103,7 +101,7 @@ function useRscEvents() {
         return true;
       }
 
-      // It's possible that this lookup will miss a duplicated message if another
+      // It's possible that this lookup will miss a duplicated event if another
       // one is being added at the same time. I haven't seen this happen in practice.
       if (
         isRscChunkEvent(request) &&
@@ -123,10 +121,10 @@ function useRscEvents() {
       return true;
     }
 
-    chrome.runtime.onMessage.addListener(handleMessage);
+    chrome.runtime.onMessage.addListener(handleEvent);
 
     return () => {
-      chrome.runtime.onMessage.removeListener(handleMessage);
+      chrome.runtime.onMessage.removeListener(handleEvent);
     };
   }, []);
 

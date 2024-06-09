@@ -17,9 +17,9 @@ type Story = StoryObj<typeof ViewerPayload>;
 function getUrlsAndRequestIds(events: RscEvent[]) {
   return Array.from(
     new Set(
-      events.filter(isRscRequestEvent).map((message) => ({
-        url: message.data.url,
-        requestId: message.data.requestId,
+      events.filter(isRscRequestEvent).map((event) => ({
+        url: event.data.url,
+        requestId: event.data.requestId,
       })),
     ),
   );
@@ -28,9 +28,9 @@ function getUrlsAndRequestIds(events: RscEvent[]) {
 function getPayloadByRequestId(events: RscEvent[], requestId: string) {
   return events
     .filter(isRscChunkEvent)
-    .filter((message) => message.data.requestId === requestId)
-    .map((message) =>
-      new TextDecoder().decode(Uint8Array.from(message.data.chunkValue)),
+    .filter((event) => event.data.requestId === requestId)
+    .map((event) =>
+      new TextDecoder().decode(Uint8Array.from(event.data.chunkValue)),
     )
     .join("");
 }

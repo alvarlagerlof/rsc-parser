@@ -23,11 +23,11 @@ export function useFlightResponseSelector(
 
     const sorted = events.sort((a, b) => a.data.timestamp - b.data.timestamp);
 
-    for (const message of sorted) {
-      if (tabs.find((tab) => tab === String(message.data.requestId))) {
+    for (const event of sorted) {
+      if (tabs.find((tab) => tab === String(event.data.requestId))) {
         continue;
       }
-      tabs.push(String(message.data.requestId));
+      tabs.push(String(event.data.requestId));
     }
 
     return tabs;

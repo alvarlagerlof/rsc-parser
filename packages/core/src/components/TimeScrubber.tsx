@@ -43,27 +43,27 @@ function useTracks(events: RscEvent[]) {
   return useMemo(() => {
     const tracks: Array<Array<RscEvent>> = [[]];
 
-    for (const message of events) {
-      // Find a track that doesn't overlap with the current message
+    for (const event of events) {
+      // Find a track that doesn't overlap with the current event
       const track = tracks.find((track) => {
-        const lastMessage = track[track.length - 1];
+        const lastEvent = track[track.length - 1];
 
-        if (!lastMessage) {
+        if (!lastEvent) {
           return true;
         }
 
-        if (lastMessage.data.requestId === message.data.requestId) {
+        if (lastEvent.data.requestId === event.data.requestId) {
           return true;
         }
 
-        const lastMessageWithSameRequestId = events
-          .filter((m) => m.data.requestId === lastMessage.data.requestId)
+        const lastEventWithSameRequestId = events
+          .filter((m) => m.data.requestId === lastEvent.data.requestId)
           .at(-1);
 
         if (
-          lastMessage.data.requestId !== message.data.requestId &&
-          typeof lastMessageWithSameRequestId !== "undefined" &&
-          lastMessageWithSameRequestId.data.timestamp < message.data.timestamp
+          lastEvent.data.requestId !== event.data.requestId &&
+          typeof lastEventWithSameRequestId !== "undefined" &&
+          lastEventWithSameRequestId.data.timestamp < event.data.timestamp
         ) {
           return true;
         }
@@ -72,9 +72,9 @@ function useTracks(events: RscEvent[]) {
       });
 
       if (track) {
-        track.push(message);
+        track.push(event);
       } else {
-        tracks.push([message]);
+        tracks.push([event]);
       }
     }
 
@@ -94,7 +94,7 @@ export function TimeScrubber({
   const filteredEvents = useFilterEventsByEndTime(events, endTime);
   const tracks = useTracks(events);
 
-  const messageHeight = 12;
+  const eventHeight = 12;
   const trackSpacing = 4;
   const trackPadding = 8;
 
@@ -143,7 +143,7 @@ export function TimeScrubber({
           width="100%"
           height={`${
             tracks.length *
-              (messageHeight + (tracks.length > 1 ? trackSpacing : 0)) +
+              (eventHeight + (tracks.length > 1 ? trackSpacing : 0)) +
             trackPadding * 2
           }px`}
           className="pointer-events-none z-10 rounded bg-white fill-slate-500 dark:bg-slate-700"
@@ -189,7 +189,7 @@ export function TimeScrubber({
                   (maxEndTime - minStartTime)) *
                 100;
 
-              const y = idx * (messageHeight + trackSpacing) + trackPadding;
+              const y = idx * (eventHeight + trackSpacing) + trackPadding;
 
               const width =
                 ((section.endTime - section.startTime) /
@@ -202,7 +202,7 @@ export function TimeScrubber({
                   x={`${x * 0.98 + 1}%`}
                   y={`${y}px`}
                   width={width > 0.2 ? `${width}%` : "0.2%"}
-                  height={messageHeight}
+                  height={eventHeight}
                   fill={getColorForFetch(section.requestId)}
                   rx="1"
                 />
@@ -235,9 +235,9 @@ function useTimeRange(events: RscEvent[]) {
     let minStartTime = Number.MAX_SAFE_INTEGER;
     let maxEndTime = 0;
 
-    for (const message of events) {
-      minStartTime = Math.min(minStartTime, message.data.timestamp);
-      maxEndTime = Math.max(maxEndTime, message.data.timestamp);
+    for (const event of events) {
+      minStartTime = Math.min(minStartTime, event.data.timestamp);
+      maxEndTime = Math.max(maxEndTime, event.data.timestamp);
     }
 
     const timeRange = maxEndTime - minStartTime;
