@@ -1,122 +1,120 @@
 import React from "react";
-import { TabList, Tab, TabPanel, TabProvider } from "@ariakit/react";
+import { TabList, Tab, TabPanel } from "@ariakit/react";
+import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../events";
+import { TimeScrubber } from "./TimeScrubber";
+import { EndTimeProvider, useEndTime } from "./EndTimeContext";
 import {
-  createFlightResponse,
-  processBinaryChunk,
-} from "@rsc-parser/react-client";
-import {
-  RscEvent,
-  isRscChunkEvent,
-  isRscRequestEvent,
-  isRscResponseEvent,
-} from "../events";
-import { FlightResponse } from "./FlightResponse";
-import {
-  FlightResponseSelector,
-  useFlightResponseSelector,
-} from "./FlightResponseSelector";
-import { TimeScrubber, useTimeScrubber } from "./TimeScrubber";
-import { useFilterEventsByEndTime } from "./TimeScrubber";
-import { EndTimeContext } from "./EndTimeContext";
+  eventsFilterByMaxTimestamp,
+  eventsFilterByRequestId,
+  eventsGetMinMaxTimestamps,
+  eventsSortByTimestamp,
+  eventsUniqueRequestIds,
+} from "../eventArrayHelpers";
+import { useTabStoreWithTransitions } from "./useTabStoreWithTransitions";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { getColorForFetch } from "../color";
+import { RequestDetail } from "./RequestDetail";
 
 export function ViewerStreams({ events }: { events: RscEvent[] }) {
-  const timeScrubber = useTimeScrubber(events, {
-    follow: true,
-  });
-
-  const timeFilteredEvents = useFilterEventsByEndTime(
-    events,
-    timeScrubber.endTime,
-  );
-
-  const pathTabs = useFlightResponseSelector(timeFilteredEvents, {
-    follow: false,
-  });
-
-  const eventsForCurrentTab = timeFilteredEvents.filter(
-    (event) => event.data.requestId == pathTabs.currentTab,
-  );
-
-  const flightResponse = createFlightResponse();
-  for (const event of eventsForCurrentTab.filter(isRscChunkEvent)) {
-    flightResponse._currentTimestamp = event.data.timestamp;
-    processBinaryChunk(flightResponse, Uint8Array.from(event.data.chunkValue));
-  }
-
-  const requestEvent = eventsForCurrentTab.filter(isRscRequestEvent)[0];
-  const responseEvent = eventsForCurrentTab.filter(isRscResponseEvent)[0];
+  const { minStartTime, maxEndTime } = eventsGetMinMaxTimestamps(events);
 
   return (
-    <div className="flex flex-col gap-4 dark:text-white">
-      <TimeScrubber {...timeScrubber} />
+    <EndTimeProvider maxEndTime={maxEndTime}>
+      <div className="flex flex-col gap-4 dark:text-white">
+        <TimeScrubber
+          events={events}
+          minStartTime={minStartTime}
+          maxEndTime={maxEndTime}
+        />
 
-      <EndTimeContext.Provider value={timeScrubber.endTime}>
-        <FlightResponseSelector {...pathTabs}>
-          {!pathTabs.currentTab ? (
-            <span>Please select a url</span>
-          ) : (
-            <TabProvider key={pathTabs.currentTab}>
-              <TabList
-                aria-label="Render modes"
-                className="flex flex-row gap-2"
-              >
-                <Tab
-                  id="flightResponse"
-                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:aria-selected:text-black"
-                >
-                  Flight response
-                </Tab>
-                <Tab
-                  id="headers"
-                  className="rounded-md px-2 py-0.5 aria-selected:bg-slate-300 dark:aria-selected:text-black"
-                >
-                  Headers
-                </Tab>
-              </TabList>
-
-              <TabPanel tabId="flightResponse">
-                <FlightResponse flightResponse={flightResponse} />
-              </TabPanel>
-
-              <TabPanel tabId="headers" className="flex flex-col gap-4">
-                <section className="flex flex-col gap-1">
-                  <p>Request headers</p>
-                  {requestEvent ? (
-                    <HeadersTable headers={requestEvent.data.headers} />
-                  ) : (
-                    "No response headers"
-                  )}
-                </section>
-                <section className="flex flex-col gap-1">
-                  <p>Response headers</p>
-                  {responseEvent ? (
-                    <HeadersTable headers={responseEvent.data.headers} />
-                  ) : (
-                    "No request headers"
-                  )}
-                </section>
-              </TabPanel>
-            </TabProvider>
-          )}
-        </FlightResponseSelector>
-      </EndTimeContext.Provider>
-    </div>
+        <Requests events={events} />
+      </div>
+    </EndTimeProvider>
   );
 }
 
-function HeadersTable({ headers }: { headers: Record<string, string> }) {
+function Requests({ events }: { events: RscEvent[] }) {
+  const { endTime } = useEndTime();
+  const { currentTab, isPending, tabStore } =
+    useTabStoreWithTransitions(undefined);
+
+  const sortedEvents = eventsSortByTimestamp(events);
+  const timeFilteredEvents = eventsFilterByMaxTimestamp(sortedEvents, endTime);
+  const tabs = eventsUniqueRequestIds(events);
+
   return (
-    <table className="w-full max-w-4xl table-fixed border-collapse border border-slate-500 dark:text-white">
-      <tbody>
-        {Object.entries(headers).map(([key, value]) => (
-          <tr key={key}>
-            <td className="border border-slate-500 px-1.5 py-0.5">{key}</td>
-            <td className="whitespace-pre-wrap break-all border border-slate-500 px-1.5 py-0.5">
-              {value}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <PanelGroup direction="horizontal">
+      <Panel id="sidebar" minSize={20} order={1} defaultSize={35}>
+        <TabList store={tabStore} className="flex flex-col gap-1 pr-3">
+          {tabs.map((tab) => {
+            return (
+              <Tab key={tab} id={tab} store={tabStore} className="group">
+                <RequestTab
+                  events={eventsFilterByRequestId(timeFilteredEvents, tab)}
+                />
+              </Tab>
+            );
+          })}
+        </TabList>
+      </Panel>
+
+      <PanelResizeHandle className="w-1 rounded bg-slate-200 dark:bg-slate-800" />
+
+      <Panel order={2} minSize={20} className="">
+        <TabPanel
+          store={tabStore}
+          tabId={currentTab}
+          alwaysVisible={true}
+          className={`flex min-w-0 grow pl-3 transition-opacity delay-75 duration-100 ${
+            isPending ? "opacity-60" : ""
+          }`}
+          aria-label="Paths"
+          aria-busy={isPending}
+        >
+          {!currentTab ? (
+            <span>Please select a url</span>
+          ) : (
+            <RequestDetail
+              key={currentTab}
+              events={eventsFilterByRequestId(sortedEvents, currentTab)}
+            />
+          )}
+        </TabPanel>
+      </Panel>
+    </PanelGroup>
+  );
+}
+
+function RequestTab({ events }: { events: RscEvent[] }) {
+  const [requestEvent] = events.filter(isRscRequestEvent);
+  const [responseEvent] = events.filter(isRscResponseEvent);
+
+  if (!requestEvent) {
+    return null;
+  }
+
+  const { method, url } = requestEvent.data;
+  const { status } = responseEvent?.data ?? {};
+
+  return (
+    <div className="flex w-full flex-row items-center gap-3 rounded-md border-none px-1.5 py-0.5 text-left group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
+      <div
+        className="size-[14px] min-h-[14px] min-w-[14px] rounded-full"
+        style={{
+          background: getColorForFetch(events[0].data.requestId),
+        }}
+      ></div>
+      <div>
+        <span className="inline-block w-[10ch] text-slate-500 dark:text-slate-400">
+          {method} ({status ?? "..."})
+        </span>
+        <span className="text-slate-900 dark:text-white">
+          {new URL(url).pathname}
+        </span>
+        <span className="text-slate-500 dark:text-slate-400">
+          {new URL(url).search}
+        </span>
+      </div>
+    </div>
   );
 }

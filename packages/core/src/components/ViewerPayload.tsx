@@ -2,13 +2,9 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
-import {
-  createFlightResponse,
-  processBinaryChunk,
-} from "@rsc-parser/react-client";
 import { RscChunkEvent } from "../events";
-import { FlightResponse } from "./FlightResponse";
-import { EndTimeContext } from "./EndTimeContext";
+import { EndTimeProvider } from "./EndTimeContext";
+import { RequestDetail } from "./RequestDetail";
 
 export function ViewerPayload({ defaultPayload }: { defaultPayload: string }) {
   const [payload, setPayload] = useState(defaultPayload);
@@ -63,14 +59,9 @@ export function Viewer({ payload }: { payload: string }) {
     } satisfies RscChunkEvent,
   ];
 
-  const flightResponse = createFlightResponse();
-  for (const event of events) {
-    processBinaryChunk(flightResponse, Uint8Array.from(event.data.chunkValue));
-  }
-
   return (
-    <EndTimeContext.Provider value={Infinity}>
-      <FlightResponse flightResponse={flightResponse} />
-    </EndTimeContext.Provider>
+    <EndTimeProvider maxEndTime={Infinity}>
+      <RequestDetail events={events} />
+    </EndTimeProvider>
   );
 }
