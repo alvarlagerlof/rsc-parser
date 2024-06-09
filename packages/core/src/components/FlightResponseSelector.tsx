@@ -83,7 +83,7 @@ export function FlightResponseSelector({
 }: ReturnType<typeof useFlightResponseSelector> & { children: ReactNode }) {
   return (
     <PanelGroup direction="horizontal">
-      <Panel id="sidebar" minSize={35} order={1} defaultSize={35}>
+      <Panel id="sidebar" minSize={20} order={1} defaultSize={35}>
         <TabList store={tabStore} className="flex flex-col gap-1 pr-3">
           {tabs.map((tab) => {
             const fetchMethod = messages.find(
@@ -126,7 +126,7 @@ export function FlightResponseSelector({
 
       <PanelResizeHandle className="w-1 rounded bg-slate-200 dark:bg-slate-800" />
 
-      <Panel order={2} minSize={30} className="">
+      <Panel order={2} minSize={20} className="">
         <TabPanel
           store={tabStore}
           tabId={currentTab}
