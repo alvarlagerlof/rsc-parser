@@ -6,7 +6,7 @@ import { resolve } from "path";
 const dev = {
   headScripts: [
     {
-      src: "http://localhost:6020/src/react-preamble.ts",
+      src: "http://localhost:6020/src/dev/reactPreamble.ts",
       type: "module",
     } as ScriptTag,
     {
@@ -41,13 +41,15 @@ export default defineConfig(({ mode }) => {
         minify: false,
         rollupOptions: {
           input: {
-            main: resolve(__dirname, "index.html"),
-            "fetch-patch": resolve(__dirname, "src/fetch-patch.ts"),
-            "content-script": resolve(__dirname, "src/content-script.ts"),
-            devtools: resolve(__dirname, "src/devtools.ts"),
+            main: resolve(__dirname, "devtoolsPanel.html"),
+            fetchPatcherInjector: resolve(
+              __dirname,
+              "src/assets/fetchPatcherInjector.ts",
+            ),
+            contentScript: resolve(__dirname, "src/assets/contentScript.ts"),
+            devtoolsPage: resolve(__dirname, "src/assets/devtoolsPage.ts"),
           },
           output: {
-            main: resolve(__dirname, "index.html"),
             entryFileNames: `assets/[name].js`,
             chunkFileNames: `assets/[name].js`,
             assetFileNames: `assets/[name].[ext]`,
@@ -69,10 +71,13 @@ export default defineConfig(({ mode }) => {
       minify: false,
       rollupOptions: {
         input: {
-          main: resolve(__dirname, "index.html"),
-          "fetch-patch": resolve(__dirname, "src/fetch-patch.ts"),
-          "content-script": resolve(__dirname, "src/content-script.ts"),
-          devtools: resolve(__dirname, "src/devtools.ts"),
+          main: resolve(__dirname, "devtoolsPanel.html"),
+          fetchPatcherInjector: resolve(
+            __dirname,
+            "src/assets/fetchPatcherInjector.ts",
+          ),
+          contentScript: resolve(__dirname, "src/assets/contentScript.ts"),
+          devtoolsPage: resolve(__dirname, "src/assets/devtoolsPage.ts"),
         },
         output: {
           entryFileNames: `assets/[name].js`,
