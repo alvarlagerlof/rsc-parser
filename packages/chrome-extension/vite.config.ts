@@ -42,8 +42,6 @@ export default defineConfig(({ mode }) => {
         rollupOptions: {
           input: {
             main: resolve(__dirname, "index.html"),
-            "fetch-patch": resolve(__dirname, "src/fetch-patch.ts"),
-            "content-script": resolve(__dirname, "src/content-script.ts"),
             devtools: resolve(__dirname, "src/devtools.ts"),
           },
           output: {
@@ -70,8 +68,6 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           main: resolve(__dirname, "index.html"),
-          "fetch-patch": resolve(__dirname, "src/fetch-patch.ts"),
-          "content-script": resolve(__dirname, "src/content-script.ts"),
           devtools: resolve(__dirname, "src/devtools.ts"),
         },
         output: {
