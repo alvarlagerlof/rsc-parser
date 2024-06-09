@@ -3,7 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 import { createFlightResponse } from "../createFlightResponse";
-import { RscChunkMessage } from "../types";
+import { RscChunkEvent } from "../types";
 import { FlightResponse } from "./FlightResponse";
 import { EndTimeContext } from "./EndTimeContext";
 
@@ -51,18 +51,13 @@ export function Viewer({ payload }: { payload: string }) {
   const events = [
     {
       type: "RSC_CHUNK",
-      tabId: 0,
       data: {
-        fetchUrl: "https://example.com",
-        fetchMethod: "GET",
-        fetchRequestHeaders: null,
-        fetchResponseHeaders: null,
-        fetchStartTime: 0,
-        chunkStartTime: 0,
-        chunkEndTime: 0,
+        tabId: 0,
+        requestId: "0",
+        timestamp: 0,
         chunkValue: Array.from(new TextEncoder().encode(payload)),
       },
-    } satisfies RscChunkMessage,
+    } satisfies RscChunkEvent,
   ];
 
   const flightResponse = createFlightResponse(events);

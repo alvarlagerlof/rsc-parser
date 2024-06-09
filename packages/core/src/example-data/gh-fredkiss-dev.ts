@@ -1,6 +1,6 @@
-import { RscChunkMessage } from "../types";
+import { RscEvent } from "../types";
 
-export const ghFredkissDevExampleData: RscChunkMessage[] = [
+export const ghFredkissDevExampleData: RscEvent[] = [
   {
     type: "RSC_CHUNK",
     data: {

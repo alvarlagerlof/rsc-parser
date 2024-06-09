@@ -1,6 +1,6 @@
-import { RscChunkMessage } from "../types";
+import { RscEvent } from "../types";
 
-export const nextjsOrgExampleData: RscChunkMessage[] = [
+export const nextjsOrgExampleData: RscEvent[] = [
   {
     type: "RSC_CHUNK",
     data: {

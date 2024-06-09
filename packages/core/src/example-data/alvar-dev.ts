@@ -1,6 +1,6 @@
-import { RscChunkMessage } from "../types";
+import { RscEvent } from "../types";
 
-export const alvarDevExampleData: RscChunkMessage[] = [
+export const alvarDevExampleData: RscEvent[] = [
   {
     type: "RSC_CHUNK",
     data: {

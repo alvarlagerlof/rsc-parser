@@ -6,6 +6,7 @@ import { alvarDevExampleData } from "../example-data/alvar-dev";
 import { ghFredkissDevExampleData } from "../example-data/gh-fredkiss-dev";
 import { nextjsOrgExampleData } from "../example-data/nextjs-org";
 import { createFlightResponse } from "../createFlightResponse";
+import { isRscChunkEvent } from "../types";
 
 const meta: Meta<typeof FlightResponseTabSplit> = {
   component: FlightResponseTabSplit,
@@ -17,7 +18,9 @@ type Story = StoryObj<typeof FlightResponseTabSplit>;
 export const alvarDev: Story = {
   name: "alvar.dev",
   render: () => {
-    const flightResponse = createFlightResponse(alvarDevExampleData);
+    const flightResponse = createFlightResponse(
+      alvarDevExampleData.filter(isRscChunkEvent),
+    );
     return <FlightResponseTabSplit flightResponse={flightResponse} />;
   },
 };
@@ -25,7 +28,9 @@ export const alvarDev: Story = {
 export const ghFredKissDev: Story = {
   name: "gh.fredkiss.dev",
   render: () => {
-    const flightResponse = createFlightResponse(ghFredkissDevExampleData);
+    const flightResponse = createFlightResponse(
+      ghFredkissDevExampleData.filter(isRscChunkEvent),
+    );
     return <FlightResponseTabSplit flightResponse={flightResponse} />;
   },
 };
@@ -33,7 +38,9 @@ export const ghFredKissDev: Story = {
 export const nextjsOrg: Story = {
   name: "nextjs.org",
   render: () => {
-    const flightResponse = createFlightResponse(nextjsOrgExampleData);
+    const flightResponse = createFlightResponse(
+      nextjsOrgExampleData.filter(isRscChunkEvent),
+    );
     return <FlightResponseTabSplit flightResponse={flightResponse} />;
   },
 };

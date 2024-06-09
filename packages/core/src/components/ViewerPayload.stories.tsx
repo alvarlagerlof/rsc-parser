@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ViewerPayload } from "./ViewerPayload";
-import { RscEvent } from "../types";
+import { RscEvent, isRscChunkEvent, isRscRequestEvent } from "../types";
 import { alvarDevExampleData } from "../example-data/alvar-dev";
 import { ghFredkissDevExampleData } from "../example-data/gh-fredkiss-dev";
 import { nextjsOrgExampleData } from "../example-data/nextjs-org";
@@ -14,13 +14,21 @@ const meta: Meta<typeof ViewerPayload> = {
 export default meta;
 type Story = StoryObj<typeof ViewerPayload>;
 
-function getUrls(events: RscEvent[]) {
-  return Array.from(new Set(events.map((message) => message.data.fetchUrl)));
+function getUrlsAndRequestIds(events: RscEvent[]) {
+  return Array.from(
+    new Set(
+      events.filter(isRscRequestEvent).map((message) => ({
+        url: message.data.url,
+        requestId: message.data.requestId,
+      })),
+    ),
+  );
 }
 
-function getPayloadByUrl(events: RscEvent[], url: string) {
+function getPayloadByRequestId(events: RscEvent[], requestId: string) {
   return events
-    .filter((message) => message.data.fetchUrl === url)
+    .filter(isRscChunkEvent)
+    .filter((message) => message.data.requestId === requestId)
     .map((message) =>
       new TextDecoder().decode(Uint8Array.from(message.data.chunkValue)),
     )
@@ -31,10 +39,10 @@ export const alvarDev: Story = {
   name: "alvar.dev",
   argTypes: {
     defaultPayload: {
-      options: getUrls(alvarDevExampleData),
-      mapping: getUrls(alvarDevExampleData).reduce(
-        (acc, url) => {
-          acc[url] = getPayloadByUrl(alvarDevExampleData, url);
+      options: getUrlsAndRequestIds(alvarDevExampleData).map(({ url }) => url),
+      mapping: getUrlsAndRequestIds(alvarDevExampleData).reduce(
+        (acc, { url, requestId }) => {
+          acc[url] = getPayloadByRequestId(alvarDevExampleData, requestId);
           return acc;
         },
         {} as Record<string, string>,
@@ -45,9 +53,9 @@ export const alvarDev: Story = {
     },
   },
   args: {
-    defaultPayload: getPayloadByUrl(
+    defaultPayload: getPayloadByRequestId(
       alvarDevExampleData,
-      getUrls(alvarDevExampleData)[0],
+      getUrlsAndRequestIds(alvarDevExampleData)[0].requestId,
     ),
   },
   render: ({ defaultPayload }) => (
@@ -59,10 +67,12 @@ export const ghFredkissDev: Story = {
   name: "gh.fredkiss.dev",
   argTypes: {
     defaultPayload: {
-      options: getUrls(ghFredkissDevExampleData),
-      mapping: getUrls(ghFredkissDevExampleData).reduce(
-        (acc, url) => {
-          acc[url] = getPayloadByUrl(ghFredkissDevExampleData, url);
+      options: getUrlsAndRequestIds(ghFredkissDevExampleData).map(
+        ({ url }) => url,
+      ),
+      mapping: getUrlsAndRequestIds(ghFredkissDevExampleData).reduce(
+        (acc, { url, requestId }) => {
+          acc[url] = getPayloadByRequestId(ghFredkissDevExampleData, requestId);
           return acc;
         },
         {} as Record<string, string>,
@@ -73,9 +83,9 @@ export const ghFredkissDev: Story = {
     },
   },
   args: {
-    defaultPayload: getPayloadByUrl(
+    defaultPayload: getPayloadByRequestId(
       ghFredkissDevExampleData,
-      getUrls(ghFredkissDevExampleData)[0],
+      getUrlsAndRequestIds(ghFredkissDevExampleData)[0].requestId,
     ),
   },
   render: ({ defaultPayload }) => (
@@ -87,10 +97,10 @@ export const nextJsOrg: Story = {
   name: "nextjs.org",
   argTypes: {
     defaultPayload: {
-      options: getUrls(nextjsOrgExampleData),
-      mapping: getUrls(nextjsOrgExampleData).reduce(
-        (acc, url) => {
-          acc[url] = getPayloadByUrl(nextjsOrgExampleData, url);
+      options: getUrlsAndRequestIds(nextjsOrgExampleData).map(({ url }) => url),
+      mapping: getUrlsAndRequestIds(nextjsOrgExampleData).reduce(
+        (acc, { url, requestId }) => {
+          acc[url] = getPayloadByRequestId(nextjsOrgExampleData, requestId);
           return acc;
         },
         {} as Record<string, string>,
@@ -101,9 +111,9 @@ export const nextJsOrg: Story = {
     },
   },
   args: {
-    defaultPayload: getPayloadByUrl(
+    defaultPayload: getPayloadByRequestId(
       nextjsOrgExampleData,
-      getUrls(nextjsOrgExampleData)[0],
+      getUrlsAndRequestIds(nextjsOrgExampleData)[0].requestId,
     ),
   },
   render: ({ defaultPayload }) => (
