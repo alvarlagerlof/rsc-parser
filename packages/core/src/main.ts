@@ -1,4 +1,3 @@
-import { RscChunkMessage } from "./types";
 import {
   ViewerPayload,
   Viewer as unstable_Viewer,
@@ -7,7 +6,7 @@ import { ViewerStreams } from "./components/ViewerStreams";
 import { ViewerStreamsEmptyState } from "./components/ViewerStreamsEmptyState";
 import { Logo } from "./components/Logo";
 import { RecordButton } from "./components/RecordButton";
-import { copyMessagesToClipBoard } from "./copyMessagesToClipBoard";
+import { copyEventsToClipboard } from "./copyEventsToClipboard";
 import { OverflowButton } from "./components/OverflowButton";
 import { PanelLayout } from "./components/PanelLayout";
 import {
@@ -19,14 +18,13 @@ import {
 import { createFlightResponse as unstable_createFlightResponse } from "./createFlightResponse";
 
 export {
-  type RscChunkMessage,
   ViewerPayload,
   unstable_Viewer,
   ViewerStreams,
   ViewerStreamsEmptyState,
   Logo,
   RecordButton,
-  copyMessagesToClipBoard,
+  copyEventsToClipboard,
   OverflowButton,
   PanelLayout,
   BottomPanel,

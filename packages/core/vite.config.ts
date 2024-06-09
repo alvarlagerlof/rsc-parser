@@ -5,30 +5,30 @@ import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  plugins: [react(), dts()],
+  plugins: [
+    react(),
+    dts({
+      entryRoot: "./src",
+      exclude: ["**/*.stories.tsx", "**/example-data/**"],
+      rollupTypes: true,
+    }),
+  ],
   build: {
-    outDir: "./dist/js",
+    outDir: "./dist",
     emptyOutDir: false,
     lib: {
-      // Could also be a dictionary or array of multiple entry points
-      entry: resolve(__dirname, "src/main.ts"),
-      name: "core",
-      // the proper extensions will be added
-      fileName: "core",
+      entry: {
+        main: resolve(__dirname, "src/main.ts"),
+        fetchPatcher: resolve(__dirname, "src/fetchPatcher.ts"),
+        events: resolve(__dirname, "src/events.ts"),
+      },
       formats: ["es"],
     },
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, "src/main.ts"),
-        fetchPatcher: resolve(__dirname, "src/fetchPatcher.ts"),
-      },
       // make sure to externalize deps that shouldn't be bundled
       // into your library
       external: ["react", "react-dom"],
       output: {
-        entryFileNames: `[name].js`,
-        chunkFileNames: `[name].js`,
-        assetFileNames: `[name].[ext]`,
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {

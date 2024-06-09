@@ -1,3 +1,9 @@
+import { RscEvent, isRscEvent } from "@rsc-parser/core/events";
+import {
+  StopRecordingEvent,
+  isStartRecordingEvent,
+} from "@rsc-parser/core/events";
+
 /**
  * injectScript - Inject internal script to available access to the `window`
  *
@@ -14,17 +20,16 @@ function injectScript(file_path: string, tag: string) {
 }
 
 // This is used in the devtools panel to only accept messages from the current tab
-// @ts-expect-error TODO: Fix type
-let tabId = undefined;
+let tabId: number | undefined = undefined;
 
-// Only inject the fetch patch script when the START_RECORDING message
+// Only inject the fetch patch script when the START_RECORDING evebt
 // is received from the devtools panel
 
 chrome.runtime.onMessage.addListener(function (request) {
-  if (request.type === "START_RECORDING") {
+  if (isStartRecordingEvent(request)) {
     // Store the tabId so that the devtools panel can filter messages to
     // only show the ones from the current tab
-    tabId = request.tabId;
+    tabId = request.data.tabId;
 
     injectScript(chrome.runtime.getURL("assets/fetch-patch.js"), "body");
   }
@@ -36,21 +41,34 @@ chrome.runtime.onMessage.addListener(function (request) {
 window.addEventListener(
   "message",
   function (event) {
-    // We only accept messages from this window to itself [i.e. not from any iframes]
+    // We only accept events from this window to itself [i.e. not from any iframes]
     if (event.source != window) {
       return;
     }
 
-    if (event.data.type && event.data.type == "RSC_CHUNK") {
-      // @ts-expect-error TODO: Fix type
-      chrome.runtime.sendMessage({ ...event.data, tabId });
+    if (!tabId) {
+      return;
+    }
+
+    if (isRscEvent(event.data)) {
+      console.log("rsc event", event.data, tabId);
+      const baseEvent = event.data;
+      baseEvent.data.tabId = tabId;
+
+      chrome.runtime.sendMessage(baseEvent satisfies RscEvent);
     }
   },
   false,
 );
 
-// When the content script is unloaded (like for a refresh), send a message to the devtools panel to reset it
+// When the content script is unloaded (like for a refresh), send a message to the devtools panel to stop recording
 window.addEventListener("beforeunload", () => {
-  // @ts-expect-error TODO: Fix type
-  chrome.runtime.sendMessage({ type: "CONTENT_SCRIPT_UNLOADED", tabId });
+  if (!tabId) {
+    return;
+  }
+
+  chrome.runtime.sendMessage({
+    type: "STOP_RECORDING",
+    data: { tabId },
+  } satisfies StopRecordingEvent);
 });

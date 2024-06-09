@@ -24,8 +24,7 @@ export type TextChunk = {
   id: string;
   value: string;
   originalValue: string;
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -34,8 +33,7 @@ export type ModuleChunk = {
   id: string;
   value: ImportMetadata;
   originalValue: string;
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -44,8 +42,7 @@ export type ModelChunk = {
   id: string;
   value: unknown;
   originalValue: string;
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -55,8 +52,7 @@ export type HintChunk = {
   code: string;
   value: HintModel<HintCode>;
   originalValue: { code: string; model: string };
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -65,8 +61,7 @@ export type ErrorDevChunk = {
   id: string;
   error: ErrorWithDigest;
   originalValue: { digest: string; message: string; stack: string };
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -75,8 +70,7 @@ export type ErrorProdChunk = {
   id: string;
   error: ErrorWithDigest;
   originalValue: string;
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -85,8 +79,7 @@ export type PostponeDevChunk = {
   id: string;
   error: Postpone;
   originalValue: { reason: string; stack: string };
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -95,8 +88,7 @@ export type PostponeProdChunk = {
   id: string;
   error: Postpone;
   originalValue: undefined;
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -105,8 +97,7 @@ export type BufferChunk = {
   id: string;
   value: ArrayBufferView | ArrayBuffer;
   originalValue: string;
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -115,8 +106,7 @@ export type DebugInfoChunk = {
   id: string;
   value: { name: string };
   originalValue: { name: string };
-  startTime: number;
-  endTime: number;
+  timestamp: number;
   _response: FlightResponse;
 };
 
@@ -152,8 +142,7 @@ export type FlightResponse = {
   _buffer: Array<Uint8Array>; // chunks received so far as part of this row
   _stringDecoder: StringDecoder;
   _chunks: Chunk[];
-  _currentStartTime: number;
-  _currentEndTime: number;
+  _currentTimestamp: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _fromJSON: (key: string, value: JSONValue) => any;
 };
@@ -431,8 +420,7 @@ function resolveModel(
     id: new Number(id).toString(16),
     value: value,
     originalValue: model,
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -447,8 +435,7 @@ function resolveText(response: FlightResponse, id: number, text: string): void {
     id: new Number(id).toString(16),
     value: text,
     originalValue: text,
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -466,8 +453,7 @@ function resolveBuffer(
     id: new Number(id).toString(16),
     value: buffer,
     originalValue: buffer.toString(),
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -489,8 +475,7 @@ function resolveModule(
     id: new Number(id).toString(16),
     value: clientReferenceMetadata,
     originalValue: model,
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -524,8 +509,7 @@ function resolveErrorProd(
     id: new Number(id).toString(16),
     error: errorWithDigest,
     originalValue: digest,
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -560,8 +544,7 @@ function resolveErrorDev(
     id: new Number(id).toString(16),
     error: errorWithDigest,
     originalValue: { digest, message, stack },
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -594,8 +577,7 @@ function resolvePostponeProd(response: FlightResponse, id: number): void {
     id: new Number(id).toString(16),
     error: postponeInstance,
     originalValue: undefined,
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -625,8 +607,7 @@ function resolvePostponeDev(
     id: new Number(id).toString(16),
     error: postponeInstance,
     originalValue: { reason, stack },
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -647,8 +628,7 @@ function resolveHint<Code extends HintCode>(
     code: code,
     value: hintModel,
     originalValue: { code, model },
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }
@@ -673,8 +653,7 @@ function resolveDebugInfo(
     id: new Number(id).toString(16),
     value: debugInfo,
     originalValue: debugInfo,
-    startTime: response._currentStartTime,
-    endTime: response._currentEndTime,
+    timestamp: response._currentTimestamp,
     _response: response,
   });
 }

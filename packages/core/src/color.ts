@@ -3,6 +3,12 @@ function random(seed: number) {
   return x - Math.floor(x);
 }
 
-export function getColorForFetch(fetchStartTime: number) {
-  return `oklch(80% 0.15 ${random(fetchStartTime) * 360})`;
+export function getColorForFetch(requestId: string) {
+  let number = 0;
+
+  for (let i = 0; i < requestId.length; i++) {
+    number += requestId.charCodeAt(i);
+  }
+
+  return `oklch(80% 0.15 ${random(number) * 360})`;
 }

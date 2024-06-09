@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState, useTransition } from "react";
-import { RscChunkMessage } from "../types";
+import { RscEvent } from "../events";
 import { getColorForFetch } from "../color";
 
 export function useTimeScrubber(
-  messages: RscChunkMessage[],
+  events: RscEvent[],
   { follow }: { follow: boolean },
 ) {
-  const { minStartTime, maxEndTime } = useTimeRange(messages);
+  const { minStartTime, maxEndTime } = useTimeRange(events);
   const [endTime, setEndTime] = useState(maxEndTime);
 
   const [visibleEndTime, setVisibleEndTime] = useState(endTime);
@@ -25,10 +25,10 @@ export function useTimeScrubber(
         changeEndTime(maxEndTime);
       }
     }
-  }, [messages]);
+  }, [events]);
 
   return {
-    messages,
+    events,
     endTime,
     visibleEndTime,
     changeEndTime,
@@ -39,34 +39,31 @@ export function useTimeScrubber(
   };
 }
 
-function useTracks(messages: RscChunkMessage[]) {
+function useTracks(events: RscEvent[]) {
   return useMemo(() => {
-    const messageTracks: Array<Array<RscChunkMessage>> = [[]];
+    const tracks: Array<Array<RscEvent>> = [[]];
 
-    for (const message of messages) {
-      // Find a track that doesn't overlap with the current message
-      const track = messageTracks.find((track) => {
-        const lastMessage = track[track.length - 1];
+    for (const event of events) {
+      // Find a track that doesn't overlap with the current event
+      const track = tracks.find((track) => {
+        const lastEvent = track[track.length - 1];
 
-        if (!lastMessage) {
+        if (!lastEvent) {
           return true;
         }
 
-        if (lastMessage.data.fetchStartTime === message.data.fetchStartTime) {
+        if (lastEvent.data.requestId === event.data.requestId) {
           return true;
         }
 
-        const lastMessageWithSameFetchStartTime = messages
-          .filter(
-            (m) => m.data.fetchStartTime === lastMessage.data.fetchStartTime,
-          )
+        const lastEventWithSameRequestId = events
+          .filter((m) => m.data.requestId === lastEvent.data.requestId)
           .at(-1);
 
         if (
-          lastMessage.data.fetchStartTime !== message.data.fetchStartTime &&
-          typeof lastMessageWithSameFetchStartTime !== "undefined" &&
-          lastMessageWithSameFetchStartTime.data.chunkEndTime <
-            message.data.fetchStartTime
+          lastEvent.data.requestId !== event.data.requestId &&
+          typeof lastEventWithSameRequestId !== "undefined" &&
+          lastEventWithSameRequestId.data.timestamp < event.data.timestamp
         ) {
           return true;
         }
@@ -75,18 +72,18 @@ function useTracks(messages: RscChunkMessage[]) {
       });
 
       if (track) {
-        track.push(message);
+        track.push(event);
       } else {
-        messageTracks.push([message]);
+        tracks.push([event]);
       }
     }
 
-    return messageTracks;
-  }, [messages]);
+    return tracks;
+  }, [events]);
 }
 
 export function TimeScrubber({
-  messages,
+  events,
   endTime,
   visibleEndTime,
   changeEndTime,
@@ -94,10 +91,10 @@ export function TimeScrubber({
   minStartTime,
   maxEndTime,
 }: ReturnType<typeof useTimeScrubber>) {
-  const filteredMessages = useFilterMessagesByEndTime(messages, endTime);
-  const tracks = useTracks(messages);
+  const filteredEvents = useFilterEventsByEndTime(events, endTime);
+  const tracks = useTracks(events);
 
-  const messageHeight = 12;
+  const eventHeight = 12;
   const trackSpacing = 4;
   const trackPadding = 8;
 
@@ -146,32 +143,67 @@ export function TimeScrubber({
           width="100%"
           height={`${
             tracks.length *
-              (messageHeight + (tracks.length > 1 ? trackSpacing : 0)) +
+              (eventHeight + (tracks.length > 1 ? trackSpacing : 0)) +
             trackPadding * 2
           }px`}
           className="pointer-events-none z-10 rounded bg-white fill-slate-500 dark:bg-slate-700"
         >
           {tracks.map((track, idx) => {
-            return track.map((message) => {
+            const sections: {
+              requestId: string;
+              startTime: number;
+              endTime: number;
+            }[] = [];
+
+            if (track.length === 0) {
+              return null;
+            }
+
+            let currentRequestId: string | undefined = undefined;
+            for (const event of track) {
+              if (currentRequestId === event.data.requestId) {
+                continue;
+              }
+
+              currentRequestId = event.data.requestId;
+
+              const eventsWithSameRequestId = track.filter(
+                (event) => event.data.requestId === currentRequestId,
+              );
+              const lastEvent = eventsWithSameRequestId.at(-1);
+
+              if (!lastEvent) {
+                return null;
+              }
+
+              sections.push({
+                requestId: currentRequestId,
+                startTime: event.data.timestamp,
+                endTime: lastEvent.data.timestamp,
+              });
+            }
+
+            return sections.map((section) => {
               const x =
-                ((message.data.chunkStartTime - minStartTime) /
+                ((section.startTime - minStartTime) /
                   (maxEndTime - minStartTime)) *
                 100;
 
-              const y = idx * (messageHeight + trackSpacing) + trackPadding;
+              const y = idx * (eventHeight + trackSpacing) + trackPadding;
 
               const width =
-                ((message.data.chunkEndTime - message.data.chunkStartTime) /
+                ((section.endTime - section.startTime) /
                   (maxEndTime - minStartTime)) *
                 100;
 
               return (
                 <rect
+                  key={section.requestId}
                   x={`${x * 0.98 + 1}%`}
                   y={`${y}px`}
                   width={width > 0.2 ? `${width}%` : "0.2%"}
-                  height={messageHeight}
-                  fill={getColorForFetch(message.data.fetchStartTime)}
+                  height={eventHeight}
+                  fill={getColorForFetch(section.requestId)}
                   rx="1"
                 />
               );
@@ -187,25 +219,25 @@ export function TimeScrubber({
         </div>
 
         <div className="whitespace-nowrap tabular-nums text-slate-700 dark:text-slate-300">
-          {String(filteredMessages.length).padStart(
-            String(messages.length).length,
+          {String(filteredEvents.length).padStart(
+            String(events.length).length,
             "0",
           )}{" "}
-          / {messages.length}
+          / {events.length}
         </div>
       </div>
     </div>
   );
 }
 
-function useTimeRange(messages: RscChunkMessage[]) {
+function useTimeRange(events: RscEvent[]) {
   return useMemo(() => {
     let minStartTime = Number.MAX_SAFE_INTEGER;
     let maxEndTime = 0;
 
-    for (const message of messages) {
-      minStartTime = Math.min(minStartTime, message.data.chunkStartTime);
-      maxEndTime = Math.max(maxEndTime, message.data.chunkEndTime);
+    for (const event of events) {
+      minStartTime = Math.min(minStartTime, event.data.timestamp);
+      maxEndTime = Math.max(maxEndTime, event.data.timestamp);
     }
 
     const timeRange = maxEndTime - minStartTime;
@@ -215,14 +247,11 @@ function useTimeRange(messages: RscChunkMessage[]) {
       maxEndTime,
       timeRange,
     };
-  }, [messages]);
+  }, [events]);
 }
 
-export function useFilterMessagesByEndTime(
-  messages: RscChunkMessage[],
-  endTime: number,
-) {
+export function useFilterEventsByEndTime(events: RscEvent[], endTime: number) {
   return useMemo(() => {
-    return messages.filter((message) => message.data.chunkStartTime <= endTime);
-  }, [messages, endTime]);
+    return events.filter((event) => event.data.timestamp <= endTime);
+  }, [events, endTime]);
 }

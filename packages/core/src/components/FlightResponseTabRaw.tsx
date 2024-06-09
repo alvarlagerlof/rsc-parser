@@ -11,7 +11,7 @@ export function FlightResponseTabRaw({
   const endTime = useContext(EndTimeContext);
 
   const timeFilteredChunks = flightResponse._chunks.filter(
-    (chunk) => chunk.startTime <= endTime,
+    (chunk) => chunk.timestamp <= endTime,
   );
 
   return (

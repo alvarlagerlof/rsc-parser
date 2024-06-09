@@ -5,7 +5,6 @@ import styles from "@rsc-parser/core/style.css?inline";
 import {
   ViewerStreams,
   ViewerStreamsEmptyState,
-  RscChunkMessage,
   BottomPanel,
   BottomPanelOpenButton,
   BottomPanelCloseButton,
@@ -14,7 +13,7 @@ import {
   RecordButton,
   PanelLayout,
   OverflowButton,
-  copyMessagesToClipBoard,
+  copyEventsToClipboard,
 } from "@rsc-parser/core";
 import { fetchPatcher } from "@rsc-parser/core/fetchPatcher";
 import React, {
@@ -25,6 +24,7 @@ import React, {
   useState,
   useSyncExternalStore,
 } from "react";
+import { isRscChunkEvent, RscEvent } from "@rsc-parser/core/events";
 
 export function RscDevtoolsPanel({
   position = "bottom",
@@ -50,10 +50,10 @@ export function RscDevtoolsPanel({
   const {
     isRecording,
     startRecording,
-    messages,
-    clearMessages,
+    events,
+    clearEvents,
     readNextScriptTags,
-  } = useRscMessages();
+  } = useRscEvents();
 
   return (
     <ApplyStylingOnClient>
@@ -79,16 +79,14 @@ export function RscDevtoolsPanel({
               <OverflowButton
                 menuItems={
                   <>
-                    <button onClick={() => clearMessages()}>
-                      Clear messages
-                    </button>
+                    <button onClick={() => clearEvents()}>Clear events</button>
                     {process.env.NODE_ENV === "development" ? (
                       <button
                         onClick={() => {
-                          copyMessagesToClipBoard({ messages });
+                          copyEventsToClipboard({ events });
                         }}
                       >
-                        Copy messages to clipboard
+                        Copy events to clipboard
                       </button>
                     ) : null}
                     <button
@@ -109,10 +107,10 @@ export function RscDevtoolsPanel({
             </>
           }
         >
-          {messages.length === 0 || !isRecording ? (
+          {events.length === 0 || !isRecording ? (
             <ViewerStreamsEmptyState />
           ) : (
-            <ViewerStreams messages={messages} />
+            <ViewerStreams events={events} />
           )}
         </PanelLayout>
       </BottomPanel>
@@ -159,8 +157,8 @@ function ApplyStylingOnClient({ children }: { children: ReactNode }) {
   );
 }
 
-function useRscMessages() {
-  const [messages, setMessages] = useState<RscChunkMessage[]>([]);
+function useRscEvents() {
+  const [events, setEvents] = useState<RscEvent[]>([]);
   const [isRecording, setIsRecording] = useState(false);
 
   useEffect(() => {
@@ -169,20 +167,23 @@ function useRscMessages() {
     }
 
     fetchPatcher({
-      onRscChunkMessage: (message) => {
+      onRscEvent: (event) => {
         if (
-          messages.some((item) =>
-            arraysEqual(
-              item.data.chunkValue,
-              Array.from(message.data.chunkValue),
-            ),
-          )
+          isRscChunkEvent(event) &&
+          events
+            .filter(isRscChunkEvent)
+            .some((item) =>
+              arraysEqual(
+                item.data.chunkValue,
+                Array.from(event.data.chunkValue),
+              ),
+            )
         ) {
           return true;
         }
 
         startTransition(() => {
-          setMessages((previous) => [...previous, message]);
+          setEvents((previous) => [...previous, event]);
         });
       },
     });
@@ -192,8 +193,8 @@ function useRscMessages() {
     setIsRecording(true);
   }, []);
 
-  const clearMessages = useCallback(() => {
-    setMessages([]);
+  const clearEvents = useCallback(() => {
+    setEvents([]);
   }, []);
 
   const readNextScriptTags = useCallback(() => {
@@ -201,24 +202,44 @@ function useRscMessages() {
       // @ts-expect-error This is a hack
       const payload = self.__next_f.map((f) => f?.[1]).join("");
 
-      const messages = [
+      const requestId = String(Date.now() + Math.random()); // TODO: Use a better random number generator or uuid
+
+      const events = [
+        {
+          type: "RSC_REQUEST",
+          data: {
+            requestId: requestId,
+            tabId: 0,
+            timestamp: Date.now(),
+            url: window.location.href,
+            method: "GET",
+            headers: {},
+          },
+        },
+        {
+          type: "RSC_RESPONSE",
+          data: {
+            requestId: requestId,
+            tabId: 0,
+            timestamp: Date.now(),
+            status: 200,
+            headers: {},
+          },
+        },
         {
           type: "RSC_CHUNK",
-          tabId: 0,
           data: {
-            fetchUrl: window.location.href,
-            fetchMethod: "GET",
-            fetchStartTime: 0,
-            chunkStartTime: 0,
-            chunkEndTime: 0,
+            requestId: requestId,
+            tabId: 0,
+            timestamp: Date.now(),
             chunkValue: Array.from(new TextEncoder().encode(payload)),
           },
-        } satisfies RscChunkMessage,
-      ];
+        },
+      ] satisfies RscEvent[];
 
       setIsRecording(true);
       startTransition(() => {
-        setMessages(() => messages);
+        setEvents(() => events);
       });
     } catch (error) {
       console.error(
@@ -232,8 +253,8 @@ function useRscMessages() {
   return {
     isRecording,
     startRecording,
-    messages,
-    clearMessages,
+    events,
+    clearEvents,
     readNextScriptTags,
   };
 }

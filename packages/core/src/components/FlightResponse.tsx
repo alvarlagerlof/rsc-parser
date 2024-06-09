@@ -19,7 +19,7 @@ export function FlightResponse({
         <TabProvider defaultSelectedId="split">
           <div className="flex flex-row items-center justify-between">
             {flightResponse._chunks.length === 0 ? (
-              <span>No data for current time frame, please select a url</span>
+              <span>No data for current time frame</span>
             ) : (
               <span>
                 Data from {flightResponse._chunks.length} fetch chunk

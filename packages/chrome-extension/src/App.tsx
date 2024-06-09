@@ -9,18 +9,24 @@ import React, {
 import {
   ViewerStreams,
   ViewerStreamsEmptyState,
-  RscChunkMessage,
   PanelLayout,
   Logo,
   RecordButton,
-  copyMessagesToClipBoard,
   OverflowButton,
+  copyEventsToClipboard,
 } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
+import {
+  RscEvent,
+  StartRecordingEvent,
+  isEvent,
+  isRscChunkEvent,
+  isRscEvent,
+  isStopRecordingEvent,
+} from "@rsc-parser/core/events";
 
 export function App() {
-  const { isRecording, startRecording, messages, clearMessages } =
-    useRscMessages();
+  const { isRecording, startRecording, events, clearEvents } = useRscEvents();
 
   return (
     <PanelLayout
@@ -38,14 +44,14 @@ export function App() {
           <OverflowButton
             menuItems={
               <>
-                <button onClick={() => clearMessages()}>Clear messages</button>
+                <button onClick={() => clearEvents()}>Clear events</button>
                 {process.env.NODE_ENV === "development" ? (
                   <button
                     onClick={() => {
-                      copyMessagesToClipBoard({ messages });
+                      copyEventsToClipboard({ events });
                     }}
                   >
-                    Copy messages to clipboard
+                    Copy events to clipboard
                   </button>
                 ) : null}
               </>
@@ -54,67 +60,71 @@ export function App() {
         </>
       }
     >
-      {messages.length === 0 || !isRecording ? (
+      {events.length === 0 || !isRecording ? (
         <ViewerStreamsEmptyState />
       ) : (
-        <ViewerStreams messages={messages} />
+        <ViewerStreams events={events} />
       )}
     </PanelLayout>
   );
 }
 
-function useRscMessages() {
-  const [messages, setMessages] = useState<RscChunkMessage[]>([]);
+function useRscEvents() {
+  const [events, setEvents] = useState<RscEvent[]>([]);
   const [isRecording, setIsRecording] = useState(false);
   const tabId = useMemo(() => Date.now(), []);
 
   useEffect(() => {
-    function handleMessage(
+    function handleEvent(
       request: unknown,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sender: unknown,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sendResponse: unknown,
     ) {
-      if (
-        !isRscChunkMessage(request) &&
-        !isContentScriptUnloadedMessage(request)
-      ) {
+      if (!isEvent(request)) {
         return true;
       }
 
-      // If the message is from a different tab, ignore it
-      if (request.tabId !== tabId) {
+      // If the event is from a different tab, ignore it
+      if (request.data.tabId !== tabId) {
         return true;
       }
 
-      if (isContentScriptUnloadedMessage(request)) {
+      if (isStopRecordingEvent(request)) {
         setIsRecording(false);
-        setMessages([]);
+        setEvents([]);
         return true;
       }
 
-      // It's possible that this lookup will miss a duplicated message if another
+      if (!isRscEvent(request)) {
+        return true;
+      }
+
+      // It's possible that this lookup will miss a duplicated event if another
       // one is being added at the same time. I haven't seen this happen in practice.
       if (
-        messages.some((item) =>
-          arraysEqual(item.data.chunkValue, request.data.chunkValue),
-        )
+        isRscChunkEvent(request) &&
+        events
+          .filter(isRscChunkEvent)
+          .some((item) =>
+            arraysEqual(item.data.chunkValue, request.data.chunkValue),
+          )
       ) {
         return true;
       }
 
       startTransition(() => {
-        setMessages((previous) => [...previous, request]);
+        setEvents((previous) => [...previous, request]);
       });
 
       return true;
     }
 
-    chrome.runtime.onMessage.addListener(handleMessage);
+    chrome.runtime.onMessage.addListener(handleEvent);
 
     return () => {
-      chrome.runtime.onMessage.removeListener(handleMessage);
+      chrome.runtime.onMessage.removeListener(handleEvent);
     };
   }, []);
 
@@ -122,42 +132,22 @@ function useRscMessages() {
     setIsRecording(true);
     chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
       type: "START_RECORDING",
-      tabId: tabId,
-    } satisfies StartRecordingMessage);
+      data: {
+        tabId: tabId,
+      },
+    } satisfies StartRecordingEvent);
   }, [tabId]);
 
-  const clearMessages = useCallback(() => {
-    setMessages([]);
+  const clearEvents = useCallback(() => {
+    setEvents([]);
   }, []);
 
   return {
     isRecording,
     startRecording,
-    messages,
-    clearMessages,
+    events,
+    clearEvents,
   };
-}
-
-function isRscChunkMessage(message: unknown): message is RscChunkMessage {
-  return (message as RscChunkMessage).type === "RSC_CHUNK";
-}
-
-type StartRecordingMessage = {
-  type: "START_RECORDING";
-  tabId: number;
-};
-
-type ContentScriptUnloadedMessage = {
-  type: "CONTENT_SCRIPT_UNLOADED";
-  tabId: number;
-};
-
-function isContentScriptUnloadedMessage(
-  message: unknown,
-): message is ContentScriptUnloadedMessage {
-  return (
-    (message as ContentScriptUnloadedMessage).type === "CONTENT_SCRIPT_UNLOADED"
-  );
 }
 
 function arraysEqual(a: unknown[], b: unknown[]) {

@@ -95,7 +95,7 @@ export function FlightResponseTabNetwork({
   const nodes: Node[] = flightResponse._chunks.map((chunk) => {
     return {
       chunk,
-      isInTimeRange: chunk.startTime <= endTime,
+      isInTimeRange: chunk.timestamp <= endTime,
     };
   });
 

@@ -15,20 +15,20 @@ type Story = StoryObj<typeof ViewerStreams>;
 export const nextjsOrg: Story = {
   name: "nextjs.org",
   args: {
-    messages: nextjsOrgExampleData,
+    events: nextjsOrgExampleData,
   },
 };
 
 export const ghFredkissDEv: Story = {
   name: "gh.fredkiss.dev",
   args: {
-    messages: ghFredkissDevExampleData,
+    events: ghFredkissDevExampleData,
   },
 };
 
 export const alvarDev: Story = {
   name: "alvar.dev",
   args: {
-    messages: alvarDevExampleData,
+    events: alvarDevExampleData,
   },
 };
