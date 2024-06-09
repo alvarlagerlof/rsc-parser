@@ -2,11 +2,16 @@ import React from "react";
 import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
 import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../events";
 import { useEndTime } from "./EndTimeContext";
+import { RequestDetailTabEmptyState } from "./RequestDetailTabEmptyState";
 
 export function RequestDetailTabHeaders({ events }: { events: RscEvent[] }) {
   const { endTime } = useEndTime();
 
   const timeFilteredEvents = eventsFilterByMaxTimestamp(events, endTime);
+
+  if (timeFilteredEvents.length === 0) {
+    return <RequestDetailTabEmptyState />;
+  }
 
   const requestEvent = timeFilteredEvents.filter(isRscRequestEvent)[0];
   const responseEvent = timeFilteredEvents.filter(isRscResponseEvent)[0];
