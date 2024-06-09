@@ -1,4 +1,4 @@
-import React, { useContext, useState, useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import {
   Disclosure,
   DisclosureContent,
@@ -10,21 +10,43 @@ import {
 } from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
-import { FlightResponse, Chunk } from "@rsc-parser/react-client";
+import {
+  Chunk,
+  createFlightResponse,
+  processBinaryChunk,
+} from "@rsc-parser/react-client";
 import { FlightResponseChunkModule } from "./FlightResponseChunkModule";
 import { FlightResponseChunkHint } from "./FlightResponseChunkHint";
 import { FlightResponseChunkModel } from "./FlightResponseChunkModel";
 import { DownArrowIcon, RightArrowIcon } from "./FlightResponseIcons";
-import { EndTimeContext } from "./EndTimeContext";
 import { FlightResponseChunkDebugInfo } from "./FlightResponseChunkDebugInfo";
 import { FlightResponseChunkText } from "./FlightResponseChunkText";
 import { FlightResponseChunkUnknown } from "./FlightResponseChunkUnknown";
+import { useEndTime } from "./EndTimeContext";
+import { RscEvent, isRscChunkEvent } from "../events";
+import { RequestDetailTabEmptyState } from "./RequestDetailTabEmptyState";
+import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
 
-export function FlightResponseTabSplit({
-  flightResponse,
+export function RequestDetailTabParsedPayload({
+  events,
 }: {
-  flightResponse: FlightResponse;
+  events: RscEvent[];
 }) {
+  const { endTime } = useEndTime();
+
+  if (
+    eventsFilterByMaxTimestamp(events, endTime).filter(isRscChunkEvent)
+      .length === 0
+  ) {
+    return <RequestDetailTabEmptyState />;
+  }
+
+  const flightResponse = createFlightResponse();
+  for (const event of events.filter(isRscChunkEvent)) {
+    flightResponse._currentTimestamp = event.data.timestamp;
+    processBinaryChunk(flightResponse, Uint8Array.from(event.data.chunkValue));
+  }
+
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
     null,
@@ -66,8 +88,6 @@ export function FlightResponseTabSplit({
     selectedId: selectedTab,
     setSelectedId: selectTab,
   });
-
-  const endTime = useContext(EndTimeContext);
 
   const timeFilteredChunks = flightResponse._chunks.filter(
     (chunk) => chunk.timestamp <= endTime,

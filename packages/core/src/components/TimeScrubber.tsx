@@ -1,43 +1,8 @@
-import React, { useEffect, useMemo, useState, useTransition } from "react";
+import React, { useMemo } from "react";
 import { RscEvent } from "../events";
 import { getColorForFetch } from "../color";
-
-export function useTimeScrubber(
-  events: RscEvent[],
-  { follow }: { follow: boolean },
-) {
-  const { minStartTime, maxEndTime } = useTimeRange(events);
-  const [endTime, setEndTime] = useState(maxEndTime);
-
-  const [visibleEndTime, setVisibleEndTime] = useState(endTime);
-  const [isPending, startTransition] = useTransition();
-
-  const changeEndTime = (value: number) => {
-    setVisibleEndTime(value);
-    startTransition(() => {
-      setEndTime(value);
-    });
-  };
-
-  useEffect(() => {
-    if (follow) {
-      if (endTime !== maxEndTime) {
-        changeEndTime(maxEndTime);
-      }
-    }
-  }, [events]);
-
-  return {
-    events,
-    endTime,
-    visibleEndTime,
-    changeEndTime,
-    isPending,
-    startTransition,
-    minStartTime,
-    maxEndTime,
-  };
-}
+import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
+import { useEndTime } from "./EndTimeContext";
 
 function useTracks(events: RscEvent[]) {
   return useMemo(() => {
@@ -84,14 +49,16 @@ function useTracks(events: RscEvent[]) {
 
 export function TimeScrubber({
   events,
-  endTime,
-  visibleEndTime,
-  changeEndTime,
-  isPending,
   minStartTime,
   maxEndTime,
-}: ReturnType<typeof useTimeScrubber>) {
-  const filteredEvents = useFilterEventsByEndTime(events, endTime);
+}: {
+  events: RscEvent[];
+  minStartTime: number;
+  maxEndTime: number;
+}) {
+  const { endTime, visibleEndTime, changeEndTime, isPending } = useEndTime();
+
+  const filteredEvents = eventsFilterByMaxTimestamp(events, endTime);
   const tracks = useTracks(events);
 
   const eventHeight = 12;
@@ -228,30 +195,4 @@ export function TimeScrubber({
       </div>
     </div>
   );
-}
-
-function useTimeRange(events: RscEvent[]) {
-  return useMemo(() => {
-    let minStartTime = Number.MAX_SAFE_INTEGER;
-    let maxEndTime = 0;
-
-    for (const event of events) {
-      minStartTime = Math.min(minStartTime, event.data.timestamp);
-      maxEndTime = Math.max(maxEndTime, event.data.timestamp);
-    }
-
-    const timeRange = maxEndTime - minStartTime;
-
-    return {
-      minStartTime,
-      maxEndTime,
-      timeRange,
-    };
-  }, [events]);
-}
-
-export function useFilterEventsByEndTime(events: RscEvent[], endTime: number) {
-  return useMemo(() => {
-    return events.filter((event) => event.data.timestamp <= endTime);
-  }, [events, endTime]);
 }

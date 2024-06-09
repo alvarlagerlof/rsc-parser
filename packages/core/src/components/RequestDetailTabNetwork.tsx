@@ -1,7 +1,15 @@
-import { Chunk, FlightResponse, isReference } from "@rsc-parser/react-client";
-import React, { memo, useContext, useEffect, useRef, useState } from "react";
+import {
+  Chunk,
+  createFlightResponse,
+  isReference,
+  processBinaryChunk,
+} from "@rsc-parser/react-client";
+import React, { memo, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import { EndTimeContext } from "./EndTimeContext";
+import { useEndTime } from "./EndTimeContext";
+import { RscEvent, isRscChunkEvent } from "../events";
+import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
+import { RequestDetailTabEmptyState } from "./RequestDetailTabEmptyState";
 
 interface Node extends d3.SimulationNodeDatum {
   chunk: Chunk;
@@ -85,12 +93,21 @@ function getLinks(chunks: Chunk[], id: string) {
   );
 }
 
-export function FlightResponseTabNetwork({
-  flightResponse,
-}: {
-  flightResponse: FlightResponse;
-}) {
-  const endTime = useContext(EndTimeContext);
+export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
+  const { endTime } = useEndTime();
+
+  if (
+    eventsFilterByMaxTimestamp(events, endTime).filter(isRscChunkEvent)
+      .length === 0
+  ) {
+    return <RequestDetailTabEmptyState />;
+  }
+
+  const flightResponse = createFlightResponse();
+  for (const event of events.filter(isRscChunkEvent)) {
+    flightResponse._currentTimestamp = event.data.timestamp;
+    processBinaryChunk(flightResponse, Uint8Array.from(event.data.chunkValue));
+  }
 
   const nodes: Node[] = flightResponse._chunks.map((chunk) => {
     return {
@@ -109,8 +126,11 @@ export function FlightResponseTabNetwork({
       return;
     }
     const resizeObserver = new ResizeObserver(() => {
-      setSvgWidth(svgRef.current!.clientWidth);
-      setSvgHeight(svgRef.current!.clientHeight);
+      if (!svgRef.current) {
+        return;
+      }
+      setSvgWidth(svgRef.current.clientWidth);
+      setSvgHeight(svgRef.current.clientHeight);
       simulation.current = undefined;
     });
     resizeObserver.observe(svgRef.current);
