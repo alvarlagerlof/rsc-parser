@@ -5,7 +5,6 @@ import styles from "@rsc-parser/core/style.css?inline";
 import {
   ViewerStreams,
   ViewerStreamsEmptyState,
-  RscEvent,
   BottomPanel,
   BottomPanelOpenButton,
   BottomPanelCloseButton,
@@ -25,6 +24,7 @@ import React, {
   useState,
   useSyncExternalStore,
 } from "react";
+import { isRscChunkEvent, RscEvent } from "@rsc-parser/core/events";
 
 export function RscDevtoolsPanel({
   position = "bottom",
@@ -171,12 +171,15 @@ function useRscEvents() {
     fetchPatcher({
       onRscEvent: (event) => {
         if (
-          events.some((item) =>
-            arraysEqual(
-              item.data.chunkValue,
-              Array.from(event.data.chunkValue),
-            ),
-          )
+          isRscChunkEvent(event) &&
+          events
+            .filter(isRscChunkEvent)
+            .some((item) =>
+              arraysEqual(
+                item.data.chunkValue,
+                Array.from(event.data.chunkValue),
+              ),
+            )
         ) {
           return true;
         }
@@ -201,9 +204,9 @@ function useRscEvents() {
       // @ts-expect-error This is a hack
       const payload = self.__next_f.map((f) => f?.[1]).join("");
 
-      const requestId = Date.now() + Math.random(); // TODO: Use a better random number generator or uuid
+      const requestId = String(Date.now() + Math.random()); // TODO: Use a better random number generator or uuid
 
-      const messages = [
+      const events = [
         {
           type: "RSC_REQUEST",
           data: {
@@ -221,6 +224,7 @@ function useRscEvents() {
             requestId: requestId,
             tabId: 0,
             timestamp: Date.now(),
+            status: 200,
             headers: {},
           },
         },
@@ -237,7 +241,7 @@ function useRscEvents() {
 
       setIsRecording(true);
       startTransition(() => {
-        setEvents(() => messages);
+        setEvents(() => events);
       });
     } catch (error) {
       console.error(

@@ -1,14 +1,4 @@
 import {
-  RscEvent,
-  RscRequestEvent,
-  RscResponseEvent,
-  RscChunkEvent,
-  isRscEvent,
-  isRscRequestEvent,
-  isRscResponseEvent,
-  isRscChunkEvent,
-} from "./types";
-import {
   ViewerPayload,
   Viewer as unstable_Viewer,
 } from "./components/ViewerPayload";
@@ -28,14 +18,6 @@ import {
 import { createFlightResponse as unstable_createFlightResponse } from "./createFlightResponse";
 
 export {
-  type RscEvent,
-  type RscRequestEvent,
-  type RscResponseEvent,
-  type RscChunkEvent,
-  isRscEvent,
-  isRscRequestEvent,
-  isRscResponseEvent,
-  isRscChunkEvent,
   ViewerPayload,
   unstable_Viewer,
   ViewerStreams,

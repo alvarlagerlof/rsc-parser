@@ -9,15 +9,21 @@ import React, {
 import {
   ViewerStreams,
   ViewerStreamsEmptyState,
-  RscEvent,
   PanelLayout,
   Logo,
   RecordButton,
   OverflowButton,
   copyEventsToClipboard,
-  isRscEvent,
 } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
+import {
+  RscEvent,
+  StartRecordingEvent,
+  isEvent,
+  isRscChunkEvent,
+  isRscEvent,
+  isStopRecordingEvent,
+} from "@rsc-parser/core/events";
 
 export function App() {
   const { isRecording, startRecording, events, clearEvents } = useRscEvents();
@@ -76,27 +82,36 @@ function useRscEvents() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _sendResponse: unknown,
     ) {
-      if (!isRscEvent(request) && !isContentScriptUnloadedEvent(request)) {
+      console.log("handleMessage", request);
+
+      if (!isEvent(request)) {
         return true;
       }
 
       // If the message is from a different tab, ignore it
-      if (request.tabId !== tabId) {
+      if (request.data.tabId !== tabId) {
         return true;
       }
 
-      if (isContentScriptUnloadedEvent(request)) {
+      if (isStopRecordingEvent(request)) {
         setIsRecording(false);
         setEvents([]);
+        return true;
+      }
+
+      if (!isRscEvent(request)) {
         return true;
       }
 
       // It's possible that this lookup will miss a duplicated message if another
       // one is being added at the same time. I haven't seen this happen in practice.
       if (
-        events.some((item) =>
-          arraysEqual(item.data.chunkValue, request.data.chunkValue),
-        )
+        isRscChunkEvent(request) &&
+        events
+          .filter(isRscChunkEvent)
+          .some((item) =>
+            arraysEqual(item.data.chunkValue, request.data.chunkValue),
+          )
       ) {
         return true;
       }
@@ -135,28 +150,6 @@ function useRscEvents() {
     events,
     clearEvents,
   };
-}
-
-type StartRecordingEvent = {
-  type: "START_RECORDING";
-  data: {
-    tabId: number;
-  };
-};
-
-type ContentScriptUnloadedEvent = {
-  type: "CONTENT_SCRIPT_UNLOADED";
-  data: {
-    tabId: number;
-  };
-};
-
-function isContentScriptUnloadedEvent(
-  event: unknown,
-): event is ContentScriptUnloadedEvent {
-  return (
-    (event as ContentScriptUnloadedEvent).type === "CONTENT_SCRIPT_UNLOADED"
-  );
 }
 
 function arraysEqual(a: unknown[], b: unknown[]) {

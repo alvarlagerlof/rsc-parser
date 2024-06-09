@@ -6,7 +6,7 @@ import { alvarDevExampleData } from "../example-data/alvar-dev";
 import { ghFredkissDevExampleData } from "../example-data/gh-fredkiss-dev";
 import { nextjsOrgExampleData } from "../example-data/nextjs-org";
 import { createFlightResponse } from "../createFlightResponse";
-import { isRscChunkEvent } from "../types";
+import { isRscChunkEvent } from "../events";
 
 const meta: Meta<typeof FlightResponseTabSplit> = {
   component: FlightResponseTabSplit,

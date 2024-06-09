@@ -3,7 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
 import { createFlightResponse } from "../createFlightResponse";
-import { RscChunkEvent } from "../types";
+import { RscChunkEvent } from "../events";
 import { FlightResponse } from "./FlightResponse";
 import { EndTimeContext } from "./EndTimeContext";
 

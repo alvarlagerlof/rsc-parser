@@ -1,4 +1,8 @@
-import { isRscEvent } from "@rsc-parser/core";
+import { RscEvent, isRscEvent } from "@rsc-parser/core/events";
+import {
+  StopRecordingEvent,
+  isStartRecordingEvent,
+} from "@rsc-parser/core/events";
 
 /**
  * injectScript - Inject internal script to available access to the `window`
@@ -22,10 +26,10 @@ let tabId: number | undefined = undefined;
 // is received from the devtools panel
 
 chrome.runtime.onMessage.addListener(function (request) {
-  if (request.type === "START_RECORDING") {
+  if (isStartRecordingEvent(request)) {
     // Store the tabId so that the devtools panel can filter messages to
     // only show the ones from the current tab
-    tabId = request.tabId;
+    tabId = request.data.tabId;
 
     injectScript(chrome.runtime.getURL("assets/fetch-patch.js"), "body");
   }
@@ -42,18 +46,18 @@ window.addEventListener(
       return;
     }
 
+    console.log("message", tabId, event.data);
+
     if (!tabId) {
       return;
     }
 
     if (isRscEvent(event.data)) {
-      chrome.runtime.sendMessage({
-        ...event.data,
-        data: {
-          ...event.data.data,
-          tabId,
-        },
-      });
+      console.log("rsc event", event.data, tabId);
+      const baseEvent = event.data;
+      baseEvent.data.tabId = tabId;
+
+      chrome.runtime.sendMessage(baseEvent satisfies RscEvent);
     }
   },
   false,
@@ -61,8 +65,12 @@ window.addEventListener(
 
 // When the content script is unloaded (like for a refresh), send a message to the devtools panel to reset it
 window.addEventListener("beforeunload", () => {
+  if (!tabId) {
+    return;
+  }
+
   chrome.runtime.sendMessage({
-    type: "CONTENT_SCRIPT_UNLOADED",
+    type: "STOP_RECORDING",
     data: { tabId },
-  });
+  } satisfies StopRecordingEvent);
 });

@@ -6,7 +6,7 @@ import {
   isRscChunkEvent,
   isRscRequestEvent,
   isRscResponseEvent,
-} from "../types";
+} from "../events";
 import { FlightResponse } from "./FlightResponse";
 import {
   FlightResponseSelector,

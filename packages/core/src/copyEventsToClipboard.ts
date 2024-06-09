@@ -1,4 +1,4 @@
-import { RscEvent } from "./types";
+import { RscEvent } from "./events";
 
 export function copyEventsToClipboard({ events }: { events: RscEvent[] }) {
   const stingifiedEvents = JSON.stringify(events);

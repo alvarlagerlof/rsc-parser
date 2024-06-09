@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ViewerPayload } from "./ViewerPayload";
-import { RscEvent, isRscChunkEvent, isRscRequestEvent } from "../types";
+import { RscEvent, isRscChunkEvent, isRscRequestEvent } from "../events";
 import { alvarDevExampleData } from "../example-data/alvar-dev";
 import { ghFredkissDevExampleData } from "../example-data/gh-fredkiss-dev";
 import { nextjsOrgExampleData } from "../example-data/nextjs-org";

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useTransition } from "react";
-import { RscEvent } from "../types";
+import { RscEvent } from "../events";
 import { getColorForFetch } from "../color";
 
 export function useTimeScrubber(

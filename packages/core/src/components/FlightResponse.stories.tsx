@@ -6,7 +6,7 @@ import { createFlightResponse } from "../createFlightResponse";
 import { alvarDevExampleData } from "../example-data/alvar-dev";
 import { ghFredkissDevExampleData } from "../example-data/gh-fredkiss-dev";
 import { nextjsOrgExampleData } from "../example-data/nextjs-org";
-import { isRscChunkEvent } from "../types";
+import { isRscChunkEvent } from "../events";
 
 const meta: Meta<typeof FlightResponse> = {
   component: FlightResponse,

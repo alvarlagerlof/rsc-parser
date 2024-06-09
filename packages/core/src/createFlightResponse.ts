@@ -1,4 +1,4 @@
-import { RscChunkEvent } from "./types";
+import { RscChunkEvent } from "./events";
 import {
   FlightResponse,
   createFromJSONCallback,

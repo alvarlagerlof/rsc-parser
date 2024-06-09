@@ -6,7 +6,7 @@ import React, {
   useTransition,
 } from "react";
 import { TabList, Tab, TabPanel, useTabStore } from "@ariakit/react";
-import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../types";
+import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../events";
 import { getColorForFetch } from "../color";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 

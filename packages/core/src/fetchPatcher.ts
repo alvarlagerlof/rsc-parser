@@ -1,4 +1,4 @@
-import { RscEvent } from "./types";
+import { RscEvent } from "./events";
 
 function isRscResponse(response: Response): boolean {
   return response.headers.get("Content-Type") === "text/x-component";
@@ -90,6 +90,13 @@ export function fetchPatcher({
     const fetchStartTime = Date.now();
     const requestId = String(fetchStartTime + Math.random()); // TODO: Use a better random number generator or uuid
 
+    // @ts-expect-error TODO: Fix type
+    const response: Response = await window.originalFetch(...args);
+
+    if (!isRscResponse(response)) {
+      return response;
+    }
+
     onRscEvent({
       type: "RSC_REQUEST",
       data: {
@@ -102,13 +109,6 @@ export function fetchPatcher({
         headers: getFetchHeaders(args),
       },
     });
-
-    // @ts-expect-error TODO: Fix type
-    const response: Response = await window.originalFetch(...args);
-
-    if (!isRscResponse(response)) {
-      return response;
-    }
 
     onRscEvent({
       type: "RSC_RESPONSE",
