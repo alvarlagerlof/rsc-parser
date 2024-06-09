@@ -159,28 +159,28 @@ export function TimeScrubber({
               return null;
             }
 
-            let currentStartTime = track[0].data.timestamp;
-            let currentRequestId = track[0].data.requestId;
+            let currentRequestId: string | undefined = undefined;
             for (const event of track) {
-              if (currentStartTime === 0) {
-                currentStartTime = event.data.timestamp;
+              if (currentRequestId === event.data.requestId) {
+                continue;
               }
-              const isLastEvent = track.indexOf(event) === track.length - 1;
-              if (
-                (event.data.requestId !== currentRequestId || isLastEvent) &&
-                events[track.indexOf(event) - 1]
-              ) {
-                sections.push({
-                  requestId: currentRequestId,
-                  startTime: currentStartTime,
-                  endTime: isLastEvent
-                    ? event.data.timestamp
-                    : events[track.indexOf(event) - 1].data.timestamp,
-                  //endTime: event.data.timestamp,
-                });
-                currentStartTime = event.data.timestamp;
-                currentRequestId = event.data.requestId;
+
+              currentRequestId = event.data.requestId;
+
+              const eventsWithSameRequestId = track.filter(
+                (event) => event.data.requestId === currentRequestId,
+              );
+              const lastEvent = eventsWithSameRequestId.at(-1);
+
+              if (!lastEvent) {
+                return null;
               }
+
+              sections.push({
+                requestId: currentRequestId,
+                startTime: event.data.timestamp,
+                endTime: lastEvent.data.timestamp,
+              });
             }
 
             return sections.map((section) => {
