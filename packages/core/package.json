@@ -22,15 +22,15 @@
   "style": "./dist/style.css",
   "exports": {
     ".": {
-      "import": "./dist/js/main.js",
-      "types": "./dist/js/src/main.d.ts"
+      "import": "./dist/main.js",
+      "types": "./dist/main.d.ts"
     },
     "./style.css": {
       "import": "./dist/style.css"
     },
     "./fetchPatcher": {
-      "import": "./dist/js/fetchPatcher.js",
-      "types": "./dist/js/src/fetchPatcher.d.ts"
+      "import": "./dist/fetchPatcher.js",
+      "types": "./dist/fetchPatcher.d.ts"
     }
   },
   "dependencies": {
