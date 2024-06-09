@@ -3,7 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { TabList, Tab, TabPanel, TabProvider } from "@ariakit/react";
 
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
-import type { FlightResponse } from "../react/ReactFlightClient";
+import type { FlightResponse } from "@rsc-parser/react-client";
 import { FlightResponseTabSplit } from "./FlightResponseTabSplit";
 import { FlightResponseTabNetwork } from "./FlightResponseTabNetwork";
 import { FlightResponseTabRaw } from "./FlightResponseTabRaw";

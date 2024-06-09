@@ -1,5 +1,5 @@
 import React from "react";
-import { DebugInfoChunk } from "../react/ReactFlightClient";
+import { DebugInfoChunk } from "@rsc-parser/react-client";
 
 export function FlightResponseChunkDebugInfo({
   data,

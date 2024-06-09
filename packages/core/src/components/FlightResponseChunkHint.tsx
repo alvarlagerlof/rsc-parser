@@ -1,5 +1,5 @@
 import React from "react";
-import { HintChunk } from "../react/ReactFlightClient";
+import { HintChunk } from "@rsc-parser/react-client";
 
 export function FlightResponseChunkHint({
   data,

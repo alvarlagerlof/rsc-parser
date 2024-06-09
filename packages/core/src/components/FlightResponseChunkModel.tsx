@@ -19,7 +19,7 @@ import {
   Reference,
   isElement,
   isReference,
-} from "../react/ReactFlightClient.js";
+} from "@rsc-parser/react-client";
 
 const ClickIDContext = createContext<{
   onClickID: (name: string) => void;

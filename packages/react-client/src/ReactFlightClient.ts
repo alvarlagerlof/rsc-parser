@@ -8,6 +8,7 @@
 
 import {
   StringDecoder,
+  createStringDecoder,
   readFinalStringChunk,
   readPartialStringChunk,
 } from "./ReactFlightClientConfigBrowser";
@@ -352,6 +353,24 @@ function parseModelTuple(
   }
 
   return value;
+}
+
+export function createFlightResponse(): FlightResponse {
+  // @ts-expect-error TODO: fix this
+  const response: FlightResponse = {
+    _buffer: [],
+    _rowID: 0,
+    _rowTag: 0,
+    _rowLength: 0,
+    _rowState: 0,
+    _currentTimestamp: 0,
+    _stringDecoder: createStringDecoder(),
+    _chunks: [] as FlightResponse["_chunks"],
+  };
+
+  response._fromJSON = createFromJSONCallback(response);
+
+  return response;
 }
 
 export function createElement(type: unknown, key: unknown, props: unknown) {

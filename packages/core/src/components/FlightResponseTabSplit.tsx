@@ -10,8 +10,7 @@ import {
 } from "@ariakit/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
-import { FlightResponse } from "../react/ReactFlightClient";
-import { Chunk } from "../react/ReactFlightClient";
+import { FlightResponse, Chunk } from "@rsc-parser/react-client";
 import { FlightResponseChunkModule } from "./FlightResponseChunkModule";
 import { FlightResponseChunkHint } from "./FlightResponseChunkHint";
 import { FlightResponseChunkModel } from "./FlightResponseChunkModel";

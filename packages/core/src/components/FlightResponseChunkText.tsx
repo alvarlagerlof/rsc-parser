@@ -1,5 +1,5 @@
 import React from "react";
-import { TextChunk } from "../react/ReactFlightClient";
+import { TextChunk } from "@rsc-parser/react-client";
 
 export function FlightResponseChunkText({
   data,

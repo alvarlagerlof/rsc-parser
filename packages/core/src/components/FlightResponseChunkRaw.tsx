@@ -1,5 +1,5 @@
 import React from "react";
-import { Chunk } from "../react/ReactFlightClient";
+import { Chunk } from "@rsc-parser/react-client";
 
 export function FlightResponseChunkRaw({ data }: { data: Chunk }) {
   return (
