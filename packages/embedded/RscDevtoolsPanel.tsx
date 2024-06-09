@@ -28,7 +28,7 @@ import React, {
 } from "react";
 
 export function RscDevtoolsPanel({
-  position = "right",
+  position = "bottom",
 }: {
   position?: "bottom" | "right" | undefined;
 }) {
