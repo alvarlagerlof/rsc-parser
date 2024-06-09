@@ -10,13 +10,13 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["assets/content-script.js"],
+      "js": ["assets/contentScript.js"],
       "all_frames": true
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["assets/fetch-patch.js"],
+      "resources": ["assets/fetchPatcherInjector.js"],
       "matches": ["http://*/*", "https://*/*"]
     }
   ]

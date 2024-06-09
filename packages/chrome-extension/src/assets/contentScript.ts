@@ -31,13 +31,16 @@ chrome.runtime.onMessage.addListener(function (request) {
     // only show the ones from the current tab
     tabId = request.data.tabId;
 
-    injectScript(chrome.runtime.getURL("assets/fetch-patch.js"), "body");
+    injectScript(
+      chrome.runtime.getURL("assets/fetchPatcherInjector.js"),
+      "body",
+    );
   }
 
   return true;
 });
 
-// This code passes along events from fetch-patch to the devtools panel
+// This code passes along events from fetchPatcherInjector to the devtools panel
 window.addEventListener(
   "message",
   function (event) {
