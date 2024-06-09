@@ -6,12 +6,12 @@ import React, {
   useTransition,
 } from "react";
 import { TabList, Tab, TabPanel, useTabStore } from "@ariakit/react";
-import { RscChunkMessage } from "../types";
+import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../types";
 import { getColorForFetch } from "../color";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 export function useFlightResponseSelector(
-  messages: RscChunkMessage[],
+  events: RscEvent[],
   {
     follow,
   }: {
@@ -21,19 +21,17 @@ export function useFlightResponseSelector(
   const tabs = useMemo(() => {
     const tabs: string[] = [];
 
-    const sorted = messages.sort(
-      (a, b) => a.data.chunkStartTime - b.data.chunkStartTime,
-    );
+    const sorted = events.sort((a, b) => a.data.timestamp - b.data.timestamp);
 
     for (const message of sorted) {
-      if (tabs.find((tab) => tab === String(message.data.fetchStartTime))) {
+      if (tabs.find((tab) => tab === String(message.data.requestId))) {
         continue;
       }
-      tabs.push(String(message.data.fetchStartTime));
+      tabs.push(String(message.data.requestId));
     }
 
     return tabs;
-  }, [messages]);
+  }, [events]);
 
   const [isPending, startTransition] = useTransition();
   const [selectedTab, setSelectedTab] = useState<string | null | undefined>(
@@ -66,7 +64,7 @@ export function useFlightResponseSelector(
 
   return {
     tabs,
-    messages,
+    events,
     isPending,
     currentTab,
     tabStore,
@@ -77,7 +75,7 @@ export function FlightResponseSelector({
   isPending,
   tabStore,
   tabs,
-  messages,
+  events,
   currentTab,
   children,
 }: ReturnType<typeof useFlightResponseSelector> & { children: ReactNode }) {
@@ -86,12 +84,18 @@ export function FlightResponseSelector({
       <Panel id="sidebar" minSize={20} order={1} defaultSize={35}>
         <TabList store={tabStore} className="flex flex-col gap-1 pr-3">
           {tabs.map((tab) => {
-            const fetchMethod = messages.find(
-              (m) => String(m.data.fetchStartTime) === tab,
-            )?.data.fetchMethod;
-            const fetchUrl = messages.find(
-              (m) => String(m.data.fetchStartTime) === tab,
-            )?.data.fetchUrl as string;
+            const eventsForTab = events.filter(
+              (event) => event.data.requestId === tab,
+            );
+            const [requestEvent] = eventsForTab.filter(isRscRequestEvent);
+            const [responseEvent] = eventsForTab.filter(isRscResponseEvent);
+
+            if (!requestEvent) {
+              return null;
+            }
+
+            const { method, url } = requestEvent.data;
+            const { status } = responseEvent?.data ?? {};
 
             return (
               <Tab className="group w-full text-left" key={tab} id={tab}>
@@ -100,21 +104,20 @@ export function FlightResponseSelector({
                     className="size-[14px] min-h-[14px] min-w-[14px] rounded-full"
                     style={{
                       background: getColorForFetch(
-                        messages.find(
-                          (m) => String(m.data.fetchStartTime) === tab,
-                        )?.data.fetchStartTime ?? 0,
+                        events.find((event) => event.data.requestId === tab)
+                          ?.data.requestId ?? "0",
                       ),
                     }}
                   ></div>
                   <div>
-                    <span className="inline-block w-[5ch] text-slate-500 dark:text-slate-400">
-                      {fetchMethod}{" "}
+                    <span className="inline-block w-[10ch] text-slate-500 dark:text-slate-400">
+                      {method} ({status ?? "..."})
                     </span>
                     <span className="text-slate-900 dark:text-white">
-                      {new URL(fetchUrl).pathname}
+                      {new URL(url).pathname}
                     </span>
                     <span className="text-slate-500 dark:text-slate-400">
-                      {new URL(fetchUrl).search}
+                      {new URL(url).search}
                     </span>
                   </div>
                 </div>

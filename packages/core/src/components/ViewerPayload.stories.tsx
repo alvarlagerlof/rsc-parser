@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ViewerPayload } from "./ViewerPayload";
-import { RscChunkMessage } from "../types";
+import { RscEvent } from "../types";
 import { alvarDevExampleData } from "../example-data/alvar-dev";
 import { ghFredkissDevExampleData } from "../example-data/gh-fredkiss-dev";
 import { nextjsOrgExampleData } from "../example-data/nextjs-org";
@@ -14,12 +14,12 @@ const meta: Meta<typeof ViewerPayload> = {
 export default meta;
 type Story = StoryObj<typeof ViewerPayload>;
 
-function getUrls(messages: RscChunkMessage[]) {
-  return Array.from(new Set(messages.map((message) => message.data.fetchUrl)));
+function getUrls(events: RscEvent[]) {
+  return Array.from(new Set(events.map((message) => message.data.fetchUrl)));
 }
 
-function getPayloadByUrl(messages: RscChunkMessage[], url: string) {
-  return messages
+function getPayloadByUrl(events: RscEvent[], url: string) {
+  return events
     .filter((message) => message.data.fetchUrl === url)
     .map((message) =>
       new TextDecoder().decode(Uint8Array.from(message.data.chunkValue)),

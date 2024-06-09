@@ -1,4 +1,4 @@
-import { RscChunkMessage } from "./types";
+import { RscEvent } from "./types";
 
 function isRscResponse(response: Response): boolean {
   return response.headers.get("Content-Type") === "text/x-component";
@@ -76,9 +76,9 @@ function convertLocalUrlToAbsolute(url: string): string {
 }
 
 export function fetchPatcher({
-  onRscChunkMessage,
+  onRscEvent,
 }: {
-  onRscChunkMessage: (message: RscChunkMessage) => void;
+  onRscEvent: (event: RscEvent) => void;
 }) {
   // @ts-expect-error TODO: Fix type
   if (typeof window.originalFetch === "undefined") {
@@ -88,6 +88,20 @@ export function fetchPatcher({
 
   window.fetch = async (...args) => {
     const fetchStartTime = Date.now();
+    const requestId = String(fetchStartTime + Math.random()); // TODO: Use a better random number generator or uuid
+
+    onRscEvent({
+      type: "RSC_REQUEST",
+      data: {
+        requestId,
+        tabId: 0, // This may be overwritten extension code
+        timestamp: fetchStartTime,
+        // Server actions make POST requests to "", which is not a valid URL for new URL()
+        url: convertLocalUrlToAbsolute(getFetchUrl(args)),
+        method: getFetchMethod(args),
+        headers: getFetchHeaders(args),
+      },
+    });
 
     // @ts-expect-error TODO: Fix type
     const response: Response = await window.originalFetch(...args);
@@ -96,13 +110,16 @@ export function fetchPatcher({
       return response;
     }
 
-    const url = getFetchUrl(args);
-    const requestMethod = getFetchMethod(args);
-    const requestHeaders = getFetchHeaders(args);
-    const responseHeaders = headersInitToSerializableObject(response.headers);
-
-    console.log({ requestHeaders });
-    console.log({ responseHeaders });
+    onRscEvent({
+      type: "RSC_RESPONSE",
+      data: {
+        requestId,
+        tabId: 0, // This may be overwritten extension code
+        timestamp: Date.now(),
+        status: response.status,
+        headers: headersInitToSerializableObject(response.headers),
+      },
+    });
 
     const clonedResponse = response.clone();
     if (!clonedResponse.body) {
@@ -112,26 +129,18 @@ export function fetchPatcher({
     const reader = clonedResponse.body.getReader();
 
     while (true) {
-      const chunkStartTime = Date.now();
       const { value, done } = await reader.read();
       if (done) {
         break;
       }
-      const chunkEndTime = Date.now();
 
-      onRscChunkMessage({
+      onRscEvent({
         type: "RSC_CHUNK",
-        tabId: 0, // This may be overwritten extension code
         data: {
-          // Server actions make POST requests to "", which is not a valid URL for new URL()
-          fetchUrl: convertLocalUrlToAbsolute(url),
-          fetchMethod: requestMethod,
-          fetchRequestHeaders: requestHeaders,
-          fetchResponseHeaders: responseHeaders,
-          fetchStartTime,
+          requestId,
+          tabId: 0, // This may be overwritten extension code
+          timestamp: Date.now(),
           chunkValue: Array.from(value),
-          chunkStartTime,
-          chunkEndTime,
         },
       });
     }

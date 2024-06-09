@@ -48,7 +48,7 @@ export function ViewerPayload({ defaultPayload }: { defaultPayload: string }) {
 }
 
 export function Viewer({ payload }: { payload: string }) {
-  const messages = [
+  const events = [
     {
       type: "RSC_CHUNK",
       tabId: 0,
@@ -65,7 +65,7 @@ export function Viewer({ payload }: { payload: string }) {
     } satisfies RscChunkMessage,
   ];
 
-  const flightResponse = createFlightResponse(messages);
+  const flightResponse = createFlightResponse(events);
 
   return (
     <EndTimeContext.Provider value={Infinity}>

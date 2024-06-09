@@ -1,36 +1,45 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { TabList, Tab, TabPanel, TabProvider } from "@ariakit/react";
 import { createFlightResponse } from "../createFlightResponse";
-import { RscChunkMessage } from "../types";
+import {
+  RscEvent,
+  isRscChunkEvent,
+  isRscRequestEvent,
+  isRscResponseEvent,
+} from "../types";
 import { FlightResponse } from "./FlightResponse";
 import {
   FlightResponseSelector,
   useFlightResponseSelector,
 } from "./FlightResponseSelector";
 import { TimeScrubber, useTimeScrubber } from "./TimeScrubber";
-import { useFilterMessagesByEndTime } from "./TimeScrubber";
+import { useFilterEventsByEndTime } from "./TimeScrubber";
 import { EndTimeContext } from "./EndTimeContext";
 
-export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
-  const timeScrubber = useTimeScrubber(messages, {
+export function ViewerStreams({ events }: { events: RscEvent[] }) {
+  const timeScrubber = useTimeScrubber(events, {
     follow: true,
   });
 
-  const timeFilteredMessages = useFilterMessagesByEndTime(
-    messages,
+  const timeFilteredEvents = useFilterEventsByEndTime(
+    events,
     timeScrubber.endTime,
   );
-  const groupedMessages = useGroupedMessages(messages);
 
-  const pathTabs = useFlightResponseSelector(timeFilteredMessages, {
+  const pathTabs = useFlightResponseSelector(timeFilteredEvents, {
     follow: false,
   });
 
-  const messagesForCurrentTab = pathTabs.currentTab
-    ? groupedMessages.get(Number.parseInt(pathTabs.currentTab)) ?? []
-    : [];
+  const eventsForCurrentTab = timeFilteredEvents.filter(
+    (event) => event.data.requestId == pathTabs.currentTab,
+  );
 
-  const flightResponse = createFlightResponse(messagesForCurrentTab);
+  const flightResponse = createFlightResponse(
+    eventsForCurrentTab.filter(isRscChunkEvent),
+  );
+
+  const requestEvent = eventsForCurrentTab.filter(isRscRequestEvent)[0];
+  const responseEvent = eventsForCurrentTab.filter(isRscResponseEvent)[0];
 
   return (
     <div className="flex flex-col gap-4 dark:text-white">
@@ -67,26 +76,16 @@ export function ViewerStreams({ messages }: { messages: RscChunkMessage[] }) {
               <TabPanel tabId="headers" className="flex flex-col gap-4">
                 <section className="flex flex-col gap-1">
                   <p>Request headers</p>
-                  {messagesForCurrentTab[0] &&
-                  messagesForCurrentTab[0].data.fetchResponseHeaders ? (
-                    <HeadersTable
-                      headers={
-                        messagesForCurrentTab[0].data.fetchResponseHeaders
-                      }
-                    />
+                  {requestEvent ? (
+                    <HeadersTable headers={requestEvent.data.headers} />
                   ) : (
                     "No response headers"
                   )}
                 </section>
                 <section className="flex flex-col gap-1">
                   <p>Response headers</p>
-                  {messagesForCurrentTab[0] &&
-                  messagesForCurrentTab[0].data.fetchRequestHeaders ? (
-                    <HeadersTable
-                      headers={
-                        messagesForCurrentTab[0].data.fetchRequestHeaders
-                      }
-                    />
+                  {responseEvent ? (
+                    <HeadersTable headers={responseEvent.data.headers} />
                   ) : (
                     "No request headers"
                   )}
@@ -115,22 +114,4 @@ function HeadersTable({ headers }: { headers: Record<string, string> }) {
       </tbody>
     </table>
   );
-}
-
-export function useGroupedMessages(messages: RscChunkMessage[]) {
-  return useMemo(() => {
-    const groupedMessages = new Map<number, RscChunkMessage[]>();
-
-    for (const message of messages) {
-      if (groupedMessages.has(message.data.fetchStartTime)) {
-        groupedMessages.set(message.data.fetchStartTime, [
-          ...(groupedMessages.get(message.data.fetchStartTime) ?? []),
-          message,
-        ]);
-      } else {
-        groupedMessages.set(message.data.fetchStartTime, [message]);
-      }
-    }
-    return groupedMessages;
-  }, [messages]);
 }

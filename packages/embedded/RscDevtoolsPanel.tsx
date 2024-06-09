@@ -5,7 +5,7 @@ import styles from "@rsc-parser/core/style.css?inline";
 import {
   ViewerStreams,
   ViewerStreamsEmptyState,
-  RscChunkMessage,
+  RscEvent,
   BottomPanel,
   BottomPanelOpenButton,
   BottomPanelCloseButton,
@@ -50,8 +50,8 @@ export function RscDevtoolsPanel({
   const {
     isRecording,
     startRecording,
-    messages,
-    clearMessages,
+    events,
+    clearEvents,
     readNextScriptTags,
   } = useRscMessages();
 
@@ -79,13 +79,13 @@ export function RscDevtoolsPanel({
               <OverflowButton
                 menuItems={
                   <>
-                    <button onClick={() => clearMessages()}>
+                    <button onClick={() => clearEvents()}>
                       Clear messages
                     </button>
                     {process.env.NODE_ENV === "development" ? (
                       <button
                         onClick={() => {
-                          copyMessagesToClipBoard({ messages });
+                          copyMessagesToClipBoard({ events });
                         }}
                       >
                         Copy messages to clipboard
@@ -109,10 +109,10 @@ export function RscDevtoolsPanel({
             </>
           }
         >
-          {messages.length === 0 || !isRecording ? (
+          {events.length === 0 || !isRecording ? (
             <ViewerStreamsEmptyState />
           ) : (
-            <ViewerStreams messages={messages} />
+            <ViewerStreams events={events} />
           )}
         </PanelLayout>
       </BottomPanel>
@@ -160,7 +160,7 @@ function ApplyStylingOnClient({ children }: { children: ReactNode }) {
 }
 
 function useRscMessages() {
-  const [messages, setMessages] = useState<RscChunkMessage[]>([]);
+  const [events, setEvents] = useState<RscEvent[]>([]);
   const [isRecording, setIsRecording] = useState(false);
 
   useEffect(() => {
@@ -169,12 +169,12 @@ function useRscMessages() {
     }
 
     fetchPatcher({
-      onRscChunkMessage: (message) => {
+      onRscEvent: (event) => {
         if (
-          messages.some((item) =>
+          events.some((item) =>
             arraysEqual(
               item.data.chunkValue,
-              Array.from(message.data.chunkValue),
+              Array.from(event.data.chunkValue),
             ),
           )
         ) {
@@ -182,7 +182,7 @@ function useRscMessages() {
         }
 
         startTransition(() => {
-          setMessages((previous) => [...previous, message]);
+          setEvents((previous) => [...previous, event]);
         });
       },
     });
@@ -192,8 +192,8 @@ function useRscMessages() {
     setIsRecording(true);
   }, []);
 
-  const clearMessages = useCallback(() => {
-    setMessages([]);
+  const clearEvents = useCallback(() => {
+    setEvents([]);
   }, []);
 
   const readNextScriptTags = useCallback(() => {
@@ -201,24 +201,43 @@ function useRscMessages() {
       // @ts-expect-error This is a hack
       const payload = self.__next_f.map((f) => f?.[1]).join("");
 
+      const requestId = Date.now() + Math.random(); // TODO: Use a better random number generator or uuid
+
       const messages = [
         {
-          type: "RSC_CHUNK",
-          tabId: 0,
+          type: "RSC_REQUEST",
           data: {
-            fetchUrl: window.location.href,
-            fetchMethod: "GET",
-            fetchStartTime: 0,
-            chunkStartTime: 0,
-            chunkEndTime: 0,
+            requestId: requestId,
+            tabId: 0,
+            timestamp: Date.now(),
+            url: window.location.href,
+            method: "GET",
+            headers: {},
+          },
+        },
+        {
+          type: "RSC_RESPONSE",
+          data: {
+            requestId: requestId,
+            tabId: 0,
+            timestamp: Date.now(),
+            headers: {},
+          },
+        },
+        {
+          type: "RSC_CHUNK",
+          data: {
+            requestId: requestId,
+            tabId: 0,
+            timestamp: Date.now(),
             chunkValue: Array.from(new TextEncoder().encode(payload)),
           },
-        } satisfies RscChunkMessage,
-      ];
+        },
+      ] satisfies RscEvent[];
 
       setIsRecording(true);
       startTransition(() => {
-        setMessages(() => messages);
+        setEvents(() => messages);
       });
     } catch (error) {
       console.error(
@@ -232,8 +251,8 @@ function useRscMessages() {
   return {
     isRecording,
     startRecording,
-    messages,
-    clearMessages,
+    events,
+    clearEvents,
     readNextScriptTags,
   };
 }

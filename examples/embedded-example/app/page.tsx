@@ -7,6 +7,8 @@ export default function Home() {
       <Link href="/other">Go to other page</Link>
       <br />
       <Link href="/action">Go to action page</Link>
+      <br />
+      <Link href="/suspense">Go to suspense page</Link>
     </>
   );
 }

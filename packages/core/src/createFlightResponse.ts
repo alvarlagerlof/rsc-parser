@@ -1,4 +1,4 @@
-import { RscChunkMessage } from "./types";
+import { RscChunkEvent } from "./types";
 import {
   FlightResponse,
   createFromJSONCallback,
@@ -6,9 +6,7 @@ import {
 } from "./react/ReactFlightClient";
 import { createStringDecoder } from "./react/ReactFlightClientConfigBrowser";
 
-export function createFlightResponse(
-  messages: RscChunkMessage[],
-): FlightResponse {
+export function createFlightResponse(events: RscChunkEvent[]): FlightResponse {
   // @ts-expect-error TODO: fix this
   const response: FlightResponse = {
     _buffer: [],
@@ -16,18 +14,16 @@ export function createFlightResponse(
     _rowTag: 0,
     _rowLength: 0,
     _rowState: 0,
-    _currentStartTime: 0,
-    _currentEndTime: 0,
+    _currentTimestamp: 0,
     _stringDecoder: createStringDecoder(),
     _chunks: [] as FlightResponse["_chunks"],
   };
 
   response._fromJSON = createFromJSONCallback(response);
 
-  for (let i = 0; i < messages.length; i++) {
-    response._currentStartTime = messages[i].data.chunkStartTime;
-    response._currentEndTime = messages[i].data.chunkEndTime;
-    processBinaryChunk(response, Uint8Array.from(messages[i].data.chunkValue));
+  for (let i = 0; i < events.length; i++) {
+    response._currentTimestamp = events[i].data.timestamp;
+    processBinaryChunk(response, Uint8Array.from(events[i].data.chunkValue));
   }
 
   return response;
