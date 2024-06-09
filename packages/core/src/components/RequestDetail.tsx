@@ -7,6 +7,7 @@ import { RequestDetailTabParsedPayload } from "./RequestDetailTabParsedPayload";
 import { RequestDetailTabNetwork } from "./RequestDetailTabNetwork";
 import { RequestDetailTabHeaders } from "./RequestDetailTabHeaders";
 import { useTabStoreWithTransitions } from "./useTabStoreWithTransitions";
+import { RequestDetailTabTimings } from "./RequestDetailTabTimings";
 
 export function RequestDetail({ events }: { events: RscEvent[] }) {
   const { currentTab, isPending, tabStore } = useTabStoreWithTransitions({
@@ -42,6 +43,12 @@ export function RequestDetail({ events }: { events: RscEvent[] }) {
             Raw payload
           </Tab>
           <Tab
+            id="timings"
+            className="rounded-md bg-slate-200 px-2 py-0.5 aria-disabled:opacity-50 aria-selected:bg-slate-300 dark:bg-slate-700 dark:aria-selected:text-black"
+          >
+            Timings
+          </Tab>
+          <Tab
             id="network"
             className="text-nowrap rounded-md bg-slate-200 px-2 py-0.5 aria-disabled:opacity-50 aria-selected:bg-slate-300 dark:bg-slate-700 dark:aria-selected:text-black"
           >
@@ -66,6 +73,9 @@ export function RequestDetail({ events }: { events: RscEvent[] }) {
             ) : null}
             {currentTab === "rawPayload" ? (
               <RequestDetailTabRawPayload events={events} />
+            ) : null}
+            {currentTab === "timings" ? (
+              <RequestDetailTabTimings events={events} />
             ) : null}
             {currentTab === "network" ? (
               <RequestDetailTabNetwork events={events} />
