@@ -7,4 +7,4 @@
 "@rsc-parser/website": patch
 ---
 
-Make it possible the `BottomPanel` on the right
+Make it possible to position the `BottomPanel` on the right
