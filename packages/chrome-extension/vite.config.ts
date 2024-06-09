@@ -41,7 +41,7 @@ export default defineConfig(({ mode }) => {
         minify: false,
         rollupOptions: {
           input: {
-            main: resolve(__dirname, "index.html"),
+            main: resolve(__dirname, "devtoolsPanel.html"),
             fetchPatcherInjector: resolve(
               __dirname,
               "src/assets/fetchPatcherInjector.ts",
@@ -71,7 +71,7 @@ export default defineConfig(({ mode }) => {
       minify: false,
       rollupOptions: {
         input: {
-          main: resolve(__dirname, "index.html"),
+          main: resolve(__dirname, "devtoolsPanel.html"),
           fetchPatcherInjector: resolve(
             __dirname,
             "src/assets/fetchPatcherInjector.ts",

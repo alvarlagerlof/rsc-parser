@@ -6,7 +6,7 @@
     "extension_pages": "script-src 'self' http://localhost:6020; object-src 'self'"
   },
   "manifest_version": 3,
-  "devtools_page": "devtools-page.html",
+  "devtools_page": "devtoolsPage.html",
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
