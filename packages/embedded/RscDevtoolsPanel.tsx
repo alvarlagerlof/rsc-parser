@@ -12,10 +12,9 @@ import {
   BottomPanelPositionSwitchButton,
   Logo,
   RecordButton,
-  DebugCopyMessagesButton,
-  ClearMessagesButton,
   PanelLayout,
-  ReadNextScriptTagsButton,
+  OverflowButton,
+  copyMessagesToClipBoard,
 } from "@rsc-parser/core";
 import { fetchPatcher } from "@rsc-parser/core/fetchPatcher";
 import React, {
@@ -73,27 +72,41 @@ export function RscDevtoolsPanel({
                 isRecording={isRecording}
                 onClickRecord={startRecording}
               />
-              {process.env.NODE_ENV === "development" ? (
-                <DebugCopyMessagesButton messages={messages} />
-              ) : null}
-              {messages.length > 0 ? (
-                <ClearMessagesButton onClickClearMessages={clearMessages} />
-              ) : null}
-              <ReadNextScriptTagsButton
-                onClickRead={() => {
-                  readNextScriptTags();
-                }}
-              />
             </>
           }
-          positionSwitchButton={
-            <BottomPanelPositionSwitchButton
-              currentPosition={currentPosition}
-              setCurrentPosition={setCurrentPosition}
-            />
-          }
-          closeButton={
-            <BottomPanelCloseButton onClickClose={() => setIsOpen(false)} />
+          buttons={
+            <>
+              <OverflowButton
+                menuItems={
+                  <>
+                    <button onClick={() => clearMessages()}>
+                      Clear messages
+                    </button>
+                    {process.env.NODE_ENV === "development" ? (
+                      <button
+                        onClick={() => {
+                          copyMessagesToClipBoard({ messages });
+                        }}
+                      >
+                        Copy messages to clipboard
+                      </button>
+                    ) : null}
+                    <button
+                      onClick={() => {
+                        readNextScriptTags();
+                      }}
+                    >
+                      Read Next.js script tag payload
+                    </button>
+                  </>
+                }
+              />
+              <BottomPanelPositionSwitchButton
+                currentPosition={currentPosition}
+                setCurrentPosition={setCurrentPosition}
+              />
+              <BottomPanelCloseButton onClickClose={() => setIsOpen(false)} />
+            </>
           }
         >
           {messages.length === 0 || !isRecording ? (

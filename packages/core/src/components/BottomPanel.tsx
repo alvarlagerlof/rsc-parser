@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { Logo } from "./Logo";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { IconButton } from "./IconButton";
 
 export function BottomPanel({
   openButton,
@@ -53,11 +54,8 @@ export function BottomPanelCloseButton({
   onClickClose: () => void;
 }) {
   return (
-    <button
-      className="rounded-full bg-slate-300 p-1 text-black  dark:bg-slate-700 dark:text-white"
-      onClick={onClickClose}
-    >
-      <svg version="1.1" viewBox="0 0 24 24" className="size-6">
+    <IconButton onClick={onClickClose}>
+      <svg version="1.1" viewBox="0 0 24 24" className="size-full">
         <title>Close</title>
         <path
           d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18"
@@ -67,7 +65,7 @@ export function BottomPanelCloseButton({
           strokeLinejoin="round"
         />
       </svg>
-    </button>
+    </IconButton>
   );
 }
 
@@ -94,11 +92,10 @@ export function BottomPanelPositionSwitchButton({
   setCurrentPosition: (position: "bottom" | "right") => void;
 }) {
   return (
-    <button
+    <IconButton
       onClick={() => {
         setCurrentPosition(currentPosition === "bottom" ? "right" : "bottom");
       }}
-      className="rounded-full bg-slate-300 p-1 dark:bg-slate-700 dark:text-white"
     >
       {currentPosition === "bottom" ? (
         <svg
@@ -107,7 +104,7 @@ export function BottomPanelPositionSwitchButton({
           height="800px"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="size-6"
+          className="size-full"
         >
           <title>
             {currentPosition === "bottom"
@@ -123,12 +120,12 @@ export function BottomPanelPositionSwitchButton({
           height="800px"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="size-6"
+          className="size-full"
         >
           <path fill="none" d="M5 16h14.002v3H5zM5 5h14v9H5z" />
           <path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm0 2 .001 9H5V5h14zM5 19v-3h14.002v3H5z" />
         </svg>
       )}
-    </button>
+    </IconButton>
   );
 }

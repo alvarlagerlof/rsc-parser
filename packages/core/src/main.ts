@@ -7,9 +7,8 @@ import { ViewerStreams } from "./components/ViewerStreams";
 import { ViewerStreamsEmptyState } from "./components/ViewerStreamsEmptyState";
 import { Logo } from "./components/Logo";
 import { RecordButton } from "./components/RecordButton";
-import { DebugCopyMessagesButton } from "./components/DebugCopyMessagesButton";
-import { ClearMessagesButton } from "./components/ClearMessagesButton";
-import { ReadNextScriptTagsButton } from "./components/ReadNextScriptTagsButton";
+import { copyMessagesToClipBoard } from "./copyMessagesToClipBoard";
+import { OverflowButton } from "./components/OverflowButton";
 import { PanelLayout } from "./components/PanelLayout";
 import {
   BottomPanel,
@@ -27,9 +26,8 @@ export {
   ViewerStreamsEmptyState,
   Logo,
   RecordButton,
-  DebugCopyMessagesButton,
-  ClearMessagesButton,
-  ReadNextScriptTagsButton,
+  copyMessagesToClipBoard,
+  OverflowButton,
   PanelLayout,
   BottomPanel,
   BottomPanelOpenButton,

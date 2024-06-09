@@ -13,8 +13,7 @@ export const small: Story = {
   name: "small",
   args: {
     header: "Header",
-    positionSwitchButton: "Position switch button",
-    closeButton: "Close button",
+    buttons: "Buttons go here",
     children: "Content",
   },
 };

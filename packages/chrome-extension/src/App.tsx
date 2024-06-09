@@ -13,14 +13,18 @@ import {
   PanelLayout,
   Logo,
   RecordButton,
-  DebugCopyMessagesButton,
-  ClearMessagesButton,
+  copyMessagesToClipBoard,
 } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
 export function App() {
-  const { isRecording, startRecording, messages, clearMessages } =
-    useRscMessages();
+  const {
+    isRecording,
+    startRecording,
+    messages,
+    clearMessages,
+    readNextScriptTags,
+  } = useRscMessages();
 
   return (
     <PanelLayout
@@ -31,12 +35,27 @@ export function App() {
             isRecording={isRecording}
             onClickRecord={startRecording}
           />
+        </>
+      }
+      buttons={
+        <>
+          <button onClick={() => clearMessages()}>Clear messages</button>
           {process.env.NODE_ENV === "development" ? (
-            <DebugCopyMessagesButton messages={messages} />
+            <button
+              onClick={() => {
+                copyMessagesToClipBoard({ messages });
+              }}
+            >
+              Copy messages to clipboard
+            </button>
           ) : null}
-          {messages.length > 0 ? (
-            <ClearMessagesButton onClickClearMessages={clearMessages} />
-          ) : null}
+          <button
+            onClick={() => {
+              readNextScriptTags();
+            }}
+          >
+            Read Next.js script tag payload
+          </button>
         </>
       }
     >
@@ -116,11 +135,45 @@ function useRscMessages() {
     setMessages([]);
   }, []);
 
+  const readNextScriptTags = useCallback(() => {
+    try {
+      // @ts-expect-error This is a hack
+      const payload = self.__next_f.map((f) => f?.[1]).join("");
+
+      const messages = [
+        {
+          type: "RSC_CHUNK",
+          tabId: 0,
+          data: {
+            fetchUrl: window.location.href,
+            fetchMethod: "GET",
+            fetchStartTime: 0,
+            chunkStartTime: 0,
+            chunkEndTime: 0,
+            chunkValue: Array.from(new TextEncoder().encode(payload)),
+          },
+        } satisfies RscChunkMessage,
+      ];
+
+      setIsRecording(true);
+      startTransition(() => {
+        setMessages(() => messages);
+      });
+    } catch (error) {
+      console.error(
+        new Error("Error parsing Next.js payload", {
+          cause: error,
+        }),
+      );
+    }
+  }, []);
+
   return {
     isRecording,
     startRecording,
     messages,
     clearMessages,
+    readNextScriptTags,
   };
 }
 
