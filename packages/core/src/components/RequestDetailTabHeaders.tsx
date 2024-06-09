@@ -1,8 +1,14 @@
+import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
 import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../events";
+import { useEndTime } from "./EndTimeContext";
 
 export function RequestDetailTabHeaders({ events }: { events: RscEvent[] }) {
-  const requestEvent = events.filter(isRscRequestEvent)[0];
-  const responseEvent = events.filter(isRscResponseEvent)[0];
+  const { endTime } = useEndTime();
+
+  const timeFilteredEvents = eventsFilterByMaxTimestamp(events, endTime);
+
+  const requestEvent = timeFilteredEvents.filter(isRscRequestEvent)[0];
+  const responseEvent = timeFilteredEvents.filter(isRscResponseEvent)[0];
 
   return (
     <div className="flex flex-col gap-4">
