@@ -13,8 +13,7 @@ import {
   PanelLayout,
   Logo,
   RecordButton,
-  DebugCopyMessagesButton,
-  ClearMessagesButton,
+  copyMessagesToClipBoard,
 } from "@rsc-parser/core";
 import "@rsc-parser/core/style.css";
 
@@ -31,11 +30,19 @@ export function App() {
             isRecording={isRecording}
             onClickRecord={startRecording}
           />
+        </>
+      }
+      buttons={
+        <>
+          <button onClick={() => clearMessages()}>Clear messages</button>
           {process.env.NODE_ENV === "development" ? (
-            <DebugCopyMessagesButton messages={messages} />
-          ) : null}
-          {messages.length > 0 ? (
-            <ClearMessagesButton onClickClearMessages={clearMessages} />
+            <button
+              onClick={() => {
+                copyMessagesToClipBoard({ messages });
+              }}
+            >
+              Copy messages to clipboard
+            </button>
           ) : null}
         </>
       }
