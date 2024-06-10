@@ -1,5 +1,6 @@
 import {
   Chunk,
+  Reference,
   createFlightResponse,
   isReference,
   processBinaryChunk,
@@ -19,6 +20,7 @@ interface Node extends d3.SimulationNodeDatum {
 interface Link extends d3.SimulationLinkDatum<Node> {
   source: string;
   target: string;
+  text: string;
 }
 
 export type Data = {
@@ -34,11 +36,11 @@ function findReferencesInChunk(chunk: Chunk) {
     return [];
   }
 
-  const references: string[] = [];
+  const references: Reference[] = [];
 
   function walk(data: unknown) {
     if (isReference(data)) {
-      references.push(data.id);
+      references.push(data);
       return;
     }
 
@@ -76,12 +78,19 @@ function getLinks(chunks: Chunk[], id: string) {
 
     const references = findReferencesInChunk(chunk);
     for (const reference of references) {
+      // Get the time between the source and target
+      const sourceChunk = getChunkById(chunks, id);
+      const targetChunk = getChunkById(chunks, reference.id);
+
+      const timeDiff = getTimeDifferenceBetweenChunks(sourceChunk, targetChunk);
+
       links.push({
         source: id,
-        target: reference,
+        target: reference.id,
+        text: timeDiff ? `${reference.type} ${timeDiff}ms` : reference.type,
       });
 
-      walk(reference);
+      walk(reference.id);
     }
   }
 
@@ -91,6 +100,16 @@ function getLinks(chunks: Chunk[], id: string) {
   return links.filter((link) =>
     chunks.find((chunk) => chunk.id === link.target),
   );
+}
+
+function getTimeDifferenceBetweenChunks(
+  chunk1: Chunk | undefined,
+  chunk2: Chunk | undefined,
+) {
+  if (!chunk1 || !chunk2) {
+    return 0;
+  }
+  return chunk2.timestamp - chunk1.timestamp;
 }
 
 export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
@@ -202,21 +221,42 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
         className="size-full select-none rounded bg-slate-200 text-slate-400 dark:bg-slate-800 dark:text-slate-600"
       >
         <g cursor="grab" ref={svgGroupRef}>
-          {linksState.map((link) => (
-            <line
-              // @ts-expect-error - d3 types are wrong
-              key={`link-${link.index}-${link.source.chunk.id}-${link.target.chunk.id}`}
-              // @ts-expect-error - d3 types are wrong
-              x1={link.source.x}
-              // @ts-expect-error - d3 types are wrong
-              y1={link.source.y}
-              // @ts-expect-error - d3 types are wrong
-              x2={link.target.x}
-              // @ts-expect-error - d3 types are wrong
-              y2={link.target.y}
-              stroke="currentColor"
-            />
-          ))}
+          {linksState.map((link) => {
+            // @ts-expect-error - d3 types are wrong
+            const midX = (link.source.x + link.target.x) / 2;
+            // @ts-expect-error - d3 types are wrong
+            const midY = (link.source.y + link.target.y) / 2;
+
+            return (
+              <>
+                <line
+                  // @ts-expect-error - d3 types are wrong
+                  key={`link-${link.index}-${link.source.chunk.id}-${link.target.chunk.id}`}
+                  // @ts-expect-error - d3 types are wrong
+                  x1={link.source.x}
+                  // @ts-expect-error - d3 types are wrong
+                  y1={link.source.y}
+                  // @ts-expect-error - d3 types are wrong
+                  x2={link.target.x}
+                  // @ts-expect-error - d3 types are wrong
+                  y2={link.target.y}
+                  stroke="currentColor"
+                />
+                <text
+                  // @ts-expect-error - d3 types are wrong
+                  key={`text-${link.index}-${link.source.chunk.id}-${link.target.chunk.id}`}
+                  x={midX}
+                  y={midY}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="white"
+                  fontSize="12"
+                >
+                  {link.text}
+                </text>
+              </>
+            );
+          })}
           {nodesState.map((node) => (
             <foreignObject
               key={`node-${node.chunk.id}`}
