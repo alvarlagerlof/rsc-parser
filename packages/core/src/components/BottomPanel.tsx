@@ -25,7 +25,7 @@ export function BottomPanel({
         // eslint-disable-next-line tailwindcss/classnames-order
         className={`fixed left-0 top-0 size-full z-[1000] ${isDragging ? "" : "pointer-events-none"}`}
       >
-        <Panel order={1} defaultSize={70} />
+        <Panel order={1} defaultSize={55} />
         <PanelResizeHandle
           className={`pointer-events-auto bg-slate-300 dark:bg-slate-700 ${position === "bottom" ? "h-3 w-full" : "h-full w-3"}`}
           onDragging={(isDragging) => {
