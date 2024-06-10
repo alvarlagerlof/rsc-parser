@@ -65,7 +65,7 @@ function Table({
               key={key}
               className="block border-y border-slate-300 py-1 first:border-t-0 last:border-b-0 dark:border-slate-600"
             >
-              <td className="min-w-52 border-slate-500">{key}</td>
+              <td className="min-w-32 border-slate-500">{key}</td>
               <td className="whitespace-pre-wrap break-all">{value}</td>
             </tr>
           ))}
