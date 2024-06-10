@@ -97,16 +97,16 @@ function RequestTab({ events }: { events: RscEvent[] }) {
   const { status } = responseEvent?.data ?? {};
 
   return (
-    <div className="flex w-full flex-row items-center gap-2 rounded-md border-none px-1.5 py-0.5 text-left group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
+    <div className="flex w-full flex-row items-center gap-2 rounded-md border-none px-1.5 py-1 text-left group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
       <div
-        className="size-[14px] min-h-[14px] min-w-[14px] rounded-full"
+        className="h-5 min-h-5 w-1 min-w-1 rounded-md"
         style={{
           background: getColorForFetch(events[0].data.requestId),
         }}
       ></div>
-      <div className="flex flex-col gap-0.5">
-        <span className="inline-block w-[10ch] text-slate-500 dark:text-slate-400">
-          {method} ({status ?? "..."})
+      <div className="flex flex-row gap-1">
+        <span className="inline-block min-w-[4ch] font-medium text-slate-500 dark:text-slate-400">
+          {method} {status !== 200 && status !== undefined ? `(${status})` : ""}
         </span>
         <div>
           <span className="text-slate-900 dark:text-white">
