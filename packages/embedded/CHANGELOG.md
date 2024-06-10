@@ -1,5 +1,17 @@
 # @rsc-parser/embedded
 
+## 0.6.0
+
+### Minor Changes
+
+- 3f5a1c5: Make the "Headers" tab table column 1 min-size smaller, and make the `BottomPanel` default size larger
+- 22cbbbf: Redesign `RequestTab` again
+- f8836e5: Make request tab multiline by default
+
+### Patch Changes
+
+- 0002b9a: Add flex wrapping to the tabs in `RequestDetail`
+
 ## 0.5.1
 
 ### Patch Changes
