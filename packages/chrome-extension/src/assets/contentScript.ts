@@ -54,7 +54,6 @@ window.addEventListener(
     }
 
     if (isRscEvent(event.data)) {
-      console.log("rsc event", event.data, tabId);
       const baseEvent = event.data;
       baseEvent.data.tabId = tabId;
 
