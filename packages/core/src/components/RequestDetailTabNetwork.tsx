@@ -242,18 +242,18 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
                   y2={link.target.y}
                   stroke="currentColor"
                 />
-                <text
+                <foreignObject
                   // @ts-expect-error - d3 types are wrong
                   key={`text-${link.index}-${link.source.chunk.id}-${link.target.chunk.id}`}
-                  x={midX}
-                  y={midY}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill="white"
-                  fontSize="12"
+                  x={midX - WIDTH / 2}
+                  y={midY - HEIGHT / 4}
+                  width={WIDTH}
+                  height={HEIGHT / 2}
                 >
-                  {link.text}
-                </text>
+                  <p className="text-center text-black dark:text-white">
+                    {link.text}
+                  </p>
+                </foreignObject>
               </>
             );
           })}
