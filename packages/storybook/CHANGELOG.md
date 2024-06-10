@@ -1,5 +1,12 @@
 # @rsc-parser/storybook
 
+## 0.5.1
+
+### Patch Changes
+
+- 1c0b883: Fix `contentScript.ts` bundling to avoid ESM imports
+- d3228c2: Remove debug console.log statements
+
 ## 0.5.0
 
 ### Minor Changes
