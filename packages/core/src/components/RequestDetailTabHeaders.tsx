@@ -42,7 +42,7 @@ export function RequestDetailTabHeaders({ events }: { events: RscEvent[] }) {
       {responseEvent ? (
         <Table header="Response Headers" data={responseEvent.data.headers} />
       ) : (
-        "No request headers"
+        "No response headers"
       )}
     </div>
   );
