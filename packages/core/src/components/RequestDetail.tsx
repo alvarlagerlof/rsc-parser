@@ -18,7 +18,10 @@ export function RequestDetail({ events }: { events: RscEvent[] }) {
   return (
     <TabProvider store={tabStore}>
       <div className="flex w-full flex-col gap-4">
-        <TabList aria-label="Render modes" className="flex flex-row gap-2">
+        <TabList
+          aria-label="Render modes"
+          className="flex flex-row flex-wrap gap-2"
+        >
           <Tab
             id="headers"
             className="rounded-md bg-slate-200 px-2 py-0.5 aria-disabled:opacity-50 aria-selected:bg-slate-300 dark:bg-slate-700 dark:aria-selected:text-black"
