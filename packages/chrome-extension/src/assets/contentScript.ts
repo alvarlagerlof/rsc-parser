@@ -1,8 +1,54 @@
-import { RscEvent, isRscEvent } from "@rsc-parser/core/events";
 import {
-  StopRecordingEvent,
-  isStartRecordingEvent,
+  type RscEvent,
+  type StopRecordingEvent,
 } from "@rsc-parser/core/events";
+// import { RscEvent, isRscEvent } from "@rsc-parser/core/events";
+// import {
+//   StopRecordingEvent,
+//   isStartRecordingEvent,
+// } from "@rsc-parser/core/events";
+
+// TODO: Find a way that these can be imported that makes them bundled
+// into the output file without using ESM imports
+function isStartRecordingEvent(event: unknown) {
+  return (
+    typeof event === "object" &&
+    event !== null &&
+    "type" in event &&
+    event.type === "START_RECORDING"
+  );
+}
+function isRscRequestEvent(event: unknown) {
+  return (
+    typeof event === "object" &&
+    event !== null &&
+    "type" in event &&
+    event.type === "RSC_REQUEST"
+  );
+}
+function isRscResponseEvent(event: unknown) {
+  return (
+    typeof event === "object" &&
+    event !== null &&
+    "type" in event &&
+    event.type === "RSC_RESPONSE"
+  );
+}
+function isRscChunkEvent(event: unknown) {
+  return (
+    typeof event === "object" &&
+    event !== null &&
+    "type" in event &&
+    event.type === "RSC_CHUNK"
+  );
+}
+function isRscEvent(event: unknown) {
+  return (
+    isRscRequestEvent(event) ||
+    isRscResponseEvent(event) ||
+    isRscChunkEvent(event)
+  );
+}
 
 /**
  * injectScript - Inject internal script to available access to the `window`
