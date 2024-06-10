@@ -32,7 +32,7 @@ export function BottomPanel({
             setIsDragging(isDragging);
           }}
         />
-        <Panel order={2} maxSize={75} minSize={20} defaultSize={30}>
+        <Panel order={2} maxSize={75} minSize={20} defaultSize={45}>
           <div className="pointer-events-auto size-full overflow-y-auto bg-slate-100 scrollbar-gutter-stable dark:bg-slate-900">
             {children}
           </div>
