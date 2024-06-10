@@ -46,6 +46,12 @@ export function RequestDetail({ events }: { events: RscEvent[] }) {
           <Tab
             id="timings"
             className="rounded-md bg-slate-200 px-2 py-0.5 aria-disabled:opacity-50 aria-selected:bg-slate-300 dark:bg-slate-700 dark:aria-selected:text-black"
+            disabled={
+              !events.some(
+                (event) =>
+                  isRscRequestEvent(event) || isRscResponseEvent(event),
+              )
+            }
           >
             Timings
           </Tab>
