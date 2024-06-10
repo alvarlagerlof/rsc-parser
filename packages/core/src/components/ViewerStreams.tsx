@@ -45,7 +45,7 @@ function Requests({ events }: { events: RscEvent[] }) {
   return (
     <PanelGroup direction="horizontal">
       <Panel id="sidebar" minSize={20} order={1} defaultSize={35}>
-        <TabList store={tabStore} className="flex flex-col gap-1 pr-3">
+        <TabList store={tabStore} className="flex flex-col gap-2 pr-3">
           {tabs.map((tab) => {
             return (
               <Tab key={tab} id={tab} store={tabStore} className="group">
@@ -97,23 +97,25 @@ function RequestTab({ events }: { events: RscEvent[] }) {
   const { status } = responseEvent?.data ?? {};
 
   return (
-    <div className="flex w-full flex-row items-center gap-3 rounded-md border-none px-1.5 py-0.5 text-left group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
+    <div className="flex w-full flex-row items-center gap-2 rounded-md border-none px-1.5 py-0.5 text-left group-aria-selected:bg-slate-200 dark:group-aria-selected:bg-slate-700">
       <div
         className="size-[14px] min-h-[14px] min-w-[14px] rounded-full"
         style={{
           background: getColorForFetch(events[0].data.requestId),
         }}
       ></div>
-      <div>
+      <div className="flex flex-col gap-0.5">
         <span className="inline-block w-[10ch] text-slate-500 dark:text-slate-400">
           {method} ({status ?? "..."})
         </span>
-        <span className="text-slate-900 dark:text-white">
-          {new URL(url).pathname}
-        </span>
-        <span className="text-slate-500 dark:text-slate-400">
-          {new URL(url).search}
-        </span>
+        <div>
+          <span className="text-slate-900 dark:text-white">
+            {new URL(url).pathname}
+          </span>
+          <span className="text-slate-500 dark:text-slate-400">
+            {new URL(url).search}
+          </span>
+        </div>
       </div>
     </div>
   );
