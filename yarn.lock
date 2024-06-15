@@ -3874,7 +3874,7 @@ __metadata:
     react-error-boundary: "npm:4.0.13"
     type-fest: "npm:4.20.0"
     typescript: "npm:5.4.5"
-    vite: "npm:5.2.13"
+    vite: "npm:5.3.1"
     vite-plugin-html-config: "npm:1.0.11"
     web-vitals: "npm:4.1.1"
   languageName: unknown
@@ -3914,7 +3914,7 @@ __metadata:
     ts-jest: "npm:29.1.4"
     typescript: "npm:5.4.5"
     typescript-eslint: "npm:7.13.0"
-    vite: "npm:5.2.13"
+    vite: "npm:5.3.1"
     vite-plugin-dts: "npm:3.9.1"
   peerDependencies:
     react: 18.3.1
@@ -3956,7 +3956,7 @@ __metadata:
     eslint: "npm:9.5.0"
     rollup-plugin-preserve-directives: "npm:0.4.0"
     typescript: "npm:5.4.5"
-    vite: "npm:5.2.13"
+    vite: "npm:5.3.1"
     vite-plugin-dts: "npm:3.9.1"
   peerDependencies:
     react: 18.3.1
@@ -3978,7 +3978,7 @@ __metadata:
     prettier: "npm:3.3.2"
     typescript: "npm:5.4.5"
     typescript-eslint: "npm:7.13.0"
-    vite: "npm:5.2.13"
+    vite: "npm:5.3.1"
     vite-plugin-dts: "npm:3.9.1"
   languageName: unknown
   linkType: soft
@@ -9330,7 +9330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.21.5":
+"esbuild@npm:0.21.5, esbuild@npm:^0.21.3":
   version: 0.21.5
   resolution: "esbuild@npm:0.21.5"
   dependencies:
@@ -9487,7 +9487,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.18.0 || ^0.19.0 || ^0.20.0, esbuild@npm:^0.20.1":
+"esbuild@npm:^0.18.0 || ^0.19.0 || ^0.20.0":
   version: 0.20.2
   resolution: "esbuild@npm:0.20.2"
   dependencies:
@@ -16946,11 +16946,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:5.2.13":
-  version: 5.2.13
-  resolution: "vite@npm:5.2.13"
+"vite@npm:5.3.1":
+  version: 5.3.1
+  resolution: "vite@npm:5.3.1"
   dependencies:
-    esbuild: "npm:^0.20.1"
+    esbuild: "npm:^0.21.3"
     fsevents: "npm:~2.3.3"
     postcss: "npm:^8.4.38"
     rollup: "npm:^4.13.0"
@@ -16982,7 +16982,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/eee65eebff8c839935fdf1a6f2bbc90b923d53a447cc0949abea71577166e7ad7ceb41f3ea42c79a54997319eacfa45445509da371a8ba0699fce8f7de137882
+  checksum: 10/180ca1795389f1ebc0b09f2ce61846943d34df597c4719e68d1d5ecba3e6cbd5b3313a4a321119b18290de3ef543df433659ba8b678de84df152e0386342697f
   languageName: node
   linkType: hard
 
