@@ -12395,9 +12395,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.19.0":
-  version: 5.19.0
-  resolution: "knip@npm:5.19.0"
+"knip@npm:5.20.0":
+  version: 5.20.0
+  resolution: "knip@npm:5.20.0"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.3"
     "@nodelib/fs.walk": "npm:2.0.0"
@@ -12415,6 +12415,7 @@ __metadata:
     smol-toml: "npm:^1.1.4"
     strip-json-comments: "npm:5.0.1"
     summary: "npm:2.1.0"
+    tsconfig-paths: "npm:^4.2.0"
     zod: "npm:^3.22.4"
     zod-validation-error: "npm:^3.0.3"
   peerDependencies:
@@ -12423,7 +12424,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/01cfb0aa6548e0de70617463d2803f35f79e9b36afde91e814cde1cee1baa15cd9b30c46a2a6867b3b2bdfa3e12348b7ad414f367febbcf88c515dca69b25062
+  checksum: 10/d71420deac8b3cfdf8c93c24ec34c2772ee318466c0668e00b3b3e193a36c8545fa0c997b140f28f102cb4a2bf4a7b4f72b393034e42876843e5867a950ba076
   languageName: node
   linkType: hard
 
@@ -15029,7 +15030,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.5"
-    knip: "npm:5.19.0"
+    knip: "npm:5.20.0"
     prettier: "npm:3.3.2"
     turbo: "npm:2.0.4"
   languageName: unknown
