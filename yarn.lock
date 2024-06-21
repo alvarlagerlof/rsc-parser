@@ -3929,7 +3929,7 @@ __metadata:
     "@eslint/eslintrc": "npm:3.1.0"
     "@eslint/js": "npm:9.5.0"
     "@rsc-parser/embedded": "workspace:^"
-    "@types/node": "npm:20.14.2"
+    "@types/node": "npm:20.14.7"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
     autoprefixer: "npm:10.4.19"
@@ -4016,7 +4016,7 @@ __metadata:
     "@rsc-parser/core": "workspace:*"
     "@types/eslint__eslintrc": "npm:2.1.1"
     "@types/eslint__js": "npm:8.42.3"
-    "@types/node": "npm:20.14.2"
+    "@types/node": "npm:20.14.7"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
     autoprefixer: "npm:10.4.19"
@@ -6023,12 +6023,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.14.2":
+"@types/node@npm:*":
   version: 20.14.2
   resolution: "@types/node@npm:20.14.2"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10/c38e47b190fa0a8bdfde24b036dddcf9401551f2fb170a90ff33625c7d6f218907e81c74e0fa6e394804a32623c24c60c50e249badc951007830f0d02c48ee0f
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.14.7":
+  version: 20.14.7
+  resolution: "@types/node@npm:20.14.7"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/f2cb458126a136719d9da6febdbc7afc9bb622047a30c5e6163db4206ff8c8002ec56b340d722fe1ad6280ebe7a505e0a5a10a39a3b5718837200201b94d5d07
   languageName: node
   linkType: hard
 
