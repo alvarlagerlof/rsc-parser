@@ -10085,7 +10085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-entry-cache@npm:8.0.0, file-entry-cache@npm:^8.0.0":
+"file-entry-cache@npm:^8.0.0":
   version: 8.0.0
   resolution: "file-entry-cache@npm:8.0.0"
   dependencies:
@@ -12373,16 +12373,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.20.0":
-  version: 5.20.0
-  resolution: "knip@npm:5.20.0"
+"knip@npm:5.22.2":
+  version: 5.22.2
+  resolution: "knip@npm:5.22.2"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.3"
     "@nodelib/fs.walk": "npm:2.0.0"
     "@snyk/github-codeowners": "npm:1.1.0"
     easy-table: "npm:1.2.0"
     fast-glob: "npm:^3.3.2"
-    file-entry-cache: "npm:8.0.0"
     jiti: "npm:^1.21.0"
     js-yaml: "npm:^4.1.0"
     minimist: "npm:^1.2.8"
@@ -12402,7 +12401,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/d71420deac8b3cfdf8c93c24ec34c2772ee318466c0668e00b3b3e193a36c8545fa0c997b140f28f102cb4a2bf4a7b4f72b393034e42876843e5867a950ba076
+  checksum: 10/ae2c9e2e6bf0e9db8130a71c468fc930c7b4f04eaacfa230831bf58772a0e244ddb56763b8bab7c2a6daf05594aded0cf6e2f3bea8b7165ee09bbcbc9b52c752
   languageName: node
   linkType: hard
 
@@ -14999,7 +14998,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.5"
-    knip: "npm:5.20.0"
+    knip: "npm:5.22.2"
     prettier: "npm:3.3.2"
     turbo: "npm:2.0.4"
   languageName: unknown
