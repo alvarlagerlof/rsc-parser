@@ -12460,7 +12460,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jiti@npm:^1.20.0, jiti@npm:^1.21.0":
+"jiti@npm:^1.20.0, jiti@npm:^1.21.0, jiti@npm:^1.21.6":
   version: 1.21.6
   resolution: "jiti@npm:1.21.6"
   bin:
@@ -12713,16 +12713,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.23.2":
-  version: 5.23.2
-  resolution: "knip@npm:5.23.2"
+"knip@npm:5.24.1":
+  version: 5.24.1
+  resolution: "knip@npm:5.24.1"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.3"
     "@nodelib/fs.walk": "npm:2.0.0"
     "@snyk/github-codeowners": "npm:1.1.0"
     easy-table: "npm:1.2.0"
     fast-glob: "npm:^3.3.2"
-    jiti: "npm:^1.21.0"
+    jiti: "npm:^1.21.6"
     js-yaml: "npm:^4.1.0"
     minimist: "npm:^1.2.8"
     picocolors: "npm:^1.0.0"
@@ -12741,7 +12741,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/6bbc1555958ce2100a863693f16849f052f07277204d4cee80f65c3eda660aae797bd5a724a2a66339e593fe82b02016db394daa0132b2e2c67f9b38b5d5b6ee
+  checksum: 10/9a50e874d28d5c34a78a3cfb44fa0dce977a3cde284284b1366f0cc5d665e2dc23f65805e13efd303cb80a2360cf4ccf66abbabfa7791acd4f3c12677d252c1e
   languageName: node
   linkType: hard
 
@@ -15330,7 +15330,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.7"
-    knip: "npm:5.23.2"
+    knip: "npm:5.24.1"
     prettier: "npm:3.3.2"
     turbo: "npm:2.0.6"
   languageName: unknown
