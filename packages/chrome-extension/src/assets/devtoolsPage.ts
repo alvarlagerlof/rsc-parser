@@ -7,9 +7,9 @@ function handleHidden() {
 }
 
 chrome.devtools.panels.create(
-  "RSC Devtools",
-  "",
-  "./devtoolsPanel.html",
+  'RSC Devtools',
+  '',
+  './devtoolsPanel.html',
   function (panel) {
     // console.log("Hello! from panel create");
     panel.onShown.addListener(handleShown);

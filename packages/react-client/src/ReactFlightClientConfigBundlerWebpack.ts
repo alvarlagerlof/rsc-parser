@@ -6,6 +6,6 @@
  *
  */
 
-import { ImportMetadata } from "./ReactFlightImportMetadata";
+import { ImportMetadata } from './ReactFlightImportMetadata';
 
 export type ClientReferenceMetadata = ImportMetadata;

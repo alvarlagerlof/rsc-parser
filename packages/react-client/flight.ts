@@ -6,6 +6,6 @@
  *
  */
 
-export * from "./src/ReactFlightClient";
+export * from './src/ReactFlightClient';
 // ReactSymbols technically comes from another package in the React source.
-export * from "./src/ReactSymbols";
+export * from './src/ReactSymbols';

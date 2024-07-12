@@ -1,3 +1,3 @@
 export function RequestDetailTabEmptyState() {
-  return "No data found for the current time frame.";
+  return 'No data found for the current time frame.';
 }

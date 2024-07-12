@@ -1,10 +1,10 @@
-import React from "react";
-import { HintChunk } from "@rsc-parser/react-client";
+import React from 'react';
+import { HintChunk } from '@rsc-parser/react-client';
 
 export function FlightResponseChunkHint({
   data,
 }: {
-  data: HintChunk["value"];
+  data: HintChunk['value'];
 }) {
   return (
     <div className="flex flex-col gap-3">

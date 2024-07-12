@@ -1,18 +1,18 @@
-import React from "react";
-import { TabList, Tab, TabPanel, TabProvider } from "@ariakit/react";
-import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../events";
-import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
-import { ErrorBoundary } from "react-error-boundary";
-import { RequestDetailTabRawPayload } from "./RequestDetailTabRawPayload";
-import { RequestDetailTabParsedPayload } from "./RequestDetailTabParsedPayload";
-import { RequestDetailTabNetwork } from "./RequestDetailTabNetwork";
-import { RequestDetailTabHeaders } from "./RequestDetailTabHeaders";
-import { useTabStoreWithTransitions } from "./useTabStoreWithTransitions";
-import { RequestDetailTabTimings } from "./RequestDetailTabTimings";
+import React from 'react';
+import { TabList, Tab, TabPanel, TabProvider } from '@ariakit/react';
+import { RscEvent, isRscRequestEvent, isRscResponseEvent } from '../events';
+import { GenericErrorBoundaryFallback } from './GenericErrorBoundaryFallback';
+import { ErrorBoundary } from 'react-error-boundary';
+import { RequestDetailTabRawPayload } from './RequestDetailTabRawPayload';
+import { RequestDetailTabParsedPayload } from './RequestDetailTabParsedPayload';
+import { RequestDetailTabNetwork } from './RequestDetailTabNetwork';
+import { RequestDetailTabHeaders } from './RequestDetailTabHeaders';
+import { useTabStoreWithTransitions } from './useTabStoreWithTransitions';
+import { RequestDetailTabTimings } from './RequestDetailTabTimings';
 
 export function RequestDetail({ events }: { events: RscEvent[] }) {
   const { currentTab, isPending, tabStore } = useTabStoreWithTransitions({
-    defaultSelectedId: "parsedPayload",
+    defaultSelectedId: 'parsedPayload',
   });
 
   return (
@@ -69,25 +69,25 @@ export function RequestDetail({ events }: { events: RscEvent[] }) {
         <TabPanel
           tabId={currentTab}
           className={`flex min-w-0 grow flex-col gap-4 transition-opacity delay-75 duration-100 ${
-            isPending ? "opacity-60" : ""
+            isPending ? 'opacity-60' : ''
           }`}
           aria-busy={isPending}
           alwaysVisible={true}
         >
           <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
-            {currentTab === "headers" ? (
+            {currentTab === 'headers' ? (
               <RequestDetailTabHeaders events={events} />
             ) : null}
-            {currentTab === "parsedPayload" ? (
+            {currentTab === 'parsedPayload' ? (
               <RequestDetailTabParsedPayload events={events} />
             ) : null}
-            {currentTab === "rawPayload" ? (
+            {currentTab === 'rawPayload' ? (
               <RequestDetailTabRawPayload events={events} />
             ) : null}
-            {currentTab === "timings" ? (
+            {currentTab === 'timings' ? (
               <RequestDetailTabTimings events={events} />
             ) : null}
-            {currentTab === "network" ? (
+            {currentTab === 'network' ? (
               <RequestDetailTabNetwork events={events} />
             ) : null}
           </ErrorBoundary>

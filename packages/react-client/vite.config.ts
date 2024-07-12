@@ -1,8 +1,8 @@
 // vite.config.js
-import { resolve } from "path";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   plugins: [
@@ -12,12 +12,12 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: "./dist",
+    outDir: './dist',
     emptyOutDir: false,
     lib: {
-      entry: resolve(__dirname, "flight.ts"),
-      fileName: "flight",
-      formats: ["es"],
+      entry: resolve(__dirname, 'flight.ts'),
+      fileName: 'flight',
+      formats: ['es'],
     },
     minify: false,
   },

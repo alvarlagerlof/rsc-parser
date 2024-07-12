@@ -1,52 +1,52 @@
-import { RscEvent } from "../events";
+import { RscEvent } from '../events';
 
 export const ghFredkissDevExampleData: RscEvent[] = [
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238673,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues?_rsc=14q04",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues?_rsc=14q04',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%2Cnull%2C%22refetch%22%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%2Cnull%2C%22refetch%22%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238888,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782148e49312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:23:58 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782148e49312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:23:58 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=rePWtITE7Q5EhvOWAq%2BOH3beA32C7meyDlFqbFkxu760mymp6ilwRKR%2B%2Bn4lY0%2F3FKH8SW6ENmLDn5hBZjf6Tp5NTDMQ8iUq7LIeZlT%2BQCWIQ%2F3sE0FgflNYPtf7pP3xxdk%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238889,
       chunkValue: [
@@ -56,9 +56,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238893,
       chunkValue: [
@@ -101,9 +101,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238908,
       chunkValue: [
@@ -293,9 +293,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238915,
       chunkValue: [
@@ -1995,9 +1995,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238985,
       chunkValue: [
@@ -2074,9 +2074,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238986,
       chunkValue: [
@@ -2153,9 +2153,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238989,
       chunkValue: [
@@ -2259,9 +2259,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238996,
       chunkValue: [
@@ -6442,9 +6442,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950238999,
       chunkValue: [
@@ -10624,9 +10624,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950239001,
       chunkValue: [
@@ -12911,9 +12911,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950238673.1133",
+      requestId: '1717950238673.1133',
       tabId: 1717950236676,
       timestamp: 1717950239003,
       chunkValue: [
@@ -13043,51 +13043,51 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950239327.0789",
+      requestId: '1717950239327.0789',
       tabId: 1717950236676,
       timestamp: 1717950239327,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues?_rsc=1bqba",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues?_rsc=1bqba',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%2Cnull%2C%22refetch%22%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%2Cnull%2C%22refetch%22%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950239327.0789",
+      requestId: '1717950239327.0789',
       tabId: 1717950236676,
       timestamp: 1717950239409,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "891278247ec29312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:23:59 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '891278247ec29312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:23:59 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=5kZkrDKSyeF1xhaYOQRL%2FbPEUyezjEFaIB7U%2F5cec0aAFVMJz%2Fb7rNZr0Bcl75L0Kobg5uQXOI45y64Nw%2FsZTBbAVl4d59N4ZM2RJ4tnakwl9CoiIFF61NjOKxqSZikncVA%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239327.0789",
+      requestId: '1717950239327.0789',
       tabId: 1717950236676,
       timestamp: 1717950239426,
       chunkValue: [
@@ -15005,9 +15005,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239327.0789",
+      requestId: '1717950239327.0789',
       tabId: 1717950236676,
       timestamp: 1717950239486,
       chunkValue: [
@@ -15248,9 +15248,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239327.0789",
+      requestId: '1717950239327.0789',
       tabId: 1717950236676,
       timestamp: 1717950239490,
       chunkValue: [
@@ -19431,9 +19431,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239327.0789",
+      requestId: '1717950239327.0789',
       tabId: 1717950236676,
       timestamp: 1717950239493,
       chunkValue: [
@@ -23613,9 +23613,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239327.0789",
+      requestId: '1717950239327.0789',
       tabId: 1717950236676,
       timestamp: 1717950239497,
       chunkValue: [
@@ -26023,51 +26023,51 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239521,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues?_rsc=h8o76",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues?_rsc=h8o76',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%2Cnull%2C%22refetch%22%5D%7D%5D%7D%5D%7D%5D%7D%5D",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%2Cnull%2C%22refetch%22%5D%7D%5D%7D%5D%7D%5D%7D%5D',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239596,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "89127825a8759312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:23:59 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '89127825a8759312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:23:59 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=ymRqKu%2BSsKJNHbx7yjOmLLwD1H3DLC3Z4AY6OWGxnwAhb7mkq7Y9E5fo2yT1UQJuBj%2BLyJRWylDznmdqTK%2FPBpegIuLnFCHOx0v0Je0PUyZn4mBpRCnwyluMgT3iMRcPaG4%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239609,
       chunkValue: [
@@ -26110,9 +26110,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239618,
       chunkValue: [
@@ -26245,9 +26245,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239626,
       chunkValue: [
@@ -28004,9 +28004,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239673,
       chunkValue: [
@@ -28248,9 +28248,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239678,
       chunkValue: [
@@ -32431,9 +32431,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239680,
       chunkValue: [
@@ -36613,9 +36613,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239521.068",
+      requestId: '1717950239521.068',
       tabId: 1717950236676,
       timestamp: 1717950239682,
       chunkValue: [
@@ -39022,52 +39022,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950239775.4475",
+      requestId: '1717950239775.4475',
       tabId: 1717950236676,
       timestamp: 1717950239775,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues",
-      method: "POST",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues',
+      method: 'POST',
       headers: {
-        Accept: "text/x-component",
-        "Next-Action": "83d6ec3c7cd775573850ba194ae592a5c0ac3c61",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        Accept: 'text/x-component',
+        'Next-Action': '83d6ec3c7cd775573850ba194ae592a5c0ac3c61',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950239775.4475",
+      requestId: '1717950239775.4475',
       tabId: 1717950236676,
       timestamp: 1717950239858,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "891278274b249312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:23:59 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control': 'no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '891278274b249312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:23:59 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=gSd1yBY57bVu2LAOxUDczlrppz1UBIiFo8E8TLUgzxvKOG0Op1ZtB%2FG1q9XiuIHTzTXsnByn8QEv920HDnkd8%2BJfVwGuJwX%2Fnfj2eGfslLsoPkpxwr1E29NuLRbRfQT7IrI%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-action-revalidated": "[[],0,0]",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-action-revalidated': '[[],0,0]',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239775.4475",
+      requestId: '1717950239775.4475',
       tabId: 1717950236676,
       timestamp: 1717950239858,
       chunkValue: [
@@ -39378,52 +39378,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950239859.8035",
+      requestId: '1717950239859.8035',
       tabId: 1717950236676,
       timestamp: 1717950239859,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues",
-      method: "POST",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues',
+      method: 'POST',
       headers: {
-        Accept: "text/x-component",
-        "Next-Action": "5032c0a1b186b0324a5e4bdef20128d07881377a",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        Accept: 'text/x-component',
+        'Next-Action': '5032c0a1b186b0324a5e4bdef20128d07881377a',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950239859.8035",
+      requestId: '1717950239859.8035',
       tabId: 1717950236676,
       timestamp: 1717950240030,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "891278285d129312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control': 'no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '891278285d129312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=Ww%2ByUM7PLafss76xj%2FEFxUaZlam5F97yWEUu9W2N6NklKJ0QtaKS9Nkvp2FCRgel2YtWnq0tDWUYp4K8hMnJ%2FI1wcA2eEq5hTancNqzWgfpOSQl7vliz9I8mu3ASi2qeTBg%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-action-revalidated": "[[],0,0]",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-action-revalidated': '[[],0,0]',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950239859.8035",
+      requestId: '1717950239859.8035',
       tabId: 1717950236676,
       timestamp: 1717950240030,
       chunkValue: [
@@ -39808,52 +39808,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240031.8057",
+      requestId: '1717950240031.8057',
       tabId: 1717950236676,
       timestamp: 1717950240031,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues",
-      method: "POST",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues',
+      method: 'POST',
       headers: {
-        Accept: "text/x-component",
-        "Next-Action": "eacce89da7303a35fb7abc65e24a4767b8992b9b",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        Accept: 'text/x-component',
+        'Next-Action': 'eacce89da7303a35fb7abc65e24a4767b8992b9b',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240031.8057",
+      requestId: '1717950240031.8057',
       tabId: 1717950236676,
       timestamp: 1717950240103,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "89127828ee1e9312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control': 'no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '89127828ee1e9312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=omPwH%2FV4Bu0KYYmBJcqqLO8hREuxx%2BiFrHvqoGCWfgj5F0oIVqZzVaiCvd9EwOWyAyXLD69EFO8nl6xQHN52jBVpxXQG1eaFZTHfeiG%2FXYPz6GGUjitXUeSaz8syc4hLCCE%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-action-revalidated": "[[],0,0]",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-action-revalidated': '[[],0,0]',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240031.8057",
+      requestId: '1717950240031.8057',
       tabId: 1717950236676,
       timestamp: 1717950240104,
       chunkValue: [
@@ -40029,52 +40029,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240104.0806",
+      requestId: '1717950240104.0806',
       tabId: 1717950236676,
       timestamp: 1717950240104,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240104.0806",
+      requestId: '1717950240104.0806',
       tabId: 1717950236676,
       timestamp: 1717950240206,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "891278298f429312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '891278298f429312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=mybh2ydPW4ygrFAczdEBwNnKcn%2F5j85qlKORh0Xo1Xu8gOYMkeBmRwHIN%2FiGS9cyrDLKFfl%2BOYNNqqbxs%2FgAbruzaG3GRvh7%2BJJR%2B4CK9jl2v0km2WTiFZRGIVXmqTu49Tc%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240104.0806",
+      requestId: '1717950240104.0806',
       tabId: 1717950236676,
       timestamp: 1717950240207,
       chunkValue: [
@@ -40119,52 +40119,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240106.3972",
+      requestId: '1717950240106.3972',
       tabId: 1717950236676,
       timestamp: 1717950240106,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/55943?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/55943?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240106.3972",
+      requestId: '1717950240106.3972',
       tabId: 1717950236676,
       timestamp: 1717950240228,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "891278299f729312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '891278299f729312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=2yJ9giJAfxujkFcAo4bG2HWl1n384o6r0oxssk4Uwb%2FeFffEY7g5mNJqeYyN2X5C15fOoWjbyxDuCmWjRh1wUsyeTIhJ%2F8CA7JbNagxFCTkKDjC1vsXeLdziya2MoAzGcls%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240106.3972",
+      requestId: '1717950240106.3972',
       tabId: 1717950236676,
       timestamp: 1717950240229,
       chunkValue: [
@@ -40212,52 +40212,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240105.7947",
+      requestId: '1717950240105.7947',
       tabId: 1717950236676,
       timestamp: 1717950240105,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/58248?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/58248?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240105.7947",
+      requestId: '1717950240105.7947',
       tabId: 1717950236676,
       timestamp: 1717950240230,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "891278298f389312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '891278298f389312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=DNqPDlGXT6xWbPhQk9ypM5auJs8e3VYTo%2BhhRxbKCa84SBm0js3TuVAY1NCWnLGRsFy7EejNDJJ7NFeBt0v6MoFJyMe6gPKkigZBmmcVWLKsRH5W2gdGwN%2BbV8psiw6pzpc%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240105.7947",
+      requestId: '1717950240105.7947',
       tabId: 1717950236676,
       timestamp: 1717950240230,
       chunkValue: [
@@ -40305,52 +40305,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240105.8027",
+      requestId: '1717950240105.8027',
       tabId: 1717950236676,
       timestamp: 1717950240105,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/new?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/new?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240105.8027",
+      requestId: '1717950240105.8027',
       tabId: 1717950236676,
       timestamp: 1717950240249,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "89127829cfd19312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '89127829cfd19312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=F5zpjTbxyucAMUe%2F%2FTLlCRyEARPR4lYoavBjZlAsusIhwO1WRVjC56Tmy4ykPdjqEQQBgDzslrgZWwrFO8Wmsn1RsuMV5hVZxoUghqdFuvGsVOY7pR0wBAzEBQYR9tCFBAc%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240105.8027",
+      requestId: '1717950240105.8027',
       tabId: 1717950236676,
       timestamp: 1717950240249,
       chunkValue: [
@@ -40396,52 +40396,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240104.1858",
+      requestId: '1717950240104.1858',
       tabId: 1717950236676,
       timestamp: 1717950240104,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/labels?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/labels?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240104.1858",
+      requestId: '1717950240104.1858',
       tabId: 1717950236676,
       timestamp: 1717950240266,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "89127829cfcb9312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '89127829cfcb9312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=PkVloGAvENAjY9WUjofgUsPEdecZeo9ELuMG1U3ZdoI1iGfLk%2B7%2FfDSSOaEJ8Au3p3kG2puiKMcWI5NhX7WIT7If4iWoLrklNjhfRlCCr1%2FdBuADT9qYgBoyo4vUrnq%2Bz14%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240104.1858",
+      requestId: '1717950240104.1858',
       tabId: 1717950236676,
       timestamp: 1717950240266,
       chunkValue: [
@@ -40479,52 +40479,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240229.322",
+      requestId: '1717950240229.322',
       tabId: 1717950236676,
       timestamp: 1717950240229,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54708?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54708?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240229.322",
+      requestId: '1717950240229.322',
       tabId: 1717950236676,
       timestamp: 1717950240297,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782a18559312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782a18559312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=1YMhIGWLgub2qhbso4Q0EgmcHx7vu3lcWS6guo%2BzOXapUEVZsWh3%2BinZMa9GoF3N%2BE2uOg3xSmJITjyAnlmcbgz5TZcZoxnO9whsREoU%2F4%2FNk7TV8%2BHEj02JoSA2FZP5%2FAM%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240229.322",
+      requestId: '1717950240229.322',
       tabId: 1717950236676,
       timestamp: 1717950240297,
       chunkValue: [
@@ -40572,52 +40572,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240231.6697",
+      requestId: '1717950240231.6697',
       tabId: 1717950236676,
       timestamp: 1717950240231,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54667?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54667?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240231.6697",
+      requestId: '1717950240231.6697',
       tabId: 1717950236676,
       timestamp: 1717950240312,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782a28749312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782a28749312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=kBNnYFyIDGsdFUXZtgx8oNeYMcpGAKo4X%2BI%2F5iruEDG2i6cqeyCmkyc03nETGMmyrBMnBqWk7pTtsOYsEn9KP2P0kB8C97ZEtkiHvyXO6Hm%2BjcRgd4q6g9lsii2fUe7fqBw%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240231.6697",
+      requestId: '1717950240231.6697',
       tabId: 1717950236676,
       timestamp: 1717950240312,
       chunkValue: [
@@ -40665,52 +40665,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240266.7407",
+      requestId: '1717950240266.7407',
       tabId: 1717950236676,
       timestamp: 1717950240266,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54382?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54382?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240266.7407",
+      requestId: '1717950240266.7407',
       tabId: 1717950236676,
       timestamp: 1717950240347,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782a58d19312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782a58d19312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=E4wdB15IRICnnFhO8n%2BLgCeuHrwlYikV05TMCBoBLB2DzZqapvP3j4Ok%2BhE623brNC3iYCgZjBlozXvTy9esrxEC%2BTyCowa5UqLI2hFqi97SksqyHWE5XF0f68rSw77bmbo%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240266.7407",
+      requestId: '1717950240266.7407',
       tabId: 1717950236676,
       timestamp: 1717950240347,
       chunkValue: [
@@ -40758,95 +40758,95 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240249.3257",
+      requestId: '1717950240249.3257',
       tabId: 1717950236676,
       timestamp: 1717950240249,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54482?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54482?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240249.3257",
+      requestId: '1717950240249.3257',
       tabId: 1717950236676,
       timestamp: 1717950240366,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782a78ff9312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782a78ff9312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=MbWKwdZPYm0G0l19AsH6eWQVK8gQX0GktQTqyGg4dUN%2B40S72i5x388rEjJ7bMM%2B9a5TPeAcQekcPc%2F83zN6nO45B4M2npMFndgeWfIaOPsALH4%2FbnvE7aiQq2gWmjaWwjM%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240207.6257",
+      requestId: '1717950240207.6257',
       tabId: 1717950236676,
       timestamp: 1717950240207,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54723?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/54723?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240207.6257",
+      requestId: '1717950240207.6257',
       tabId: 1717950236676,
       timestamp: 1717950240368,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782a78fa9312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782a78fa9312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=XKWi217PCN0KVSppgJm3sCghHtsmLsHVEfBm8tyqhA54soyCJDdrMrqO5n%2BXdz99esoyGKv8zv2D%2BYEkFRSh5LVObj2t9fmpbjkCy26TNxFwpziSjXw%2FLtSnIGtACFTH%2FcQ%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240207.6257",
+      requestId: '1717950240207.6257',
       tabId: 1717950236676,
       timestamp: 1717950240368,
       chunkValue: [
@@ -40894,9 +40894,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240249.3257",
+      requestId: '1717950240249.3257',
       tabId: 1717950236676,
       timestamp: 1717950240383,
       chunkValue: [
@@ -40944,52 +40944,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240298.3782",
+      requestId: '1717950240298.3782',
       tabId: 1717950236676,
       timestamp: 1717950240298,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/53086?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/53086?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240298.3782",
+      requestId: '1717950240298.3782',
       tabId: 1717950236676,
       timestamp: 1717950240388,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782a89249312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782a89249312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=oJYMgN9LBymj%2Fz2T6UPU3s7MqxmlbobQC3NwGiXxqmV47FuqQMdzyYD%2B9i66o3flMg1VHr7mOJ75oLXMk1y9O9PmSehq%2FD8xjIiAiGyMHOyA%2FjEvSvDd8inX2c5%2BkRJgEp4%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240298.3782",
+      requestId: '1717950240298.3782',
       tabId: 1717950236676,
       timestamp: 1717950240388,
       chunkValue: [
@@ -41037,52 +41037,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240312.3723",
+      requestId: '1717950240312.3723',
       tabId: 1717950236676,
       timestamp: 1717950240312,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/53045?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/53045?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240312.3723",
+      requestId: '1717950240312.3723',
       tabId: 1717950236676,
       timestamp: 1717950240431,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782ae9c79312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782ae9c79312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=e4RBWrDlY5%2BwZFMgQ3NUqauUE7uNYMshU%2BFidvWvNFHo9n2bKlEy%2F749gZgZCiiR50lUceKSO0mKerz76tl6mCK9Dhz71u7oCEB0Mnws9zKL%2BZ89mBM0aAtrG7XNwEAuFCk%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240312.3723",
+      requestId: '1717950240312.3723',
       tabId: 1717950236676,
       timestamp: 1717950240431,
       chunkValue: [
@@ -41130,95 +41130,95 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240368.5308",
+      requestId: '1717950240368.5308',
       tabId: 1717950236676,
       timestamp: 1717950240368,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/51788?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/51788?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240368.5308",
+      requestId: '1717950240368.5308',
       tabId: 1717950236676,
       timestamp: 1717950240447,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782af9f79312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782af9f79312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=LVRaCcducSXhNVqEj%2FGTBxQSbD6hMHEFQHXhQlOJfAT%2Fcmfd3Y%2Fyv2hrwteSjwgAzpobKaXO5ck%2BDF1FbwpfdtB2o2dt8x7kuJ9vfhaRzLYq1ckK%2B5Jn16HDZ0ypQ1BB4ao%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240348.8853",
+      requestId: '1717950240348.8853',
       tabId: 1717950236676,
       timestamp: 1717950240348,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/52176?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/52176?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240348.8853",
+      requestId: '1717950240348.8853',
       tabId: 1717950236676,
       timestamp: 1717950240447,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782ae9c39312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782ae9c39312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=mOS0VdPFo5Vq2CSPQqmERhFqqdkT7XFSvetV1lgvEBeu%2FFPBuTtqG1mTxDASkHqkNO%2Bn96oLTIrUUVcUhSRNGKSz0T8Lwzqryxxa1GFAkGdf%2FlsuwVqtCk1Dhvr%2FoH3%2ByRk%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240368.5308",
+      requestId: '1717950240368.5308',
       tabId: 1717950236676,
       timestamp: 1717950240448,
       chunkValue: [
@@ -41266,9 +41266,9 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240348.8853",
+      requestId: '1717950240348.8853',
       tabId: 1717950236676,
       timestamp: 1717950240448,
       chunkValue: [
@@ -41316,52 +41316,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240383.005",
+      requestId: '1717950240383.005',
       tabId: 1717950236676,
       timestamp: 1717950240383,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/51714?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/51714?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240383.005",
+      requestId: '1717950240383.005',
       tabId: 1717950236676,
       timestamp: 1717950240500,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782b4a8a9312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782b4a8a9312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=UGivPD0ijbpqJNf3ijtHN6rxy1aFhQJaeB9nXXImzzx1NK1I%2FZ%2BCJd2IVUGD4BXwLEkpN8Sj3gFCCh9k3sL6Fqlpk4%2FrnbMEPxAvsAl3D5GchniJjlotPNyDbK7BTRo8o2g%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240383.005",
+      requestId: '1717950240383.005',
       tabId: 1717950236676,
       timestamp: 1717950240501,
       chunkValue: [
@@ -41409,52 +41409,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240388.3577",
+      requestId: '1717950240388.3577',
       tabId: 1717950236676,
       timestamp: 1717950240388,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/51684?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/51684?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240388.3577",
+      requestId: '1717950240388.3577',
       tabId: 1717950236676,
       timestamp: 1717950240524,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782b4a8c9312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782b4a8c9312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=OhKijZtSrvVJvUPJ6NZhfcbCyy4PiCEz7XTtkSAR6FE21pQ6a421OWp%2BIOBb7vQIuN%2BrXgfm072FPGhSDmtoJ4mjcGwkgKDztUQuL35FWJ%2BbUFJCVHEeM6Do0xP2VTvnRq4%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240388.3577",
+      requestId: '1717950240388.3577',
       tabId: 1717950236676,
       timestamp: 1717950240524,
       chunkValue: [
@@ -41502,52 +41502,52 @@ export const ghFredkissDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717950240432.509",
+      requestId: '1717950240432.509',
       tabId: 1717950236676,
       timestamp: 1717950240432,
-      url: "https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/51605?_rsc=uco2m",
-      method: "GET",
+      url: 'https://gh.fredkiss.dev/Fredkiss3/gh-next/issues/51605?_rsc=uco2m',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Router-Prefetch": "1",
-        "Next-Url": "/children/Fredkiss3/gh-next/[...pages]",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(app)%22%2C%7B%22header_subnav%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22page_title%22%3A%5B%22children%22%2C%7B%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22%5B...pages%5D%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%2C%22children%22%3A%5B%5B%22user%22%2C%22Fredkiss3%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22repository%22%2C%22gh-next%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22issues%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Router-Prefetch': '1',
+        'Next-Url': '/children/Fredkiss3/gh-next/[...pages]',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717950240432.509",
+      requestId: '1717950240432.509',
       tabId: 1717950236676,
       timestamp: 1717950240560,
       status: 200,
       headers: {
-        "alt-svc": 'h3=":443"; ma=86400',
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "cf-cache-status": "DYNAMIC",
-        "cf-ray": "8912782bbb479312-CPH",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:24:00 GMT",
+        'alt-svc': 'h3=":443"; ma=86400',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'cf-cache-status': 'DYNAMIC',
+        'cf-ray': '8912782bbb479312-CPH',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:24:00 GMT',
         nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
-        priority: "u=1,i",
-        "report-to":
+        priority: 'u=1,i',
+        'report-to':
           '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=vDL9dQcaS%2BdQ45Jf6E%2FtJOKJWEm8riZh4IXHQ3cIk%2B%2Frcc0PZtxbAQqGsyf5k5wMtRK2xh4vUyE3FAb6nBSRK74ZL%2F2Su1H%2BFeu75HX3T15KaNsBBBAiCpn2Q0%2FA59EPhwk%3D"}],"group":"cf-nel","max_age":604800}',
-        server: "cloudflare",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding",
-        "x-powered-by": "Next.js",
+        server: 'cloudflare',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url, Accept-Encoding',
+        'x-powered-by': 'Next.js',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717950240432.509",
+      requestId: '1717950240432.509',
       tabId: 1717950236676,
       timestamp: 1717950240561,
       chunkValue: [

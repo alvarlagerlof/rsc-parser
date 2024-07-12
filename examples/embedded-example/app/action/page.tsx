@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function ActionPage() {
   return (
@@ -13,7 +13,7 @@ export default function ActionPage() {
 }
 
 const action = async (formData: FormData) => {
-  "use server";
+  'use server';
   await new Promise((resolve) => setTimeout(resolve, 500));
   return formData;
 };

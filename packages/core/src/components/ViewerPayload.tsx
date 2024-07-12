@@ -1,16 +1,16 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
-import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
-import { RscChunkEvent } from "../events";
-import { EndTimeProvider } from "./EndTimeContext";
-import { RequestDetail } from "./RequestDetail";
+import { GenericErrorBoundaryFallback } from './GenericErrorBoundaryFallback';
+import { RscChunkEvent } from '../events';
+import { EndTimeProvider } from './EndTimeContext';
+import { RequestDetail } from './RequestDetail';
 
 export function ViewerPayload({ defaultPayload }: { defaultPayload: string }) {
   const [payload, setPayload] = useState(defaultPayload);
 
   useEffect(() => {
-    const previous = localStorage.getItem("payload");
+    const previous = localStorage.getItem('payload');
     setPayload(previous ?? defaultPayload);
   }, []);
 
@@ -29,7 +29,7 @@ export function ViewerPayload({ defaultPayload }: { defaultPayload: string }) {
           value={payload}
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
             setPayload(event.target.value);
-            localStorage.setItem("payload", event.target.value);
+            localStorage.setItem('payload', event.target.value);
           }}
           spellCheck="false"
         />
@@ -49,10 +49,10 @@ export function ViewerPayload({ defaultPayload }: { defaultPayload: string }) {
 export function Viewer({ payload }: { payload: string }) {
   const events = [
     {
-      type: "RSC_CHUNK",
+      type: 'RSC_CHUNK',
       data: {
         tabId: 0,
-        requestId: "0",
+        requestId: '0',
         timestamp: 0,
         chunkValue: Array.from(new TextEncoder().encode(payload)),
       },

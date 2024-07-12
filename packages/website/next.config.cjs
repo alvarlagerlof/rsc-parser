@@ -3,12 +3,12 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/js/script.outbound-links.js",
-        destination: "https://plausible.io/js/script.outbound-links.js",
+        source: '/js/script.outbound-links.js',
+        destination: 'https://plausible.io/js/script.outbound-links.js',
       },
       {
-        source: "/api/event",
-        destination: "https://plausible.io/api/event",
+        source: '/api/event',
+        destination: 'https://plausible.io/api/event',
       },
     ];
   },

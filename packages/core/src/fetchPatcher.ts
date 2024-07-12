@@ -1,34 +1,34 @@
-import { RscEvent } from "./events";
+import { RscEvent } from './events';
 
 function isRscResponse(response: Response): boolean {
-  return response.headers.get("Content-Type") === "text/x-component";
+  return response.headers.get('Content-Type') === 'text/x-component';
 }
 
 function getFetchUrl(args: Parameters<typeof fetch>): string {
   if (args[0] instanceof Request) {
     return args[0].url;
-  } else if (typeof args[0] === "string" || args[0] instanceof URL) {
+  } else if (typeof args[0] === 'string' || args[0] instanceof URL) {
     return args[0].toString();
   }
 
-  throw new Error("Unknown fetch argument");
+  throw new Error('Unknown fetch argument');
 }
 
-function getFetchMethod(args: Parameters<typeof fetch>): "GET" | "POST" {
-  function isGetOrPost(method: string): method is "GET" | "POST" {
-    return method === "GET" || method === "POST";
+function getFetchMethod(args: Parameters<typeof fetch>): 'GET' | 'POST' {
+  function isGetOrPost(method: string): method is 'GET' | 'POST' {
+    return method === 'GET' || method === 'POST';
   }
 
   if (args[0] instanceof Request && isGetOrPost(args[0].method)) {
     return args[0].method;
-  } else if (typeof args[1]?.method === "undefined") {
+  } else if (typeof args[1]?.method === 'undefined') {
     // Default to GET
-    return "GET";
+    return 'GET';
   } else if (args[1].method && isGetOrPost(args[1].method)) {
     return args[1].method;
   }
 
-  throw new Error("Unknown fetch argument");
+  throw new Error('Unknown fetch argument');
 }
 
 function headersInitToSerializableObject(
@@ -56,20 +56,20 @@ function getFetchHeaders(
   if (args[0] instanceof Request) {
     return headersInitToSerializableObject(args[0].headers);
   } else if (
-    (typeof args[0] === "string" || args[0] instanceof URL) &&
+    (typeof args[0] === 'string' || args[0] instanceof URL) &&
     args[1] &&
-    "headers" in args[1] &&
+    'headers' in args[1] &&
     args[1].headers
   ) {
     return headersInitToSerializableObject(args[1].headers);
   }
 
-  throw new Error("Unknown fetch argument");
+  throw new Error('Unknown fetch argument');
 }
 
 // For when the url is ""
 function convertLocalUrlToAbsolute(url: string): string {
-  if (url === "") {
+  if (url === '') {
     return window.location.href;
   }
   return url;
@@ -81,7 +81,7 @@ export function fetchPatcher({
   onRscEvent: (event: RscEvent) => void;
 }) {
   // @ts-expect-error TODO: Fix type
-  if (typeof window.originalFetch === "undefined") {
+  if (typeof window.originalFetch === 'undefined') {
     // @ts-expect-error TODO: Fix type
     window.originalFetch = window.fetch;
   }
@@ -98,7 +98,7 @@ export function fetchPatcher({
     }
 
     onRscEvent({
-      type: "RSC_REQUEST",
+      type: 'RSC_REQUEST',
       data: {
         requestId,
         tabId: 0, // This may be overwritten extension code
@@ -111,7 +111,7 @@ export function fetchPatcher({
     });
 
     onRscEvent({
-      type: "RSC_RESPONSE",
+      type: 'RSC_RESPONSE',
       data: {
         requestId,
         tabId: 0, // This may be overwritten extension code
@@ -135,7 +135,7 @@ export function fetchPatcher({
       }
 
       onRscEvent({
-        type: "RSC_CHUNK",
+        type: 'RSC_CHUNK',
         data: {
           requestId,
           tabId: 0, // This may be overwritten extension code

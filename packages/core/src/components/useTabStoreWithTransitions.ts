@@ -1,5 +1,5 @@
-import { useTabStore } from "@ariakit/react";
-import { useState, useTransition } from "react";
+import { useTabStore } from '@ariakit/react';
+import { useState, useTransition } from 'react';
 
 export function useTabStoreWithTransitions(
   useTabStoreArgs: Parameters<typeof useTabStore>[0],

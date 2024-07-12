@@ -26,6 +26,7 @@ You can also add the parser as a package to your project. You'll get an embedded
 First, install [@rsc-parser/embedded](https://www.npmjs.com/package/@rsc-parser/embedded) from npm like: `yarn add @rsc-parser/embedded`
 
 Then you can load it in a `layout.tsx` for example.
+
 ```tsx
 import { Suspense, lazy } from "react";
 

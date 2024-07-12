@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { FlightResponseChunkHint } from "./FlightResponseChunkHint";
+import { FlightResponseChunkHint } from './FlightResponseChunkHint';
 
 const meta: Meta<typeof FlightResponseChunkHint> = {
   component: FlightResponseChunkHint,
@@ -12,8 +12,8 @@ type Story = StoryObj<typeof FlightResponseChunkHint>;
 export const StyleExample: Story = {
   args: {
     data: JSON.stringify([
-      "/_next/static/css/41e8bd728ca8294e.css?dpl=dpl_DbJSoidkMic3ZCp3P3DJMZxkvi32",
-      "style",
+      '/_next/static/css/41e8bd728ca8294e.css?dpl=dpl_DbJSoidkMic3ZCp3P3DJMZxkvi32',
+      'style',
     ]),
   },
 };
@@ -21,9 +21,9 @@ export const StyleExample: Story = {
 export const FontExample: Story = {
   args: {
     data: JSON.stringify([
-      "/_next/static/41e8bd728ca8294e.css",
-      "font",
-      { crossOrigin: "anonymous", type: "font/woff2" },
+      '/_next/static/41e8bd728ca8294e.css',
+      'font',
+      { crossOrigin: 'anonymous', type: 'font/woff2' },
     ]),
   },
 };

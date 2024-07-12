@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { BottomPanel } from "./BottomPanel";
+import { BottomPanel } from './BottomPanel';
 
 const meta: Meta<typeof BottomPanel> = {
   component: BottomPanel,
@@ -11,9 +11,9 @@ type Story = StoryObj<typeof BottomPanel>;
 
 export const example: Story = {
   args: {
-    openButton: "RSC",
+    openButton: 'RSC',
     isOpen: true,
-    children: "Panel content",
-    position: "bottom",
+    children: 'Panel content',
+    position: 'bottom',
   },
 };

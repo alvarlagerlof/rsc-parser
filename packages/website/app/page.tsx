@@ -1,10 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
+import { Metadata } from 'next';
+import Link from 'next/link';
 
-import { PayloadViewerClientWrapper } from "./ViewerPayloadClientWrapper";
+import { PayloadViewerClientWrapper } from './ViewerPayloadClientWrapper';
 
 export const metadata: Metadata = {
-  title: "RSC Parser",
+  title: 'RSC Parser',
 };
 
 export default function Home() {
@@ -21,13 +21,13 @@ export default function Home() {
               boundaries, and css/fonts that needs to be loaded.
             </p>
             <p>
-              See the{" "}
+              See the{' '}
               <Link
                 href="https://github.com/alvarlagerlof/rsc-parser"
                 className="text-blue-700 dark:text-blue-500"
               >
                 Github Repo
-              </Link>{" "}
+              </Link>{' '}
               for more information.
             </p>
           </div>

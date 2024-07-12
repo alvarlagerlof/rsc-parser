@@ -1,21 +1,21 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import htmlPlugin, { Options, ScriptTag } from "vite-plugin-html-config";
-import { resolve } from "path";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import htmlPlugin, { Options, ScriptTag } from 'vite-plugin-html-config';
+import { resolve } from 'path';
 
 const dev = {
   headScripts: [
     {
-      src: "http://localhost:6020/src/dev/reactPreamble.ts",
-      type: "module",
+      src: 'http://localhost:6020/src/dev/reactPreamble.ts',
+      type: 'module',
     } as ScriptTag,
     {
-      src: "http://localhost:6020/@vite/client",
-      type: "module",
+      src: 'http://localhost:6020/@vite/client',
+      type: 'module',
     } as ScriptTag,
     {
-      src: "http://localhost:6020/src/main.tsx",
-      type: "module",
+      src: 'http://localhost:6020/src/main.tsx',
+      type: 'module',
     } as ScriptTag,
   ],
 } satisfies Options;
@@ -24,30 +24,30 @@ const build = {
   headScripts: [
     {
       async: false,
-      src: "./src/main.tsx",
-      type: "module",
+      src: './src/main.tsx',
+      type: 'module',
     } as ScriptTag,
   ],
 } satisfies Options;
 
 export default defineConfig(({ mode }) => {
-  if (mode === "development") {
+  if (mode === 'development') {
     return {
       // @ts-expect-error TODO: Fix type
       plugins: [react(), htmlPlugin(dev)],
-      base: "",
+      base: '',
       build: {
-        outDir: "./dist",
+        outDir: './dist',
         minify: false,
         rollupOptions: {
           input: {
-            main: resolve(__dirname, "devtoolsPanel.html"),
+            main: resolve(__dirname, 'devtoolsPanel.html'),
             fetchPatcherInjector: resolve(
               __dirname,
-              "src/assets/fetchPatcherInjector.ts",
+              'src/assets/fetchPatcherInjector.ts',
             ),
-            contentScript: resolve(__dirname, "src/assets/contentScript.ts"),
-            devtoolsPage: resolve(__dirname, "src/assets/devtoolsPage.ts"),
+            contentScript: resolve(__dirname, 'src/assets/contentScript.ts'),
+            devtoolsPage: resolve(__dirname, 'src/assets/devtoolsPage.ts'),
           },
           output: {
             entryFileNames: `assets/[name].js`,
@@ -65,19 +65,19 @@ export default defineConfig(({ mode }) => {
   return {
     // @ts-expect-error TODO: Fix type
     plugins: [react(), htmlPlugin(build)],
-    base: "",
+    base: '',
     build: {
-      outDir: "./dist",
+      outDir: './dist',
       minify: false,
       rollupOptions: {
         input: {
-          main: resolve(__dirname, "devtoolsPanel.html"),
+          main: resolve(__dirname, 'devtoolsPanel.html'),
           fetchPatcherInjector: resolve(
             __dirname,
-            "src/assets/fetchPatcherInjector.ts",
+            'src/assets/fetchPatcherInjector.ts',
           ),
-          contentScript: resolve(__dirname, "src/assets/contentScript.ts"),
-          devtoolsPage: resolve(__dirname, "src/assets/devtoolsPage.ts"),
+          contentScript: resolve(__dirname, 'src/assets/contentScript.ts'),
+          devtoolsPage: resolve(__dirname, 'src/assets/devtoolsPage.ts'),
         },
         output: {
           entryFileNames: `assets/[name].js`,

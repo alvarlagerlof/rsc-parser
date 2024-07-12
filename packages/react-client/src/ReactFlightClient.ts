@@ -11,17 +11,17 @@ import {
   createStringDecoder,
   readFinalStringChunk,
   readPartialStringChunk,
-} from "./ReactFlightClientConfigBrowser";
-import { ClientReferenceMetadata } from "./ReactFlightClientConfigBundlerWebpack";
-import { ImportMetadata } from "./ReactFlightImportMetadata";
-import { HintCode, HintModel } from "./ReactFlightServerConfigDOM";
-import { REACT_ELEMENT_TYPE } from "./ReactSymbols";
+} from './ReactFlightClientConfigBrowser';
+import { ClientReferenceMetadata } from './ReactFlightClientConfigBundlerWebpack';
+import { ImportMetadata } from './ReactFlightImportMetadata';
+import { HintCode, HintModel } from './ReactFlightServerConfigDOM';
+import { REACT_ELEMENT_TYPE } from './ReactSymbols';
 
-const __DEV__ = process.env.NODE_ENV === "development";
+const __DEV__ = process.env.NODE_ENV === 'development';
 const enablePostpone = true;
 
 export type TextChunk = {
-  type: "text";
+  type: 'text';
   id: string;
   value: string;
   originalValue: string;
@@ -30,7 +30,7 @@ export type TextChunk = {
 };
 
 export type ModuleChunk = {
-  type: "module";
+  type: 'module';
   id: string;
   value: ImportMetadata;
   originalValue: string;
@@ -39,7 +39,7 @@ export type ModuleChunk = {
 };
 
 export type ModelChunk = {
-  type: "model";
+  type: 'model';
   id: string;
   value: unknown;
   originalValue: string;
@@ -48,7 +48,7 @@ export type ModelChunk = {
 };
 
 export type HintChunk = {
-  type: "hint";
+  type: 'hint';
   id: string;
   code: string;
   value: HintModel<HintCode>;
@@ -58,7 +58,7 @@ export type HintChunk = {
 };
 
 export type ErrorDevChunk = {
-  type: "errorDev";
+  type: 'errorDev';
   id: string;
   error: ErrorWithDigest;
   originalValue: { digest: string; message: string; stack: string };
@@ -67,7 +67,7 @@ export type ErrorDevChunk = {
 };
 
 export type ErrorProdChunk = {
-  type: "errorProd";
+  type: 'errorProd';
   id: string;
   error: ErrorWithDigest;
   originalValue: string;
@@ -76,7 +76,7 @@ export type ErrorProdChunk = {
 };
 
 export type PostponeDevChunk = {
-  type: "postponeDev";
+  type: 'postponeDev';
   id: string;
   error: Postpone;
   originalValue: { reason: string; stack: string };
@@ -85,7 +85,7 @@ export type PostponeDevChunk = {
 };
 
 export type PostponeProdChunk = {
-  type: "postponeProd";
+  type: 'postponeProd';
   id: string;
   error: Postpone;
   originalValue: undefined;
@@ -94,7 +94,7 @@ export type PostponeProdChunk = {
 };
 
 export type BufferChunk = {
-  type: "buffer";
+  type: 'buffer';
   id: string;
   value: ArrayBufferView | ArrayBuffer;
   originalValue: string;
@@ -103,7 +103,7 @@ export type BufferChunk = {
 };
 
 export type DebugInfoChunk = {
-  type: "debugInfo";
+  type: 'debugInfo';
   id: string;
   value: { name: string };
   originalValue: { name: string };
@@ -149,7 +149,7 @@ export type FlightResponse = {
 };
 
 export type Reference = {
-  $$type: "reference";
+  $$type: 'reference';
   id: string;
   identifier: string;
   type: string;
@@ -157,10 +157,10 @@ export type Reference = {
 
 export function isReference(x: unknown): x is Reference {
   return (
-    typeof x === "object" &&
+    typeof x === 'object' &&
     x !== null &&
-    "$$type" in x &&
-    x.$$type === "reference"
+    '$$type' in x &&
+    x.$$type === 'reference'
   );
 }
 
@@ -170,17 +170,17 @@ function parseModelString(
   key: string,
   value: string,
 ) {
-  if (value[0] === "$") {
-    if (value === "$") {
+  if (value[0] === '$') {
+    if (value === '$') {
       // A very common symbol.
       return REACT_ELEMENT_TYPE;
     }
     switch (value[1]) {
-      case "$": {
+      case '$': {
         // This was an escaped string value.
         return value.slice(1);
       }
-      case "L": {
+      case 'L': {
         // Lazy node
         const id = parseInt(value.slice(2), 16);
         // const chunk = getChunk(response, id);
@@ -189,101 +189,101 @@ function parseModelString(
         // return createLazyChunkWrapper(chunk);
 
         return {
-          $$type: "reference",
+          $$type: 'reference',
           id: new Number(id).toString(16),
-          identifier: "L",
-          type: "Lazy node",
+          identifier: 'L',
+          type: 'Lazy node',
         } satisfies Reference;
       }
-      case "@": {
+      case '@': {
         // Promise
         const id = parseInt(value.slice(2), 16);
         // const chunk = getChunk(response, id);
         // return chunk;
 
         return {
-          $$type: "reference",
+          $$type: 'reference',
           id: new Number(id).toString(16),
-          identifier: "@",
-          type: "Promise",
+          identifier: '@',
+          type: 'Promise',
         } satisfies Reference;
       }
-      case "S": {
+      case 'S': {
         // Symbol
         return Symbol.for(value.slice(2));
       }
-      case "P": {
+      case 'P': {
         // Server Context Provider
         // return getOrCreateServerContext(value.slice(2)).Provider;
 
         // TODO: Remove this since it's no longer going to be a thing?
         return value;
       }
-      case "F": {
+      case 'F': {
         // Server Reference
         const id = parseInt(value.slice(2), 16);
         // const metadata = getOutlinedModel(response, id);
         // return createServerReferenceProxy(response, metadata);
 
         return {
-          $$type: "reference",
+          $$type: 'reference',
           id: new Number(id).toString(16),
-          identifier: "F",
-          type: "Server Reference",
+          identifier: 'F',
+          type: 'Server Reference',
         } satisfies Reference;
       }
-      case "Q": {
+      case 'Q': {
         // Map
         const id = parseInt(value.slice(2), 16);
         // const data = getOutlinedModel(response, id);
         // return new Map(data);
 
         return {
-          $$type: "reference",
+          $$type: 'reference',
           id: new Number(id).toString(16),
-          identifier: "Q",
-          type: "Map",
+          identifier: 'Q',
+          type: 'Map',
         } satisfies Reference;
       }
-      case "W": {
+      case 'W': {
         // Set
         const id = parseInt(value.slice(2), 16);
         // const data = getOutlinedModel(response, id);
         // return new Set(data);
 
         return {
-          $$type: "reference",
+          $$type: 'reference',
           id: new Number(id).toString(16),
-          identifier: "W",
-          type: "Set",
+          identifier: 'W',
+          type: 'Set',
         } satisfies Reference;
       }
-      case "I": {
+      case 'I': {
         // $Infinity
         return Infinity;
       }
-      case "-": {
+      case '-': {
         // $-0 or $-Infinity
-        if (value === "$-0") {
+        if (value === '$-0') {
           return -0;
         } else {
           return -Infinity;
         }
       }
-      case "N": {
+      case 'N': {
         // $NaN
         return NaN;
       }
-      case "u": {
+      case 'u': {
         // matches "$undefined"
         // Special encoding for `undefined` which can't be serialized as JSON otherwise.
         return undefined;
       }
-      case "D": {
+      case 'D': {
         // Date
         return new Date(Date.parse(value.slice(2)));
       }
-      case "n": {
+      case 'n': {
         // BigInt
         return BigInt(value.slice(2));
       }
@@ -323,10 +323,10 @@ function parseModelString(
         // }
 
         return {
-          $$type: "reference",
+          $$type: 'reference',
           id: new Number(id).toString(16),
-          identifier: "",
-          type: "Reference",
+          identifier: '',
+          type: 'Reference',
         } satisfies Reference;
       }
     }
@@ -365,7 +365,7 @@ export function createFlightResponse(): FlightResponse {
     _rowState: 0,
     _currentTimestamp: 0,
     _stringDecoder: createStringDecoder(),
-    _chunks: [] as FlightResponse["_chunks"],
+    _chunks: [] as FlightResponse['_chunks'],
   };
 
   response._fromJSON = createFromJSONCallback(response);
@@ -418,9 +418,9 @@ export function createElement(type: unknown, key: unknown, props: unknown) {
 
 export function isElement(x: unknown): x is ReturnType<typeof createElement> {
   return (
-    typeof x === "object" &&
+    typeof x === 'object' &&
     x !== null &&
-    "$$typeof" in x &&
+    '$$typeof' in x &&
     x.$$typeof === REACT_ELEMENT_TYPE
   );
 }
@@ -435,7 +435,7 @@ function resolveModel(
   const value = parseModel(response, model);
 
   chunks.push({
-    type: "model",
+    type: 'model',
     id: new Number(id).toString(16),
     value: value,
     originalValue: model,
@@ -450,7 +450,7 @@ function resolveText(response: FlightResponse, id: number, text: string): void {
   // emitted.
 
   chunks.push({
-    type: "text",
+    type: 'text',
     id: new Number(id).toString(16),
     value: text,
     originalValue: text,
@@ -468,7 +468,7 @@ function resolveBuffer(
   // We assume that we always reference buffers after they've been emitted.
 
   chunks.push({
-    type: "buffer",
+    type: 'buffer',
     id: new Number(id).toString(16),
     value: buffer,
     originalValue: buffer.toString(),
@@ -490,7 +490,7 @@ function resolveModule(
   );
 
   chunks.push({
-    type: "module",
+    type: 'module',
     id: new Number(id).toString(16),
     value: clientReferenceMetadata,
     originalValue: model,
@@ -513,18 +513,18 @@ function resolveErrorProd(
   //   );
   // }
   const error = new Error(
-    "An error occurred in the Server Components render. The specific message is omitted in production" +
-      " builds to avoid leaking sensitive details. A digest property is included on this error instance which" +
-      " may provide additional details about the nature of the error.",
+    'An error occurred in the Server Components render. The specific message is omitted in production' +
+      ' builds to avoid leaking sensitive details. A digest property is included on this error instance which' +
+      ' may provide additional details about the nature of the error.',
   );
-  error.stack = "Error: " + error.message;
+  error.stack = 'Error: ' + error.message;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (error as any).digest = digest;
   const errorWithDigest = error as ErrorWithDigest;
   const chunks = response._chunks;
 
   chunks.push({
-    type: "errorProd",
+    type: 'errorProd',
     id: new Number(id).toString(16),
     error: errorWithDigest,
     originalValue: digest,
@@ -550,7 +550,7 @@ function resolveErrorDev(
   // // eslint-disable-next-line react-internal/prod-error-codes
   const error = new Error(
     message ||
-      "An error occurred in the Server Components render but no message was provided",
+      'An error occurred in the Server Components render but no message was provided',
   );
   error.stack = stack;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -559,7 +559,7 @@ function resolveErrorDev(
   const chunks = response._chunks;
 
   chunks.push({
-    type: "errorDev",
+    type: 'errorDev',
     id: new Number(id).toString(16),
     error: errorWithDigest,
     originalValue: { digest, message, stack },
@@ -572,7 +572,7 @@ declare class Postpone extends Error {
   $$typeof: symbol;
 }
 
-const REACT_POSTPONE_TYPE = Symbol.for("react.postpone");
+const REACT_POSTPONE_TYPE = Symbol.for('react.postpone');
 
 function resolvePostponeProd(response: FlightResponse, id: number): void {
   // if (__DEV__) {
@@ -583,16 +583,16 @@ function resolvePostponeProd(response: FlightResponse, id: number): void {
   //   );
   // }
   const error = new Error(
-    "A Server Component was postponed. The reason is omitted in production" +
-      " builds to avoid leaking sensitive details.",
+    'A Server Component was postponed. The reason is omitted in production' +
+      ' builds to avoid leaking sensitive details.',
   );
   const postponeInstance = error as Postpone;
   postponeInstance.$$typeof = REACT_POSTPONE_TYPE;
-  postponeInstance.stack = "Error: " + error.message;
+  postponeInstance.stack = 'Error: ' + error.message;
   const chunks = response._chunks;
 
   chunks.push({
-    type: "postponeProd",
+    type: 'postponeProd',
     id: new Number(id).toString(16),
     error: postponeInstance,
     originalValue: undefined,
@@ -615,14 +615,14 @@ function resolvePostponeDev(
   //   );
   // }
   // // eslint-disable-next-line react-internal/prod-error-codes
-  const error = new Error(reason || "");
+  const error = new Error(reason || '');
   const postponeInstance = error as Postpone;
   postponeInstance.$$typeof = REACT_POSTPONE_TYPE;
   postponeInstance.stack = stack;
   const chunks = response._chunks;
 
   chunks.push({
-    type: "postponeDev",
+    type: 'postponeDev',
     id: new Number(id).toString(16),
     error: postponeInstance,
     originalValue: { reason, stack },
@@ -642,7 +642,7 @@ function resolveHint<Code extends HintCode>(
   const chunks = response._chunks;
 
   chunks.push({
-    type: "hint",
+    type: 'hint',
     id: new Number(id).toString(16),
     code: code,
     value: hintModel,
@@ -668,7 +668,7 @@ function resolveDebugInfo(
   const chunks = response._chunks;
 
   chunks.push({
-    type: "debugInfo",
+    type: 'debugInfo',
     id: new Number(id).toString(16),
     value: debugInfo,
     originalValue: debugInfo,
@@ -797,7 +797,7 @@ function processFullRow(
   }
 
   const stringDecoder = response._stringDecoder;
-  let row = "";
+  let row = '';
   for (let i = 0; i < buffer.length; i++) {
     row += readPartialStringChunk(stringDecoder, buffer[i]);
   }
@@ -999,12 +999,12 @@ function parseModel<T>(response: FlightResponse, json: UninitializedModel): T {
 
 export function createFromJSONCallback(response: FlightResponse) {
   return function (key: string, value: JSONValue) {
-    if (typeof value === "string") {
+    if (typeof value === 'string') {
       // We can't use .bind here because we need the "this" value.
       // @ts-expect-error `this` doesn't work
       return parseModelString(response, this, key, value);
     }
-    if (typeof value === "object" && value !== null) {
+    if (typeof value === 'object' && value !== null) {
       return parseModelTuple(response, value);
     }
     return value;

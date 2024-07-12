@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   ReactNode,
   createContext,
@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
   useTransition,
-} from "react";
+} from 'react';
 
 const EndTimeContext = createContext<{
   endTime: number;
@@ -62,7 +62,7 @@ export function useEndTime() {
   const context = useContext(EndTimeContext);
 
   if (context === undefined) {
-    throw new Error("useEndTime must be used within a EndTimeContext.Provider");
+    throw new Error('useEndTime must be used within a EndTimeContext.Provider');
   }
 
   return context;

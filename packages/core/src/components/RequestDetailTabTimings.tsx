@@ -1,14 +1,14 @@
-import React from "react";
-import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
+import React from 'react';
+import { eventsFilterByMaxTimestamp } from '../eventArrayHelpers';
 import {
   RscEvent,
   isRscChunkEvent,
   isRscRequestEvent,
   isRscResponseEvent,
-} from "../events";
-import { useEndTime } from "./EndTimeContext";
-import { RequestDetailTabEmptyState } from "./RequestDetailTabEmptyState";
-import { getColorForFetch } from "../color";
+} from '../events';
+import { useEndTime } from './EndTimeContext';
+import { RequestDetailTabEmptyState } from './RequestDetailTabEmptyState';
+import { getColorForFetch } from '../color';
 
 export function RequestDetailTabTimings({ events }: { events: RscEvent[] }) {
   const { endTime } = useEndTime();
@@ -40,23 +40,23 @@ export function RequestDetailTabTimings({ events }: { events: RscEvent[] }) {
   }[] = [];
 
   timings.push({
-    name: "Request start",
+    name: 'Request start',
     offset: startTimeStamp - startTimeStamp,
-    color: getColorForFetch("1"),
+    color: getColorForFetch('1'),
   });
 
   if (responseEvent) {
     timings.push({
-      name: "Response start",
+      name: 'Response start',
       offset: responseEvent.data.timestamp - startTimeStamp,
-      color: getColorForFetch("20"),
+      color: getColorForFetch('20'),
     });
 
     timeFilteredEvents.filter(isRscChunkEvent).forEach((event, index) => {
       timings.push({
         name: `Chunk ${index}`,
         offset: event.data.timestamp - startTimeStamp,
-        color: getColorForFetch("30"),
+        color: getColorForFetch('30'),
       });
     });
 
@@ -64,9 +64,9 @@ export function RequestDetailTabTimings({ events }: { events: RscEvent[] }) {
       timeFilteredEvents.find((event) => event.data.timestamp === endTimestamp)
     ) {
       timings.push({
-        name: "Response end",
+        name: 'Response end',
         offset: endTimestamp ? endTimestamp - startTimeStamp : null,
-        color: getColorForFetch("20"),
+        color: getColorForFetch('20'),
       });
     }
   }
@@ -98,11 +98,11 @@ export function RequestDetailTabTimings({ events }: { events: RscEvent[] }) {
 
 function getWidthByOffset(offset: number | null, biggestOffset: number) {
   if (offset === null) {
-    return "100%";
+    return '100%';
   }
 
   if (offset === 0) {
-    return "3px";
+    return '3px';
   }
 
   return `${(offset / biggestOffset) * 100}%`;
