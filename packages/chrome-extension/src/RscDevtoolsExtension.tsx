@@ -23,10 +23,17 @@ import {
   isRscChunkEvent,
   isRscEvent,
   isStopRecordingEvent,
+  ReadNextJsScriptTagsEvent,
 } from '@rsc-parser/core/events';
 
 export function RscDevtoolsExtension() {
-  const { isRecording, startRecording, events, clearEvents } = useRscEvents();
+  const {
+    isRecording,
+    startRecording,
+    events,
+    clearEvents,
+    triggerReadNextJsScriptTags,
+  } = useRscEvents();
 
   return (
     <PanelLayout
@@ -54,6 +61,13 @@ export function RscDevtoolsExtension() {
                     Copy events to clipboard
                   </button>
                 ) : null}
+                <button
+                  onClick={() => {
+                    triggerReadNextJsScriptTags();
+                  }}
+                >
+                  Read Next.js script tag payload
+                </button>
               </>
             }
           />
@@ -142,11 +156,22 @@ function useRscEvents() {
     setEvents([]);
   }, []);
 
+  const triggerReadNextJsScriptTags = useCallback(() => {
+    setIsRecording(true);
+    chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
+      type: 'READ_NEXT_JS_SCRIPT_TAGS',
+      data: {
+        tabId: tabId,
+      },
+    } satisfies ReadNextJsScriptTagsEvent);
+  }, []);
+
   return {
     isRecording,
     startRecording,
     events,
     clearEvents,
+    triggerReadNextJsScriptTags,
   };
 }
 

@@ -46,6 +46,10 @@ export default defineConfig(({ mode }) => {
               __dirname,
               'src/assets/fetchPatcherInjector.ts',
             ),
+            readNextJsScriptTagsInjector: resolve(
+              __dirname,
+              'src/assets/readNextJsScriptTagsInjector.ts',
+            ),
             contentScript: resolve(__dirname, 'src/assets/contentScript.ts'),
             devtoolsPage: resolve(__dirname, 'src/assets/devtoolsPage.ts'),
           },
@@ -75,6 +79,10 @@ export default defineConfig(({ mode }) => {
           fetchPatcherInjector: resolve(
             __dirname,
             'src/assets/fetchPatcherInjector.ts',
+          ),
+          readNextJsScriptTagsInjector: resolve(
+            __dirname,
+            'src/assets/readNextJsScriptTagsInjector.ts',
           ),
           contentScript: resolve(__dirname, 'src/assets/contentScript.ts'),
           devtoolsPage: resolve(__dirname, 'src/assets/devtoolsPage.ts'),

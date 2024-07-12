@@ -18,6 +18,10 @@
     {
       "resources": ["assets/fetchPatcherInjector.js"],
       "matches": ["http://*/*", "https://*/*"]
+    },
+    {
+      "resources": ["assets/readNextJsScriptTagsInjector.js"],
+      "matches": ["http://*/*", "https://*/*"]
     }
   ]
 }

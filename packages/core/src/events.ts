@@ -34,6 +34,24 @@ export function isStopRecordingEvent(
   );
 }
 
+export type ReadNextJsScriptTagsEvent = {
+  type: 'READ_NEXT_JS_SCRIPT_TAGS';
+  data: {
+    tabId: number;
+  };
+};
+
+export function isReadNextJsScriptTagsEvent(
+  event: unknown,
+): event is ReadNextJsScriptTagsEvent {
+  return (
+    typeof event === 'object' &&
+    event !== null &&
+    'type' in event &&
+    event.type === 'READ_NEXT_JS_SCRIPT_TAGS'
+  );
+}
+
 type RscEventSharedData = {
   data: {
     tabId: number;
@@ -109,6 +127,7 @@ export function isEvent(event: unknown): event is Event {
   return (
     isStartRecordingEvent(event) ||
     isStopRecordingEvent(event) ||
-    isRscEvent(event)
+    isRscEvent(event) ||
+    isReadNextJsScriptTagsEvent(event)
   );
 }

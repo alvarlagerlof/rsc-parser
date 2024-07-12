@@ -42,6 +42,14 @@ function isRscChunkEvent(event: unknown) {
     event.type === 'RSC_CHUNK'
   );
 }
+export function isReadNextJsScriptTagsEvent(event: unknown) {
+  return (
+    typeof event === 'object' &&
+    event !== null &&
+    'type' in event &&
+    event.type === 'READ_NEXT_JS_SCRIPT_TAGS'
+  );
+}
 function isRscEvent(event: unknown) {
   return (
     isRscRequestEvent(event) ||
@@ -83,10 +91,21 @@ chrome.runtime.onMessage.addListener(function (request) {
     );
   }
 
+  if (isReadNextJsScriptTagsEvent(request)) {
+    // Store the tabId so that the devtools panel can filter messages to
+    // only show the ones from the current tab
+    tabId = request.data.tabId;
+    injectScript(
+      chrome.runtime.getURL('assets/readNextJsScriptTagsInjector.js'),
+      'body',
+    );
+  }
+
   return true;
 });
 
-// This code passes along events from fetchPatcherInjector to the devtools panel
+// This code passes along events from fetchPatcherInjector
+// and readNextJsScriptTagsInjector to the devtools panel
 window.addEventListener(
   'message',
   function (event) {
@@ -95,7 +114,7 @@ window.addEventListener(
       return;
     }
 
-    if (!tabId) {
+    if (typeof tabId !== 'number') {
       return;
     }
 

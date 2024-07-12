@@ -20,6 +20,7 @@ export default defineConfig({
       entry: {
         main: resolve(__dirname, 'src/main.ts'),
         fetchPatcher: resolve(__dirname, 'src/fetchPatcher.ts'),
+        readNextJsScriptTags: resolve(__dirname, 'src/readNextJsScriptTags.ts'),
         events: resolve(__dirname, 'src/events.ts'),
       },
       formats: ['es'],
