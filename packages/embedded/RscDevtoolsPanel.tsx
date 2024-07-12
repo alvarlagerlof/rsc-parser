@@ -16,6 +16,7 @@ import {
   copyEventsToClipboard,
 } from '@rsc-parser/core';
 import { fetchPatcher } from '@rsc-parser/core/fetchPatcher';
+import { readNextJsScriptTags } from '@rsc-parser/core/readNextJsScriptTags';
 import React, {
   ReactNode,
   startTransition,
@@ -52,7 +53,7 @@ export function RscDevtoolsPanel({
     startRecording,
     events,
     clearEvents,
-    readNextScriptTags,
+    triggerReadNextJsScriptTags,
   } = useRscEvents();
 
   return (
@@ -91,7 +92,7 @@ export function RscDevtoolsPanel({
                     ) : null}
                     <button
                       onClick={() => {
-                        readNextScriptTags();
+                        triggerReadNextJsScriptTags();
                       }}
                     >
                       Read Next.js script tag payload
@@ -197,57 +198,17 @@ function useRscEvents() {
     setEvents([]);
   }, []);
 
-  const readNextScriptTags = useCallback(() => {
-    try {
-      // @ts-expect-error This is a hack
-      const payload = self.__next_f.map((f) => f?.[1]).join('');
+  const triggerReadNextJsScriptTags = useCallback(() => {
+    const events = readNextJsScriptTags();
 
-      const requestId = String(Date.now() + Math.random()); // TODO: Use a better random number generator or uuid
-
-      const events = [
-        {
-          type: 'RSC_REQUEST',
-          data: {
-            requestId: requestId,
-            tabId: 0,
-            timestamp: Date.now(),
-            url: window.location.href,
-            method: 'GET',
-            headers: {},
-          },
-        },
-        {
-          type: 'RSC_RESPONSE',
-          data: {
-            requestId: requestId,
-            tabId: 0,
-            timestamp: Date.now(),
-            status: 200,
-            headers: {},
-          },
-        },
-        {
-          type: 'RSC_CHUNK',
-          data: {
-            requestId: requestId,
-            tabId: 0,
-            timestamp: Date.now(),
-            chunkValue: Array.from(new TextEncoder().encode(payload)),
-          },
-        },
-      ] satisfies RscEvent[];
-
-      setIsRecording(true);
-      startTransition(() => {
-        setEvents(() => events);
-      });
-    } catch (error) {
-      console.error(
-        new Error('Error parsing Next.js payload', {
-          cause: error,
-        }),
-      );
+    if (!events) {
+      return;
     }
+
+    setIsRecording(true);
+    startTransition(() => {
+      setEvents((previousEvents) => [...previousEvents, ...events]);
+    });
   }, []);
 
   return {
@@ -255,7 +216,7 @@ function useRscEvents() {
     startRecording,
     events,
     clearEvents,
-    readNextScriptTags,
+    triggerReadNextJsScriptTags,
   };
 }
 
