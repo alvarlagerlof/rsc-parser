@@ -610,6 +610,7 @@ function JSContainer({ children }: { children: ReactNode }) {
 const ObjectContext = createContext(false);
 
 function isLetter(letter: string) {
+  // @ts-expect-error TODO: Fix this
   return RegExp(/^\p{L}/, "u").test(letter);
 }
 
