@@ -1,19 +1,19 @@
-import React from "react";
-import { TabList, Tab, TabPanel } from "@ariakit/react";
-import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../events";
-import { TimeScrubber } from "./TimeScrubber";
-import { EndTimeProvider, useEndTime } from "./EndTimeContext";
+import React from 'react';
+import { TabList, Tab, TabPanel } from '@ariakit/react';
+import { RscEvent, isRscRequestEvent, isRscResponseEvent } from '../events';
+import { TimeScrubber } from './TimeScrubber';
+import { EndTimeProvider, useEndTime } from './EndTimeContext';
 import {
   eventsFilterByMaxTimestamp,
   eventsFilterByRequestId,
   eventsGetMinMaxTimestamps,
   eventsSortByTimestamp,
   eventsUniqueRequestIds,
-} from "../eventArrayHelpers";
-import { useTabStoreWithTransitions } from "./useTabStoreWithTransitions";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import { getColorForFetch } from "../color";
-import { RequestDetail } from "./RequestDetail";
+} from '../eventArrayHelpers';
+import { useTabStoreWithTransitions } from './useTabStoreWithTransitions';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import { getColorForFetch } from '../color';
+import { RequestDetail } from './RequestDetail';
 
 export function ViewerStreams({ events }: { events: RscEvent[] }) {
   const { minStartTime, maxEndTime } = eventsGetMinMaxTimestamps(events);
@@ -66,7 +66,7 @@ function Requests({ events }: { events: RscEvent[] }) {
           tabId={currentTab}
           alwaysVisible={true}
           className={`flex min-w-0 grow pl-3 transition-opacity delay-75 duration-100 ${
-            isPending ? "opacity-60" : ""
+            isPending ? 'opacity-60' : ''
           }`}
           aria-label="Paths"
           aria-busy={isPending}
@@ -106,7 +106,7 @@ function RequestTab({ events }: { events: RscEvent[] }) {
       ></div>
       <div className="flex flex-row gap-1">
         <span className="inline-block min-w-[4ch] font-medium text-slate-500 dark:text-slate-400">
-          {method} {status !== 200 && status !== undefined ? `(${status})` : ""}
+          {method} {status !== 200 && status !== undefined ? `(${status})` : ''}
         </span>
         <div>
           <span className="text-slate-900 dark:text-white">

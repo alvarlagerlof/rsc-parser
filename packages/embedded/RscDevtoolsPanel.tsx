@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
 // @ts-expect-error Inline styles are not understood by the typescript compiler
-import styles from "@rsc-parser/core/style.css?inline";
+import styles from '@rsc-parser/core/style.css?inline';
 import {
   ViewerStreams,
   ViewerStreamsEmptyState,
@@ -14,8 +14,8 @@ import {
   PanelLayout,
   OverflowButton,
   copyEventsToClipboard,
-} from "@rsc-parser/core";
-import { fetchPatcher } from "@rsc-parser/core/fetchPatcher";
+} from '@rsc-parser/core';
+import { fetchPatcher } from '@rsc-parser/core/fetchPatcher';
 import React, {
   ReactNode,
   startTransition,
@@ -23,25 +23,25 @@ import React, {
   useEffect,
   useState,
   useSyncExternalStore,
-} from "react";
-import { isRscChunkEvent, RscEvent } from "@rsc-parser/core/events";
+} from 'react';
+import { isRscChunkEvent, RscEvent } from '@rsc-parser/core/events';
 
 export function RscDevtoolsPanel({
-  position = "bottom",
+  position = 'bottom',
 }: {
-  position?: "bottom" | "right" | undefined;
+  position?: 'bottom' | 'right' | undefined;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(position);
 
   useEffect(() => {
     const localStoragePosition = localStorage.getItem(
-      "rscDevtoolsPanelPosition",
+      'rscDevtoolsPanelPosition',
     );
 
     if (
-      typeof localStoragePosition === "string" &&
-      (localStoragePosition === "bottom" || localStoragePosition === "right")
+      typeof localStoragePosition === 'string' &&
+      (localStoragePosition === 'bottom' || localStoragePosition === 'right')
     ) {
       setCurrentPosition(localStoragePosition);
     }
@@ -80,7 +80,7 @@ export function RscDevtoolsPanel({
                 menuItems={
                   <>
                     <button onClick={() => clearEvents()}>Clear events</button>
-                    {process.env.NODE_ENV === "development" ? (
+                    {process.env.NODE_ENV === 'development' ? (
                       <button
                         onClick={() => {
                           copyEventsToClipboard({ events });
@@ -134,11 +134,11 @@ function ApplyStylingOnClient({ children }: { children: ReactNode }) {
       return;
     }
 
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "https://unpkg.com/style-scoped@0/scoped.min.js";
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://unpkg.com/style-scoped@0/scoped.min.js';
 
-    script.addEventListener("load", () => {
+    script.addEventListener('load', () => {
       setPolyfillIsLoaded(true);
     });
 
@@ -200,24 +200,24 @@ function useRscEvents() {
   const readNextScriptTags = useCallback(() => {
     try {
       // @ts-expect-error This is a hack
-      const payload = self.__next_f.map((f) => f?.[1]).join("");
+      const payload = self.__next_f.map((f) => f?.[1]).join('');
 
       const requestId = String(Date.now() + Math.random()); // TODO: Use a better random number generator or uuid
 
       const events = [
         {
-          type: "RSC_REQUEST",
+          type: 'RSC_REQUEST',
           data: {
             requestId: requestId,
             tabId: 0,
             timestamp: Date.now(),
             url: window.location.href,
-            method: "GET",
+            method: 'GET',
             headers: {},
           },
         },
         {
-          type: "RSC_RESPONSE",
+          type: 'RSC_RESPONSE',
           data: {
             requestId: requestId,
             tabId: 0,
@@ -227,7 +227,7 @@ function useRscEvents() {
           },
         },
         {
-          type: "RSC_CHUNK",
+          type: 'RSC_CHUNK',
           data: {
             requestId: requestId,
             tabId: 0,
@@ -243,7 +243,7 @@ function useRscEvents() {
       });
     } catch (error) {
       console.error(
-        new Error("Error parsing Next.js payload", {
+        new Error('Error parsing Next.js payload', {
           cause: error,
         }),
       );

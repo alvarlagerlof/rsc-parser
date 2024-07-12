@@ -1,5 +1,5 @@
 export type StartRecordingEvent = {
-  type: "START_RECORDING";
+  type: 'START_RECORDING';
   data: {
     tabId: number;
   };
@@ -9,15 +9,15 @@ export function isStartRecordingEvent(
   event: unknown,
 ): event is StartRecordingEvent {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "START_RECORDING"
+    'type' in event &&
+    event.type === 'START_RECORDING'
   );
 }
 
 export type StopRecordingEvent = {
-  type: "STOP_RECORDING";
+  type: 'STOP_RECORDING';
   data: {
     tabId: number;
   };
@@ -27,10 +27,10 @@ export function isStopRecordingEvent(
   event: unknown,
 ): event is StopRecordingEvent {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "STOP_RECORDING"
+    'type' in event &&
+    event.type === 'STOP_RECORDING'
   );
 }
 
@@ -43,7 +43,7 @@ type RscEventSharedData = {
 };
 
 export type RscRequestEvent = RscEventSharedData & {
-  type: "RSC_REQUEST";
+  type: 'RSC_REQUEST';
   data: {
     url: string;
     method: string;
@@ -53,15 +53,15 @@ export type RscRequestEvent = RscEventSharedData & {
 
 export function isRscRequestEvent(event: unknown): event is RscRequestEvent {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "RSC_REQUEST"
+    'type' in event &&
+    event.type === 'RSC_REQUEST'
   );
 }
 
 export type RscResponseEvent = RscEventSharedData & {
-  type: "RSC_RESPONSE";
+  type: 'RSC_RESPONSE';
   data: {
     status: number;
     headers: Record<string, string>;
@@ -70,15 +70,15 @@ export type RscResponseEvent = RscEventSharedData & {
 
 export function isRscResponseEvent(event: unknown): event is RscResponseEvent {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "RSC_RESPONSE"
+    'type' in event &&
+    event.type === 'RSC_RESPONSE'
   );
 }
 
 export type RscChunkEvent = RscEventSharedData & {
-  type: "RSC_CHUNK";
+  type: 'RSC_CHUNK';
   data: {
     chunkValue: number[];
   };
@@ -86,10 +86,10 @@ export type RscChunkEvent = RscEventSharedData & {
 
 export function isRscChunkEvent(event: unknown): event is RscChunkEvent {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "RSC_CHUNK"
+    'type' in event &&
+    event.type === 'RSC_CHUNK'
   );
 }
 

@@ -1,32 +1,32 @@
 // @ts-check
 
-import { FlatCompat } from "@eslint/eslintrc";
+import { FlatCompat } from '@eslint/eslintrc';
 
-import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
 
 const compat = new FlatCompat();
 
 export default [
   {
-    ignores: ["dist/**", ".next/**", ".turbo/**"],
+    ignores: ['dist/**', '.next/**', '.turbo/**'],
   },
   ...[eslint.configs.recommended, ...tseslint.configs.recommended].map(
     (conf) => ({
       ...conf,
-      files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+      files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     }),
   ),
   ...compat.config({
-    extends: ["plugin:tailwindcss/recommended" /*, "next/core-web-vitals"'*/],
+    extends: ['plugin:tailwindcss/recommended' /*, "next/core-web-vitals"'*/],
     rules: {
-      "tailwindcss/classnames-order": "error",
+      'tailwindcss/classnames-order': 'error',
     },
   }),
   {
-    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
-      curly: ["error", "all"],
+      curly: ['error', 'all'],
     },
   },
 ];

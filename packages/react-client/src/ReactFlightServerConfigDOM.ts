@@ -13,7 +13,7 @@ import type {
   PreinitStyleOptions,
   PreinitScriptOptions,
   PreinitModuleScriptOptions,
-} from "./ReactDOMTypes";
+} from './ReactDOMTypes';
 
 // We use zero to represent the absence of an explicit precedence because it is
 // small, smaller than how we encode undefined, and is unambiguous. We could use

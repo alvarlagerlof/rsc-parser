@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { ViewerPayload } from "@rsc-parser/core";
+import React from 'react';
+import { ViewerPayload } from '@rsc-parser/core';
 
-import "@rsc-parser/core/style.css";
+import '@rsc-parser/core/style.css';
 
 const defaultPayload = `0:["development",[["children","(main)","children","__PAGE__",["__PAGE__",{}],"$L1",[null,"$L2"]]]]
 4:I["(app-pages-browser)/./app/(main)/components/Pronunciation.tsx",["app/(main)/page","static/chunks/app/(main)/page.js"],"Pronunciation"]

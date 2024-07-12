@@ -1,8 +1,8 @@
-import React from "react";
-import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
-import { RscEvent, isRscRequestEvent, isRscResponseEvent } from "../events";
-import { useEndTime } from "./EndTimeContext";
-import { RequestDetailTabEmptyState } from "./RequestDetailTabEmptyState";
+import React from 'react';
+import { eventsFilterByMaxTimestamp } from '../eventArrayHelpers';
+import { RscEvent, isRscRequestEvent, isRscResponseEvent } from '../events';
+import { useEndTime } from './EndTimeContext';
+import { RequestDetailTabEmptyState } from './RequestDetailTabEmptyState';
 
 export function RequestDetailTabHeaders({ events }: { events: RscEvent[] }) {
   const { endTime } = useEndTime();
@@ -22,27 +22,27 @@ export function RequestDetailTabHeaders({ events }: { events: RscEvent[] }) {
         <Table
           header="General Information"
           data={{
-            "Request URL": requestEvent.data.url,
-            "Request Method": requestEvent.data.method,
+            'Request URL': requestEvent.data.url,
+            'Request Method': requestEvent.data.method,
             ...(responseEvent
-              ? { "Status Code": responseEvent.data.status }
+              ? { 'Status Code': responseEvent.data.status }
               : {}),
           }}
         />
       ) : (
-        "No general information"
+        'No general information'
       )}
 
       {requestEvent ? (
         <Table header="Request Headers" data={requestEvent.data.headers} />
       ) : (
-        "No response headers"
+        'No response headers'
       )}
 
       {responseEvent ? (
         <Table header="Response Headers" data={responseEvent.data.headers} />
       ) : (
-        "No response headers"
+        'No response headers'
       )}
     </div>
   );

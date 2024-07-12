@@ -1,49 +1,49 @@
-import { RscEvent } from "../events";
+import { RscEvent } from '../events';
 
 export const alvarDevExampleData: RscEvent[] = [
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717949834954.4883",
+      requestId: '1717949834954.4883',
       tabId: 1717949833446,
       timestamp: 1717949834954,
-      url: "https://www.alvar.dev/about?_rsc=1mv7y",
-      method: "GET",
+      url: 'https://www.alvar.dev/about?_rsc=1mv7y',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(main)%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2F%22%2C%22refresh%22%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Url": "/",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(main)%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2F%22%2C%22refresh%22%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Url': '/',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717949834954.4883",
+      requestId: '1717949834954.4883',
       tabId: 1717949833446,
       timestamp: 1717949835187,
       status: 200,
       headers: {
-        age: "0",
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:17:15 GMT",
-        server: "Vercel",
-        "strict-transport-security": "max-age=63072000",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch",
-        "x-matched-path": "/about.rsc",
-        "x-vercel-cache": "MISS",
-        "x-vercel-id": "arn1::fra1::wm5t8-1717949835046-6a231fae1f9b",
+        age: '0',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:17:15 GMT',
+        server: 'Vercel',
+        'strict-transport-security': 'max-age=63072000',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch',
+        'x-matched-path': '/about.rsc',
+        'x-vercel-cache': 'MISS',
+        'x-vercel-id': 'arn1::fra1::wm5t8-1717949835046-6a231fae1f9b',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717949834954.4883",
+      requestId: '1717949834954.4883',
       tabId: 1717949833446,
       timestamp: 1717949835188,
       chunkValue: [
@@ -2056,48 +2056,48 @@ export const alvarDevExampleData: RscEvent[] = [
     },
   },
   {
-    type: "RSC_REQUEST",
+    type: 'RSC_REQUEST',
     data: {
-      requestId: "1717949836721.3257",
+      requestId: '1717949836721.3257',
       tabId: 1717949833446,
       timestamp: 1717949836721,
-      url: "https://www.alvar.dev/projects?_rsc=tiqpa",
-      method: "GET",
+      url: 'https://www.alvar.dev/projects?_rsc=tiqpa',
+      method: 'GET',
       headers: {
-        RSC: "1",
-        "Next-Router-State-Tree":
-          "%5B%22%22%2C%7B%22children%22%3A%5B%22(main)%22%2C%7B%22children%22%3A%5B%22about%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fabout%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        "Next-Url": "/about",
+        RSC: '1',
+        'Next-Router-State-Tree':
+          '%5B%22%22%2C%7B%22children%22%3A%5B%22(main)%22%2C%7B%22children%22%3A%5B%22about%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fabout%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+        'Next-Url': '/about',
       },
     },
   },
   {
-    type: "RSC_RESPONSE",
+    type: 'RSC_RESPONSE',
     data: {
-      requestId: "1717949836721.3257",
+      requestId: '1717949836721.3257',
       tabId: 1717949833446,
       timestamp: 1717949836923,
       status: 200,
       headers: {
-        age: "0",
-        "cache-control":
-          "private, no-cache, no-store, max-age=0, must-revalidate",
-        "content-encoding": "gzip",
-        "content-type": "text/x-component",
-        date: "Sun, 09 Jun 2024 16:17:16 GMT",
-        server: "Vercel",
-        "strict-transport-security": "max-age=63072000",
-        vary: "RSC, Next-Router-State-Tree, Next-Router-Prefetch",
-        "x-matched-path": "/projects.rsc",
-        "x-vercel-cache": "MISS",
-        "x-vercel-id": "arn1::fra1::79fql-1717949836836-45609f5002fd",
+        age: '0',
+        'cache-control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+        'content-encoding': 'gzip',
+        'content-type': 'text/x-component',
+        date: 'Sun, 09 Jun 2024 16:17:16 GMT',
+        server: 'Vercel',
+        'strict-transport-security': 'max-age=63072000',
+        vary: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch',
+        'x-matched-path': '/projects.rsc',
+        'x-vercel-cache': 'MISS',
+        'x-vercel-id': 'arn1::fra1::79fql-1717949836836-45609f5002fd',
       },
     },
   },
   {
-    type: "RSC_CHUNK",
+    type: 'RSC_CHUNK',
     data: {
-      requestId: "1717949836721.3257",
+      requestId: '1717949836721.3257',
       tabId: 1717949833446,
       timestamp: 1717949836923,
       chunkValue: [

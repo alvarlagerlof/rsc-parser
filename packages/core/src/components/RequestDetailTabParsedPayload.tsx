@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useState, useTransition } from 'react';
 import {
   Disclosure,
   DisclosureContent,
@@ -7,25 +7,25 @@ import {
   Tab,
   TabPanel,
   useTabStore,
-} from "@ariakit/react";
-import { ErrorBoundary } from "react-error-boundary";
-import { GenericErrorBoundaryFallback } from "./GenericErrorBoundaryFallback";
+} from '@ariakit/react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { GenericErrorBoundaryFallback } from './GenericErrorBoundaryFallback';
 import {
   Chunk,
   createFlightResponse,
   processBinaryChunk,
-} from "@rsc-parser/react-client";
-import { FlightResponseChunkModule } from "./FlightResponseChunkModule";
-import { FlightResponseChunkHint } from "./FlightResponseChunkHint";
-import { FlightResponseChunkModel } from "./FlightResponseChunkModel";
-import { DownArrowIcon, RightArrowIcon } from "./FlightResponseIcons";
-import { FlightResponseChunkDebugInfo } from "./FlightResponseChunkDebugInfo";
-import { FlightResponseChunkText } from "./FlightResponseChunkText";
-import { FlightResponseChunkUnknown } from "./FlightResponseChunkUnknown";
-import { useEndTime } from "./EndTimeContext";
-import { RscEvent, isRscChunkEvent } from "../events";
-import { RequestDetailTabEmptyState } from "./RequestDetailTabEmptyState";
-import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
+} from '@rsc-parser/react-client';
+import { FlightResponseChunkModule } from './FlightResponseChunkModule';
+import { FlightResponseChunkHint } from './FlightResponseChunkHint';
+import { FlightResponseChunkModel } from './FlightResponseChunkModel';
+import { DownArrowIcon, RightArrowIcon } from './FlightResponseIcons';
+import { FlightResponseChunkDebugInfo } from './FlightResponseChunkDebugInfo';
+import { FlightResponseChunkText } from './FlightResponseChunkText';
+import { FlightResponseChunkUnknown } from './FlightResponseChunkUnknown';
+import { useEndTime } from './EndTimeContext';
+import { RscEvent, isRscChunkEvent } from '../events';
+import { RequestDetailTabEmptyState } from './RequestDetailTabEmptyState';
+import { eventsFilterByMaxTimestamp } from '../eventArrayHelpers';
 
 export function RequestDetailTabParsedPayload({
   events,
@@ -61,7 +61,7 @@ export function RequestDetailTabParsedPayload({
           const { _response, ...chunkWithoutResponse } = chunk;
           return JSON.stringify(chunkWithoutResponse);
         })
-        .join(""),
+        .join(''),
     ),
   );
 
@@ -134,7 +134,7 @@ export function RequestDetailTabParsedPayload({
             aria-label="Chunks"
             aria-busy={isPending}
             style={{
-              opacity: isPending ? "0.6" : "1",
+              opacity: isPending ? '0.6' : '1',
             }}
           >
             {timeFilteredChunks.length === 0 ? (
@@ -303,7 +303,7 @@ function ChunkTabPanelExplorer({
   selectTabByID: (id: string) => void;
 }) {
   switch (chunk.type) {
-    case "model": {
+    case 'model': {
       return (
         <FlightResponseChunkModel
           data={chunk.value}
@@ -313,15 +313,15 @@ function ChunkTabPanelExplorer({
         />
       );
     }
-    case "module": {
+    case 'module': {
       return <FlightResponseChunkModule data={chunk.value} />;
     }
-    case "hint": {
+    case 'hint': {
       return <FlightResponseChunkHint data={chunk.value} />;
     }
-    case "text":
+    case 'text':
       return <FlightResponseChunkText data={chunk.value} />;
-    case "debugInfo":
+    case 'debugInfo':
       return <FlightResponseChunkDebugInfo data={chunk.value} />;
     default: {
       return <FlightResponseChunkUnknown chunk={chunk} />;
@@ -380,16 +380,16 @@ function Meter({ fraction }: { fraction: number }) {
       min="0"
       max="1"
       className={[
-        "h-3 w-14",
-        "[&::-webkit-meter-bar]:rounded-lg",
-        "[&::-webkit-meter-optimum-value]:rounded-lg",
-        "[&::-webkit-meter-bar]:border-0",
-        "[&::-webkit-meter-optimum-value]:border-0",
-        "[&::-webkit-meter-bar]:bg-slate-300",
-        "dark:[&::-webkit-meter-bar]:bg-slate-500",
-        "[&::-webkit-meter-optimum-value]:bg-black",
-        "dark:[&::-webkit-meter-optimum-value]:bg-white",
-      ].join(" ")}
+        'h-3 w-14',
+        '[&::-webkit-meter-bar]:rounded-lg',
+        '[&::-webkit-meter-optimum-value]:rounded-lg',
+        '[&::-webkit-meter-bar]:border-0',
+        '[&::-webkit-meter-optimum-value]:border-0',
+        '[&::-webkit-meter-bar]:bg-slate-300',
+        'dark:[&::-webkit-meter-bar]:bg-slate-500',
+        '[&::-webkit-meter-optimum-value]:bg-black',
+        'dark:[&::-webkit-meter-optimum-value]:bg-white',
+      ].join(' ')}
     >
       {(fraction * 100).toFixed(2)}%
     </meter>

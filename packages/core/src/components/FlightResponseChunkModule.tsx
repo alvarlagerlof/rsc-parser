@@ -1,5 +1,5 @@
-import React from "react";
-import { ModuleChunk } from "@rsc-parser/react-client";
+import React from 'react';
+import { ModuleChunk } from '@rsc-parser/react-client';
 
 function groupChunks(array: (string | number)[]) {
   const newArray = [];
@@ -12,12 +12,12 @@ function groupChunks(array: (string | number)[]) {
 export function FlightResponseChunkModule({
   data,
 }: {
-  data: ModuleChunk["value"];
+  data: ModuleChunk['value'];
 }) {
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-xl font-semibold">
-        Import {data[2] == "" ? "unknown" : data[2]}
+        Import {data[2] == '' ? 'unknown' : data[2]}
       </h3>
       <p>Id: {data[0]}</p>
       <div>

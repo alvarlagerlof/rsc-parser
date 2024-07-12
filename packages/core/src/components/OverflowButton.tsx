@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
-import { MenuProvider, MenuButton, Menu } from "@ariakit/react";
-import { IconButton } from "./IconButton";
+import React, { ReactNode } from 'react';
+import { MenuProvider, MenuButton, Menu } from '@ariakit/react';
+import { IconButton } from './IconButton';
 
 export function OverflowButton({ menuItems }: { menuItems: ReactNode }) {
   return (

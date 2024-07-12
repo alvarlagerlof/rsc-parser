@@ -1,5 +1,5 @@
-import React from "react";
-import { Chunk } from "@rsc-parser/react-client";
+import React from 'react';
+import { Chunk } from '@rsc-parser/react-client';
 
 export function FlightResponseChunkUnknown({ chunk }: { chunk: Chunk }) {
   return (

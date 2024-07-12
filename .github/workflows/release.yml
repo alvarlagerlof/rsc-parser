@@ -51,5 +51,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "packages/chrome-extension/dist.zip"
+          file: 'packages/chrome-extension/dist.zip'
           update_latest_release: true

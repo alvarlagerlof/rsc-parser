@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Logo } from "./Logo";
+import { Logo } from './Logo';
 
 const meta: Meta<typeof Logo> = {
   component: Logo,
@@ -10,15 +10,15 @@ export default meta;
 type Story = StoryObj<typeof Logo>;
 
 export const small: Story = {
-  name: "small",
+  name: 'small',
   args: {
-    variant: "small",
+    variant: 'small',
   },
 };
 
 export const wide: Story = {
-  name: "wide",
+  name: 'wide',
   args: {
-    variant: "wide",
+    variant: 'wide',
   },
 };

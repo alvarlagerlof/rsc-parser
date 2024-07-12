@@ -1,11 +1,11 @@
-import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { ViewerPayload } from "./ViewerPayload";
-import { RscEvent, isRscChunkEvent, isRscRequestEvent } from "../events";
-import { alvarDevExampleData } from "../example-data/alvar-dev";
-import { ghFredkissDevExampleData } from "../example-data/gh-fredkiss-dev";
-import { nextjsOrgExampleData } from "../example-data/nextjs-org";
+import { ViewerPayload } from './ViewerPayload';
+import { RscEvent, isRscChunkEvent, isRscRequestEvent } from '../events';
+import { alvarDevExampleData } from '../example-data/alvar-dev';
+import { ghFredkissDevExampleData } from '../example-data/gh-fredkiss-dev';
+import { nextjsOrgExampleData } from '../example-data/nextjs-org';
 
 const meta: Meta<typeof ViewerPayload> = {
   component: ViewerPayload,
@@ -32,11 +32,11 @@ function getPayloadByRequestId(events: RscEvent[], requestId: string) {
     .map((event) =>
       new TextDecoder().decode(Uint8Array.from(event.data.chunkValue)),
     )
-    .join("");
+    .join('');
 }
 
 export const alvarDev: Story = {
-  name: "alvar.dev",
+  name: 'alvar.dev',
   argTypes: {
     defaultPayload: {
       options: getUrlsAndRequestIds(alvarDevExampleData).map(({ url }) => url),
@@ -48,7 +48,7 @@ export const alvarDev: Story = {
         {} as Record<string, string>,
       ),
       control: {
-        type: "select",
+        type: 'select',
       },
     },
   },
@@ -64,7 +64,7 @@ export const alvarDev: Story = {
 };
 
 export const ghFredkissDev: Story = {
-  name: "gh.fredkiss.dev",
+  name: 'gh.fredkiss.dev',
   argTypes: {
     defaultPayload: {
       options: getUrlsAndRequestIds(ghFredkissDevExampleData).map(
@@ -78,7 +78,7 @@ export const ghFredkissDev: Story = {
         {} as Record<string, string>,
       ),
       control: {
-        type: "select",
+        type: 'select',
       },
     },
   },
@@ -94,7 +94,7 @@ export const ghFredkissDev: Story = {
 };
 
 export const nextJsOrg: Story = {
-  name: "nextjs.org",
+  name: 'nextjs.org',
   argTypes: {
     defaultPayload: {
       options: getUrlsAndRequestIds(nextjsOrgExampleData).map(({ url }) => url),
@@ -106,7 +106,7 @@ export const nextJsOrg: Story = {
         {} as Record<string, string>,
       ),
       control: {
-        type: "select",
+        type: 'select',
       },
     },
   },

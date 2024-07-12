@@ -4,13 +4,13 @@ import {
   createFlightResponse,
   isReference,
   processBinaryChunk,
-} from "@rsc-parser/react-client";
-import React, { memo, useEffect, useRef, useState } from "react";
-import * as d3 from "d3";
-import { useEndTime } from "./EndTimeContext";
-import { RscEvent, isRscChunkEvent } from "../events";
-import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
-import { RequestDetailTabEmptyState } from "./RequestDetailTabEmptyState";
+} from '@rsc-parser/react-client';
+import React, { memo, useEffect, useRef, useState } from 'react';
+import * as d3 from 'd3';
+import { useEndTime } from './EndTimeContext';
+import { RscEvent, isRscChunkEvent } from '../events';
+import { eventsFilterByMaxTimestamp } from '../eventArrayHelpers';
+import { RequestDetailTabEmptyState } from './RequestDetailTabEmptyState';
 
 interface Node extends d3.SimulationNodeDatum {
   chunk: Chunk;
@@ -32,7 +32,7 @@ export const WIDTH = 120;
 export const HEIGHT = 50;
 
 function findReferencesInChunk(chunk: Chunk) {
-  if (chunk.type !== "model") {
+  if (chunk.type !== 'model') {
     return [];
   }
 
@@ -51,7 +51,7 @@ function findReferencesInChunk(chunk: Chunk) {
       return;
     }
 
-    if (typeof data == "object" && data !== null) {
+    if (typeof data == 'object' && data !== null) {
       for (const value of Object.values(data)) {
         walk(value);
       }
@@ -135,7 +135,7 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
     };
   });
 
-  const links = getLinks(flightResponse._chunks, "0");
+  const links = getLinks(flightResponse._chunks, '0');
 
   const svgRef = useRef<SVGSVGElement>(null);
   const [svgWidth, setSvgWidth] = useState(0);
@@ -175,13 +175,13 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
 
       // list of forces we apply to get node positions
       .force(
-        "link",
+        'link',
         d3.forceLink<Node, Link>(links).id((d) => d.chunk.id),
       )
-      .force("collide", d3.forceCollide().radius((WIDTH + HEIGHT) / 2))
-      .force("charge", d3.forceManyBody())
-      .force("center", d3.forceCenter(svgWidth / 2, svgHeight / 2))
-      .on("tick", () => {
+      .force('collide', d3.forceCollide().radius((WIDTH + HEIGHT) / 2))
+      .force('charge', d3.forceManyBody())
+      .force('center', d3.forceCenter(svgWidth / 2, svgHeight / 2))
+      .on('tick', () => {
         setLinksState([...links]);
         setNodesState([...nodes]);
       });
@@ -203,7 +203,7 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
           [svgWidth, svgHeight],
         ])
         .scaleExtent([0.3, 8])
-        .on("zoom", ({ transform }) => {
+        .on('zoom', ({ transform }) => {
           if (!svgGroupRef.current) {
             return;
           }

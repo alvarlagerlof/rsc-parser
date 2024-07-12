@@ -1,4 +1,4 @@
-import { RscEvent } from "./events";
+import { RscEvent } from './events';
 
 export function eventsSortByTimestamp(events: RscEvent[]) {
   return events.sort((a, b) => a.data.timestamp - b.data.timestamp);

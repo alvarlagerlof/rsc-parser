@@ -1,8 +1,8 @@
-import React from "react";
-import { useEndTime } from "./EndTimeContext";
-import { RscEvent, isRscChunkEvent } from "../events";
-import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
-import { RequestDetailTabEmptyState } from "./RequestDetailTabEmptyState";
+import React from 'react';
+import { useEndTime } from './EndTimeContext';
+import { RscEvent, isRscChunkEvent } from '../events';
+import { eventsFilterByMaxTimestamp } from '../eventArrayHelpers';
+import { RequestDetailTabEmptyState } from './RequestDetailTabEmptyState';
 
 const textDecoder = new TextDecoder();
 

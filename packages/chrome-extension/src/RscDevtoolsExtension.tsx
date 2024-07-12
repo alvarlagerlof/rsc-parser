@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useState,
-} from "react";
+} from 'react';
 
 import {
   ViewerStreams,
@@ -14,8 +14,8 @@ import {
   RecordButton,
   OverflowButton,
   copyEventsToClipboard,
-} from "@rsc-parser/core";
-import "@rsc-parser/core/style.css";
+} from '@rsc-parser/core';
+import '@rsc-parser/core/style.css';
 import {
   RscEvent,
   StartRecordingEvent,
@@ -23,7 +23,7 @@ import {
   isRscChunkEvent,
   isRscEvent,
   isStopRecordingEvent,
-} from "@rsc-parser/core/events";
+} from '@rsc-parser/core/events';
 
 export function RscDevtoolsExtension() {
   const { isRecording, startRecording, events, clearEvents } = useRscEvents();
@@ -45,7 +45,7 @@ export function RscDevtoolsExtension() {
             menuItems={
               <>
                 <button onClick={() => clearEvents()}>Clear events</button>
-                {process.env.NODE_ENV === "development" ? (
+                {process.env.NODE_ENV === 'development' ? (
                   <button
                     onClick={() => {
                       copyEventsToClipboard({ events });
@@ -131,7 +131,7 @@ function useRscEvents() {
   const startRecording = useCallback(() => {
     setIsRecording(true);
     chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
-      type: "START_RECORDING",
+      type: 'START_RECORDING',
       data: {
         tabId: tabId,
       },

@@ -6,7 +6,7 @@
  *
  */
 
-import type { CrossOriginString } from "./crossOriginStrings";
+import type { CrossOriginString } from './crossOriginStrings';
 
 export type PrefetchDNSOptions = Record<string, unknown>;
 export type PreconnectOptions = { crossOrigin?: string };
@@ -42,8 +42,8 @@ export type PreinitModuleOptions = {
   nonce?: string;
 };
 
-export type CrossOriginEnum = "" | "use-credentials" | CrossOriginString;
-export type FetchPriorityEnum = "high" | "low" | "auto";
+export type CrossOriginEnum = '' | 'use-credentials' | CrossOriginString;
+export type FetchPriorityEnum = 'high' | 'low' | 'auto';
 
 export type PreloadImplOptions = {
   crossOrigin?: CrossOriginEnum;

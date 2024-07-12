@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
-import { RscEvent } from "../events";
-import { getColorForFetch } from "../color";
-import { eventsFilterByMaxTimestamp } from "../eventArrayHelpers";
-import { useEndTime } from "./EndTimeContext";
+import React, { useMemo } from 'react';
+import { RscEvent } from '../events';
+import { getColorForFetch } from '../color';
+import { eventsFilterByMaxTimestamp } from '../eventArrayHelpers';
+import { useEndTime } from './EndTimeContext';
 
 function useTracks(events: RscEvent[]) {
   return useMemo(() => {
@@ -27,7 +27,7 @@ function useTracks(events: RscEvent[]) {
 
         if (
           lastEvent.data.requestId !== event.data.requestId &&
-          typeof lastEventWithSameRequestId !== "undefined" &&
+          typeof lastEventWithSameRequestId !== 'undefined' &&
           lastEventWithSameRequestId.data.timestamp < event.data.timestamp
         ) {
           return true;
@@ -71,24 +71,24 @@ export function TimeScrubber({
         <input
           type="range"
           className={[
-            "absolute h-full w-full rounded z-20",
-            "appearance-none",
-            "bg-transparent bg-gradient-to-r from-blue-100/25 to-blue-100/25 dark:from-blue-100/10 dark:to-blue-100/10 bg-no-repeat",
-            "[&::-webkit-slider-runnable-track]:bg-transparent",
-            "[&::-webkit-slider-runnable-track]:h-full",
-            "[&::-webkit-slider-thumb]:h-[calc(100%-6px)]",
-            "[&::-webkit-slider-thumb]:mt-[calc(6px/2)]",
-            "[&::-webkit-slider-thumb]:w-1",
-            "[&::-webkit-slider-thumb]:appearance-none",
-            "[&::-webkit-slider-thumb]:rounded-md",
-            "[&::-webkit-slider-thumb]:transition-colors",
-            "[&::-webkit-slider-thumb]:delay-75",
-            "[&::-webkit-slider-thumb]:duration-100",
+            'absolute h-full w-full rounded z-20',
+            'appearance-none',
+            'bg-transparent bg-gradient-to-r from-blue-100/25 to-blue-100/25 dark:from-blue-100/10 dark:to-blue-100/10 bg-no-repeat',
+            '[&::-webkit-slider-runnable-track]:bg-transparent',
+            '[&::-webkit-slider-runnable-track]:h-full',
+            '[&::-webkit-slider-thumb]:h-[calc(100%-6px)]',
+            '[&::-webkit-slider-thumb]:mt-[calc(6px/2)]',
+            '[&::-webkit-slider-thumb]:w-1',
+            '[&::-webkit-slider-thumb]:appearance-none',
+            '[&::-webkit-slider-thumb]:rounded-md',
+            '[&::-webkit-slider-thumb]:transition-colors',
+            '[&::-webkit-slider-thumb]:delay-75',
+            '[&::-webkit-slider-thumb]:duration-100',
             isPending
-              ? "[&::-webkit-slider-thumb]:bg-blue-300"
-              : "[&::-webkit-slider-thumb]:bg-blue-500",
-            "[&::-webkit-slider-thumb]:z-20",
-          ].join(" ")}
+              ? '[&::-webkit-slider-thumb]:bg-blue-300'
+              : '[&::-webkit-slider-thumb]:bg-blue-500',
+            '[&::-webkit-slider-thumb]:z-20',
+          ].join(' ')}
           min={minStartTime}
           max={maxEndTime}
           value={visibleEndTime}
@@ -96,7 +96,7 @@ export function TimeScrubber({
             backgroundSize:
               ((visibleEndTime - minStartTime) * 100) /
                 (maxEndTime - minStartTime) +
-              "% 100%",
+              '% 100%',
           }}
           onChange={(event) => {
             const numberValue = Number.parseFloat(event.target.value);
@@ -168,7 +168,7 @@ export function TimeScrubber({
                   key={section.requestId}
                   x={`${x * 0.98 + 1}%`}
                   y={`${y}px`}
-                  width={width > 0.2 ? `${width}%` : "0.2%"}
+                  width={width > 0.2 ? `${width}%` : '0.2%'}
                   height={eventHeight}
                   fill={getColorForFetch(section.requestId)}
                   rx="1"
@@ -181,15 +181,15 @@ export function TimeScrubber({
 
       <div className="flex flex-row justify-between px-1">
         <div className="tabular-nums text-slate-700 dark:text-slate-300">
-          {new Date(visibleEndTime).toLocaleTimeString()} /{" "}
+          {new Date(visibleEndTime).toLocaleTimeString()} /{' '}
           {new Date(maxEndTime).toLocaleTimeString()}
         </div>
 
         <div className="whitespace-nowrap tabular-nums text-slate-700 dark:text-slate-300">
           {String(filteredEvents.length).padStart(
             String(events.length).length,
-            "0",
-          )}{" "}
+            '0',
+          )}{' '}
           / {events.length}
         </div>
       </div>

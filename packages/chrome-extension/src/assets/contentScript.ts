@@ -1,7 +1,7 @@
 import {
   type RscEvent,
   type StopRecordingEvent,
-} from "@rsc-parser/core/events";
+} from '@rsc-parser/core/events';
 // import { RscEvent, isRscEvent } from "@rsc-parser/core/events";
 // import {
 //   StopRecordingEvent,
@@ -12,34 +12,34 @@ import {
 // into the output file without using ESM imports
 function isStartRecordingEvent(event: unknown) {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "START_RECORDING"
+    'type' in event &&
+    event.type === 'START_RECORDING'
   );
 }
 function isRscRequestEvent(event: unknown) {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "RSC_REQUEST"
+    'type' in event &&
+    event.type === 'RSC_REQUEST'
   );
 }
 function isRscResponseEvent(event: unknown) {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "RSC_RESPONSE"
+    'type' in event &&
+    event.type === 'RSC_RESPONSE'
   );
 }
 function isRscChunkEvent(event: unknown) {
   return (
-    typeof event === "object" &&
+    typeof event === 'object' &&
     event !== null &&
-    "type" in event &&
-    event.type === "RSC_CHUNK"
+    'type' in event &&
+    event.type === 'RSC_CHUNK'
   );
 }
 function isRscEvent(event: unknown) {
@@ -59,9 +59,9 @@ function isRscEvent(event: unknown) {
  */
 function injectScript(file_path: string, tag: string) {
   const node = document.getElementsByTagName(tag)[0];
-  const script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute("src", file_path);
+  const script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript');
+  script.setAttribute('src', file_path);
   node.appendChild(script);
 }
 
@@ -78,8 +78,8 @@ chrome.runtime.onMessage.addListener(function (request) {
     tabId = request.data.tabId;
 
     injectScript(
-      chrome.runtime.getURL("assets/fetchPatcherInjector.js"),
-      "body",
+      chrome.runtime.getURL('assets/fetchPatcherInjector.js'),
+      'body',
     );
   }
 
@@ -88,7 +88,7 @@ chrome.runtime.onMessage.addListener(function (request) {
 
 // This code passes along events from fetchPatcherInjector to the devtools panel
 window.addEventListener(
-  "message",
+  'message',
   function (event) {
     // We only accept events from this window to itself [i.e. not from any iframes]
     if (event.source != window) {
@@ -110,13 +110,13 @@ window.addEventListener(
 );
 
 // When the content script is unloaded (like for a refresh), send a message to the devtools panel to stop recording
-window.addEventListener("beforeunload", () => {
+window.addEventListener('beforeunload', () => {
   if (!tabId) {
     return;
   }
 
   chrome.runtime.sendMessage({
-    type: "STOP_RECORDING",
+    type: 'STOP_RECORDING',
     data: { tabId },
   } satisfies StopRecordingEvent);
 });
