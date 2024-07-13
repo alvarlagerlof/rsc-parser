@@ -1,5 +1,18 @@
 # @rsc-parser/website
 
+## 0.7.0
+
+### Minor Changes
+
+- 531f06e: Update fork of ReactFlightClient.js
+- 4bf3887: Make it possible to read Next.js script tags from the Chrome extension
+
+### Patch Changes
+
+- Updated dependencies [531f06e]
+- Updated dependencies [4bf3887]
+  - @rsc-parser/core@0.7.0
+
 ## 0.6.0
 
 ### Minor Changes
