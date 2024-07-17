@@ -108,7 +108,7 @@ export function RscDevtoolsPanel({
             </>
           }
         >
-          {events.length === 0 || !isRecording ? (
+          {events.length === 0 ? (
             <ViewerStreamsEmptyState />
           ) : (
             <ViewerStreams events={events} />
@@ -205,7 +205,6 @@ function useRscEvents() {
       return;
     }
 
-    setIsRecording(true);
     startTransition(() => {
       setEvents((previousEvents) => [...previousEvents, ...events]);
     });
