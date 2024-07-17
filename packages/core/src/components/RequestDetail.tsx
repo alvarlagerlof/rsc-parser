@@ -74,23 +74,31 @@ export function RequestDetail({ events }: { events: RscEvent[] }) {
           aria-busy={isPending}
           alwaysVisible={true}
         >
-          <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
-            {currentTab === 'headers' ? (
+          {currentTab === 'headers' ? (
+            <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
               <RequestDetailTabHeaders events={events} />
-            ) : null}
-            {currentTab === 'parsedPayload' ? (
+            </ErrorBoundary>
+          ) : null}
+          {currentTab === 'parsedPayload' ? (
+            <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
               <RequestDetailTabParsedPayload events={events} />
-            ) : null}
-            {currentTab === 'rawPayload' ? (
+            </ErrorBoundary>
+          ) : null}
+          {currentTab === 'rawPayload' ? (
+            <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
               <RequestDetailTabRawPayload events={events} />
-            ) : null}
-            {currentTab === 'timings' ? (
+            </ErrorBoundary>
+          ) : null}
+          {currentTab === 'timings' ? (
+            <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
               <RequestDetailTabTimings events={events} />
-            ) : null}
-            {currentTab === 'network' ? (
+            </ErrorBoundary>
+          ) : null}
+          {currentTab === 'network' ? (
+            <ErrorBoundary FallbackComponent={GenericErrorBoundaryFallback}>
               <RequestDetailTabNetwork events={events} />
-            ) : null}
-          </ErrorBoundary>
+            </ErrorBoundary>
+          ) : null}
         </TabPanel>
       </div>
     </TabProvider>
