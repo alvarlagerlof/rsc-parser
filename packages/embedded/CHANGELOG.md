@@ -1,5 +1,12 @@
 # @rsc-parser/embedded
 
+## 0.8.0
+
+### Minor Changes
+
+- 3db1a5f: Don't flip recording state when running triggerReadNextJsScriptTags
+- 1478826: Add one error boundary per tab panel in RequestDetail
+
 ## 0.7.0
 
 ### Minor Changes
