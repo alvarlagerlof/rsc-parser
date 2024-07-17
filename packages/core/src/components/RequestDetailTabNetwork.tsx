@@ -67,11 +67,10 @@ function getChunkById(chunks: Chunk[], id: string) {
   return chunks.find((chunk) => chunk.id === id);
 }
 
-function getLinks(chunks: Chunk[], id: string) {
+function getLinks(chunks: Chunk[]) {
   const links: Link[] = [];
 
-  function walk(id: string) {
-    const chunk = getChunkById(chunks, id);
+  for (const chunk of chunks) {
     if (!chunk) {
       return links;
     }
@@ -79,22 +78,18 @@ function getLinks(chunks: Chunk[], id: string) {
     const references = findReferencesInChunk(chunk);
     for (const reference of references) {
       // Get the time between the source and target
-      const sourceChunk = getChunkById(chunks, id);
+      const sourceChunk = getChunkById(chunks, chunk.id);
       const targetChunk = getChunkById(chunks, reference.id);
 
       const timeDiff = getTimeDifferenceBetweenChunks(sourceChunk, targetChunk);
 
       links.push({
-        source: id,
+        source: chunk.id,
         target: reference.id,
         text: timeDiff ? `${reference.type} ${timeDiff}ms` : reference.type,
       });
-
-      walk(reference.id);
     }
   }
-
-  walk(id);
 
   // Only return links for which there are nodes
   return links.filter((link) =>
@@ -135,7 +130,7 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
     };
   });
 
-  const links = getLinks(flightResponse._chunks, '0');
+  const links = getLinks(flightResponse._chunks);
 
   const svgRef = useRef<SVGSVGElement>(null);
   const [svgWidth, setSvgWidth] = useState(0);
