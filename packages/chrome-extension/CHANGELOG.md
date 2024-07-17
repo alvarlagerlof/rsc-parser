@@ -1,5 +1,16 @@
 # @rsc-parser/chrome-extension
 
+## 0.9.0
+
+### Minor Changes
+
+- 0f2a24a: Fix network graph max call stack error
+
+### Patch Changes
+
+- Updated dependencies [0f2a24a]
+  - @rsc-parser/core@0.9.0
+
 ## 0.8.0
 
 ### Minor Changes

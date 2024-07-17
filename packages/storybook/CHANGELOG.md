@@ -1,5 +1,11 @@
 # @rsc-parser/storybook
 
+## 0.9.0
+
+### Minor Changes
+
+- 0f2a24a: Fix network graph max call stack error
+
 ## 0.8.0
 
 ### Minor Changes
