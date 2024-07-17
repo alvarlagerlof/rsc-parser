@@ -74,7 +74,7 @@ export function RscDevtoolsExtension() {
         </>
       }
     >
-      {events.length === 0 || !isRecording ? (
+      {events.length === 0 ? (
         <ViewerStreamsEmptyState />
       ) : (
         <ViewerStreams events={events} />
@@ -157,7 +157,6 @@ function useRscEvents() {
   }, []);
 
   const triggerReadNextJsScriptTags = useCallback(() => {
-    setIsRecording(true);
     chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
       type: 'READ_NEXT_JS_SCRIPT_TAGS',
       data: {
