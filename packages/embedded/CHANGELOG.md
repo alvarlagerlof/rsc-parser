@@ -1,5 +1,11 @@
 # @rsc-parser/embedded
 
+## 0.9.1
+
+### Patch Changes
+
+- 71a3eac: Properly externalize react in the core and embedded packages
+
 ## 0.9.0
 
 ### Minor Changes
