@@ -3800,7 +3800,7 @@ __metadata:
     react-error-boundary: "npm:4.0.13"
     type-fest: "npm:4.25.0"
     typescript: "npm:5.5.4"
-    vite: "npm:5.4.1"
+    vite: "npm:5.4.2"
     vite-plugin-html-config: "npm:1.0.11"
     web-vitals: "npm:4.2.3"
   languageName: unknown
@@ -3840,7 +3840,7 @@ __metadata:
     ts-jest: "npm:29.2.5"
     typescript: "npm:5.5.4"
     typescript-eslint: "npm:7.18.0"
-    vite: "npm:5.4.1"
+    vite: "npm:5.4.2"
     vite-plugin-dts: "npm:4.0.3"
   peerDependencies:
     react: 18.3.1
@@ -3882,7 +3882,7 @@ __metadata:
     eslint: "npm:9.9.1"
     rollup-plugin-preserve-directives: "npm:0.4.0"
     typescript: "npm:5.5.4"
-    vite: "npm:5.4.1"
+    vite: "npm:5.4.2"
     vite-plugin-dts: "npm:4.0.3"
   peerDependencies:
     react: 18.3.1
@@ -3904,7 +3904,7 @@ __metadata:
     prettier: "npm:3.3.3"
     typescript: "npm:5.5.4"
     typescript-eslint: "npm:7.18.0"
-    vite: "npm:5.4.1"
+    vite: "npm:5.4.2"
     vite-plugin-dts: "npm:4.0.3"
   languageName: unknown
   linkType: soft
@@ -13874,7 +13874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.13.0":
+"rollup@npm:^4.20.0":
   version: 4.21.0
   resolution: "rollup@npm:4.21.0"
   dependencies:
@@ -15677,14 +15677,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:5.4.1":
-  version: 5.4.1
-  resolution: "vite@npm:5.4.1"
+"vite@npm:5.4.2":
+  version: 5.4.2
+  resolution: "vite@npm:5.4.2"
   dependencies:
     esbuild: "npm:^0.21.3"
     fsevents: "npm:~2.3.3"
     postcss: "npm:^8.4.41"
-    rollup: "npm:^4.13.0"
+    rollup: "npm:^4.20.0"
   peerDependencies:
     "@types/node": ^18.0.0 || >=20.0.0
     less: "*"
@@ -15716,7 +15716,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/1cf22e5a8ec782ea9417a77ad4b16e518f69cf23c99a5af5bb92dc4acbfce70109a35a35faea8fc0789f4637b6304618f6b84e4c5dfe3c9c2875dff7d749b02d
+  checksum: 10/c449f9295060fa88c9b5cc1bd17c2de198deae596b7da1250db9662fb15e7b21e0dbe9a40a9106fb7438b1231494b169457e809ecbb65e732648d87dd284ab23
   languageName: node
   linkType: hard
 
