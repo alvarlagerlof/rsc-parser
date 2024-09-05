@@ -1,10 +1,10 @@
 # RSC Parser
 
-This is a parser for React Server Components (RSC) when sent over the network. React uses a format to represent a tree of components/html or metadata such as requiered imports, suspense boundaries, and css/fonts that needs to be loaded.
+This is a parser for React Server Components (RSC) when sent over the network. React uses a format to represent a tree of components/html or metadata such as required imports, suspense boundaries, and css/fonts that needs to be loaded.
 
 I made this tool to more easily let you understand the data and explore it visually.
 
-## Comparsion
+## Comparison
 
 <div style="display: flex; flex-direction: row;">
 
@@ -17,7 +17,7 @@ I made this tool to more easily let you understand the data and explore it visua
 
 ### Extension
 
-There is a Chrome Extension than you can add [here](https://chromewebstore.google.com/detail/rsc-devtools/jcejahepddjnppkhomnidalpnnnemomn).
+There is a Chrome Extension that you can add [here](https://chromewebstore.google.com/detail/rsc-devtools/jcejahepddjnppkhomnidalpnnnemomn).
 
 ### npm package
 
@@ -54,7 +54,7 @@ export default function RootLayout({ children }) {
 
 ### Website
 
-There is also a website that you can use by manually copy pasing RSC payloads.
+There is also a website that you can use by manually copy pasting RSC payloads.
 
 1. Go to a site that uses the NextJS App router or generally is based on React Server components.
 2. Open the network tab in your dev tools
