@@ -3795,7 +3795,7 @@ __metadata:
     react-error-boundary: "npm:4.0.13"
     type-fest: "npm:4.26.0"
     typescript: "npm:5.5.4"
-    vite: "npm:5.4.2"
+    vite: "npm:5.4.3"
     vite-plugin-html-config: "npm:1.0.11"
     web-vitals: "npm:4.2.3"
   languageName: unknown
@@ -3835,7 +3835,7 @@ __metadata:
     ts-jest: "npm:29.2.5"
     typescript: "npm:5.5.4"
     typescript-eslint: "npm:7.18.0"
-    vite: "npm:5.4.2"
+    vite: "npm:5.4.3"
     vite-plugin-dts: "npm:4.1.0"
   peerDependencies:
     react: 18.3.1
@@ -3877,7 +3877,7 @@ __metadata:
     eslint: "npm:9.9.1"
     rollup-plugin-preserve-directives: "npm:0.4.0"
     typescript: "npm:5.5.4"
-    vite: "npm:5.4.2"
+    vite: "npm:5.4.3"
     vite-plugin-dts: "npm:4.1.0"
   peerDependencies:
     react: 18.3.1
@@ -3899,7 +3899,7 @@ __metadata:
     prettier: "npm:3.3.3"
     typescript: "npm:5.5.4"
     typescript-eslint: "npm:7.18.0"
-    vite: "npm:5.4.2"
+    vite: "npm:5.4.3"
     vite-plugin-dts: "npm:4.1.0"
   languageName: unknown
   linkType: soft
@@ -13169,7 +13169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.14, postcss@npm:^8.4.23, postcss@npm:^8.4.33, postcss@npm:^8.4.4, postcss@npm:^8.4.41":
+"postcss@npm:^8.2.14, postcss@npm:^8.4.23, postcss@npm:^8.4.33, postcss@npm:^8.4.4":
   version: 8.4.43
   resolution: "postcss@npm:8.4.43"
   dependencies:
@@ -13177,6 +13177,17 @@ __metadata:
     picocolors: "npm:^1.0.1"
     source-map-js: "npm:^1.2.0"
   checksum: 10/612075f7ab27129486292fcf0b2e7aa770b90c33045cc9500620ad6a483ff5f33c288340f9527494c8aa124b1a0818259687b340ed7eb8aa18bdfc96cd0dfeed
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.43":
+  version: 8.4.45
+  resolution: "postcss@npm:8.4.45"
+  dependencies:
+    nanoid: "npm:^3.3.7"
+    picocolors: "npm:^1.0.1"
+    source-map-js: "npm:^1.2.0"
+  checksum: 10/7eaf7346d04929ee979548ece5e34d253eae6f175346e298b2c4621ad6f4ee00adfe7abe72688640e910c0361ae50537c5dda3e35fd1066491282c342b3ee5c8
   languageName: node
   linkType: hard
 
@@ -15736,13 +15747,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:5.4.2":
-  version: 5.4.2
-  resolution: "vite@npm:5.4.2"
+"vite@npm:5.4.3":
+  version: 5.4.3
+  resolution: "vite@npm:5.4.3"
   dependencies:
     esbuild: "npm:^0.21.3"
     fsevents: "npm:~2.3.3"
-    postcss: "npm:^8.4.41"
+    postcss: "npm:^8.4.43"
     rollup: "npm:^4.20.0"
   peerDependencies:
     "@types/node": ^18.0.0 || >=20.0.0
@@ -15775,7 +15786,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/c449f9295060fa88c9b5cc1bd17c2de198deae596b7da1250db9662fb15e7b21e0dbe9a40a9106fb7438b1231494b169457e809ecbb65e732648d87dd284ab23
+  checksum: 10/864bf64fe57bd26b1527ea6d8dac2f4f8b834791f836590043463c0ded6a150a9407ffac6a859abc34ec013ecfcd23f405c20aa76f4ad99deab1176d5f017574
   languageName: node
   linkType: hard
 
