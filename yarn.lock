@@ -2291,6 +2291,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/js@npm:9.10.0":
+  version: 9.10.0
+  resolution: "@eslint/js@npm:9.10.0"
+  checksum: 10/cbda2bf268c8ac7a2b2493aaaa0113a78165a576ee5178b9fbdaf245c3d40ffaf41d006f75afab5718f68d816f00319e267b4c88ead100b19022fe491f9e0175
+  languageName: node
+  linkType: hard
+
 "@eslint/js@npm:9.9.1":
   version: 9.9.1
   resolution: "@eslint/js@npm:9.9.1"
@@ -2302,6 +2309,15 @@ __metadata:
   version: 2.1.4
   resolution: "@eslint/object-schema@npm:2.1.4"
   checksum: 10/221e8d9f281c605948cd6e030874aacce83fe097f8f9c1964787037bccf08e82b7aa9eff1850a30fffac43f1d76555727ec22a2af479d91e268e89d1e035131e
+  languageName: node
+  linkType: hard
+
+"@eslint/plugin-kit@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@eslint/plugin-kit@npm:0.1.0"
+  dependencies:
+    levn: "npm:^0.4.1"
+  checksum: 10/3c6b10505f53c6e32b40572f780164b75389bbabd1bf80ab8742222710d90683a2cc9480468fca132da636f6a3053ae60b173181d14f4975fde2e6f8f9564c6d
   languageName: node
   linkType: hard
 
@@ -3787,7 +3803,7 @@ __metadata:
     chrome-types: "npm:0.1.301"
     concurrently: "npm:8.2.2"
     esbuild: "npm:0.23.1"
-    eslint: "npm:9.9.1"
+    eslint: "npm:9.10.0"
     postcss: "npm:8.4.45"
     prettier: "npm:3.3.3"
     react: "npm:18.3.1"
@@ -3823,7 +3839,7 @@ __metadata:
     autoprefixer: "npm:10.4.20"
     concurrently: "npm:8.2.2"
     d3: "npm:7.9.0"
-    eslint: "npm:9.9.1"
+    eslint: "npm:9.10.0"
     eslint-plugin-tailwindcss: "npm:3.17.4"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
@@ -3854,7 +3870,7 @@ __metadata:
     "@types/react": "npm:18.3.5"
     "@types/react-dom": "npm:18.3.0"
     autoprefixer: "npm:10.4.20"
-    eslint: "npm:9.9.1"
+    eslint: "npm:9.10.0"
     eslint-config-next: "npm:14.2.8"
     next: "npm:14.2.8"
     postcss: "npm:8.4.45"
@@ -3874,7 +3890,7 @@ __metadata:
     "@eslint/js": "npm:9.9.1"
     "@rsc-parser/core": "workspace:^"
     "@vitejs/plugin-react": "npm:4.3.1"
-    eslint: "npm:9.9.1"
+    eslint: "npm:9.10.0"
     rollup-plugin-preserve-directives: "npm:0.4.0"
     typescript: "npm:5.5.4"
     vite: "npm:5.4.3"
@@ -3895,7 +3911,7 @@ __metadata:
     "@types/eslint__js": "npm:8.42.3"
     "@typescript-eslint/eslint-plugin": "npm:8.3.0"
     "@typescript-eslint/parser": "npm:8.3.0"
-    eslint: "npm:9.9.1"
+    eslint: "npm:9.10.0"
     prettier: "npm:3.3.3"
     typescript: "npm:5.5.4"
     typescript-eslint: "npm:7.18.0"
@@ -3941,7 +3957,7 @@ __metadata:
     "@types/react": "npm:18.3.5"
     "@types/react-dom": "npm:18.3.0"
     autoprefixer: "npm:10.4.20"
-    eslint: "npm:9.9.1"
+    eslint: "npm:9.10.0"
     eslint-config-next: "npm:14.2.8"
     eslint-plugin-tailwindcss: "npm:3.17.4"
     next: "npm:14.2.8"
@@ -9172,15 +9188,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.9.1":
-  version: 9.9.1
-  resolution: "eslint@npm:9.9.1"
+"eslint@npm:9.10.0":
+  version: 9.10.0
+  resolution: "eslint@npm:9.10.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.11.0"
     "@eslint/config-array": "npm:^0.18.0"
     "@eslint/eslintrc": "npm:^3.1.0"
-    "@eslint/js": "npm:9.9.1"
+    "@eslint/js": "npm:9.10.0"
+    "@eslint/plugin-kit": "npm:^0.1.0"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@humanwhocodes/retry": "npm:^0.3.0"
     "@nodelib/fs.walk": "npm:^1.2.8"
@@ -9203,7 +9220,6 @@ __metadata:
     is-glob: "npm:^4.0.0"
     is-path-inside: "npm:^3.0.3"
     json-stable-stringify-without-jsonify: "npm:^1.0.1"
-    levn: "npm:^0.4.1"
     lodash.merge: "npm:^4.6.2"
     minimatch: "npm:^3.1.2"
     natural-compare: "npm:^1.4.0"
@@ -9217,7 +9233,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/d53dcfff396642cc33907b7c4a04536205f8889ae264fe105eea29de571b5923eb9b0bc6fc95b5d30414796cbe180dc93a523e0fdd4f26b2b4b4cf0195969908
+  checksum: 10/bbb6da7db83f5182cff5a5e1681cf77be761e37bfbfedf66add9d3d2a216dbc336e787d02d05a2ea85179c51a10203713b2438b86adfd7666c29afd3ee008fe8
   languageName: node
   linkType: hard
 
