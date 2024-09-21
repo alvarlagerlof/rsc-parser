@@ -258,8 +258,7 @@ function createServerReferenceProxy /*<A: Iterable<any>, T>*/(
 function getOutlinedModel<T>(
   response: FlightResponse,
   reference: string,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  parentObject: Object,
+  parentObject: object,
   key: string,
   map: (
     response: FlightResponse,
