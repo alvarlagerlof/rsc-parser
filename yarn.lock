@@ -10267,9 +10267,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.30.2":
-  version: 5.30.2
-  resolution: "knip@npm:5.30.2"
+"knip@npm:5.30.3":
+  version: 5.30.3
+  resolution: "knip@npm:5.30.3"
   dependencies:
     "@nodelib/fs.walk": "npm:1.2.8"
     "@snyk/github-codeowners": "npm:1.1.0"
@@ -10282,7 +10282,7 @@ __metadata:
     picocolors: "npm:^1.0.0"
     picomatch: "npm:^4.0.1"
     pretty-ms: "npm:^9.0.0"
-    smol-toml: "npm:^1.1.4"
+    smol-toml: "npm:^1.3.0"
     strip-json-comments: "npm:5.0.1"
     summary: "npm:2.1.0"
     zod: "npm:^3.22.4"
@@ -10293,7 +10293,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/e46db15b3c2ed18c05656415d07136fbc4b90fd33336da6f4026f8af24c704f06176ad13a47ba0335ea6d6590f36af451ded503763a3378872bb49853ee6ce7d
+  checksum: 10/ddee596e0381937339a9703eb508eb4a1411d0d08a564697ef638ba5fa7f62879ad41235c559d45a7cecfb061638293bac497553a440a3d16aadde135c7ea849
   languageName: node
   linkType: hard
 
@@ -12383,7 +12383,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.8"
-    knip: "npm:5.30.2"
+    knip: "npm:5.30.3"
     prettier: "npm:3.3.3"
     turbo: "npm:2.1.2"
   languageName: unknown
@@ -12674,7 +12674,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smol-toml@npm:^1.1.4":
+"smol-toml@npm:^1.3.0":
   version: 1.3.0
   resolution: "smol-toml@npm:1.3.0"
   checksum: 10/dc3e49a9202abca4a60c352ff48c8088a0c48886924b81a0fbab8c66d4575aaa1867f4eac783acea00dcfa34047ccd22634040d2282f9ccb05dc73511c1b0e4e
