@@ -4,6 +4,10 @@
   "license": "MIT",
   "packageManager": "yarn@4.5.1",
   "type": "module",
+  "files": [
+    "package.json",
+    "dist"
+  ],
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
