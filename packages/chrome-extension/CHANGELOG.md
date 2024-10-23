@@ -1,5 +1,13 @@
 # @rsc-parser/chrome-extension
 
+## 0.9.2
+
+### Patch Changes
+
+- 5fb463b: Specify "files" for @rsc-parser/react-client
+- Updated dependencies [5fb463b]
+  - @rsc-parser/core@0.9.2
+
 ## 0.9.1
 
 ### Patch Changes
