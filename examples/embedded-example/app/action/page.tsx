@@ -4,6 +4,7 @@ export default function ActionPage() {
   return (
     <>
       <Link href="/">Go to home page</Link>
+      {/* @ts-expect-error Types */}
       <form action={action}>
         <input type="text" name="name" placeholder="Name" />
         <input type="submit" value="Submit" />
