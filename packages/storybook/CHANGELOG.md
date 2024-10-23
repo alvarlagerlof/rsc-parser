@@ -1,5 +1,11 @@
 # @rsc-parser/storybook
 
+## 0.9.2
+
+### Patch Changes
+
+- 5fb463b: Specify "files" for @rsc-parser/react-client
+
 ## 0.9.1
 
 ### Patch Changes
