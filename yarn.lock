@@ -1899,28 +1899,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor-model@npm:7.29.6":
-  version: 7.29.6
-  resolution: "@microsoft/api-extractor-model@npm:7.29.6"
+"@microsoft/api-extractor-model@npm:7.29.8":
+  version: 7.29.8
+  resolution: "@microsoft/api-extractor-model@npm:7.29.8"
   dependencies:
     "@microsoft/tsdoc": "npm:~0.15.0"
     "@microsoft/tsdoc-config": "npm:~0.17.0"
-    "@rushstack/node-core-library": "npm:5.7.0"
-  checksum: 10/7339366297a4438e33aef34fac4fa1fea3b7357fefd0a88da18221fa80152397326fb383563106f995899a382119f5c95f357abc3aa7448fcc1a2bee021696aa
+    "@rushstack/node-core-library": "npm:5.9.0"
+  checksum: 10/06932e61f0a1979dbacc716e143f9d34d856338504cd8d016d98a3d3c83d60e7c25bfdc64d011c6ddf94de2351b52872e8722d970fce44c49bd630aeca32c987
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor@npm:7.47.7":
-  version: 7.47.7
-  resolution: "@microsoft/api-extractor@npm:7.47.7"
+"@microsoft/api-extractor@npm:^7.47.11":
+  version: 7.47.11
+  resolution: "@microsoft/api-extractor@npm:7.47.11"
   dependencies:
-    "@microsoft/api-extractor-model": "npm:7.29.6"
+    "@microsoft/api-extractor-model": "npm:7.29.8"
     "@microsoft/tsdoc": "npm:~0.15.0"
     "@microsoft/tsdoc-config": "npm:~0.17.0"
-    "@rushstack/node-core-library": "npm:5.7.0"
+    "@rushstack/node-core-library": "npm:5.9.0"
     "@rushstack/rig-package": "npm:0.5.3"
-    "@rushstack/terminal": "npm:0.14.0"
-    "@rushstack/ts-command-line": "npm:4.22.6"
+    "@rushstack/terminal": "npm:0.14.2"
+    "@rushstack/ts-command-line": "npm:4.23.0"
     lodash: "npm:~4.17.15"
     minimatch: "npm:~3.0.3"
     resolve: "npm:~1.22.1"
@@ -1929,7 +1929,7 @@ __metadata:
     typescript: "npm:5.4.2"
   bin:
     api-extractor: bin/api-extractor
-  checksum: 10/eef9d5087c72e23181aebcc8ee17678a99c27ee54a527a0f347e3a2b1432fc4f660127b3e1b9cc83e7375dfe174ec4699b7e433b91f789837290c943994a8ab2
+  checksum: 10/692f8b53c403e358af0878220c8eec1c8ca381ccd79578433977b8bcc35a7d76b160ec80d13ca76e1b4abbcff88611bce637af270a5515d6be59fd3b08a821a0
   languageName: node
   linkType: hard
 
@@ -3009,7 +3009,7 @@ __metadata:
     typescript: "npm:5.6.3"
     typescript-eslint: "npm:8.11.0"
     vite: "npm:5.4.10"
-    vite-plugin-dts: "npm:4.2.4"
+    vite-plugin-dts: "npm:4.3.0"
   peerDependencies:
     react: 18.3.1
     react-dom: 18.3.1
@@ -3051,7 +3051,7 @@ __metadata:
     rollup-plugin-preserve-directives: "npm:0.4.0"
     typescript: "npm:5.6.3"
     vite: "npm:5.4.10"
-    vite-plugin-dts: "npm:4.2.4"
+    vite-plugin-dts: "npm:4.3.0"
   peerDependencies:
     react: 18.3.1
     react-dom: 18.3.1
@@ -3073,7 +3073,7 @@ __metadata:
     typescript: "npm:5.6.3"
     typescript-eslint: "npm:8.11.0"
     vite: "npm:5.4.10"
-    vite-plugin-dts: "npm:4.2.4"
+    vite-plugin-dts: "npm:4.3.0"
   languageName: unknown
   linkType: soft
 
@@ -3143,9 +3143,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rushstack/node-core-library@npm:5.7.0":
-  version: 5.7.0
-  resolution: "@rushstack/node-core-library@npm:5.7.0"
+"@rushstack/node-core-library@npm:5.9.0":
+  version: 5.9.0
+  resolution: "@rushstack/node-core-library@npm:5.9.0"
   dependencies:
     ajv: "npm:~8.13.0"
     ajv-draft-04: "npm:~1.0.0"
@@ -3160,7 +3160,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 10/ed2bd40f5b99fb3853564e0c493f33926cd78008e4e265cb2849f8887ba4d48ea1b1940b6e7286f047ee9a3a419fbf826141c96e4798b7ecf80a4e4709e429bc
+  checksum: 10/19d6c6fc6addfb27295d1d78e1027f5896ea43702c2e5168e8b235ee739f2e59a4dc3bb3996b083722fab4feae5f2c15c340900c6c1d517d56cc1ba945f532f1
   languageName: node
   linkType: hard
 
@@ -3174,30 +3174,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rushstack/terminal@npm:0.14.0":
-  version: 0.14.0
-  resolution: "@rushstack/terminal@npm:0.14.0"
+"@rushstack/terminal@npm:0.14.2":
+  version: 0.14.2
+  resolution: "@rushstack/terminal@npm:0.14.2"
   dependencies:
-    "@rushstack/node-core-library": "npm:5.7.0"
+    "@rushstack/node-core-library": "npm:5.9.0"
     supports-color: "npm:~8.1.1"
   peerDependencies:
     "@types/node": "*"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 10/3a25652cad37d61c7d66a8bf3ea037f45b7fa639e15fc8af4b5e4cf6b45b0b7b534d211e0861b33322cf89888a70f2da97ec1a9675af3ae228998535d347c608
+  checksum: 10/4016499f3ed1eff7d870ff029bc51925f1435c0ed73d454385d6fdfe8f10e7e5fc2dba698a9aa671f2537603d2d08449782a0f329f321a7dcb87827c19385bca
   languageName: node
   linkType: hard
 
-"@rushstack/ts-command-line@npm:4.22.6":
-  version: 4.22.6
-  resolution: "@rushstack/ts-command-line@npm:4.22.6"
+"@rushstack/ts-command-line@npm:4.23.0":
+  version: 4.23.0
+  resolution: "@rushstack/ts-command-line@npm:4.23.0"
   dependencies:
-    "@rushstack/terminal": "npm:0.14.0"
+    "@rushstack/terminal": "npm:0.14.2"
     "@types/argparse": "npm:1.0.38"
     argparse: "npm:~1.0.9"
     string-argv: "npm:~0.3.1"
-  checksum: 10/18dcdad213ce33bb7a354664e1e58f7f8f94f16f635b27f4e974a93514b7dafb7a08e181a9888d3fb82b846856a44e7e2d417f2fde18686ddb83b28f12eab0e7
+  checksum: 10/94ca2c85c7781e7c0b9542eec055359ef1e64e1ed1721ce11e28d65fab25974048519492afa261cd244db798bac505f758497dae2e55c2fc891f2f908e172ce9
   languageName: node
   linkType: hard
 
@@ -14043,11 +14043,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-dts@npm:4.2.4":
-  version: 4.2.4
-  resolution: "vite-plugin-dts@npm:4.2.4"
+"vite-plugin-dts@npm:4.3.0":
+  version: 4.3.0
+  resolution: "vite-plugin-dts@npm:4.3.0"
   dependencies:
-    "@microsoft/api-extractor": "npm:7.47.7"
+    "@microsoft/api-extractor": "npm:^7.47.11"
     "@rollup/pluginutils": "npm:^5.1.0"
     "@volar/typescript": "npm:^2.4.4"
     "@vue/language-core": "npm:2.1.6"
@@ -14062,7 +14062,7 @@ __metadata:
   peerDependenciesMeta:
     vite:
       optional: true
-  checksum: 10/779eac927596954cb1f6fba97af7bce9faf0a438c33c9b537db5aef558cc4896a32714f1b7b4bb17491d3074ceea93ceea0a5ccfa0bb812277a987894b311384
+  checksum: 10/bbf59fb9d4ab9420f3fd2be2090439a072c4a57194cf6ee987ae990d1d95e2d9b16fae1a7c26578705d6a396a81eb6346ec522216e1f7cfc4f4d891fc29bd839
   languageName: node
   linkType: hard
 
