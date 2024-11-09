@@ -2778,7 +2778,7 @@ __metadata:
     "@types/react": "npm:18.3.12"
     "@types/react-dom": "npm:18.3.1"
     "@typescript-eslint/eslint-plugin": "npm:8.13.0"
-    "@typescript-eslint/parser": "npm:8.12.2"
+    "@typescript-eslint/parser": "npm:8.13.0"
     "@vitejs/plugin-react": "npm:4.3.3"
     autoprefixer: "npm:10.4.20"
     chrome-types: "npm:0.1.318"
@@ -2814,7 +2814,7 @@ __metadata:
     "@types/eslint__js": "npm:8.42.3"
     "@types/jest": "npm:29.5.14"
     "@typescript-eslint/eslint-plugin": "npm:8.13.0"
-    "@typescript-eslint/parser": "npm:8.12.2"
+    "@typescript-eslint/parser": "npm:8.13.0"
     "@vitejs/plugin-react": "npm:4.3.3"
     "@vitejs/plugin-react-swc": "npm:3.7.1"
     autoprefixer: "npm:10.4.20"
@@ -2891,7 +2891,7 @@ __metadata:
     "@types/eslint__eslintrc": "npm:2.1.2"
     "@types/eslint__js": "npm:8.42.3"
     "@typescript-eslint/eslint-plugin": "npm:8.13.0"
-    "@typescript-eslint/parser": "npm:8.12.2"
+    "@typescript-eslint/parser": "npm:8.13.0"
     eslint: "npm:9.14.0"
     prettier: "npm:3.3.3"
     typescript: "npm:5.6.3"
@@ -4723,6 +4723,24 @@ __metadata:
     typescript:
       optional: true
   checksum: 10/257cfbe13bd1a3a2c83e0b3fd2d441a51181ffd57f2e98112217668383fc28de995bfca6d7c4d2c04c6347ee6a376fe1d87eb6ce60d7383cda1044626d794185
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/parser@npm:8.13.0":
+  version: 8.13.0
+  resolution: "@typescript-eslint/parser@npm:8.13.0"
+  dependencies:
+    "@typescript-eslint/scope-manager": "npm:8.13.0"
+    "@typescript-eslint/types": "npm:8.13.0"
+    "@typescript-eslint/typescript-estree": "npm:8.13.0"
+    "@typescript-eslint/visitor-keys": "npm:8.13.0"
+    debug: "npm:^4.3.4"
+  peerDependencies:
+    eslint: ^8.57.0 || ^9.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/174f705ce44e4dca83badad053eed50fb3703be6a4379e91f7c260c7f7d0c5e7bcfefd4f2c3170449b6c8f04a8f38c0cefc1a399be7d4913b86ab80d1b7783ec
   languageName: node
   linkType: hard
 
