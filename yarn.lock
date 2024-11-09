@@ -2831,7 +2831,7 @@ __metadata:
     tailwindcss: "npm:3.4.14"
     ts-jest: "npm:29.2.5"
     typescript: "npm:5.6.3"
-    typescript-eslint: "npm:8.12.2"
+    typescript-eslint: "npm:8.13.0"
     vite: "npm:5.4.10"
     vite-plugin-dts: "npm:4.3.0"
   peerDependencies:
@@ -2860,7 +2860,7 @@ __metadata:
     tailwindcss: "npm:3.4.14"
     turbo: "npm:2.2.3"
     typescript: "npm:5.6.3"
-    typescript-eslint: "npm:8.12.2"
+    typescript-eslint: "npm:8.13.0"
   languageName: unknown
   linkType: soft
 
@@ -2895,7 +2895,7 @@ __metadata:
     eslint: "npm:9.14.0"
     prettier: "npm:3.3.3"
     typescript: "npm:5.6.3"
-    typescript-eslint: "npm:8.12.2"
+    typescript-eslint: "npm:8.13.0"
     vite: "npm:5.4.10"
     vite-plugin-dts: "npm:4.3.0"
   languageName: unknown
@@ -4662,29 +4662,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:8.12.2, @typescript-eslint/eslint-plugin@npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0":
-  version: 8.12.2
-  resolution: "@typescript-eslint/eslint-plugin@npm:8.12.2"
-  dependencies:
-    "@eslint-community/regexpp": "npm:^4.10.0"
-    "@typescript-eslint/scope-manager": "npm:8.12.2"
-    "@typescript-eslint/type-utils": "npm:8.12.2"
-    "@typescript-eslint/utils": "npm:8.12.2"
-    "@typescript-eslint/visitor-keys": "npm:8.12.2"
-    graphemer: "npm:^1.4.0"
-    ignore: "npm:^5.3.1"
-    natural-compare: "npm:^1.4.0"
-    ts-api-utils: "npm:^1.3.0"
-  peerDependencies:
-    "@typescript-eslint/parser": ^8.0.0 || ^8.0.0-alpha.0
-    eslint: ^8.57.0 || ^9.0.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 10/3ba36240bdb1f278050bbde377d858e67511bf1de31a1ab9d99c5b560204e7d448c33d1487cd5eba9bfb823abff2eccf4532f42065cadad6772b68f91006ddc2
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/eslint-plugin@npm:8.13.0":
   version: 8.13.0
   resolution: "@typescript-eslint/eslint-plugin@npm:8.13.0"
@@ -4705,6 +4682,29 @@ __metadata:
     typescript:
       optional: true
   checksum: 10/3f38f64dfdc5c33d377d0f4aff9c71cc363bc7d4cea5c3da9c5bb934758cb5129f48194f84d4886a4208a70a18395c597561926490027508045f778190686909
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/eslint-plugin@npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0":
+  version: 8.12.2
+  resolution: "@typescript-eslint/eslint-plugin@npm:8.12.2"
+  dependencies:
+    "@eslint-community/regexpp": "npm:^4.10.0"
+    "@typescript-eslint/scope-manager": "npm:8.12.2"
+    "@typescript-eslint/type-utils": "npm:8.12.2"
+    "@typescript-eslint/utils": "npm:8.12.2"
+    "@typescript-eslint/visitor-keys": "npm:8.12.2"
+    graphemer: "npm:^1.4.0"
+    ignore: "npm:^5.3.1"
+    natural-compare: "npm:^1.4.0"
+    ts-api-utils: "npm:^1.3.0"
+  peerDependencies:
+    "@typescript-eslint/parser": ^8.0.0 || ^8.0.0-alpha.0
+    eslint: ^8.57.0 || ^9.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/3ba36240bdb1f278050bbde377d858e67511bf1de31a1ab9d99c5b560204e7d448c33d1487cd5eba9bfb823abff2eccf4532f42065cadad6772b68f91006ddc2
   languageName: node
   linkType: hard
 
@@ -12790,17 +12790,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:8.12.2":
-  version: 8.12.2
-  resolution: "typescript-eslint@npm:8.12.2"
+"typescript-eslint@npm:8.13.0":
+  version: 8.13.0
+  resolution: "typescript-eslint@npm:8.13.0"
   dependencies:
-    "@typescript-eslint/eslint-plugin": "npm:8.12.2"
-    "@typescript-eslint/parser": "npm:8.12.2"
-    "@typescript-eslint/utils": "npm:8.12.2"
+    "@typescript-eslint/eslint-plugin": "npm:8.13.0"
+    "@typescript-eslint/parser": "npm:8.13.0"
+    "@typescript-eslint/utils": "npm:8.13.0"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/2f479c5d2369aa6e40b1957ae75178c584e62e90d2f0e7434274ec23bb8fee69c6c8832eea39628b60a1511f1db80802aef6687636e80126b01af4748f3be816
+  checksum: 10/74e9371e684c93cb74892bede3b22bbc15bf953eedf47cb40fb58bbc8bafaf164c82a7cf69923197ebabaecc138915d3d7cd364532b1791ae64d8f7385ffd728
   languageName: node
   linkType: hard
 
