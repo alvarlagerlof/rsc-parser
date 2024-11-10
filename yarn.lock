@@ -4708,24 +4708,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:8.12.2, @typescript-eslint/parser@npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0":
-  version: 8.12.2
-  resolution: "@typescript-eslint/parser@npm:8.12.2"
-  dependencies:
-    "@typescript-eslint/scope-manager": "npm:8.12.2"
-    "@typescript-eslint/types": "npm:8.12.2"
-    "@typescript-eslint/typescript-estree": "npm:8.12.2"
-    "@typescript-eslint/visitor-keys": "npm:8.12.2"
-    debug: "npm:^4.3.4"
-  peerDependencies:
-    eslint: ^8.57.0 || ^9.0.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 10/257cfbe13bd1a3a2c83e0b3fd2d441a51181ffd57f2e98112217668383fc28de995bfca6d7c4d2c04c6347ee6a376fe1d87eb6ce60d7383cda1044626d794185
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/parser@npm:8.13.0":
   version: 8.13.0
   resolution: "@typescript-eslint/parser@npm:8.13.0"
@@ -4741,6 +4723,24 @@ __metadata:
     typescript:
       optional: true
   checksum: 10/174f705ce44e4dca83badad053eed50fb3703be6a4379e91f7c260c7f7d0c5e7bcfefd4f2c3170449b6c8f04a8f38c0cefc1a399be7d4913b86ab80d1b7783ec
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/parser@npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0":
+  version: 8.12.2
+  resolution: "@typescript-eslint/parser@npm:8.12.2"
+  dependencies:
+    "@typescript-eslint/scope-manager": "npm:8.12.2"
+    "@typescript-eslint/types": "npm:8.12.2"
+    "@typescript-eslint/typescript-estree": "npm:8.12.2"
+    "@typescript-eslint/visitor-keys": "npm:8.12.2"
+    debug: "npm:^4.3.4"
+  peerDependencies:
+    eslint: ^8.57.0 || ^9.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/257cfbe13bd1a3a2c83e0b3fd2d441a51181ffd57f2e98112217668383fc28de995bfca6d7c4d2c04c6347ee6a376fe1d87eb6ce60d7383cda1044626d794185
   languageName: node
   linkType: hard
 
@@ -9711,9 +9711,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.36.3":
-  version: 5.36.3
-  resolution: "knip@npm:5.36.3"
+"knip@npm:5.36.5":
+  version: 5.36.5
+  resolution: "knip@npm:5.36.5"
   dependencies:
     "@nodelib/fs.walk": "npm:1.2.8"
     "@snyk/github-codeowners": "npm:1.1.0"
@@ -9737,7 +9737,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/55991abe4bc0e4c8d78ffc765e9170ba16dcf2eef8f0ed59f133299c7558cdc44547e32aba2d506ae4baf6c72ce3c1a8f9f22a418c3009537c8c5447a7b1d5f2
+  checksum: 10/c9786eec9d57cb4ff851892d18bfd3c89d9a0fe2489abc7d1cc07ac578835b85c21d76a343ff329d0485e8bfe2bd9780c7d0b5b15f67899dcb9734dcd7e3ec29
   languageName: node
   linkType: hard
 
@@ -11675,7 +11675,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.27.9"
-    knip: "npm:5.36.3"
+    knip: "npm:5.36.5"
     prettier: "npm:3.3.3"
     turbo: "npm:2.2.3"
   languageName: unknown
