@@ -1224,7 +1224,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:3.1.0, @eslint/eslintrc@npm:^3.1.0":
+"@eslint/eslintrc@npm:3.2.0":
+  version: 3.2.0
+  resolution: "@eslint/eslintrc@npm:3.2.0"
+  dependencies:
+    ajv: "npm:^6.12.4"
+    debug: "npm:^4.3.2"
+    espree: "npm:^10.0.1"
+    globals: "npm:^14.0.0"
+    ignore: "npm:^5.2.0"
+    import-fresh: "npm:^3.2.1"
+    js-yaml: "npm:^4.1.0"
+    minimatch: "npm:^3.1.2"
+    strip-json-comments: "npm:^3.1.1"
+  checksum: 10/b32dd90ce7da68e89b88cd729db46b27aac79a2e6cb1fa75d25a6b766d586b443bfbf59622489efbd3c6f696f147b51111e81ec7cd23d70f215c5d474cad0261
+  languageName: node
+  linkType: hard
+
+"@eslint/eslintrc@npm:^3.1.0":
   version: 3.1.0
   resolution: "@eslint/eslintrc@npm:3.1.0"
   dependencies:
@@ -2802,7 +2819,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/core@workspace:packages/core"
   dependencies:
-    "@eslint/eslintrc": "npm:3.1.0"
+    "@eslint/eslintrc": "npm:3.2.0"
     "@eslint/js": "npm:9.14.0"
     "@rsc-parser/react-client": "workspace:^"
     "@storybook/react": "npm:8.4.4"
@@ -2844,7 +2861,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/embedded-example@workspace:examples/embedded-example"
   dependencies:
-    "@eslint/eslintrc": "npm:3.1.0"
+    "@eslint/eslintrc": "npm:3.2.0"
     "@eslint/js": "npm:9.14.0"
     "@rsc-parser/embedded": "workspace:^"
     "@types/node": "npm:22.9.0"
@@ -2886,7 +2903,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/react-client@workspace:packages/react-client"
   dependencies:
-    "@eslint/eslintrc": "npm:3.1.0"
+    "@eslint/eslintrc": "npm:3.2.0"
     "@eslint/js": "npm:9.14.0"
     "@types/eslint__eslintrc": "npm:2.1.2"
     "@types/eslint__js": "npm:8.42.3"
@@ -2929,7 +2946,7 @@ __metadata:
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
     "@ariakit/react": "npm:0.4.13"
-    "@eslint/eslintrc": "npm:3.1.0"
+    "@eslint/eslintrc": "npm:3.2.0"
     "@eslint/js": "npm:9.14.0"
     "@rsc-parser/core": "workspace:*"
     "@types/eslint__eslintrc": "npm:2.1.2"
