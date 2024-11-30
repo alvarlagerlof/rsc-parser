@@ -2816,7 +2816,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:8.15.0"
     "@typescript-eslint/parser": "npm:8.15.0"
     "@vitejs/plugin-react": "npm:4.3.4"
-    "@vitejs/plugin-react-swc": "npm:3.7.1"
+    "@vitejs/plugin-react-swc": "npm:3.7.2"
     autoprefixer: "npm:10.4.20"
     concurrently: "npm:9.1.0"
     d3: "npm:7.9.0"
@@ -4747,14 +4747,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react-swc@npm:3.7.1":
-  version: 3.7.1
-  resolution: "@vitejs/plugin-react-swc@npm:3.7.1"
+"@vitejs/plugin-react-swc@npm:3.7.2":
+  version: 3.7.2
+  resolution: "@vitejs/plugin-react-swc@npm:3.7.2"
   dependencies:
     "@swc/core": "npm:^1.7.26"
   peerDependencies:
-    vite: ^4 || ^5
-  checksum: 10/e86c1424998e0d249edb9b22ea38fbf4d26732e6732789cefcd8754c04140b0cfed4f1b22e8c755a1b04d21b32d61557e995d49cad41176865461951b113cfbc
+    vite: ^4 || ^5 || ^6
+  checksum: 10/eba981d831c83b81eba6515a8999f3811423769810dd7b36b9b0e5fffbfecc0354198e6efa7df0cd43950007d110aa9f42f0f3a0bd9f4bdc70d23d5177cfe95e
   languageName: node
   linkType: hard
 
