@@ -154,7 +154,7 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
   const [linksState, setLinksState] = useState<Link[]>([]);
   const [nodesState, setNodesState] = useState<Node[]>([]);
 
-  const simulation = useRef<d3.Simulation<Node, Link>>();
+  const simulation = useRef<d3.Simulation<Node, Link>>(undefined);
 
   useEffect(() => {
     if (simulation.current) {
