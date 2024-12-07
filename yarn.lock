@@ -2951,7 +2951,7 @@ __metadata:
     "@rsc-parser/core": "workspace:*"
     "@types/eslint__js": "npm:8.42.3"
     "@types/react": "npm:19.0.1"
-    "@types/react-dom": "npm:18.3.2"
+    "@types/react-dom": "npm:19.0.1"
     "@typescript-eslint/eslint-plugin": "npm:8.17.0"
     "@typescript-eslint/parser": "npm:8.17.0"
     "@vitejs/plugin-react": "npm:4.3.4"
@@ -2963,7 +2963,7 @@ __metadata:
     postcss: "npm:8.4.49"
     prettier: "npm:3.4.2"
     react: "npm:19.0.0"
-    react-dom: "npm:18.3.1"
+    react-dom: "npm:19.0.0"
     react-error-boundary: "npm:4.1.2"
     type-fest: "npm:4.30.0"
     typescript: "npm:5.7.2"
@@ -3012,7 +3012,7 @@ __metadata:
     vite-plugin-dts: "npm:4.3.0"
   peerDependencies:
     react: 19.0.0
-    react-dom: 18.3.1
+    react-dom: 19.0.0
   languageName: unknown
   linkType: soft
 
@@ -3054,7 +3054,7 @@ __metadata:
     vite-plugin-dts: "npm:4.3.0"
   peerDependencies:
     react: 19.0.0
-    react-dom: 18.3.1
+    react-dom: 19.0.0
   languageName: unknown
   linkType: soft
 
@@ -3092,7 +3092,7 @@ __metadata:
     "@storybook/react-vite": "npm:8.4.7"
     "@storybook/testing-library": "npm:0.2.2"
     react: "npm:19.0.0"
-    react-dom: "npm:18.3.1"
+    react-dom: "npm:19.0.0"
     storybook: "npm:8.4.7"
     storybook-dark-mode: "npm:4.0.2"
     turbo: "npm:2.3.3"
@@ -4706,13 +4706,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
-  version: 15.7.13
-  resolution: "@types/prop-types@npm:15.7.13"
-  checksum: 10/8935cad87c683c665d09a055919d617fe951cb3b2d5c00544e3a913f861a2bd8d2145b51c9aa6d2457d19f3107ab40784c40205e757232f6a80cc8b1c815513c
-  languageName: node
-  linkType: hard
-
 "@types/qs@npm:*, @types/qs@npm:^6.9.5":
   version: 6.9.17
   resolution: "@types/qs@npm:6.9.17"
@@ -4724,15 +4717,6 @@ __metadata:
   version: 1.2.7
   resolution: "@types/range-parser@npm:1.2.7"
   checksum: 10/95640233b689dfbd85b8c6ee268812a732cf36d5affead89e806fe30da9a430767af8ef2cd661024fd97e19d61f3dec75af2df5e80ec3bea000019ab7028629a
-  languageName: node
-  linkType: hard
-
-"@types/react-dom@npm:18.3.2":
-  version: 18.3.2
-  resolution: "@types/react-dom@npm:18.3.2"
-  dependencies:
-    "@types/react": "npm:^18"
-  checksum: 10/29337fe650ec49178121a815f0c5b7f6081e63b216a29bd6f90bb5e5b0367d60a95b50a25b1848031c82458de2dfb62f78b18e72d0e6fed6f77951e64e3897d1
   languageName: node
   linkType: hard
 
@@ -4751,16 +4735,6 @@ __metadata:
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: 10/930dd4904047059c48ae64a90fc5e8078b5bac0a14c9d927917e5a07e88e4e5073ddc944cbde90a955f9f815c23b7112caea63e407bc423913073bedecb097aa
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^18":
-  version: 18.3.14
-  resolution: "@types/react@npm:18.3.14"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10/683927b1e24293276cf62f60f1baa666b7f1053c87ec8d8c79d2d4bc105b99e0492482f801ffce7cdef9d656c11294faa423051807a500c7475f4fbd7661bd8d
   languageName: node
   linkType: hard
 
@@ -11405,18 +11379,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.3.1, react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
-  version: 18.3.1
-  resolution: "react-dom@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.2"
-  peerDependencies:
-    react: ^18.3.1
-  checksum: 10/3f4b73a3aa083091173b29812b10394dd06f4ac06aff410b74702cfb3aa29d7b0ced208aab92d5272919b612e5cda21aeb1d54191848cf6e46e9e354f3541f81
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:19.0.0":
   version: 19.0.0
   resolution: "react-dom@npm:19.0.0"
@@ -11425,6 +11387,18 @@ __metadata:
   peerDependencies:
     react: ^19.0.0
   checksum: 10/aa64a2f1991042f516260e8b0eca0ae777b6c8f1aa2b5ae096e80bbb6ac9b005aef2bca697969841d34f7e1819556263476bdfea36c35092e8d9aefde3de2d9a
+  languageName: node
+  linkType: hard
+
+"react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    scheduler: "npm:^0.23.2"
+  peerDependencies:
+    react: ^18.3.1
+  checksum: 10/3f4b73a3aa083091173b29812b10394dd06f4ac06aff410b74702cfb3aa29d7b0ced208aab92d5272919b612e5cda21aeb1d54191848cf6e46e9e354f3541f81
   languageName: node
   linkType: hard
 
