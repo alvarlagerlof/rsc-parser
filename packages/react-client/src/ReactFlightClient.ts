@@ -1387,6 +1387,7 @@ function resolveTypedArray(
   // we should convert it instead. In practice big endian isn't really Web compatible so it's
   // somewhat safe to assume that browsers aren't going to run it, but maybe there's some SSR
   // server that's affected.
+  // @ts-expect-error TODO: fix this
   const view: ArrayBufferView = new constructor(
     chunk.buffer,
     chunk.byteOffset,
@@ -1406,6 +1407,7 @@ function processFullBinaryRow(
     switch (tag) {
       case 65 /* "A" */:
         // We must always clone to extract it into a separate buffer instead of just a view.
+        // @ts-expect-error TODO: fix this
         resolveBuffer(response, id, mergeBuffer(buffer, chunk).buffer);
         return;
       case 79 /* "O" */:
