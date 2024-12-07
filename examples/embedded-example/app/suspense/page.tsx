@@ -6,7 +6,6 @@ export default function SuspensePage() {
     <>
       <Link href="/">Go to home page</Link>
       <Suspense fallback="Loading...">
-        {/* @ts-expect-error TODO: fix this */}
         <SlowComponent />
       </Suspense>
     </>
