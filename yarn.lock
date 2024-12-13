@@ -2969,7 +2969,7 @@ __metadata:
     "@rsc-parser/core": "workspace:*"
     "@types/eslint__js": "npm:8.42.3"
     "@types/react": "npm:19.0.1"
-    "@types/react-dom": "npm:19.0.1"
+    "@types/react-dom": "npm:19.0.2"
     "@typescript-eslint/eslint-plugin": "npm:8.17.0"
     "@typescript-eslint/parser": "npm:8.17.0"
     "@vitejs/plugin-react": "npm:4.3.4"
@@ -3043,7 +3043,7 @@ __metadata:
     "@rsc-parser/embedded": "workspace:^"
     "@types/node": "npm:22.10.2"
     "@types/react": "npm:19.0.1"
-    "@types/react-dom": "npm:19.0.1"
+    "@types/react-dom": "npm:19.0.2"
     autoprefixer: "npm:10.4.20"
     eslint: "npm:9.16.0"
     eslint-config-next: "npm:15.0.4"
@@ -3130,7 +3130,7 @@ __metadata:
     "@types/eslint__js": "npm:8.42.3"
     "@types/node": "npm:22.10.2"
     "@types/react": "npm:19.0.1"
-    "@types/react-dom": "npm:19.0.1"
+    "@types/react-dom": "npm:19.0.2"
     autoprefixer: "npm:10.4.20"
     eslint: "npm:9.16.0"
     eslint-config-next: "npm:15.0.4"
@@ -4720,16 +4720,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:19.0.1":
-  version: 19.0.1
-  resolution: "@types/react-dom@npm:19.0.1"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10/59d0704e445a3e0d034ef016c92dc1bbec0ba6c1af084bf6de18f0ac3abd18a632961b7fd48668c519137d0bd7bfa77a8135a66c2725d4b7f68b830be263a564
+"@types/react-dom@npm:19.0.2":
+  version: 19.0.2
+  resolution: "@types/react-dom@npm:19.0.2"
+  peerDependencies:
+    "@types/react": ^19.0.0
+  checksum: 10/d2ae81ec0b8eee7a4bf31918796fdaa34e8db68f69682163bc212d759de76783e6ffcc02c02722dcf508429067148841e6da81414cc730ca2a28c9c2b350c880
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:19.0.1":
+"@types/react@npm:19.0.1":
   version: 19.0.1
   resolution: "@types/react@npm:19.0.1"
   dependencies:
