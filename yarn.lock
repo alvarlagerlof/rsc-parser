@@ -3013,7 +3013,7 @@ __metadata:
     concurrently: "npm:9.1.2"
     esbuild: "npm:0.24.2"
     eslint: "npm:9.18.0"
-    postcss: "npm:8.4.49"
+    postcss: "npm:8.5.1"
     prettier: "npm:3.4.2"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
@@ -3053,7 +3053,7 @@ __metadata:
     eslint-plugin-tailwindcss: "npm:3.18.0"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
-    postcss: "npm:8.4.49"
+    postcss: "npm:8.5.1"
     prettier: "npm:3.4.2"
     react-error-boundary: "npm:5.0.0"
     react-resizable-panels: "npm:2.1.7"
@@ -3083,7 +3083,7 @@ __metadata:
     eslint: "npm:9.18.0"
     eslint-config-next: "npm:15.1.5"
     next: "npm:15.1.5"
-    postcss: "npm:8.4.49"
+    postcss: "npm:8.5.1"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
     tailwindcss: "npm:3.4.17"
@@ -3171,7 +3171,7 @@ __metadata:
     eslint-config-next: "npm:15.1.5"
     eslint-plugin-tailwindcss: "npm:3.18.0"
     next: "npm:15.1.5"
-    postcss: "npm:8.4.49"
+    postcss: "npm:8.5.1"
     prettier: "npm:3.4.2"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
@@ -10458,7 +10458,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.6, nanoid@npm:^3.3.7":
+"nanoid@npm:^3.3.6, nanoid@npm:^3.3.7, nanoid@npm:^3.3.8":
   version: 3.3.8
   resolution: "nanoid@npm:3.3.8"
   bin:
@@ -11239,7 +11239,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.49, postcss@npm:^8.2.14, postcss@npm:^8.4.33, postcss@npm:^8.4.4, postcss@npm:^8.4.43, postcss@npm:^8.4.47":
+"postcss@npm:8.5.1":
+  version: 8.5.1
+  resolution: "postcss@npm:8.5.1"
+  dependencies:
+    nanoid: "npm:^3.3.8"
+    picocolors: "npm:^1.1.1"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10/1fbd28753143f7f03e4604813639918182b15343c7ad0f4e72f3875fc2cc0b8494c887f55dc05008fad5fbf1e1e908ce2edbbce364a91f84dcefb71edf7cd31d
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.2.14, postcss@npm:^8.4.33, postcss@npm:^8.4.4, postcss@npm:^8.4.43, postcss@npm:^8.4.47":
   version: 8.4.49
   resolution: "postcss@npm:8.4.49"
   dependencies:
