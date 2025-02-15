@@ -3196,7 +3196,7 @@ __metadata:
     concurrently: "npm:9.1.2"
     esbuild: "npm:0.25.0"
     eslint: "npm:9.19.0"
-    postcss: "npm:8.5.1"
+    postcss: "npm:8.5.2"
     prettier: "npm:3.4.2"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
@@ -3236,7 +3236,7 @@ __metadata:
     eslint-plugin-tailwindcss: "npm:3.18.0"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
-    postcss: "npm:8.5.1"
+    postcss: "npm:8.5.2"
     prettier: "npm:3.4.2"
     react-error-boundary: "npm:5.0.0"
     react-resizable-panels: "npm:2.1.7"
@@ -3266,7 +3266,7 @@ __metadata:
     eslint: "npm:9.19.0"
     eslint-config-next: "npm:15.1.7"
     next: "npm:15.1.7"
-    postcss: "npm:8.5.1"
+    postcss: "npm:8.5.2"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
     tailwindcss: "npm:3.4.17"
@@ -3354,7 +3354,7 @@ __metadata:
     eslint-config-next: "npm:15.1.7"
     eslint-plugin-tailwindcss: "npm:3.18.0"
     next: "npm:15.1.7"
-    postcss: "npm:8.5.1"
+    postcss: "npm:8.5.2"
     prettier: "npm:3.4.2"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
@@ -11648,7 +11648,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.5.1, postcss@npm:^8.2.14, postcss@npm:^8.4.33, postcss@npm:^8.4.4, postcss@npm:^8.4.43, postcss@npm:^8.4.47":
+"postcss@npm:8.5.2":
+  version: 8.5.2
+  resolution: "postcss@npm:8.5.2"
+  dependencies:
+    nanoid: "npm:^3.3.8"
+    picocolors: "npm:^1.1.1"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10/e08c2be3cf461cc63cf4c8e97bb3d5185e196ee0a9b75879cf130590f32bc38c7829c6c4e260158e214fb68a828a95bdac84c8f17fefba993d3ced686643c3e2
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.2.14, postcss@npm:^8.4.33, postcss@npm:^8.4.4, postcss@npm:^8.4.43, postcss@npm:^8.4.47":
   version: 8.5.1
   resolution: "postcss@npm:8.5.1"
   dependencies:
