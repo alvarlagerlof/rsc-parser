@@ -1266,7 +1266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.22.0":
+"@eslint/js@npm:*, @eslint/js@npm:9.22.0":
   version: 9.22.0
   resolution: "@eslint/js@npm:9.22.0"
   checksum: 10/2d7725f29ee4a7c85f5b5c499945d60f7701877b41b580d3f7badef43901ac98e4f8f76e4cfaef9ba116966c5f7b67132161e31e02f2eeccb0d09b548f6ea1b2
@@ -3010,7 +3010,7 @@ __metadata:
     "@ariakit/react": "npm:0.4.15"
     "@eslint/js": "npm:9.22.0"
     "@rsc-parser/core": "workspace:*"
-    "@types/eslint__js": "npm:8.42.3"
+    "@types/eslint__js": "npm:9.14.0"
     "@types/react": "npm:19.0.10"
     "@types/react-dom": "npm:19.0.4"
     "@typescript-eslint/eslint-plugin": "npm:8.26.0"
@@ -3048,7 +3048,7 @@ __metadata:
     "@types/d3": "npm:7.4.3"
     "@types/d3-drag": "npm:3.0.7"
     "@types/eslint__eslintrc": "npm:2.1.2"
-    "@types/eslint__js": "npm:8.42.3"
+    "@types/eslint__js": "npm:9.14.0"
     "@types/jest": "npm:29.5.14"
     "@typescript-eslint/eslint-plugin": "npm:8.26.0"
     "@typescript-eslint/parser": "npm:8.25.0"
@@ -3126,7 +3126,7 @@ __metadata:
     "@eslint/eslintrc": "npm:3.3.0"
     "@eslint/js": "npm:9.22.0"
     "@types/eslint__eslintrc": "npm:2.1.2"
-    "@types/eslint__js": "npm:8.42.3"
+    "@types/eslint__js": "npm:9.14.0"
     "@typescript-eslint/eslint-plugin": "npm:8.26.0"
     "@typescript-eslint/parser": "npm:8.25.0"
     eslint: "npm:9.22.0"
@@ -3170,7 +3170,7 @@ __metadata:
     "@eslint/js": "npm:9.22.0"
     "@rsc-parser/core": "workspace:*"
     "@types/eslint__eslintrc": "npm:2.1.2"
-    "@types/eslint__js": "npm:8.42.3"
+    "@types/eslint__js": "npm:9.14.0"
     "@types/node": "npm:22.13.10"
     "@types/react": "npm:19.0.10"
     "@types/react-dom": "npm:19.0.4"
@@ -4589,12 +4589,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint__js@npm:8.42.3":
-  version: 8.42.3
-  resolution: "@types/eslint__js@npm:8.42.3"
+"@types/eslint__js@npm:9.14.0":
+  version: 9.14.0
+  resolution: "@types/eslint__js@npm:9.14.0"
   dependencies:
-    "@types/eslint": "npm:*"
-  checksum: 10/e31f19de642d35a664695d0cab873ce6de19b8a3506755835b91f8a49a8c41099dcace449df49f1a486de6fa6565d21ceb1fa33be6004fc7adef9226e5d256a1
+    "@eslint/js": "npm:*"
+  checksum: 10/2bffe2e3d9401b6a530ba7fe8961ea786a6cf520abe11ef59435934df593fdd927c3cb3ac7afcd1c77961f0fab9a99d0d86b678f1124a96402105fd43309d38c
   languageName: node
   linkType: hard
 
