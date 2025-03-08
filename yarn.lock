@@ -1242,7 +1242,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:3.3.0, @eslint/eslintrc@npm:^3.3.0":
+"@eslint/eslintrc@npm:*, @eslint/eslintrc@npm:3.3.0, @eslint/eslintrc@npm:^3.3.0":
   version: 3.3.0
   resolution: "@eslint/eslintrc@npm:3.3.0"
   dependencies:
@@ -3047,7 +3047,7 @@ __metadata:
     "@testing-library/react": "npm:16.2.0"
     "@types/d3": "npm:7.4.3"
     "@types/d3-drag": "npm:3.0.7"
-    "@types/eslint__eslintrc": "npm:2.1.2"
+    "@types/eslint__eslintrc": "npm:3.3.0"
     "@types/eslint__js": "npm:8.42.3"
     "@types/jest": "npm:29.5.14"
     "@typescript-eslint/eslint-plugin": "npm:8.26.0"
@@ -3125,7 +3125,7 @@ __metadata:
   dependencies:
     "@eslint/eslintrc": "npm:3.3.0"
     "@eslint/js": "npm:9.22.0"
-    "@types/eslint__eslintrc": "npm:2.1.2"
+    "@types/eslint__eslintrc": "npm:3.3.0"
     "@types/eslint__js": "npm:8.42.3"
     "@typescript-eslint/eslint-plugin": "npm:8.26.0"
     "@typescript-eslint/parser": "npm:8.25.0"
@@ -3169,7 +3169,7 @@ __metadata:
     "@eslint/eslintrc": "npm:3.3.0"
     "@eslint/js": "npm:9.22.0"
     "@rsc-parser/core": "workspace:*"
-    "@types/eslint__eslintrc": "npm:2.1.2"
+    "@types/eslint__eslintrc": "npm:3.3.0"
     "@types/eslint__js": "npm:8.42.3"
     "@types/node": "npm:22.13.10"
     "@types/react": "npm:19.0.10"
@@ -4580,12 +4580,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint__eslintrc@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@types/eslint__eslintrc@npm:2.1.2"
+"@types/eslint__eslintrc@npm:3.3.0":
+  version: 3.3.0
+  resolution: "@types/eslint__eslintrc@npm:3.3.0"
   dependencies:
-    "@types/eslint": "npm:*"
-  checksum: 10/3aa91058e0a37306a98ad28681e6662e66d93462b668a06a0e53ea8cd60d93bd5341e3cb8f57be70fafa747418cb7d4741d0c49d6996914ffe452e6c22097ee9
+    "@eslint/eslintrc": "npm:*"
+  checksum: 10/79479f1160bc4ca1529391485f21d1948b9e84f19ae21be8946628218a11e1bbf3bb5c5b9f93e023b063806313ef46d977c9f24d27346a109a7d4485e5b0d436
   languageName: node
   linkType: hard
 
