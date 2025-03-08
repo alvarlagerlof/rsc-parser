@@ -3063,7 +3063,7 @@ __metadata:
     typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.25.0"
     vite: "npm:5.4.14"
-    vite-plugin-dts: "npm:4.5.1"
+    vite-plugin-dts: "npm:4.5.3"
   peerDependencies:
     react: 19.0.0
     react-dom: 19.0.0
@@ -3105,7 +3105,7 @@ __metadata:
     rollup-plugin-preserve-directives: "npm:0.4.0"
     typescript: "npm:5.7.3"
     vite: "npm:5.4.14"
-    vite-plugin-dts: "npm:4.5.1"
+    vite-plugin-dts: "npm:4.5.3"
   peerDependencies:
     react: 19.0.0
     react-dom: 19.0.0
@@ -3127,7 +3127,7 @@ __metadata:
     typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.25.0"
     vite: "npm:5.4.14"
-    vite-plugin-dts: "npm:4.5.1"
+    vite-plugin-dts: "npm:4.5.3"
   languageName: unknown
   linkType: soft
 
@@ -5107,15 +5107,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/language-core@npm:2.2.4":
-  version: 2.2.4
-  resolution: "@vue/language-core@npm:2.2.4"
+"@vue/language-core@npm:2.2.0":
+  version: 2.2.0
+  resolution: "@vue/language-core@npm:2.2.0"
   dependencies:
     "@volar/language-core": "npm:~2.4.11"
     "@vue/compiler-dom": "npm:^3.5.0"
     "@vue/compiler-vue2": "npm:^2.7.16"
     "@vue/shared": "npm:^3.5.0"
-    alien-signals: "npm:^1.0.3"
+    alien-signals: "npm:^0.4.9"
     minimatch: "npm:^9.0.3"
     muggle-string: "npm:^0.4.1"
     path-browserify: "npm:^1.0.1"
@@ -5124,7 +5124,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/169c445e5070689e93d532e59ee9fb55431bab1f26cd569d1a5392d4562501c7e2d335f1c380e68c21ee0eb998146e26c5230ef73f1a677d8ab5c6457b373489
+  checksum: 10/dc22d038509a58e5a5569fe19f67e7373067cde3531b1e405270dcbe026a8cdbb1de8a7a93d6aaa76a3c5b71393f5c6ec5d9125f0b050898cb96a5c62b4a8d88
   languageName: node
   linkType: hard
 
@@ -5296,10 +5296,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"alien-signals@npm:^1.0.3":
-  version: 1.0.4
-  resolution: "alien-signals@npm:1.0.4"
-  checksum: 10/94784574a6a4547ba932a5038c66b23ee8669a1080df6d0917014dbc94534115f6cedd5507445f9f487ead62be7d40ea413a427f2970c87a0d98ffc73d744ae1
+"alien-signals@npm:^0.4.9":
+  version: 0.4.14
+  resolution: "alien-signals@npm:0.4.14"
+  checksum: 10/306a7f4a88a982d1619ff313ed078bdfe52bb9d1381590ef4c1c245812ce7274b9b645a6233214e764a1adbef21863bdf74d10aa4fb30917456b7dd7779df5fc
   languageName: node
   linkType: hard
 
@@ -13312,14 +13312,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-dts@npm:4.5.1":
-  version: 4.5.1
-  resolution: "vite-plugin-dts@npm:4.5.1"
+"vite-plugin-dts@npm:4.5.3":
+  version: 4.5.3
+  resolution: "vite-plugin-dts@npm:4.5.3"
   dependencies:
     "@microsoft/api-extractor": "npm:^7.50.1"
     "@rollup/pluginutils": "npm:^5.1.4"
     "@volar/typescript": "npm:^2.4.11"
-    "@vue/language-core": "npm:2.2.4"
+    "@vue/language-core": "npm:2.2.0"
     compare-versions: "npm:^6.1.1"
     debug: "npm:^4.4.0"
     kolorist: "npm:^1.8.0"
@@ -13331,7 +13331,7 @@ __metadata:
   peerDependenciesMeta:
     vite:
       optional: true
-  checksum: 10/0c0830c88be401927214ec6d750636331c2e76ac2d02a06a4b94d63226644538ef77979fc09fb85d2f9f074e38837ba0f5ed4dfbfc439df825f3d0437cc69e5e
+  checksum: 10/b00177ec5947d4cf427facc38618b1c328e94cd42f9f821c7602f8c9ab325268c05f7a1ca2913e4e19eb20aac8610ae3502a7665a54fcf8754618cad84f100f1
   languageName: node
   linkType: hard
 
