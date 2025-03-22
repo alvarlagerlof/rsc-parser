@@ -1268,7 +1268,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:3.3.1, @eslint/eslintrc@npm:^3.3.1":
+"@eslint/eslintrc@npm:*, @eslint/eslintrc@npm:3.3.1, @eslint/eslintrc@npm:^3.3.1":
   version: 3.3.1
   resolution: "@eslint/eslintrc@npm:3.3.1"
   dependencies:
@@ -1282,13 +1282,6 @@ __metadata:
     minimatch: "npm:^3.1.2"
     strip-json-comments: "npm:^3.1.1"
   checksum: 10/cc240addbab3c5fceaa65b2c8d5d4fd77ddbbf472c2f74f0270b9d33263dc9116840b6099c46b64c9680301146250439b044ed79278a1bcc557da412a4e3c1bb
-  languageName: node
-  linkType: hard
-
-"@eslint/js@npm:9.22.0":
-  version: 9.22.0
-  resolution: "@eslint/js@npm:9.22.0"
-  checksum: 10/2d7725f29ee4a7c85f5b5c499945d60f7701877b41b580d3f7badef43901ac98e4f8f76e4cfaef9ba116966c5f7b67132161e31e02f2eeccb0d09b548f6ea1b2
   languageName: node
   linkType: hard
 
@@ -3084,7 +3077,7 @@ __metadata:
     "@testing-library/react": "npm:16.2.0"
     "@types/d3": "npm:7.4.3"
     "@types/d3-drag": "npm:3.0.7"
-    "@types/eslint__eslintrc": "npm:2.1.2"
+    "@types/eslint__eslintrc": "npm:3.3.0"
     "@types/eslint__js": "npm:8.42.3"
     "@types/jest": "npm:29.5.14"
     "@typescript-eslint/eslint-plugin": "npm:8.27.0"
@@ -3162,7 +3155,7 @@ __metadata:
   dependencies:
     "@eslint/eslintrc": "npm:3.3.1"
     "@eslint/js": "npm:9.23.0"
-    "@types/eslint__eslintrc": "npm:2.1.2"
+    "@types/eslint__eslintrc": "npm:3.3.0"
     "@types/eslint__js": "npm:8.42.3"
     "@typescript-eslint/eslint-plugin": "npm:8.27.0"
     "@typescript-eslint/parser": "npm:8.27.0"
@@ -3206,7 +3199,7 @@ __metadata:
     "@eslint/eslintrc": "npm:3.3.1"
     "@eslint/js": "npm:9.23.0"
     "@rsc-parser/core": "workspace:*"
-    "@types/eslint__eslintrc": "npm:2.1.2"
+    "@types/eslint__eslintrc": "npm:3.3.0"
     "@types/eslint__js": "npm:8.42.3"
     "@types/node": "npm:22.13.11"
     "@types/react": "npm:19.0.12"
@@ -4626,12 +4619,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint__eslintrc@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@types/eslint__eslintrc@npm:2.1.2"
+"@types/eslint__eslintrc@npm:3.3.0":
+  version: 3.3.0
+  resolution: "@types/eslint__eslintrc@npm:3.3.0"
   dependencies:
-    "@types/eslint": "npm:*"
-  checksum: 10/3aa91058e0a37306a98ad28681e6662e66d93462b668a06a0e53ea8cd60d93bd5341e3cb8f57be70fafa747418cb7d4741d0c49d6996914ffe452e6c22097ee9
+    "@eslint/eslintrc": "npm:*"
+  checksum: 10/79479f1160bc4ca1529391485f21d1948b9e84f19ae21be8946628218a11e1bbf3bb5c5b9f93e023b063806313ef46d977c9f24d27346a109a7d4485e5b0d436
   languageName: node
   linkType: hard
 
