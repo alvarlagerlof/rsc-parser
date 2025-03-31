@@ -22,12 +22,6 @@ export default [
       files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     }),
   ),
-  ...compat.config({
-    extends: ['plugin:tailwindcss/recommended'],
-    rules: {
-      'tailwindcss/classnames-order': 'error',
-    },
-  }),
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {

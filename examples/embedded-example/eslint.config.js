@@ -17,12 +17,6 @@ export default [
       files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     }),
   ),
-  ...compat.config({
-    extends: ['plugin:tailwindcss/recommended' /*, "next/core-web-vitals"'*/],
-    rules: {
-      'tailwindcss/classnames-order': 'error',
-    },
-  }),
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
