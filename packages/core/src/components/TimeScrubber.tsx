@@ -71,9 +71,9 @@ export function TimeScrubber({
         <input
           type="range"
           className={[
-            'absolute h-full w-full rounded z-20',
+            'absolute h-full w-full rounded-sm z-20',
             'appearance-none',
-            'bg-transparent bg-gradient-to-r from-blue-100/25 to-blue-100/25 dark:from-blue-100/10 dark:to-blue-100/10 bg-no-repeat',
+            'bg-transparent bg-linear-to-r from-blue-100/25 to-blue-100/25 dark:from-blue-100/10 dark:to-blue-100/10 bg-no-repeat',
             '[&::-webkit-slider-runnable-track]:bg-transparent',
             '[&::-webkit-slider-runnable-track]:h-full',
             '[&::-webkit-slider-thumb]:h-[calc(100%-6px)]',
@@ -113,7 +113,7 @@ export function TimeScrubber({
               (eventHeight + (tracks.length > 1 ? trackSpacing : 0)) +
             trackPadding * 2
           }px`}
-          className="pointer-events-none z-10 rounded bg-white fill-slate-500 dark:bg-slate-700"
+          className="pointer-events-none z-10 rounded-sm bg-white fill-slate-500 dark:bg-slate-700"
         >
           {tracks.map((track, idx) => {
             const sections: {

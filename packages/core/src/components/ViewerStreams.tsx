@@ -58,7 +58,7 @@ function Requests({ events }: { events: RscEvent[] }) {
         </TabList>
       </Panel>
 
-      <PanelResizeHandle className="w-1 rounded bg-slate-200 dark:bg-slate-800" />
+      <PanelResizeHandle className="w-1 rounded-sm bg-slate-200 dark:bg-slate-800" />
 
       <Panel order={2} minSize={20} className="">
         <TabPanel

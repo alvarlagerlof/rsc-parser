@@ -22,8 +22,7 @@ export function BottomPanel({
         direction={position === 'bottom' ? 'vertical' : 'horizontal'}
         // The `pointer-events-none` class is need to be able to click on the content underneath,
         // but if it's applied while dragging, the drag handler looses track very easily.
-        // eslint-disable-next-line tailwindcss/classnames-order
-        className={`fixed left-0 top-0 size-full z-[1000] ${isDragging ? '' : 'pointer-events-none'}`}
+        className={`fixed left-0 top-0 size-full z-1000 ${isDragging ? '' : 'pointer-events-none'}`}
       >
         <Panel order={1} defaultSize={55} />
         <PanelResizeHandle
@@ -42,7 +41,7 @@ export function BottomPanel({
   }
 
   return (
-    <div className="fixed bottom-[20px] right-[80px] z-[1000] flex size-[40px]">
+    <div className="fixed bottom-[20px] right-[80px] z-1000 flex size-[40px]">
       {openButton}
     </div>
   );
