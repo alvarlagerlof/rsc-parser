@@ -3063,7 +3063,7 @@ __metadata:
     react-dom: "npm:19.0.0"
     react-error-boundary: "npm:5.0.0"
     type-fest: "npm:4.38.0"
-    typescript: "npm:5.7.3"
+    typescript: "npm:5.8.2"
     vite: "npm:5.4.15"
     vite-plugin-html-config: "npm:2.0.2"
     web-vitals: "npm:4.2.4"
@@ -3101,7 +3101,7 @@ __metadata:
     react-resizable-panels: "npm:2.1.7"
     tailwindcss: "npm:3.4.17"
     ts-jest: "npm:29.3.0"
-    typescript: "npm:5.7.3"
+    typescript: "npm:5.8.2"
     typescript-eslint: "npm:8.28.0"
     vite: "npm:5.4.15"
     vite-plugin-dts: "npm:4.5.3"
@@ -3130,7 +3130,7 @@ __metadata:
     react-dom: "npm:19.0.0"
     tailwindcss: "npm:3.4.17"
     turbo: "npm:2.4.4"
-    typescript: "npm:5.7.3"
+    typescript: "npm:5.8.2"
     typescript-eslint: "npm:8.28.0"
   languageName: unknown
   linkType: soft
@@ -3144,7 +3144,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:4.3.4"
     eslint: "npm:9.23.0"
     rollup-plugin-preserve-directives: "npm:0.4.0"
-    typescript: "npm:5.7.3"
+    typescript: "npm:5.8.2"
     vite: "npm:5.4.15"
     vite-plugin-dts: "npm:4.5.3"
   peerDependencies:
@@ -3163,7 +3163,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:8.28.0"
     eslint: "npm:9.23.0"
     prettier: "npm:3.5.3"
-    typescript: "npm:5.7.3"
+    typescript: "npm:5.8.2"
     typescript-eslint: "npm:8.28.0"
     vite: "npm:5.4.15"
     vite-plugin-dts: "npm:4.5.3"
@@ -3189,7 +3189,7 @@ __metadata:
     storybook: "npm:8.6.11"
     storybook-dark-mode: "npm:4.0.2"
     turbo: "npm:2.4.4"
-    typescript: "npm:5.7.3"
+    typescript: "npm:5.8.2"
   languageName: unknown
   linkType: soft
 
@@ -3216,7 +3216,7 @@ __metadata:
     tailwindcss: "npm:3.4.17"
     turbo: "npm:2.4.4"
     type-fest: "npm:4.38.0"
-    typescript: "npm:5.7.3"
+    typescript: "npm:5.8.2"
   languageName: unknown
   linkType: soft
 
@@ -13249,16 +13249,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.7.3":
-  version: 5.7.3
-  resolution: "typescript@npm:5.7.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/6a7e556de91db3d34dc51cd2600e8e91f4c312acd8e52792f243c7818dfadb27bae677175fad6947f9c81efb6c57eb6b2d0c736f196a6ee2f1f7d57b74fc92fa
-  languageName: node
-  linkType: hard
-
 "typescript@npm:5.8.2":
   version: 5.8.2
   resolution: "typescript@npm:5.8.2"
@@ -13266,16 +13256,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10/dbc2168a55d56771f4d581997be52bab5cbc09734fec976cfbaabd787e61fb4c6cf9125fd48c6f98054ce549c77ecedefc7f64252a830dd8e9c3381f61fbeb78
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>":
-  version: 5.7.3
-  resolution: "typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=5786d5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/dc58d777eb4c01973f7fbf1fd808aad49a0efdf545528dab9b07d94fdcb65b8751742804c3057e9619a4627f2d9cc85547fdd49d9f4326992ad0181b49e61d81
   languageName: node
   linkType: hard
 
