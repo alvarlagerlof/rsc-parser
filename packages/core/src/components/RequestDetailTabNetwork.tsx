@@ -213,7 +213,7 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
         ref={svgRef}
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         xmlns="http://www.w3.org/2000/svg"
-        className="size-full select-none rounded bg-slate-200 text-slate-400 dark:bg-slate-800 dark:text-slate-600"
+        className="size-full select-none rounded-sm bg-slate-200 text-slate-400 dark:bg-slate-800 dark:text-slate-600"
       >
         <g cursor="grab" ref={svgGroupRef}>
           {linksState.map((link) => {
