@@ -3061,7 +3061,7 @@ __metadata:
     postcss: "npm:8.5.3"
     prettier: "npm:3.5.3"
     react: "npm:19.0.0"
-    react-dom: "npm:19.0.0"
+    react-dom: "npm:19.1.0"
     react-error-boundary: "npm:5.0.0"
     type-fest: "npm:4.38.0"
     typescript: "npm:5.7.3"
@@ -3110,7 +3110,7 @@ __metadata:
     vite-plugin-dts: "npm:4.5.3"
   peerDependencies:
     react: 19.0.0
-    react-dom: 19.0.0
+    react-dom: 19.1.0
   languageName: unknown
   linkType: soft
 
@@ -3130,7 +3130,7 @@ __metadata:
     next: "npm:15.2.4"
     postcss: "npm:8.5.3"
     react: "npm:19.0.0"
-    react-dom: "npm:19.0.0"
+    react-dom: "npm:19.1.0"
     tailwindcss: "npm:3.4.17"
     turbo: "npm:2.4.4"
     typescript: "npm:5.7.3"
@@ -3152,7 +3152,7 @@ __metadata:
     vite-plugin-dts: "npm:4.5.3"
   peerDependencies:
     react: 19.0.0
-    react-dom: 19.0.0
+    react-dom: 19.1.0
   languageName: unknown
   linkType: soft
 
@@ -3190,7 +3190,7 @@ __metadata:
     "@storybook/react-vite": "npm:8.6.11"
     "@storybook/testing-library": "npm:0.2.2"
     react: "npm:19.0.0"
-    react-dom: "npm:19.0.0"
+    react-dom: "npm:19.1.0"
     storybook: "npm:8.6.11"
     storybook-dark-mode: "npm:4.0.2"
     turbo: "npm:2.4.4"
@@ -3219,7 +3219,7 @@ __metadata:
     postcss: "npm:8.5.3"
     prettier: "npm:3.5.3"
     react: "npm:19.0.0"
-    react-dom: "npm:19.0.0"
+    react-dom: "npm:19.1.0"
     tailwindcss: "npm:3.4.17"
     turbo: "npm:2.4.4"
     type-fest: "npm:4.38.0"
@@ -11539,18 +11539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.0.0":
-  version: 19.0.0
-  resolution: "react-dom@npm:19.0.0"
-  dependencies:
-    scheduler: "npm:^0.25.0"
-  peerDependencies:
-    react: ^19.0.0
-  checksum: 10/aa64a2f1991042f516260e8b0eca0ae777b6c8f1aa2b5ae096e80bbb6ac9b005aef2bca697969841d34f7e1819556263476bdfea36c35092e8d9aefde3de2d9a
-  languageName: node
-  linkType: hard
-
-"react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
+"react-dom@npm:19.1.0, react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
   version: 19.1.0
   resolution: "react-dom@npm:19.1.0"
   dependencies:
@@ -12121,13 +12110,6 @@ __metadata:
   dependencies:
     xmlchars: "npm:^2.2.0"
   checksum: 10/97b50daf6ca3a153e89842efa18a862e446248296622b7473c169c84c823ee8a16e4a43bac2f73f11fc8cb9168c73fbb0d73340f26552bac17970e9052367aa9
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.25.0":
-  version: 0.25.0
-  resolution: "scheduler@npm:0.25.0"
-  checksum: 10/e661e38503ab29a153429a99203fefa764f28b35c079719eb5efdd2c1c1086522f6653d8ffce388209682c23891a6d1d32fa6badf53c35fb5b9cd0c55ace42de
   languageName: node
   linkType: hard
 
