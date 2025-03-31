@@ -1,11 +1,7 @@
 // @ts-check
 
-import { FlatCompat } from '@eslint/eslintrc';
-
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
-
-const compat = new FlatCompat();
 
 export default [
   {

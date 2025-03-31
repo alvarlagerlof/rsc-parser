@@ -3237,7 +3237,6 @@ __metadata:
     concurrently: "npm:9.1.2"
     d3: "npm:7.9.0"
     eslint: "npm:9.23.0"
-    eslint-plugin-tailwindcss: "npm:3.18.0"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
     postcss: "npm:8.5.3"
@@ -3352,7 +3351,6 @@ __metadata:
     "@types/react-dom": "npm:19.0.4"
     eslint: "npm:9.23.0"
     eslint-config-next: "npm:15.2.4"
-    eslint-plugin-tailwindcss: "npm:3.18.0"
     next: "npm:15.2.4"
     postcss: "npm:8.5.3"
     prettier: "npm:3.5.3"
@@ -8064,18 +8062,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:3.18.0":
-  version: 3.18.0
-  resolution: "eslint-plugin-tailwindcss@npm:3.18.0"
-  dependencies:
-    fast-glob: "npm:^3.2.5"
-    postcss: "npm:^8.4.4"
-  peerDependencies:
-    tailwindcss: ^3.4.0
-  checksum: 10/5145aa8884e5a4c699305c9cc1546ef30904bd11b0ef2779cace23ed1676688c5956f5fb68bc70e7ac1b48b185d3239923813df2cf19c1df720caa4d0965b7a3
-  languageName: node
-  linkType: hard
-
 "eslint-scope@npm:^8.3.0":
   version: 8.3.0
   resolution: "eslint-scope@npm:8.3.0"
@@ -8308,7 +8294,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.5, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.2, fast-glob@npm:^3.3.3":
+"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.2, fast-glob@npm:^3.3.3":
   version: 3.3.3
   resolution: "fast-glob@npm:3.3.3"
   dependencies:
@@ -11568,7 +11554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.5.3, postcss@npm:^8.2.14, postcss@npm:^8.4.33, postcss@npm:^8.4.4, postcss@npm:^8.4.41, postcss@npm:^8.4.43":
+"postcss@npm:8.5.3, postcss@npm:^8.2.14, postcss@npm:^8.4.33, postcss@npm:^8.4.41, postcss@npm:^8.4.43":
   version: 8.5.3
   resolution: "postcss@npm:8.5.3"
   dependencies:
