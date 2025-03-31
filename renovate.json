@@ -24,6 +24,10 @@
       "extends": "monorepo:storybook",
       "groupName": "storybook monorepo",
       "matchUpdateTypes": ["digest", "patch", "minor", "major"]
+    },
+    {
+      "packagePatterns": ["react", "react-dom"],
+      "groupName": "react",
     }
   ]
 }
