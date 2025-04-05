@@ -7402,7 +7402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.18.0, enhanced-resolve@npm:^5.18.1":
+"enhanced-resolve@npm:^5.18.1":
   version: 5.18.1
   resolution: "enhanced-resolve@npm:5.18.1"
   dependencies:
@@ -10196,14 +10196,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.46.3":
-  version: 5.46.3
-  resolution: "knip@npm:5.46.3"
+"knip@npm:5.46.5":
+  version: 5.46.5
+  resolution: "knip@npm:5.46.5"
   dependencies:
     "@nodelib/fs.walk": "npm:3.0.1"
     "@snyk/github-codeowners": "npm:1.1.0"
     easy-table: "npm:1.2.0"
-    enhanced-resolve: "npm:^5.18.0"
+    enhanced-resolve: "npm:^5.18.1"
     fast-glob: "npm:^3.3.3"
     jiti: "npm:^2.4.2"
     js-yaml: "npm:^4.1.0"
@@ -10222,7 +10222,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/4260da18a6cfc8bca9a620eb41bad3013fdd75c59ee71bd02a464c00bd6f297bdf41a653ac76e61ab0ea9300ee19742172883fdb02dc72bedb8407a6d46e9653
+  checksum: 10/2a796146476faa9dd6cac5ef27a89fc3da6fa564972e4fa7667b0ebd4eff00b3bd23948e3f71b998a49976b1a963b3cc088dc33c1d570f64313a5384961bd909
   languageName: node
   linkType: hard
 
@@ -12222,7 +12222,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.28.1"
-    knip: "npm:5.46.3"
+    knip: "npm:5.46.5"
     prettier: "npm:3.5.3"
     turbo: "npm:2.4.4"
   languageName: unknown
