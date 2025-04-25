@@ -1292,6 +1292,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/js@npm:9.25.1":
+  version: 9.25.1
+  resolution: "@eslint/js@npm:9.25.1"
+  checksum: 10/ad5812889598de32d674ef60c0e61468ac5c7f3b6ecf98b0e29d1e88d7af8ba3aab255b8c0a46bbaf654047bbd2ee5aa033db9b53e330f97615093fcccde4cbb
+  languageName: node
+  linkType: hard
+
 "@eslint/object-schema@npm:^2.1.6":
   version: 2.1.6
   resolution: "@eslint/object-schema@npm:2.1.6"
@@ -3185,7 +3192,7 @@ __metadata:
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
     "@ariakit/react": "npm:0.4.17"
-    "@eslint/js": "npm:9.25.0"
+    "@eslint/js": "npm:9.25.1"
     "@rsc-parser/core": "workspace:*"
     "@types/react": "npm:19.1.2"
     "@types/react-dom": "npm:19.1.2"
@@ -3216,7 +3223,7 @@ __metadata:
   dependencies:
     "@ariakit/react": "npm:0.4.17"
     "@eslint/eslintrc": "npm:3.3.1"
-    "@eslint/js": "npm:9.25.0"
+    "@eslint/js": "npm:9.25.1"
     "@rsc-parser/react-client": "workspace:^"
     "@storybook/react": "npm:8.6.12"
     "@tailwindcss/cli": "npm:4.1.4"
@@ -3256,7 +3263,7 @@ __metadata:
   resolution: "@rsc-parser/embedded-example@workspace:examples/embedded-example"
   dependencies:
     "@eslint/eslintrc": "npm:3.3.1"
-    "@eslint/js": "npm:9.25.0"
+    "@eslint/js": "npm:9.25.1"
     "@rsc-parser/embedded": "workspace:^"
     "@tailwindcss/postcss": "npm:4.1.4"
     "@types/node": "npm:22.14.1"
@@ -3279,7 +3286,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/embedded@workspace:packages/embedded"
   dependencies:
-    "@eslint/js": "npm:9.25.0"
+    "@eslint/js": "npm:9.25.1"
     "@rsc-parser/core": "workspace:^"
     "@vitejs/plugin-react": "npm:4.4.1"
     eslint: "npm:9.25.0"
@@ -3298,7 +3305,7 @@ __metadata:
   resolution: "@rsc-parser/react-client@workspace:packages/react-client"
   dependencies:
     "@eslint/eslintrc": "npm:3.3.1"
-    "@eslint/js": "npm:9.25.0"
+    "@eslint/js": "npm:9.25.1"
     "@typescript-eslint/eslint-plugin": "npm:8.30.1"
     "@typescript-eslint/parser": "npm:8.30.1"
     eslint: "npm:9.25.0"
@@ -3339,7 +3346,7 @@ __metadata:
   dependencies:
     "@ariakit/react": "npm:0.4.17"
     "@eslint/eslintrc": "npm:3.3.1"
-    "@eslint/js": "npm:9.25.0"
+    "@eslint/js": "npm:9.25.1"
     "@rsc-parser/core": "workspace:*"
     "@tailwindcss/postcss": "npm:4.1.4"
     "@types/node": "npm:22.14.1"
