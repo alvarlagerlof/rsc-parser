@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite build --watch",
+    "dev": "vite build --watch --mode development",
     "lint": "eslint",
     "format": "prettier . --check --config ../../.prettierrc",
     "typecheck": "tsc --noEmit",
