@@ -1,5 +1,16 @@
 # @rsc-parser/storybook
 
+## 1.1.0
+
+### Minor Changes
+
+- 6ce957a: Add support for rendering console chunks
+- 83cbaaf: Link to debug info references
+
+### Patch Changes
+
+- 6d9815c: Improve readability when a tab has multiple panels
+
 ## 1.0.0
 
 ### Major Changes
