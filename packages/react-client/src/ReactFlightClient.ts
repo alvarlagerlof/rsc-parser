@@ -18,7 +18,11 @@ import { ClientReferenceMetadata } from './ReactFlightClientConfigBundlerWebpack
 import { ImportMetadata } from './ReactFlightImportMetadata';
 import { HintCode, HintModel } from './ReactFlightServerConfigDOM';
 import { REACT_ELEMENT_TYPE } from './ReactSymbols';
-import { ReactComponentInfo } from './ReactTypes';
+import {
+  ReactComponentInfo,
+  ReactErrorInfoDev,
+  ReactStackTrace,
+} from './ReactTypes';
 
 const enablePostpone = true;
 const enableFlightReadableStream = true;
@@ -66,7 +70,7 @@ export type ErrorDevChunk = {
   type: 'errorDev';
   id: string;
   error: ErrorWithDigest;
-  originalValue: { digest: string; message: string; stack: string };
+  originalValue: ReactErrorInfoDev;
   timestamp: number;
   _response: FlightResponse;
 };
@@ -75,7 +79,7 @@ export type ErrorProdChunk = {
   type: 'errorProd';
   id: string;
   error: ErrorWithDigest;
-  originalValue: string;
+  originalValue: null;
   timestamp: number;
   _response: FlightResponse;
 };
@@ -121,10 +125,9 @@ export type ConsoleChunk = {
   id: string;
   value: {
     methodName: string;
-    stackTrace: string;
-    owner: null | ReactComponentInfo;
+    stackTrace: ReactStackTrace;
+    owner: Reference;
     env: string;
-
     args: Array<any>;
   };
   originalValue: undefined;
@@ -262,7 +265,6 @@ function getOutlinedModel<T>(
   key: string,
   map: (
     response: FlightResponse,
-
     model: any,
   ) => Pick<Reference, 'identifier' | 'type'> /*T*/,
 ): Reference /*: T*/ {
@@ -521,6 +523,27 @@ function parseModelString(
           key,
           createFormData,
         );
+      }
+      case 'Z': {
+        // Error
+        if (response.__DEV__) {
+          const ref = value.slice(2);
+
+          console.log('test', {
+            ref,
+            parentObject,
+            value,
+          });
+
+          return getOutlinedModel(response, ref, parentObject, key, () => {
+            return {
+              identifier: 'Z',
+              type: 'Error',
+            };
+          });
+        } else {
+          return resolveErrorProd(response, 1000);
+        }
       }
       case 'i': {
         // Iterator
@@ -1088,11 +1111,7 @@ function stopStream(
 }
 
 type ErrorWithDigest = Error & { digest?: string };
-function resolveErrorProd(
-  response: FlightResponse,
-  id: number,
-  digest: string,
-): void {
+function resolveErrorProd(response: FlightResponse, id: number): void {
   // if (response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
   //   // eslint-disable-next-line react-internal/prod-error-codes
@@ -1107,15 +1126,13 @@ function resolveErrorProd(
   );
   error.stack = 'Error: ' + error.message;
 
-  (error as any).digest = digest;
-  const errorWithDigest = error as ErrorWithDigest;
   const chunks = response._chunks;
 
   chunks.push({
     type: 'errorProd',
     id: new Number(id).toString(16),
-    error: errorWithDigest,
-    originalValue: digest,
+    error: error,
+    originalValue: null,
     timestamp: response._currentTimestamp,
     _response: response,
   });
@@ -1124,9 +1141,7 @@ function resolveErrorProd(
 function resolveErrorDev(
   response: FlightResponse,
   id: number,
-  digest: string,
-  message: string,
-  stack: string,
+  errorInfo: ReactErrorInfoDev,
 ): void {
   // if (!response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
@@ -1137,12 +1152,13 @@ function resolveErrorDev(
   // }
   // // eslint-disable-next-line react-internal/prod-error-codes
   const error = new Error(
-    message ||
+    errorInfo.message ||
       'An error occurred in the Server Components render but no message was provided',
   );
-  error.stack = stack;
+  // @ts-ex
+  error.stack = errorInfo.stack.join(', ');
 
-  (error as any).digest = digest;
+  (error as any).digest = errorInfo.digest;
   const errorWithDigest = error as ErrorWithDigest;
   const chunks = response._chunks;
 
@@ -1150,7 +1166,7 @@ function resolveErrorDev(
     type: 'errorDev',
     id: new Number(id).toString(16),
     error: errorWithDigest,
-    originalValue: { digest, message, stack },
+    originalValue: errorInfo,
     timestamp: response._currentTimestamp,
     _response: response,
   });
@@ -1282,13 +1298,24 @@ function resolveConsoleEntry(
     return;
   }
 
-  const payload: [string, string, null | ReactComponentInfo, string, any] =
-    parseModel(response, value);
+  console.log({ value });
+
+  // "[\"warn\",
+  // [[\"Pokemon\",
+  //   \"/Users/alvar/Code/alvarlagerlof/rsc-parser/examples/embedded-example/.next/server/chunks/ssr/_a0bf3aeb._.js
+  //   \",34,25]],\"$b\",\"Server\",\"$Zc\"]"
+
+  const payload: [string, ReactStackTrace, Reference, string, any] = parseModel(
+    response,
+    value,
+  );
   const methodName = payload[0];
   const stackTrace = payload[1];
   const owner = payload[2];
   const env = payload[3];
   const args = payload.slice(4);
+
+  console.log(payload);
 
   response._chunks.push({
     type: 'console',
@@ -1482,15 +1509,9 @@ function processFullStringRow(
     case 69 /* "E" */: {
       const errorInfo = JSON.parse(row);
       if (response.__DEV__) {
-        resolveErrorDev(
-          response,
-          id,
-          errorInfo.digest,
-          errorInfo.message,
-          errorInfo.stack,
-        );
+        resolveErrorDev(response, id, errorInfo);
       } else {
-        resolveErrorProd(response, id, errorInfo.digest);
+        resolveErrorProd(response, id);
       }
       return;
     }

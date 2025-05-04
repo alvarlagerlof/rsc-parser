@@ -22,7 +22,7 @@ import {
 } from '@rsc-parser/react-client';
 
 const ClickIDContext = createContext<{
-  onClickID: (name: string) => void;
+  onClickID: (id: string) => void;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
 }>(null);
@@ -32,7 +32,7 @@ export function FlightResponseChunkModel({
   onClickID,
 }: {
   data: unknown;
-  onClickID: (name: string) => void;
+  onClickID: (id: string) => void;
 }) {
   return (
     <div className="font-code ligatures-none">
