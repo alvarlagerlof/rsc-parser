@@ -1,5 +1,22 @@
 # @rsc-parser/embedded-example
 
+## 1.0.0
+
+### Major Changes
+
+- 65231fc: Fix dev check in the Chrome extension
+
+  BREAKING: `createFlightResponse` from @rsc-parser/react-client now takes a `__DEV__` parameter.
+
+### Patch Changes
+
+- 44cc2a8: Fix meter styling
+- 1860787: Fixed a few react runtime errors
+- Updated dependencies [44cc2a8]
+- Updated dependencies [1860787]
+- Updated dependencies [65231fc]
+  - @rsc-parser/embedded@1.0.0
+
 ## 0.9.2
 
 ### Patch Changes
