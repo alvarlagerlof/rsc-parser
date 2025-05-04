@@ -9,6 +9,15 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ConsoleTask = any;
 
+export type ReactCallSite = [
+  string, // function name
+  string, // file name TODO: model nested eval locations as nested arrays
+  number, // line number
+  number, // column number
+];
+
+export type ReactStackTrace = Array<ReactCallSite>;
+
 export type ReactComponentInfo = {
   name?: string;
   env?: string;
@@ -16,6 +25,24 @@ export type ReactComponentInfo = {
   stack?: null | string;
   task?: null | ConsoleTask;
 };
+
+export type ReactEnvironmentInfo = {
+  env: string;
+};
+
+export type ReactErrorInfoProd = {
+  digest: string;
+};
+
+export type ReactErrorInfoDev = {
+  digest?: string;
+  name: string;
+  message: string;
+  stack: ReactStackTrace;
+  env: string;
+};
+
+export type ReactErrorInfo = ReactErrorInfoProd | ReactErrorInfoDev;
 
 export type ReactAsyncInfo = {
   started?: number;

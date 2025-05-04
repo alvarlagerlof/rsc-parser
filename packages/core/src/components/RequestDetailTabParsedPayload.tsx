@@ -21,6 +21,7 @@ import { FlightResponseChunkModel } from './FlightResponseChunkModel';
 import { DownArrowIcon, RightArrowIcon } from './FlightResponseIcons';
 import { FlightResponseChunkDebugInfo } from './FlightResponseChunkDebugInfo';
 import { FlightResponseChunkText } from './FlightResponseChunkText';
+import { FlightResponseChunkConsole } from './FlightResponseChunkConsole';
 import { FlightResponseChunkUnknown } from './FlightResponseChunkUnknown';
 import { useEndTime } from './EndTimeContext';
 import { RscEvent, isRscChunkEvent } from '../events';
@@ -324,6 +325,16 @@ function ChunkTabPanelExplorer({
       return <FlightResponseChunkText data={chunk.value} />;
     case 'debugInfo':
       return <FlightResponseChunkDebugInfo data={chunk.value} />;
+    case 'console': {
+      return (
+        <FlightResponseChunkConsole
+          data={chunk.value}
+          onClickID={(id) => {
+            selectTabByID(id);
+          }}
+        />
+      );
+    }
     default: {
       return <FlightResponseChunkUnknown chunk={chunk} />;
     }
