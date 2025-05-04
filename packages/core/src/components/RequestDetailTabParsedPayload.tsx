@@ -375,24 +375,23 @@ function stringToKiloBytes(data: string) {
 }
 
 function Meter({ fraction }: { fraction: number }) {
+  const percent = (fraction * 100).toFixed(2);
+
   return (
-    <meter
-      value={fraction}
-      min="0"
-      max="1"
-      className={[
-        'h-3 w-14',
-        '[&::-webkit-meter-bar]:rounded-lg',
-        '[&::-webkit-meter-optimum-value]:rounded-lg',
-        '[&::-webkit-meter-bar]:border-0',
-        '[&::-webkit-meter-optimum-value]:border-0',
-        '[&::-webkit-meter-bar]:bg-slate-300',
-        'dark:[&::-webkit-meter-bar]:bg-slate-500',
-        '[&::-webkit-meter-optimum-value]:bg-black',
-        'dark:[&::-webkit-meter-optimum-value]:bg-white',
-      ].join(' ')}
+    <div
+      className="h-2 w-14 bg-slate-300 dark:bg-slate-600 rounded-lg overflow-hidden"
+      role="meter"
+      aria-valuemin={0}
+      aria-valuenow={Number.parseInt(percent)}
+      aria-valuemax={100}
     >
-      {(fraction * 100).toFixed(2)}%
-    </meter>
+      <div
+        className="bg-slate-600 dark:bg-white h-full w-4"
+        style={{
+          width: `${percent}%`,
+        }}
+      />
+      <span className="sr-only">{percent}%</span>
+    </div>
   );
 }
