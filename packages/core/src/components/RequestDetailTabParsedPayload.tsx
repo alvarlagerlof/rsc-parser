@@ -108,7 +108,7 @@ export function RequestDetailTabParsedPayload({
               {timeFilteredChunks.map((chunk) => (
                 <Tab
                   className="group rounded-md border-none text-left outline outline-2 outline-offset-2 outline-transparent transition-all duration-200"
-                  key={chunk.id}
+                  key={`${chunk.id}-${JSON.stringify(chunk.originalValue)}`}
                   id={String(chunk.id)}
                 >
                   <ErrorBoundary
@@ -149,7 +149,7 @@ export function RequestDetailTabParsedPayload({
               .map((chunk) => (
                 <ErrorBoundary
                   FallbackComponent={GenericErrorBoundaryFallback}
-                  key={`tab-panel-${chunk}`}
+                  key={`tab-panel-${chunk.id}-${JSON.stringify(chunk.originalValue)}`}
                 >
                   <ChunkTabPanel
                     chunk={chunk}

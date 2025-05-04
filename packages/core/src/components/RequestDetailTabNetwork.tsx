@@ -5,7 +5,7 @@ import {
   isReference,
   processBinaryChunk,
 } from '@rsc-parser/react-client';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { Fragment, memo, useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { useEndTime } from './EndTimeContext';
 import { RscEvent, isRscChunkEvent } from '../events';
@@ -224,10 +224,11 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
             const midY = (link.source.y + link.target.y) / 2;
 
             return (
-              <>
+              <Fragment
+                // @ts-expect-error - d3 types are wrong
+                key={`link-${link.index}-${link.source.chunk.id}-${link.target.chunk.id}`}
+              >
                 <line
-                  // @ts-expect-error - d3 types are wrong
-                  key={`link-${link.index}-${link.source.chunk.id}-${link.target.chunk.id}`}
                   // @ts-expect-error - d3 types are wrong
                   x1={link.source.x}
                   // @ts-expect-error - d3 types are wrong
@@ -239,8 +240,6 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
                   stroke="currentColor"
                 />
                 <foreignObject
-                  // @ts-expect-error - d3 types are wrong
-                  key={`text-${link.index}-${link.source.chunk.id}-${link.target.chunk.id}`}
                   x={midX - WIDTH / 2}
                   y={midY - HEIGHT / 4}
                   width={WIDTH}
@@ -250,12 +249,12 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
                     {link.text}
                   </p>
                 </foreignObject>
-              </>
+              </Fragment>
             );
           })}
           {nodesState.map((node) => (
             <foreignObject
-              key={`node-${node.chunk.id}`}
+              key={`node-${node.chunk.id}${JSON.stringify(node.chunk.originalValue)}`}
               // @ts-expect-error - d3 types are wrong
               x={node.x - WIDTH / 2}
               // @ts-expect-error - d3 types are wrong
