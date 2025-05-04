@@ -1,5 +1,11 @@
 # @rsc-parser/storybook
 
+## 1.1.1
+
+### Patch Changes
+
+- e0b935a: Improve console chunk list rendering
+
 ## 1.1.0
 
 ### Minor Changes
