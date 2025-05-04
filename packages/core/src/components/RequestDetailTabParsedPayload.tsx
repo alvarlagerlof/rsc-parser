@@ -132,7 +132,7 @@ export function RequestDetailTabParsedPayload({
             store={tab}
             tabId={currentTab}
             alwaysVisible={true}
-            className="pt-3 delay-100 duration-200"
+            className="pt-3 delay-100 duration-200 flex flex-col gap-8"
             aria-label="Chunks"
             aria-busy={isPending}
             style={{
