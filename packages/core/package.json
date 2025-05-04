@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "vite build && yarn dlx @tailwindcss/cli -o dist/style.css --minify",
-    "dev": "concurrently  \"vite build --watch\" \"yarn dlx @tailwindcss/cli -o dist/style.css --minify --watch\"",
+    "dev": "concurrently  \"vite build --watch  --mode development\" \"yarn dlx @tailwindcss/cli -o dist/style.css --minify --watch\"",
     "test": "NODE_NO_WARNINGS=1 node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --passWithNoTests",
     "test:dev": "yarn test --watch",
     "lint": "eslint",

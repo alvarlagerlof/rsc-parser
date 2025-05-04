@@ -59,6 +59,7 @@ export default defineConfig(({ mode }) => {
             assetFileNames: `assets/[name].[ext]`,
           },
         },
+        sourcemap: 'inline',
       },
       server: {
         port: 6020,
@@ -93,6 +94,7 @@ export default defineConfig(({ mode }) => {
           assetFileNames: `assets/[name].[ext]`,
         },
       },
+      sourcemap: false,
     },
     server: {
       port: 6020,

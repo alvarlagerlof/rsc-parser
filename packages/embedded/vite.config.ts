@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import preserveDirectives from 'rollup-plugin-preserve-directives';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react(), dts()],
   build: {
     outDir: './dist/js',
@@ -26,5 +26,6 @@ export default defineConfig({
       plugins: [preserveDirectives()],
     },
     minify: false,
+    sourcemap: mode === 'development' ? 'inline' : false,
   },
-});
+}));

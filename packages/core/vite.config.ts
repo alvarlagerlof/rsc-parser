@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     dts({
@@ -29,5 +29,6 @@ export default defineConfig({
       external: ['react', 'react/jsx-runtime', 'react-dom'],
     },
     minify: false,
+    sourcemap: mode === 'development' ? 'inline' : false,
   },
-});
+}));
