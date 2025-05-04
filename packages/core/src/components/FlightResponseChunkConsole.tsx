@@ -22,11 +22,12 @@ export function FlightResponseChunkConsole({
 
       <div className="flex flex-col gap-1">
         <div className="font-semibold">Stack trace</div>
-        <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-2 list-disc">
           {data.stackTrace.map(
             ([functionName, fileName, lineNumber, columnNumber]) => {
               return (
-                <ul
+                <li
+                  className="ml-3.5"
                   key={JSON.stringify([
                     functionName,
                     fileName,
@@ -38,7 +39,7 @@ export function FlightResponseChunkConsole({
                   <div className="text-slate-500 dark:text-slate-300">
                     {fileName} ({lineNumber}:{columnNumber})
                   </div>
-                </ul>
+                </li>
               );
             },
           )}
@@ -47,14 +48,16 @@ export function FlightResponseChunkConsole({
 
       <div className="flex flex-col gap-1">
         <div className="font-semibold">Args</div>
-        <ul>
+        <ul className="flex flex-col gap-2 list-disc">
           {data.args.map((arg) => {
             return (
-              <FlightResponseChunkModel
-                key={JSON.stringify(arg)}
-                data={arg}
-                onClickID={onClickID}
-              />
+              <li className="ml-3.5">
+                <FlightResponseChunkModel
+                  key={JSON.stringify(arg)}
+                  data={arg}
+                  onClickID={onClickID}
+                />
+              </li>
             );
           })}
         </ul>
