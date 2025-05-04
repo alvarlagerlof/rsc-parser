@@ -1,5 +1,13 @@
 # @rsc-parser/embedded-example
 
+## 1.1.1
+
+### Patch Changes
+
+- e0b935a: Improve console chunk list rendering
+- Updated dependencies [e0b935a]
+  - @rsc-parser/embedded@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
