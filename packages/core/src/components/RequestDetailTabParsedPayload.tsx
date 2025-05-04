@@ -26,6 +26,7 @@ import { useEndTime } from './EndTimeContext';
 import { RscEvent, isRscChunkEvent } from '../events';
 import { RequestDetailTabEmptyState } from './RequestDetailTabEmptyState';
 import { eventsFilterByMaxTimestamp } from '../eventArrayHelpers';
+import { isDev } from './isDev';
 
 export function RequestDetailTabParsedPayload({
   events,
@@ -41,7 +42,7 @@ export function RequestDetailTabParsedPayload({
     return <RequestDetailTabEmptyState />;
   }
 
-  const flightResponse = createFlightResponse();
+  const flightResponse = createFlightResponse(isDev(events));
   for (const event of events.filter(isRscChunkEvent)) {
     flightResponse._currentTimestamp = event.data.timestamp;
     processBinaryChunk(flightResponse, Uint8Array.from(event.data.chunkValue));

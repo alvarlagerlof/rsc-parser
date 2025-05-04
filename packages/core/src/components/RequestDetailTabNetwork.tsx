@@ -11,6 +11,7 @@ import { useEndTime } from './EndTimeContext';
 import { RscEvent, isRscChunkEvent } from '../events';
 import { eventsFilterByMaxTimestamp } from '../eventArrayHelpers';
 import { RequestDetailTabEmptyState } from './RequestDetailTabEmptyState';
+import { isDev } from './isDev';
 
 interface Node extends d3.SimulationNodeDatum {
   chunk: Chunk;
@@ -117,7 +118,7 @@ export function RequestDetailTabNetwork({ events }: { events: RscEvent[] }) {
     return <RequestDetailTabEmptyState />;
   }
 
-  const flightResponse = createFlightResponse();
+  const flightResponse = createFlightResponse(isDev(events));
   for (const event of events.filter(isRscChunkEvent)) {
     flightResponse._currentTimestamp = event.data.timestamp;
     processBinaryChunk(flightResponse, Uint8Array.from(event.data.chunkValue));

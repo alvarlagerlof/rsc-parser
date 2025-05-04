@@ -9,6 +9,8 @@ export default function Home() {
       <Link href="/action">Go to action page</Link>
       <br />
       <Link href="/suspense">Go to suspense page</Link>
+      <br />
+      <Link href="/error/foo">Go to error page</Link>
     </>
   );
 }

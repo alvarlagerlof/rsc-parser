@@ -20,7 +20,6 @@ import { HintCode, HintModel } from './ReactFlightServerConfigDOM';
 import { REACT_ELEMENT_TYPE } from './ReactSymbols';
 import { ReactComponentInfo } from './ReactTypes';
 
-const __DEV__ = process.env.NODE_ENV === 'development';
 const enablePostpone = true;
 const enableFlightReadableStream = true;
 const enableBinaryFlight = true;
@@ -202,6 +201,7 @@ export type FlightResponse = {
   _replayConsole: boolean;
   _chunks: Chunk[];
   _currentTimestamp: number;
+  __DEV__: boolean;
 
   _fromJSON: (key: string, value: JSONValue) => any;
 };
@@ -294,7 +294,7 @@ function getOutlinedModel<T>(
   //       value = value[path[i]];
   //     }
   //     const chunkValue = map(response, value);
-  //     if (__DEV__ && chunk._debugInfo) {
+  //     if (response.__DEV__ && chunk._debugInfo) {
   //       // If we have a direct reference to an object that was rendered by a synchronous
   //       // server component, it might have some debug info about how it was rendered.
   //       // We forward this to the underlying object. This might be a React Element or
@@ -563,7 +563,7 @@ function parseModelString(
         return BigInt(value.slice(2));
       }
       case 'E': {
-        if (__DEV__) {
+        if (response.__DEV__) {
           // // In DEV mode we allow indirect eval to produce functions for logging.
           // // This should not compile to eval() because then it has local scope access.
           // try {
@@ -577,7 +577,7 @@ function parseModelString(
         // Fallthrough
       }
       case 'Y': {
-        if (__DEV__) {
+        if (response.__DEV__) {
           // // In DEV mode we encode omitted objects in logs as a getter that throws
           // // so that when you try to access it on the client, you know why that
           // // happened.
@@ -629,7 +629,7 @@ function parseModelTuple(
   return value;
 }
 
-function ResponseInstance() {
+function ResponseInstance(__DEV__: boolean) {
   // @ts-expect-error TODO: fix this
   const response: FlightResponse = {
     _buffer: [],
@@ -641,6 +641,7 @@ function ResponseInstance() {
     _currentTimestamp: 0,
     _stringDecoder: createStringDecoder(),
     _chunks: [] as FlightResponse['_chunks'],
+    __DEV__: __DEV__,
   };
 
   response._fromJSON = createFromJSONCallback(response);
@@ -648,8 +649,8 @@ function ResponseInstance() {
   return response;
 }
 
-export function createFlightResponse(): FlightResponse {
-  return ResponseInstance();
+export function createFlightResponse(__DEV__: boolean): FlightResponse {
+  return ResponseInstance(__DEV__);
 }
 
 export function createElement(type: unknown, key: unknown, props: unknown) {
@@ -666,7 +667,7 @@ export function createElement(type: unknown, key: unknown, props: unknown) {
     // // Record the component responsible for creating this element.
     // _owner: null,
   };
-  // if (__DEV__) {
+  // if (response.__DEV__) {
   //   // We don't really need to add any of these but keeping them for good measure.
   //   // Unfortunately, _store is enumerable in jest matchers so for equality to
   //   // work, I need to keep it or make _store non-enumerable in the other file.
@@ -1092,7 +1093,7 @@ function resolveErrorProd(
   id: number,
   digest: string,
 ): void {
-  // if (__DEV__) {
+  // if (response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
   //   // eslint-disable-next-line react-internal/prod-error-codes
   //   throw new Error(
@@ -1127,7 +1128,7 @@ function resolveErrorDev(
   message: string,
   stack: string,
 ): void {
-  // if (!__DEV__) {
+  // if (!response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
   //   // eslint-disable-next-line react-internal/prod-error-codes
   //   throw new Error(
@@ -1162,7 +1163,7 @@ declare class Postpone extends Error {
 const REACT_POSTPONE_TYPE = Symbol.for('react.postpone');
 
 function resolvePostponeProd(response: FlightResponse, id: number): void {
-  // if (__DEV__) {
+  // if (response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
   //   // eslint-disable-next-line react-internal/prod-error-codes
   //   throw new Error(
@@ -1194,7 +1195,7 @@ function resolvePostponeDev(
   reason: string,
   stack: string,
 ): void {
-  // if (!__DEV__) {
+  // if (!response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
   //   // eslint-disable-next-line react-internal/prod-error-codes
   //   throw new Error(
@@ -1244,7 +1245,7 @@ function resolveDebugInfo(
   id: number,
   debugInfo: { name: string },
 ): void {
-  // if (!__DEV__) {
+  // if (!response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
   //   // eslint-disable-next-line react-internal/prod-error-codes
   //   throw new Error(
@@ -1269,7 +1270,7 @@ function resolveConsoleEntry(
   id: number,
   value: UninitializedModel,
 ): void {
-  // if (!__DEV__) {
+  // if (!response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
   //   // eslint-disable-next-line react-internal/prod-error-codes
   //   throw new Error(
@@ -1480,7 +1481,7 @@ function processFullStringRow(
     }
     case 69 /* "E" */: {
       const errorInfo = JSON.parse(row);
-      if (__DEV__) {
+      if (response.__DEV__) {
         resolveErrorDev(
           response,
           id,
@@ -1498,7 +1499,7 @@ function processFullStringRow(
       return;
     }
     case 68 /* "D" */: {
-      // if (!__DEV__) {
+      // if (!response.__DEV__) {
       //   // These errors should never make it into a build so we don't need to encode them in codes.json
       //   // eslint-disable-next-line react-internal/prod-error-codes
       //   throw new Error(
@@ -1518,7 +1519,7 @@ function processFullStringRow(
       // chunkDebugInfo.push(debugInfo);
     }
     case 87 /* "W" */: {
-      if (__DEV__) {
+      if (response.__DEV__) {
         resolveConsoleEntry(response, id, row);
         return;
       }
@@ -1565,7 +1566,7 @@ function processFullStringRow(
     // Fallthrough
     case 80 /* "P" */: {
       if (enablePostpone) {
-        if (__DEV__) {
+        if (response.__DEV__) {
           const postponeInfo = JSON.parse(row);
           resolvePostponeDev(
             response,

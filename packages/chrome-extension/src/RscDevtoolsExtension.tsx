@@ -144,6 +144,7 @@ function useRscEvents() {
 
   const startRecording = useCallback(() => {
     setIsRecording(true);
+
     chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
       type: 'START_RECORDING',
       data: {
