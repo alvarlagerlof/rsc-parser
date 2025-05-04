@@ -324,7 +324,14 @@ function ChunkTabPanelExplorer({
     case 'text':
       return <FlightResponseChunkText data={chunk.value} />;
     case 'debugInfo':
-      return <FlightResponseChunkDebugInfo data={chunk.value} />;
+      return (
+        <FlightResponseChunkDebugInfo
+          data={chunk.value}
+          onClickID={(id) => {
+            selectTabByID(id);
+          }}
+        />
+      );
     case 'console': {
       return (
         <FlightResponseChunkConsole
