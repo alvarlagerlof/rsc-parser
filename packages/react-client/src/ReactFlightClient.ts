@@ -529,12 +529,6 @@ function parseModelString(
         if (response.__DEV__) {
           const ref = value.slice(2);
 
-          console.log('test', {
-            ref,
-            parentObject,
-            value,
-          });
-
           return getOutlinedModel(response, ref, parentObject, key, () => {
             return {
               identifier: 'Z',
@@ -1298,13 +1292,6 @@ function resolveConsoleEntry(
     return;
   }
 
-  console.log({ value });
-
-  // "[\"warn\",
-  // [[\"Pokemon\",
-  //   \"/Users/alvar/Code/alvarlagerlof/rsc-parser/examples/embedded-example/.next/server/chunks/ssr/_a0bf3aeb._.js
-  //   \",34,25]],\"$b\",\"Server\",\"$Zc\"]"
-
   const payload: [string, ReactStackTrace, Reference, string, any] = parseModel(
     response,
     value,
@@ -1314,8 +1301,6 @@ function resolveConsoleEntry(
   const owner = payload[2];
   const env = payload[3];
   const args = payload.slice(4);
-
-  console.log(payload);
 
   response._chunks.push({
     type: 'console',
