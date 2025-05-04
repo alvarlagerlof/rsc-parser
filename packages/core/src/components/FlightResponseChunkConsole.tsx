@@ -23,7 +23,7 @@ export function FlightResponseChunkConsole({
       <div className="flex flex-col gap-1">
         <div className="font-semibold">Stack trace</div>
         <ul className="flex flex-col gap-2 list-disc">
-          {[...data.stackTrace, ...data.stackTrace].map(
+          {data.stackTrace.map(
             ([functionName, fileName, lineNumber, columnNumber]) => {
               return (
                 <li
@@ -49,7 +49,7 @@ export function FlightResponseChunkConsole({
       <div className="flex flex-col gap-1">
         <div className="font-semibold">Args</div>
         <ul className="flex flex-col gap-2 list-disc">
-          {[...data.args, ...data.args].map((arg) => {
+          {data.args.map((arg) => {
             return (
               <li className="ml-3.5">
                 <FlightResponseChunkModel
