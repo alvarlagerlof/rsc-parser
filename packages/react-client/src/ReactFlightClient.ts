@@ -114,8 +114,8 @@ export type BufferChunk = {
 export type DebugInfoChunk = {
   type: 'debugInfo';
   id: string;
-  value: { name: string };
-  originalValue: { name: string };
+  value: unknown;
+  originalValue: string;
   timestamp: number;
   _response: FlightResponse;
 };
@@ -1253,7 +1253,7 @@ function resolveHint<Code extends HintCode>(
 function resolveDebugInfo(
   response: FlightResponse,
   id: number,
-  debugInfo: { name: string },
+  model: UninitializedModel,
 ): void {
   // if (!response.__DEV__) {
   //   // These errors should never make it into a build so we don't need to encode them in codes.json
@@ -1265,11 +1265,18 @@ function resolveDebugInfo(
 
   const chunks = response._chunks;
 
+  const value = getOutlinedModel(response, model, {}, '', () => {
+    return {
+      identifier: '',
+      type: 'Debug info',
+    };
+  });
+
   chunks.push({
     type: 'debugInfo',
     id: new Number(id).toString(16),
-    value: debugInfo,
-    originalValue: debugInfo,
+    value: value,
+    originalValue: model,
     timestamp: response._currentTimestamp,
     _response: response,
   });
@@ -1512,8 +1519,8 @@ function processFullStringRow(
       //     'resolveDebugInfo should never be called in production mode. This is a bug in React.',
       //   );
       // }
-      const debugInfo = JSON.parse(row);
-      resolveDebugInfo(response, id, debugInfo);
+      const cleaned = row.replaceAll(`"`, '');
+      resolveDebugInfo(response, id, cleaned.slice(1));
       return;
       // // We eagerly initialize the fake task because this resolving happens outside any
       // // render phase so we're not inside a user space stack at this point. If we waited
