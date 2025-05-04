@@ -1,5 +1,20 @@
 # @rsc-parser/chrome-extension
 
+## 1.1.0
+
+### Minor Changes
+
+- 6ce957a: Add support for rendering console chunks
+- 83cbaaf: Link to debug info references
+
+### Patch Changes
+
+- 6d9815c: Improve readability when a tab has multiple panels
+- Updated dependencies [6ce957a]
+- Updated dependencies [83cbaaf]
+- Updated dependencies [6d9815c]
+  - @rsc-parser/core@1.1.0
+
 ## 1.0.0
 
 ### Major Changes
