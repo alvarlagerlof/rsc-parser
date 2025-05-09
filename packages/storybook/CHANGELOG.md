@@ -1,5 +1,11 @@
 # @rsc-parser/storybook
 
+## 1.1.2
+
+### Patch Changes
+
+- c965537: Add "repository" to /embedded package.json
+
 ## 1.1.1
 
 ### Patch Changes
