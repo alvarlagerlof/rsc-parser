@@ -10490,9 +10490,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.60.2":
-  version: 5.60.2
-  resolution: "knip@npm:5.60.2"
+"knip@npm:5.61.0":
+  version: 5.61.0
+  resolution: "knip@npm:5.61.0"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
@@ -10513,7 +10513,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/b46b323f20369902c04be82bb59ee3f6e66b828409b82f96fff6118abd3e6767a117ff3266535cb988103919f8408b1c4aca029cd3640833b0ea4caa43c71006
+  checksum: 10/812a56d8a94f8e8961b8c9cbaaa4f7d6768c1975eeee2553e073804780c3703dc63a339f0af83a6810c2d3a8dd98603bc0733349ceea1699db178aac94cf33a9
   languageName: node
   linkType: hard
 
@@ -12519,7 +12519,7 @@ __metadata:
   resolution: "rsc-parser@workspace:."
   dependencies:
     "@changesets/cli": "npm:2.29.4"
-    knip: "npm:5.60.2"
+    knip: "npm:5.61.0"
     prettier: "npm:3.5.3"
     turbo: "npm:2.5.4"
   languageName: unknown
