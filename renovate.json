@@ -22,11 +22,11 @@
     },
     {
       "groupName": "storybook monorepo",
-      "packagePatterns": ["*storybook*"],
+      "packagePatterns": ["/^@storybook"],
       "matchUpdateTypes": ["digest", "patch", "minor", "major"]
     },
     {
-      "packagePatterns": ["^@react", "^@react-dom"],
+      "packagePatterns": ["/^react", "/^react-dom"],
       "groupName": "react"
     }
   ]
