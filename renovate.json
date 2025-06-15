@@ -23,12 +23,12 @@
     },
     {
       "groupName": "storybook monorepo",
-      "packagePatterns": ["/^@storybook", "/^storybook"],
-      "matchUpdateTypes": ["digest", "patch", "minor", "major"]
+      "matchUpdateTypes": ["digest", "patch", "minor", "major"],
+      "matchPackageNames": ["//^@storybook/", "//^storybook/"]
     },
     {
-      "packagePatterns": ["/^react", "/^react-dom"],
-      "groupName": "react"
+      "groupName": "react",
+      "matchPackageNames": ["//^react/", "//^react-dom/"]
     }
   ]
 }
