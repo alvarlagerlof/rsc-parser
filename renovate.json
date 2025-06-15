@@ -4,6 +4,7 @@
   "rangeStrategy": "pin",
   "platformAutomerge": true,
   "schedule": ["every weekend"],
+  "extends": ["config:recommended"],
   "vulnerabilityAlerts": {
     "schedule": null
   },
@@ -23,12 +24,8 @@
     },
     {
       "groupName": "storybook monorepo",
-      "packagePatterns": ["/^@storybook", "/^storybook"],
-      "matchUpdateTypes": ["digest", "patch", "minor", "major"]
-    },
-    {
-      "packagePatterns": ["/^react", "/^react-dom"],
-      "groupName": "react"
+      "matchUpdateTypes": ["digest", "patch", "minor", "major"],
+      "matchPackageNames": ["/^storybook$/", "/^@storybook/"]
     }
   ]
 }
