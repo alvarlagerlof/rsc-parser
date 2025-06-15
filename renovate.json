@@ -21,12 +21,12 @@
       "matchUpdateTypes": ["major"]
     },
     {
-      "extends": "monorepo:storybook",
       "groupName": "storybook monorepo",
+      "packagePatterns": ["*storybook*"],
       "matchUpdateTypes": ["digest", "patch", "minor", "major"]
     },
     {
-      "packagePatterns": ["react", "react-dom"],
+      "packagePatterns": ["^@react", "^@react-dom"],
       "groupName": "react"
     }
   ]
