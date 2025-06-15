@@ -23,7 +23,7 @@
     },
     {
       "groupName": "storybook monorepo",
-      "packagePatterns": ["/^@storybook"],
+      "packagePatterns": ["/^@storybook", "/^storybook"],
       "matchUpdateTypes": ["digest", "patch", "minor", "major"]
     },
     {
