@@ -3342,6 +3342,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rolldown/pluginutils@npm:1.0.0-beta.19":
+  version: 1.0.0-beta.19
+  resolution: "@rolldown/pluginutils@npm:1.0.0-beta.19"
+  checksum: 10/3b09ebf03e0f30b48770bcd7075c3092c6be09f60e6cb320142a37ae651cfc03974186b24cd7df5bd8110561c1da9d3e8bb4ecff0f2459ca4370da3d62c6806e
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^5.0.2, @rollup/pluginutils@npm:^5.1.0, @rollup/pluginutils@npm:^5.1.4":
   version: 5.2.0
   resolution: "@rollup/pluginutils@npm:5.2.0"
@@ -3509,7 +3516,7 @@ __metadata:
     "@types/react-dom": "npm:19.1.6"
     "@typescript-eslint/eslint-plugin": "npm:8.34.1"
     "@typescript-eslint/parser": "npm:8.34.1"
-    "@vitejs/plugin-react": "npm:4.5.2"
+    "@vitejs/plugin-react": "npm:4.6.0"
     autoprefixer: "npm:10.4.21"
     chrome-types: "npm:0.1.357"
     concurrently: "npm:9.2.0"
@@ -3545,7 +3552,7 @@ __metadata:
     "@types/jest": "npm:30.0.0"
     "@typescript-eslint/eslint-plugin": "npm:8.34.1"
     "@typescript-eslint/parser": "npm:8.34.1"
-    "@vitejs/plugin-react": "npm:4.5.2"
+    "@vitejs/plugin-react": "npm:4.6.0"
     "@vitejs/plugin-react-swc": "npm:3.10.2"
     concurrently: "npm:9.2.0"
     d3: "npm:7.9.0"
@@ -3598,7 +3605,7 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:9.29.0"
     "@rsc-parser/core": "workspace:^"
-    "@vitejs/plugin-react": "npm:4.5.2"
+    "@vitejs/plugin-react": "npm:4.6.0"
     eslint: "npm:9.29.0"
     rollup-plugin-preserve-directives: "npm:0.4.0"
     typescript: "npm:5.8.3"
@@ -6076,19 +6083,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@vitejs/plugin-react@npm:4.5.2"
+"@vitejs/plugin-react@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@vitejs/plugin-react@npm:4.6.0"
   dependencies:
     "@babel/core": "npm:^7.27.4"
     "@babel/plugin-transform-react-jsx-self": "npm:^7.27.1"
     "@babel/plugin-transform-react-jsx-source": "npm:^7.27.1"
-    "@rolldown/pluginutils": "npm:1.0.0-beta.11"
+    "@rolldown/pluginutils": "npm:1.0.0-beta.19"
     "@types/babel__core": "npm:^7.20.5"
     react-refresh: "npm:^0.17.0"
   peerDependencies:
     vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
-  checksum: 10/a92fde5e50d73f7948609b19b04fe18f700b13ab0ba542a0d488fce5202f5e917655adbbbb99b73682b9fa27a00444c9302dd0f7b67d27001499d0f65f850211
+  checksum: 10/f05479b74070bcaa7aedfc0aefcfb40f732ccd0126b30885113719ff0c471b7a09626546c0a6b9404ce66245689b11cb3103c42e59c211ea518713d73c028b02
   languageName: node
   linkType: hard
 
