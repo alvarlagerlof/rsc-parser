@@ -1,22 +1,17 @@
+import { createRequire } from 'node:module';
+import { dirname, join } from 'node:path';
 import type { StorybookConfig } from '@storybook/react-vite';
+
+const require = createRequire(import.meta.url);
 
 const config: StorybookConfig = {
   stories: ['../../core/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-onboarding',
-    '@storybook/addon-interactions',
-    '@storybook/addon-styling',
-    'storybook-dark-mode',
-  ],
+
   framework: {
-    name: '@storybook/react-vite',
+    name: getAbsolutePath('@storybook/react-vite'),
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
+
   previewHead: (head) => `
   ${head}
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,3 +19,9 @@ const config: StorybookConfig = {
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">`,
 };
 export default config;
+
+function getAbsolutePath(value: string): any {
+  const result = dirname(require.resolve(join(value, 'package.json')));
+  console.log(result);
+  return result;
+}

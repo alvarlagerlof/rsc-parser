@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { ViewerPayload } from './ViewerPayload';
 import { RscEvent, isRscChunkEvent, isRscRequestEvent } from '../events';
