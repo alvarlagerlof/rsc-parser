@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { FlightResponseChunkModel } from './FlightResponseChunkModel';
 import { REACT_ELEMENT_TYPE } from '@rsc-parser/react-client';
