@@ -14,6 +14,7 @@
     "automerge": true,
     "automergeType": "pr"
   },
+  "rebaseWhen": "conflicted",
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
