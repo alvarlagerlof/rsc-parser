@@ -2555,8 +2555,8 @@ __metadata:
     "@ariakit/react": "npm:0.4.17"
     "@eslint/js": "npm:9.32.0"
     "@rsc-parser/core": "workspace:*"
-    "@types/react": "npm:19.1.8"
-    "@types/react-dom": "npm:19.1.6"
+    "@types/react": "npm:19.1.9"
+    "@types/react-dom": "npm:19.1.7"
     "@typescript-eslint/eslint-plugin": "npm:8.38.0"
     "@typescript-eslint/parser": "npm:8.38.0"
     "@vitejs/plugin-react": "npm:4.7.0"
@@ -2567,8 +2567,8 @@ __metadata:
     eslint: "npm:9.32.0"
     postcss: "npm:8.5.6"
     prettier: "npm:3.6.2"
-    react: "npm:19.1.0"
-    react-dom: "npm:19.1.0"
+    react: "npm:19.1.1"
+    react-dom: "npm:19.1.1"
     react-error-boundary: "npm:6.0.0"
     type-fest: "npm:4.41.0"
     typescript: "npm:5.8.3"
@@ -2612,8 +2612,8 @@ __metadata:
     vite: "npm:7.0.6"
     vite-plugin-dts: "npm:4.5.4"
   peerDependencies:
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: 19.1.1
+    react-dom: 19.1.1
   languageName: unknown
   linkType: soft
 
@@ -2654,8 +2654,8 @@ __metadata:
     vite: "npm:7.0.6"
     vite-plugin-dts: "npm:4.5.4"
   peerDependencies:
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: 19.1.1
+    react-dom: 19.1.1
   languageName: unknown
   linkType: soft
 
@@ -2684,8 +2684,8 @@ __metadata:
     "@storybook/addon-docs": "npm:9.0.18"
     "@storybook/react-vite": "npm:9.0.18"
     "@storybook/testing-library": "npm:0.2.2"
-    react: "npm:19.1.0"
-    react-dom: "npm:19.1.0"
+    react: "npm:19.1.1"
+    react-dom: "npm:19.1.1"
     storybook: "npm:9.0.18"
     turbo: "npm:2.5.5"
     typescript: "npm:5.8.3"
@@ -2702,15 +2702,15 @@ __metadata:
     "@rsc-parser/core": "workspace:*"
     "@tailwindcss/postcss": "npm:4.1.11"
     "@types/node": "npm:24.1.0"
-    "@types/react": "npm:19.1.8"
-    "@types/react-dom": "npm:19.1.6"
+    "@types/react": "npm:19.1.9"
+    "@types/react-dom": "npm:19.1.7"
     eslint: "npm:9.32.0"
     eslint-config-next: "npm:15.4.6"
     next: "npm:15.4.6"
     postcss: "npm:8.5.6"
     prettier: "npm:3.6.2"
-    react: "npm:19.1.0"
-    react-dom: "npm:19.1.0"
+    react: "npm:19.1.1"
+    react-dom: "npm:19.1.1"
     tailwindcss: "npm:4.1.11"
     turbo: "npm:2.5.5"
     type-fest: "npm:4.41.0"
@@ -3992,12 +3992,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:19.1.7":
+  version: 19.1.7
+  resolution: "@types/react-dom@npm:19.1.7"
+  peerDependencies:
+    "@types/react": ^19.0.0
+  checksum: 10/a99465e5a17d40725dedb3708357f8998c57caab768cee0992b4bb7822ce7ed2ec697a5f426cb98d3397b020756a6e4b0986dc5f6f4254e13b3536afb38538e6
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:19.1.8":
   version: 19.1.8
   resolution: "@types/react@npm:19.1.8"
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: 10/a3e6fe0f60f22828ef887f30993aa147b71532d7b1219dd00d246277eb7a9ca01ec533096237fa21ca1bccb3653373b4e8e59e5ae59f9c793058384bbc1f4d5c
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:19.1.9":
+  version: 19.1.9
+  resolution: "@types/react@npm:19.1.9"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10/b1032eae52e3b4f2a8b9ea6aac936385a78b7eff55cad4ff4f0d7e726c6ea87c1f287a1ba0e57a76a8e4456d3fb918b4f97a01e71686fdc11a65b26b8d296be4
   languageName: node
   linkType: hard
 
@@ -10434,6 +10452,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:19.1.1":
+  version: 19.1.1
+  resolution: "react-dom@npm:19.1.1"
+  dependencies:
+    scheduler: "npm:^0.26.0"
+  peerDependencies:
+    react: ^19.1.1
+  checksum: 10/9005415d2175b1f1eb4a544ad04afb29691bb7b6dd43bbdaa09932146b310b73bd4552bc772ad78fa481f409eada1560cf887606c83c1a53a922c1e30f1b3a34
+  languageName: node
+  linkType: hard
+
 "react-error-boundary@npm:6.0.0":
   version: 6.0.0
   resolution: "react-error-boundary@npm:6.0.0"
@@ -10487,6 +10516,13 @@ __metadata:
   version: 19.1.0
   resolution: "react@npm:19.1.0"
   checksum: 10/d0180689826fd9de87e839c365f6f361c561daea397d61d724687cae88f432a307d1c0f53a0ee95ddbe3352c10dac41d7ff1ad85530fb24951b27a39e5398db4
+  languageName: node
+  linkType: hard
+
+"react@npm:19.1.1":
+  version: 19.1.1
+  resolution: "react@npm:19.1.1"
+  checksum: 10/9801530fdc939e1a7a499422e930515b2400809cb39c2872984e99f832d233f61659a693871183dac3155c2f9b2c9dcf4440a56bd18983277ae92860e38c3a61
   languageName: node
   linkType: hard
 
