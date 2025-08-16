@@ -36,9 +36,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ariakit/react-core@npm:0.4.17":
-  version: 0.4.17
-  resolution: "@ariakit/react-core@npm:0.4.17"
+"@ariakit/react-core@npm:0.4.18":
+  version: 0.4.18
+  resolution: "@ariakit/react-core@npm:0.4.18"
   dependencies:
     "@ariakit/core": "npm:0.4.15"
     "@floating-ui/dom": "npm:^1.0.0"
@@ -46,19 +46,19 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/4e2055ebfa886bc411297059be033590e7b9631c4282f4cc1a09c771fd92421aa65d850baf311c28d778e80fdbfac34e8aec034cbb53c0d26810ca99daa9469e
+  checksum: 10/9e6dcb50dac05d02843adf6f80cfa79f10a3e04c07350c1689f69967da986338502a5d75f2f92f22541e98d19137b9034d7c14601ee496f9e9a816b0a5923b9a
   languageName: node
   linkType: hard
 
-"@ariakit/react@npm:0.4.17":
-  version: 0.4.17
-  resolution: "@ariakit/react@npm:0.4.17"
+"@ariakit/react@npm:0.4.18":
+  version: 0.4.18
+  resolution: "@ariakit/react@npm:0.4.18"
   dependencies:
-    "@ariakit/react-core": "npm:0.4.17"
+    "@ariakit/react-core": "npm:0.4.18"
   peerDependencies:
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/44c0fbbdafcdf81914ed93b20c873a176170203f620f7b5faa9a2e2443527cdc94db1b7525dcdba5aa48b76ea747eaddf03563fad1dac458a206307ff9e11fda
+  checksum: 10/e084ff5704a16d604903be4444f8edd4737da2e91f781e6ff8c6f7097eaa484ed60bb2f5c6f76cd75d72defa60856fc663e2bc58e84201c1af9b3403e7832f6d
   languageName: node
   linkType: hard
 
@@ -2525,7 +2525,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/chrome-extension@workspace:packages/chrome-extension"
   dependencies:
-    "@ariakit/react": "npm:0.4.17"
+    "@ariakit/react": "npm:0.4.18"
     "@eslint/js": "npm:9.33.0"
     "@rsc-parser/core": "workspace:*"
     "@types/react": "npm:19.1.9"
@@ -2554,7 +2554,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/core@workspace:packages/core"
   dependencies:
-    "@ariakit/react": "npm:0.4.17"
+    "@ariakit/react": "npm:0.4.18"
     "@eslint/eslintrc": "npm:3.3.1"
     "@eslint/js": "npm:9.33.0"
     "@rsc-parser/react-client": "workspace:^"
@@ -2669,7 +2669,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rsc-parser/website@workspace:packages/website"
   dependencies:
-    "@ariakit/react": "npm:0.4.17"
+    "@ariakit/react": "npm:0.4.18"
     "@eslint/eslintrc": "npm:3.3.1"
     "@eslint/js": "npm:9.33.0"
     "@rsc-parser/core": "workspace:*"
