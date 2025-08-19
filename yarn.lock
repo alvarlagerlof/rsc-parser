@@ -2390,6 +2390,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rolldown/pluginutils@npm:1.0.0-beta.32":
+  version: 1.0.0-beta.32
+  resolution: "@rolldown/pluginutils@npm:1.0.0-beta.32"
+  checksum: 10/c0bdfda4ed00f1c06810ef2df0fe7133bd3253d54d82e3ca9e5d6e40560ea809997a2267927e83c3f3e5d3fb1df9d5da5251dc734150cca0b1a9c44947ade22f
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^5.0.2, @rollup/pluginutils@npm:^5.1.0, @rollup/pluginutils@npm:^5.1.4":
   version: 5.2.0
   resolution: "@rollup/pluginutils@npm:5.2.0"
@@ -2593,7 +2600,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:8.40.0"
     "@typescript-eslint/parser": "npm:8.40.0"
     "@vitejs/plugin-react": "npm:4.7.0"
-    "@vitejs/plugin-react-swc": "npm:3.11.0"
+    "@vitejs/plugin-react-swc": "npm:4.0.1"
     concurrently: "npm:9.2.0"
     d3: "npm:7.9.0"
     eslint: "npm:9.33.0"
@@ -3003,7 +3010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core@npm:^1.12.11":
+"@swc/core@npm:^1.13.2":
   version: 1.13.3
   resolution: "@swc/core@npm:1.13.3"
   dependencies:
@@ -4581,15 +4588,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react-swc@npm:3.11.0":
-  version: 3.11.0
-  resolution: "@vitejs/plugin-react-swc@npm:3.11.0"
+"@vitejs/plugin-react-swc@npm:4.0.1":
+  version: 4.0.1
+  resolution: "@vitejs/plugin-react-swc@npm:4.0.1"
   dependencies:
-    "@rolldown/pluginutils": "npm:1.0.0-beta.27"
-    "@swc/core": "npm:^1.12.11"
+    "@rolldown/pluginutils": "npm:1.0.0-beta.32"
+    "@swc/core": "npm:^1.13.2"
   peerDependencies:
     vite: ^4 || ^5 || ^6 || ^7
-  checksum: 10/7f7f9de87a6e9f3109f4da4c8e859b93a6a6c923f05ed8ffffb73685e4b7ea06446c2680543d01b1cf9a47980b9ea7048ede19eec6b2d0d0869d4caf287ce29f
+  checksum: 10/488f79a4e984883bd9cbe3f81adfb35805abac8e20496ef0361380c160394c8825b55186428738729cfed9b1956979b787a7b77dce7f911d9d4c83c4efc57553
   languageName: node
   linkType: hard
 
