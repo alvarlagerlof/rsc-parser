@@ -2777,8 +2777,8 @@ __metadata:
     "@ariakit/react": "npm:0.4.19"
     "@eslint/js": "npm:9.38.0"
     "@rsc-parser/core": "workspace:*"
-    "@types/react": "npm:19.1.12"
-    "@types/react-dom": "npm:19.1.9"
+    "@types/react": "npm:19.2.2"
+    "@types/react-dom": "npm:19.2.2"
     "@typescript-eslint/eslint-plugin": "npm:8.46.1"
     "@typescript-eslint/parser": "npm:8.46.1"
     "@vitejs/plugin-react": "npm:4.7.0"
@@ -2789,8 +2789,8 @@ __metadata:
     eslint: "npm:9.38.0"
     postcss: "npm:8.5.6"
     prettier: "npm:3.6.2"
-    react: "npm:19.1.1"
-    react-dom: "npm:19.1.1"
+    react: "npm:19.2.0"
+    react-dom: "npm:19.2.0"
     react-error-boundary: "npm:6.0.0"
     type-fest: "npm:4.41.0"
     typescript: "npm:5.9.3"
@@ -2834,8 +2834,8 @@ __metadata:
     vite: "npm:7.1.10"
     vite-plugin-dts: "npm:4.5.4"
   peerDependencies:
-    react: 19.1.1
-    react-dom: 19.1.1
+    react: 19.2.0
+    react-dom: 19.2.0
   languageName: unknown
   linkType: soft
 
@@ -2876,8 +2876,8 @@ __metadata:
     vite: "npm:7.1.10"
     vite-plugin-dts: "npm:4.5.4"
   peerDependencies:
-    react: 19.1.1
-    react-dom: 19.1.1
+    react: 19.2.0
+    react-dom: 19.2.0
   languageName: unknown
   linkType: soft
 
@@ -2906,8 +2906,8 @@ __metadata:
     "@storybook/addon-docs": "npm:9.1.13"
     "@storybook/react-vite": "npm:9.1.13"
     "@storybook/testing-library": "npm:0.2.2"
-    react: "npm:19.1.1"
-    react-dom: "npm:19.1.1"
+    react: "npm:19.2.0"
+    react-dom: "npm:19.2.0"
     storybook: "npm:9.1.13"
     turbo: "npm:2.5.8"
     typescript: "npm:5.9.3"
@@ -2924,15 +2924,15 @@ __metadata:
     "@rsc-parser/core": "workspace:*"
     "@tailwindcss/postcss": "npm:4.1.14"
     "@types/node": "npm:24.8.1"
-    "@types/react": "npm:19.1.12"
-    "@types/react-dom": "npm:19.1.9"
+    "@types/react": "npm:19.2.2"
+    "@types/react-dom": "npm:19.2.2"
     eslint: "npm:9.38.0"
     eslint-config-next: "npm:15.5.6"
     next: "npm:15.5.6"
     postcss: "npm:8.5.6"
     prettier: "npm:3.6.2"
-    react: "npm:19.1.1"
-    react-dom: "npm:19.1.1"
+    react: "npm:19.2.0"
+    react-dom: "npm:19.2.0"
     tailwindcss: "npm:4.1.14"
     turbo: "npm:2.5.8"
     type-fest: "npm:4.41.0"
@@ -4211,21 +4211,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:19.1.9":
-  version: 19.1.9
-  resolution: "@types/react-dom@npm:19.1.9"
+"@types/react-dom@npm:19.2.2":
+  version: 19.2.2
+  resolution: "@types/react-dom@npm:19.2.2"
   peerDependencies:
-    "@types/react": ^19.0.0
-  checksum: 10/207acb79f6c3c9704938138960e21429efdf2db2184f17c166e8ec3f3180dfe6445b282c5302f559a71b2d09ab2fafef7735f3d24fd01cda4e5c7bf0cea1d5b9
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:19.1.12":
-  version: 19.1.12
-  resolution: "@types/react@npm:19.1.12"
-  dependencies:
-    csstype: "npm:^3.0.2"
-  checksum: 10/c03d595b84faecb15079757555c96871e84ea6eef9a5eddb13ec1f648f718f9624bebc4199e86267edb825b23df97758324ea39ff840d9ad328386f96971f588
+    "@types/react": ^19.2.0
+  checksum: 10/73d5671e57ab73cb3f2acd7992faee8f90d5b4d155b972e76e91fa13e5871ebb5e224960b05039d57ea502cb3370746eb98beda5fa44e9712b4aee52653c237a
   languageName: node
   linkType: hard
 
@@ -4235,6 +4226,15 @@ __metadata:
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: 10/a3e6fe0f60f22828ef887f30993aa147b71532d7b1219dd00d246277eb7a9ca01ec533096237fa21ca1bccb3653373b4e8e59e5ae59f9c793058384bbc1f4d5c
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:19.2.2":
+  version: 19.2.2
+  resolution: "@types/react@npm:19.2.2"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10/d6adf8fd4bb23a7e04da5700d96b15dc0f59653727a9c6e940c151d7232fa1dbbab98417d5ac830dcfb6cba3f206efbd4cd83647e6f9a688d7363a90e607f6bf
   languageName: node
   linkType: hard
 
@@ -10645,18 +10645,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.1.1":
-  version: 19.1.1
-  resolution: "react-dom@npm:19.1.1"
-  dependencies:
-    scheduler: "npm:^0.26.0"
-  peerDependencies:
-    react: ^19.1.1
-  checksum: 10/9005415d2175b1f1eb4a544ad04afb29691bb7b6dd43bbdaa09932146b310b73bd4552bc772ad78fa481f409eada1560cf887606c83c1a53a922c1e30f1b3a34
-  languageName: node
-  linkType: hard
-
-"react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
+"react-dom@npm:19.2.0, react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
   version: 19.2.0
   resolution: "react-dom@npm:19.2.0"
   dependencies:
@@ -10723,14 +10712,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.1.1":
-  version: 19.1.1
-  resolution: "react@npm:19.1.1"
-  checksum: 10/9801530fdc939e1a7a499422e930515b2400809cb39c2872984e99f832d233f61659a693871183dac3155c2f9b2c9dcf4440a56bd18983277ae92860e38c3a61
-  languageName: node
-  linkType: hard
-
-"react@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
+"react@npm:19.2.0, react@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
   version: 19.2.0
   resolution: "react@npm:19.2.0"
   checksum: 10/e13bcdb8e994c3cfa922743cb75ca8deb60531bf02f584d2d8dab940a8132ce8a2e6ef16f8ed7f372b4072e7a7eeff589b2812dabbedfa73e6e46201dac8a9d0
