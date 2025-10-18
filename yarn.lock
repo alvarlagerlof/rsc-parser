@@ -2895,7 +2895,7 @@ __metadata:
     "@eslint/js": "npm:9.34.0"
     "@rsc-parser/core": "workspace:*"
     "@tailwindcss/postcss": "npm:4.1.14"
-    "@types/node": "npm:24.7.2"
+    "@types/node": "npm:24.8.1"
     "@types/react": "npm:19.1.12"
     "@types/react-dom": "npm:19.1.9"
     eslint: "npm:9.34.0"
@@ -4140,7 +4140,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:24.7.2":
+"@types/node@npm:*":
   version: 24.7.2
   resolution: "@types/node@npm:24.7.2"
   dependencies:
@@ -4155,6 +4155,15 @@ __metadata:
   dependencies:
     undici-types: "npm:~7.8.0"
   checksum: 10/6b77554f8308148e00e9c7c264ccad3e9a3d360f10b75a727d44b9bba2377022179a76905fbe1bb426ea4c6ee9f45186797ec335a5dcab803435336576db18c6
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:24.8.1":
+  version: 24.8.1
+  resolution: "@types/node@npm:24.8.1"
+  dependencies:
+    undici-types: "npm:~7.14.0"
+  checksum: 10/4f944466766ca8cc0d635386e2b9b42b1948723ca0ec7d24624e80513e5816d6e96197db7c05f8f67b544a228a06a1c0598d66a5526aa4c1f5919db0d3c5bf8c
   languageName: node
   linkType: hard
 
