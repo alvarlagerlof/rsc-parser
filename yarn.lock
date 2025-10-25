@@ -2734,7 +2734,7 @@ __metadata:
     "@eslint/js": "npm:9.38.0"
     "@rsc-parser/core": "workspace:*"
     "@tailwindcss/postcss": "npm:4.1.16"
-    "@types/node": "npm:24.8.1"
+    "@types/node": "npm:24.9.1"
     "@types/react": "npm:19.2.2"
     "@types/react-dom": "npm:19.2.2"
     eslint: "npm:9.38.0"
@@ -3978,7 +3978,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:24.9.1":
   version: 24.9.1
   resolution: "@types/node@npm:24.9.1"
   dependencies:
@@ -3993,15 +3993,6 @@ __metadata:
   dependencies:
     undici-types: "npm:~7.8.0"
   checksum: 10/6b77554f8308148e00e9c7c264ccad3e9a3d360f10b75a727d44b9bba2377022179a76905fbe1bb426ea4c6ee9f45186797ec335a5dcab803435336576db18c6
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:24.8.1":
-  version: 24.8.1
-  resolution: "@types/node@npm:24.8.1"
-  dependencies:
-    undici-types: "npm:~7.14.0"
-  checksum: 10/4f944466766ca8cc0d635386e2b9b42b1948723ca0ec7d24624e80513e5816d6e96197db7c05f8f67b544a228a06a1c0598d66a5526aa4c1f5919db0d3c5bf8c
   languageName: node
   linkType: hard
 
@@ -12153,13 +12144,6 @@ __metadata:
     has-symbols: "npm:^1.1.0"
     which-boxed-primitive: "npm:^1.1.1"
   checksum: 10/fadb347020f66b2c8aeacf8b9a79826fa34cc5e5457af4eb0bbc4e79bd87fed0fa795949825df534320f7c13f199259516ad30abc55a6e7b91d8d996ca069e50
-  languageName: node
-  linkType: hard
-
-"undici-types@npm:~7.14.0":
-  version: 7.14.0
-  resolution: "undici-types@npm:7.14.0"
-  checksum: 10/0f8709b21437697af35801e33bddbe9992e0cf1771959c41850b1946f63822b825e03ce99f44bf19e4f5c3ccc5166e0be59f541565c36ce86163dc2c5870bc62
   languageName: node
   linkType: hard
 
