@@ -10,4 +10,4 @@ jq --arg version "$new_version" '.version = $version' packages/chrome-extension/
 echo "Applied new version: $_new_version"
 
 # Step 3: Clean up
-yarn prettier -w packages/chrome-extension/public/manifest.json
+bun run prettier -w packages/chrome-extension/public/manifest.json

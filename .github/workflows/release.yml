@@ -23,18 +23,20 @@ jobs:
         with:
           node-version: 24.11.1
 
+      - uses: oven-sh/setup-bun@v2
+
       - name: Install Dependencies
-        run: yarn
+        run: bun install
 
       - name: Run CI
-        run: yarn ci
+        run: bun run ci
 
       - name: Create Release Pull Request
         uses: changesets/action@v1
         id: changesets
         with:
-          version: yarn run version
-          publish: yarn release
+          version: bun run version
+          publish: bun run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

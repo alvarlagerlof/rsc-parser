@@ -17,15 +17,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-      - name: yarn install
-        run: |
-          yarn
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: bun install
+        run: bun install
+
       - name: Turborepo
-        run: |
-          yarn ci
+        run: bun run ci
+
       - name: Archive production artifacts
         uses: actions/upload-artifact@v5
         with:
           name: dist.zip
-          path: |
+          path§: |
             packages/chrome-extension/dist
