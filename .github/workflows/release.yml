@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js 18
         uses: actions/setup-node@v6
         with:
-          node-version: 24.13.0
+          node-version: 24.13.1
 
       - uses: oven-sh/setup-bun@v2
 
