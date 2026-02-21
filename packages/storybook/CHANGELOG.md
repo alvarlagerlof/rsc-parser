@@ -1,5 +1,11 @@
 # @rsc-parser/storybook
 
+## 1.1.3
+
+### Patch Changes
+
+- a7a3531: Uninstall unused web-vitals package
+
 ## 1.1.2
 
 ### Patch Changes
