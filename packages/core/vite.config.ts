@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       external: ['react', 'react/jsx-runtime', 'react-dom'],
     },
+    ssr: 'false',
     minify: false,
     sourcemap: mode === 'development' ? 'inline' : false,
   },
