@@ -195,7 +195,7 @@ function ChunkTabFallback({
   chunk,
   payloadSize,
 }: {
-  error: Error;
+  error: unknown;
   chunk: Chunk;
   payloadSize: number;
 }) {
