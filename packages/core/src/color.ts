@@ -1,4 +1,5 @@
 function random(seed: number) {
+  // eslint-disable-next-line no-useless-assignment
   const x = Math.sin(seed++) * 10000;
   return x - Math.floor(x);
 }
