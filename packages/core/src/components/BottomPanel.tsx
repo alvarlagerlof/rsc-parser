@@ -1,6 +1,10 @@
 import React, { ReactNode, useState } from 'react';
 import { Logo } from './Logo';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import {
+  Panel,
+  Group as PanelGroup,
+  Separator as PanelResizeHandle,
+} from 'react-resizable-panels';
 import { IconButton } from './IconButton';
 
 export function BottomPanel({
@@ -19,19 +23,22 @@ export function BottomPanel({
   if (isOpen) {
     return (
       <PanelGroup
-        direction={position === 'bottom' ? 'vertical' : 'horizontal'}
+        orientation={position === 'bottom' ? 'vertical' : 'horizontal'}
         // The `pointer-events-none` class is need to be able to click on the content underneath,
         // but if it's applied while dragging, the drag handler looses track very easily.
         className={`fixed left-0 top-0 size-full z-1000 ${isDragging ? '' : 'pointer-events-none'}`}
       >
-        <Panel order={1} defaultSize={55} />
+        <Panel defaultSize={55} />
         <PanelResizeHandle
           className={`pointer-events-auto bg-slate-300 dark:bg-slate-700 ${position === 'bottom' ? 'h-3 w-full' : 'h-full w-3'}`}
-          onDragging={(isDragging) => {
-            setIsDragging(isDragging);
+          onPointerDown={() => {
+            setIsDragging(true);
+          }}
+          onPointerUp={() => {
+            setIsDragging(false);
           }}
         />
-        <Panel order={2} maxSize={75} minSize={20} defaultSize={45}>
+        <Panel maxSize={75} minSize={20} defaultSize={45}>
           <div className="pointer-events-auto size-full overflow-y-auto bg-slate-100 scrollbar-gutter-stable dark:bg-slate-900">
             {children}
           </div>
