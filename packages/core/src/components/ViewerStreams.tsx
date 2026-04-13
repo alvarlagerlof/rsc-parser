@@ -11,7 +11,11 @@ import {
   eventsUniqueRequestIds,
 } from '../eventArrayHelpers';
 import { useTabStoreWithTransitions } from './useTabStoreWithTransitions';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import {
+  Panel,
+  Group as PanelGroup,
+  Separator as PanelResizeHandle,
+} from 'react-resizable-panels';
 import { getColorForFetch } from '../color';
 import { RequestDetail } from './RequestDetail';
 
@@ -43,8 +47,8 @@ function Requests({ events }: { events: RscEvent[] }) {
   const tabs = eventsUniqueRequestIds(events);
 
   return (
-    <PanelGroup direction="horizontal">
-      <Panel id="sidebar" minSize={20} order={1} defaultSize={35}>
+    <PanelGroup orientation="horizontal">
+      <Panel id="sidebar" minSize="20%" defaultSize="35%">
         <TabList store={tabStore} className="flex flex-col gap-2 pr-3">
           {tabs.map((tab) => {
             return (
@@ -60,7 +64,7 @@ function Requests({ events }: { events: RscEvent[] }) {
 
       <PanelResizeHandle className="w-1 rounded-sm bg-slate-200 dark:bg-slate-800" />
 
-      <Panel order={2} minSize={20} className="">
+      <Panel minSize="20%" className="">
         <TabPanel
           store={tabStore}
           tabId={currentTab}
