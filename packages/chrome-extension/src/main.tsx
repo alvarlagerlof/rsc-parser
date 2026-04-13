@@ -1,3 +1,4 @@
+// @ts-expect-error Hack
 import 'vite/modulepreload-polyfill';
 
 import React from 'react';

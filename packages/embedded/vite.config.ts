@@ -23,7 +23,8 @@ export default defineConfig(({ mode }) => ({
       output: {
         preserveModules: true,
       },
-      plugins: [preserveDirectives()],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      plugins: [preserveDirectives() as any],
     },
     minify: false,
     sourcemap: mode === 'development' ? 'inline' : false,
