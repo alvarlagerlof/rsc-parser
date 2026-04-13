@@ -28,7 +28,7 @@ export function BottomPanel({
         // but if it's applied while dragging, the drag handler looses track very easily.
         className={`fixed left-0 top-0 size-full z-1000 ${isDragging ? '' : 'pointer-events-none'}`}
       >
-        <Panel defaultSize={55} />
+        <Panel defaultSize="55%" />
         <PanelResizeHandle
           className={`pointer-events-auto bg-slate-300 dark:bg-slate-700 ${position === 'bottom' ? 'h-3 w-full' : 'h-full w-3'}`}
           onPointerDown={() => {
@@ -38,7 +38,7 @@ export function BottomPanel({
             setIsDragging(false);
           }}
         />
-        <Panel maxSize={75} minSize={20} defaultSize={45}>
+        <Panel maxSize="75%" minSize="20%" defaultSize="45%">
           <div className="pointer-events-auto size-full overflow-y-auto bg-slate-100 scrollbar-gutter-stable dark:bg-slate-900">
             {children}
           </div>

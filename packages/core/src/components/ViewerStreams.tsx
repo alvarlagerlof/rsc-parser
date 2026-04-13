@@ -48,7 +48,7 @@ function Requests({ events }: { events: RscEvent[] }) {
 
   return (
     <PanelGroup orientation="horizontal">
-      <Panel id="sidebar" minSize={20} defaultSize={35}>
+      <Panel id="sidebar" minSize="20%" defaultSize="35%">
         <TabList store={tabStore} className="flex flex-col gap-2 pr-3">
           {tabs.map((tab) => {
             return (
@@ -64,7 +64,7 @@ function Requests({ events }: { events: RscEvent[] }) {
 
       <PanelResizeHandle className="w-1 rounded-sm bg-slate-200 dark:bg-slate-800" />
 
-      <Panel minSize={20} className="">
+      <Panel minSize="20%" className="">
         <TabPanel
           store={tabStore}
           tabId={currentTab}
