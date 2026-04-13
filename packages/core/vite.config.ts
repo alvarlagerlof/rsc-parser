@@ -28,13 +28,6 @@ export default defineConfig(({ mode }) => ({
       },
       formats: ['es'],
     },
-    // rollupOptions: {
-    //   external: ['react', 'react/jsx-runtime', 'react-dom'],
-    //   // globals: {
-    //   //   react: 'React',
-    //   // },
-    // },
-    // ssr: 'false',
     minify: false,
     sourcemap: mode === 'development' ? 'inline' : false,
   },
