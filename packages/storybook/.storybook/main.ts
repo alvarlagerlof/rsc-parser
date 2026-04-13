@@ -9,7 +9,15 @@ const config: StorybookConfig = {
 
   framework: {
     name: getAbsolutePath('@storybook/react-vite'),
-    options: {},
+    options: {
+      builder: {
+        viteConfigPath: 'vite.config.ts',
+      },
+    },
+  },
+  async viteFinal(config) {
+    // Ensure the react plugin is present
+    return config;
   },
 
   previewHead: (head) => `
