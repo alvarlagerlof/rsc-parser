@@ -1,6 +1,6 @@
 // vite.config.js
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, esmExternalRequirePlugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 
@@ -11,6 +11,9 @@ export default defineConfig(({ mode }) => ({
       entryRoot: './src',
       exclude: ['**/*.stories.tsx', '**/example-data/**'],
       rollupTypes: true,
+    }),
+    esmExternalRequirePlugin({
+      external: ['react', 'react-dom', /^node:/],
     }),
   ],
   build: {
@@ -25,10 +28,13 @@ export default defineConfig(({ mode }) => ({
       },
       formats: ['es'],
     },
-    rollupOptions: {
-      external: ['react', 'react/jsx-runtime', 'react-dom'],
-    },
-    ssr: 'false',
+    // rollupOptions: {
+    //   external: ['react', 'react/jsx-runtime', 'react-dom'],
+    //   // globals: {
+    //   //   react: 'React',
+    //   // },
+    // },
+    // ssr: 'false',
     minify: false,
     sourcemap: mode === 'development' ? 'inline' : false,
   },
