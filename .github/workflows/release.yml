@@ -49,7 +49,7 @@ jobs:
 
       - name: Edit release
         if: steps.changesets.outputs.published == 'true'
-        uses: xresloader/upload-to-github-release@v1.6.1
+        uses: xresloader/upload-to-github-release@v1.6.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
