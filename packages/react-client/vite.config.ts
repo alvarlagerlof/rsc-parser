@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     dts({
-      rollupTypes: true,
+      bundleTypes: true,
     }),
   ],
   build: {
