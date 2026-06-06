@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     dts({
       entryRoot: './src',
       exclude: ['**/*.stories.tsx', '**/example-data/**'],
-      rollupTypes: true,
+      bundleTypes: true,
     }),
     esmExternalRequirePlugin({
       external: ['react', 'react-dom', /^node:/],
