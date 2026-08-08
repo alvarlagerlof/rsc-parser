@@ -1,5 +1,13 @@
 # @rsc-parser/embedded-example
 
+## 1.1.3
+
+### Patch Changes
+
+- a7a3531: Uninstall unused web-vitals package
+- Updated dependencies [a7a3531]
+  - @rsc-parser/embedded@1.1.3
+
 ## 1.1.2
 
 ### Patch Changes
