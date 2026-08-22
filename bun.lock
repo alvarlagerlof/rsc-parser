@@ -52,7 +52,7 @@
         "@types/react-dom": "19.2.4",
         "@typescript-eslint/eslint-plugin": "8.67.0",
         "@typescript-eslint/parser": "8.67.0",
-        "@vitejs/plugin-react": "6.0.5",
+        "@vitejs/plugin-react": "6.1.0",
         "autoprefixer": "10.5.4",
         "chrome-types": "0.1.440",
         "concurrently": "10.0.5",
@@ -92,7 +92,7 @@
         "@types/react-dom": "19.2.4",
         "@typescript-eslint/eslint-plugin": "8.67.0",
         "@typescript-eslint/parser": "8.67.0",
-        "@vitejs/plugin-react": "6.0.5",
+        "@vitejs/plugin-react": "6.1.0",
         "@vitejs/plugin-react-swc": "4.3.3",
         "concurrently": "10.0.5",
         "eslint": "10.8.1",
@@ -121,7 +121,7 @@
         "@rsc-parser/core": "workspace:^",
         "@types/react": "19.2.18",
         "@types/react-dom": "19.2.4",
-        "@vitejs/plugin-react": "6.0.5",
+        "@vitejs/plugin-react": "6.1.0",
         "eslint": "10.8.1",
         "rollup-plugin-preserve-directives": "0.4.0",
         "typescript": "6.0.3",
@@ -142,7 +142,7 @@
         "@eslint/js": "10.0.1",
         "@typescript-eslint/eslint-plugin": "8.67.0",
         "@typescript-eslint/parser": "8.67.0",
-        "@vitejs/plugin-react": "6.0.5",
+        "@vitejs/plugin-react": "6.1.0",
         "eslint": "10.8.1",
         "prettier": "3.9.6",
         "typescript": "6.0.3",
@@ -163,7 +163,7 @@
       "devDependencies": {
         "@rsc-parser/core": "workspace:^",
         "@storybook/addon-docs": "10.5.10",
-        "@vitejs/plugin-react": "6.0.5",
+        "@vitejs/plugin-react": "6.1.0",
         "storybook": "10.5.10",
         "turbo": "2.10.11",
         "typescript": "6.0.3",
@@ -1086,7 +1086,7 @@
 
     "@unrs/resolver-binding-win32-x64-msvc": ["@unrs/resolver-binding-win32-x64-msvc@1.12.2", "", { "os": "win32", "cpu": "x64" }, "sha512-nAB74NfSNKknqQ1RrYj6uz8FcXEomu/MATJZxh/x+BArzN2U3JbOYC0APYzUIGhVY3m5hRxA8VPNdPBoG8txlA=="],
 
-    "@vitejs/plugin-react": ["@vitejs/plugin-react@6.0.5", "", { "dependencies": { "@rolldown/pluginutils": "^1.0.1" }, "peerDependencies": { "@rolldown/plugin-babel": "^0.1.7 || ^0.2.0", "babel-plugin-react-compiler": "^1.0.0", "vite": "^8.0.0" }, "optionalPeers": ["@rolldown/plugin-babel", "babel-plugin-react-compiler"] }, "sha512-BOVzne/NL162sMdResB25mUv+vWMF5NoAjNf09TeGlE7ZpszZWSD3winycicLJw72yeVsoCn/2kOhEuCvEShMA=="],
+    "@vitejs/plugin-react": ["@vitejs/plugin-react@6.1.0", "", { "dependencies": { "@rolldown/pluginutils": "^1.0.1" }, "peerDependencies": { "@rolldown/plugin-babel": "^0.1.7 || ^0.2.0", "babel-plugin-react-compiler": "^1.0.0", "oxc-transform-react": "^0.145.0", "vite": "^8.0.0" }, "optionalPeers": ["@rolldown/plugin-babel", "babel-plugin-react-compiler", "oxc-transform-react"] }, "sha512-qd2BzUBehkov86WFhg0JkEFEYyCLG9uPCe6qWTY/kRlss9OvJrOF2UbIWT7p+8IzZHkEu0DNGHc4HSv+JdDLsw=="],
 
     "@vitejs/plugin-react-swc": ["@vitejs/plugin-react-swc@4.3.3", "", { "dependencies": { "@rolldown/pluginutils": "^1.0.1", "@swc/core": "^1.15.46" }, "peerDependencies": { "vite": "^4 || ^5 || ^6 || ^7 || ^8" } }, "sha512-bti8ZAcvz4Lh6/e4Uk2k3aa1TiUXbbMsahuqOHvd3MveFTkKDZOA6wQVkpj7J/+tepX/wGfe+lsGh/t24HTXMQ=="],
 
