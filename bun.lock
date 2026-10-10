@@ -46,7 +46,7 @@
         "react-error-boundary": "6.1.6",
       },
       "devDependencies": {
-        "@ariakit/react": "0.4.40",
+        "@ariakit/react": "0.4.41",
         "@eslint/js": "10.0.1",
         "@types/react": "19.3.0",
         "@types/react-dom": "19.3.0",
@@ -71,7 +71,7 @@
       "name": "@rsc-parser/core",
       "version": "1.1.2",
       "dependencies": {
-        "@ariakit/react": "0.4.40",
+        "@ariakit/react": "0.4.41",
         "@rsc-parser/react-client": "workspace:^",
         "d3": "7.9.0",
         "react-error-boundary": "6.1.6",
@@ -174,7 +174,7 @@
       "name": "@rsc-parser/website",
       "version": "1.1.2",
       "dependencies": {
-        "@ariakit/react": "0.4.40",
+        "@ariakit/react": "0.4.41",
         "@rsc-parser/core": "workspace:*",
         "@tailwindcss/postcss": "4.3.3",
         "@types/node": "26.6.4",
@@ -206,15 +206,15 @@
 
     "@ampproject/remapping": ["@ampproject/remapping@2.3.0", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw=="],
 
-    "@ariakit/components": ["@ariakit/components@0.1.13", "", { "dependencies": { "@ariakit/store": "0.1.10", "@ariakit/utils": "0.2.1" } }, "sha512-s2tlnFMCjl7giCKD7TX5pHkRjl7rM0DIWXKytGnyrX1nSOagQ/89sigZJVtxZefcqnbc+4KUWF58VatSHxNmBQ=="],
+    "@ariakit/components": ["@ariakit/components@0.1.14", "", { "dependencies": { "@ariakit/store": "0.1.10", "@ariakit/utils": "0.2.1" } }, "sha512-6Fxd62aE5CcajVvHoLAH1ZldmzLlOpL6vzpzjPXErFRkTOH/+UkLVyJvXy8xxLkVNsCuybEb96QynRm3LMWgVA=="],
 
-    "@ariakit/react": ["@ariakit/react@0.4.40", "", { "dependencies": { "@ariakit/react-components": "0.6.1" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-cfGfuK1oDVp+2B1n0AgB899K7CHDWoDn4mbdDv6URcmLozlBpV3oUIi9nD9xZV6jAAjvCEcq29jEnicQUEGusw=="],
+    "@ariakit/react": ["@ariakit/react@0.4.41", "", { "dependencies": { "@ariakit/react-components": "0.7.0" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-RUT+Fll1r2PLPKJGTghnnwR1VGr3IIPQVyN2iK7/7IUkX3T/HAwPXSWKXYkLQSIR1wyq0QWwyXruUmwkMUozMA=="],
 
-    "@ariakit/react-components": ["@ariakit/react-components@0.6.1", "", { "dependencies": { "@ariakit/components": "0.1.13", "@ariakit/react-store": "0.1.11", "@ariakit/react-utils": "0.2.6", "@ariakit/store": "0.1.10", "@ariakit/utils": "0.2.1", "@floating-ui/dom": "^1.0.0" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-vwgSmJUB+HhYJci6CojHNSxUPgDosxo+1Y6d9HqEUSdmswFufFQg9Hog8BB1c/mKnxBg6/wdrc7p7iwQotisfQ=="],
+    "@ariakit/react-components": ["@ariakit/react-components@0.7.0", "", { "dependencies": { "@ariakit/components": "0.1.14", "@ariakit/react-store": "0.1.12", "@ariakit/react-utils": "0.2.7", "@ariakit/store": "0.1.10", "@ariakit/utils": "0.2.1", "@floating-ui/dom": "^1.0.0" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-3W7NjOXV7FkfLGNtKp5tN8Bu9gnIIWe3iKzCVB6LhV48Fh2Haeezaf4pj2BOh6ee6uwtDEnQNKWAgjm1r9Wy5Q=="],
 
-    "@ariakit/react-store": ["@ariakit/react-store@0.1.11", "", { "dependencies": { "@ariakit/react-utils": "0.2.6", "@ariakit/store": "0.1.10", "@ariakit/utils": "0.2.1", "use-sync-external-store": "^1.6.0" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-d8RdiRPGqoID6iviasa779NbXgFNrysw8Y4tB33HuBOneHJwxFd2G7tdLATAsqC50vYdYuo/ntXOsAsklt7jWw=="],
+    "@ariakit/react-store": ["@ariakit/react-store@0.1.12", "", { "dependencies": { "@ariakit/react-utils": "0.2.7", "@ariakit/store": "0.1.10", "@ariakit/utils": "0.2.1", "use-sync-external-store": "^1.6.0" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-fu1tqewk+Fhtw9WSm2IwdvPHrh+meLs45+n7PZoiappPFO9iAtRMSnESw+G2xHxuoeOQa/x64QHV2ijQHg7O0Q=="],
 
-    "@ariakit/react-utils": ["@ariakit/react-utils@0.2.6", "", { "dependencies": { "@ariakit/store": "0.1.10", "@ariakit/utils": "0.2.1" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-pjHqtwu6CgBgXmkkZQPuXbtuZXcfV25kRkIokLdbE3vrytKdgqRjRAPQ+4Qamwz4n5M6kFnA2Iwd4BK+egatpw=="],
+    "@ariakit/react-utils": ["@ariakit/react-utils@0.2.7", "", { "dependencies": { "@ariakit/store": "0.1.10", "@ariakit/utils": "0.2.1" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-qRXL/PavqyACwuqQ9XjCgdTlLXW0jv1m2Dh4ZTTXI/oJHGdDfPxB9qb80Mc8HZzruOk46nl4rLwChIQ5OJuXvg=="],
 
     "@ariakit/store": ["@ariakit/store@0.1.10", "", { "dependencies": { "@ariakit/utils": "0.2.1" } }, "sha512-NKjmUzB8wCf4oZX9Ao50ja1SrVw4MMZWI4ednoQNB0qtbHlUN4vTSFqhotvUOXnXv0n26Zk4/HB4SsVgLJ5ebg=="],
 
