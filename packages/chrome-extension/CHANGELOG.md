@@ -1,5 +1,13 @@
 # @rsc-parser/chrome-extension
 
+## 1.1.3
+
+### Patch Changes
+
+- a7a3531: Uninstall unused web-vitals package
+- Updated dependencies [a7a3531]
+  - @rsc-parser/core@1.1.3
+
 ## 1.1.2
 
 ### Patch Changes
